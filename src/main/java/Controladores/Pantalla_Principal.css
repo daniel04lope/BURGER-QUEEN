@@ -12,5 +12,19 @@
 #Texto {
     -fx-font-family: 'Insaniburger';
      -fx-font-size: 40px;
-    -fx-text-fill: #000000; /* Color del texto, si es necesario */
+    -fx-text-fill: #FFFFFF; 
+}
+#Banda_Central{
+	
+	 -fx-border-radius: 20px;
+}
+#AnchorPanel_Banda_Central{
+	-fx-border-radius: 20px;
+}
+
+#banner {
+    -fx-text-fill: #FFFFFF; 
+    -fx-font-family: 'Insaniburger';
+    -fx-font-size: 20px;
+    -fx-stroke: #000000;
 }
