@@ -1,6 +1,62 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
 
-
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" />
+<AnchorPane id="Base" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <HBox id="Barra_Navegacion" layoutX="-1.0" prefHeight="57.0" prefWidth="600.0">
+         <children>
+            <ImageView fitHeight="57.0" fitWidth="66.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                <Image url="@/Burger_Queen.png" />
+               </image>
+            </ImageView>
+             <Pane id="Desplegable" minWidth="53.0" prefHeight="59.0" prefWidth="53.0" style="-fx-background-color: transparent;">
+               <ImageView fitHeight="36.0" fitWidth="29.0" layoutX="11.0" layoutY="13.0" pickOnBounds="true" preserveRatio="true">
+                  <image>
+                     <Image url="@/desplegable.png" />
+                  </image>
+               </ImageView>
+            </Pane>
+            <Text id="Texto" fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="BURGUER QUEEN" textAlignment="CENTER" wrappingWidth="369.9830513000488">
+               <font>
+                  <Font name="Insaniburger" size="35.0" />
+               </font>
+            </Text>
+                  <Pane id="Carrito" minWidth="53.0" prefHeight="59.0" prefWidth="53.0" style="-fx-background-color: transparent;">
+               <ImageView fitHeight="39.0" fitWidth="37.0" layoutX="11.0" layoutY="13.0" pickOnBounds="true" preserveRatio="true">
+                  <image>
+                     <Image url="@/carrito.png" />
+                  </image>
+               </ImageView>
+            </Pane>
+                  <Pane id="Perfil" minWidth="55.0" prefHeight="59.0" prefWidth="55.0" style="-fx-background-color: transparent;">
+               	<ImageView fitHeight="45.0" fitWidth="45.0" layoutX="3.0" layoutY="4.0" pickOnBounds="true" preserveRatio="true">
+                  <image>
+                     <Image url="@/perfil.png" />
+                  </image>
+               </ImageView>
+            </Pane>
+         </children>
+      </HBox>
+      <AnchorPane layoutX="-2.0" layoutY="62.0" prefHeight="333.0" prefWidth="607.0">
+         <children>
+            <AnchorPane layoutX="4.0" layoutY="24.0" prefHeight="57.0" prefWidth="600.0">
+               <children>
+                  <ImageView fitHeight="103.0" fitWidth="525.0" layoutX="38.0" pickOnBounds="true" preserveRatio="true">
+                  <image>
+                  		<Image url="@/burger_logo.jpg" />
+                  </image>
+                  </ImageView>
+               </children>
+            </AnchorPane>
+         </children>
+      </AnchorPane>
+   </children>
+</AnchorPane>
