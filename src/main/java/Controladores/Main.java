@@ -24,44 +24,57 @@ public class Main extends Application {
         // Configurar el Stage principal como TRANSPARENT
         primaryStage.initStyle(StageStyle.TRANSPARENT);
 
-        // Mostrar la pantalla principal
-        showMainScreen();
-
-        // Mostrar la pantalla de login en un Stage separado
-        showLoginScreen();
+        // Mostrar la pantalla principal y la pantalla de login
+        Pantalla_principal pantallaPrincipalController = showMainScreen();
+        showLoginScreen(pantallaPrincipalController);
     }
 
-    private void showMainScreen() {
+    private Pantalla_principal showMainScreen() {
         try {
-            AnchorPane root = FXMLLoader.load(getClass().getResource("/Vistas/Pantalla-Principal.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/Vistas/Pantalla-Principal.fxml"));
+            AnchorPane root = loader.load();
+
+            // Obtener el controlador de Pantalla_principal
+            Pantalla_principal pantallaPrincipalController = loader.getController();
 
             // Crear la escena con fondo transparente
             Scene scene = new Scene(root, 600, 500);
-            scene.setFill(Color.TRANSPARENT); // Fondo de la escena transparente
-            scene.getStylesheets().add(getClass().getResource("Pantalla_Principal.css").toExternalForm());
+            
             primaryStage.initStyle(StageStyle.DECORATED);
+            scene.getStylesheets().add(getClass().getResource("Pantalla_Principal.css").toExternalForm());
             primaryStage.setScene(scene);
             primaryStage.setTitle("BURGER QUEEN");
             primaryStage.show();
+
+            return pantallaPrincipalController;
         } catch (Exception e) {
             e.printStackTrace();
+            return null;
         }
     }
 
-    private void showLoginScreen() {
+    private void showLoginScreen(Pantalla_principal pantallaPrincipalController) {
         try {
-            Pane login = FXMLLoader.load(getClass().getResource("/Vistas/Login.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/Vistas/Login.fxml"));
+            Pane login = loader.load();
+
+            // Obtener el controlador de Login
+            Login loginController = loader.getController();
+
+            // Configurar el controlador de Pantalla_principal en el controlador de Login
+            loginController.setVistaControlador(pantallaPrincipalController);
 
             // Crear la escena del login con fondo transparente
             Scene loginScene = new Scene(login, 450, 600);
-            loginScene.setFill(Color.TRANSPARENT); // Fondo de la escena transparente
+            loginScene.setFill(Color.TRANSPARENT);
 
             // Crear un nuevo Stage para el login y configurarlo sin decoración y transparente
             Stage loginStage = new Stage();
-            loginStage.initStyle(StageStyle.TRANSPARENT); // Sin decoración
+            loginStage.initStyle(StageStyle.TRANSPARENT);
             loginStage.setScene(loginScene);
             loginStage.setTitle("LOGIN");
             loginStage.show();
+            
         } catch (Exception e) {
             e.printStackTrace();
         }

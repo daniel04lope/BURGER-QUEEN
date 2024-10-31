@@ -9,7 +9,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane prefHeight="615.0" prefWidth="466.0" style="-fx-border-radius: 20px; -fx-background-radius: 20px; -fx-border-color: transparent; -fx-background-color: #905D5D;" visible="true" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane prefHeight="615.0" prefWidth="466.0" style="-fx-border-radius: 20px; -fx-background-radius: 20px; -fx-border-color: transparent; -fx-background-color: #905D5D;" visible="true" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controladores.Login">
    <children>
       <!-- Texto de "INICIA SESION" -->
       <Text fill="WHITE" layoutX="137.0" layoutY="43.0" strokeType="OUTSIDE" strokeWidth="0.0" text="INICIA SESION" textAlignment="CENTER">
@@ -39,7 +39,7 @@
       </Text>
 
       <!-- Botón con imagen en la esquina superior derecha -->
-      <Button layoutX="386.0" layoutY="13.0" style="-fx-background-color: transparent;">
+      <Button fx:id="Cerrar" layoutX="386.0" layoutY="13.0" onAction="#cerrar" style="-fx-background-color: transparent;">
          <graphic>
             <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
                <image>
@@ -48,7 +48,7 @@
             </ImageView>
          </graphic>
       </Button>
-      <Button layoutX="148.0" layoutY="391.0" mnemonicParsing="false" prefHeight="49.0" prefWidth="178.0" style="-fx-background-color: #F980A9;" text="INICIA SESION" textFill="WHITE">
+      <Button fx:id="Inicio_Sesion" layoutX="148.0" layoutY="391.0" mnemonicParsing="false" onAction="#iniciarSesion" prefHeight="49.0" prefWidth="178.0" style="-fx-background-color: #F980A9;" text="INICIA SESION" textFill="WHITE">
          <font>
             <Font name="Insaniburger" size="17.0" />
          </font>
