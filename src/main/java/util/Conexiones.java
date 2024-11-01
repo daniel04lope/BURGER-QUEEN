@@ -1,13 +1,22 @@
 package util;
 
 import java.io.IOException;
+
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.sql.Connection;
+import java.sql.Date;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
+import java.time.LocalDate;
+
 
 public class Conexiones {
 
@@ -67,4 +76,41 @@ public class Conexiones {
 		        }
 		    		
 	} // lanza script
+	
+	public void insertarempleado (String nombre,String apellidos,String email,String username,String password,String posicion,String telefono,String direccion,int lectura,int escritura,int control_total) {
+		
+		
+	}
+	
+
+	public static void insertarpersona(String nombre, String apellidos, String email, String username, String password, String telefono, String direccion, LocalDate nacimiento) throws SQLException {
+	    String sql = "INSERT INTO usuarios (nombre, apellido, email, username, password, telefono, direccion, fecha_nacimiento) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+
+	    try (Connection conexion = util.Conexiones.dameConexion("burger-queen");
+	         PreparedStatement sentencia = conexion.prepareStatement(sql)) {
+
+	        sentencia.setString(1, nombre);
+	        sentencia.setString(2, apellidos);
+	        sentencia.setString(3, email);
+	        
+	        sentencia.setString(4, username);
+	        sentencia.setString(5, password);
+	        sentencia.setString(6, telefono);
+	        sentencia.setString(7, direccion);
+
+	        // Convert LocalDate to java.sql.Date
+	        Date fechaNacimiento = Date.valueOf(nacimiento);
+	        sentencia.setDate(8, fechaNacimiento);
+
+	        // Execute the update
+	        sentencia.executeUpdate();
+	    }
+	}
+
+
+
+public void insertaradministrador (String nombre,String apellidos,String email,String username,String password,String posicion,String telefono,String direccion) {
+		
+		
+	}
 }

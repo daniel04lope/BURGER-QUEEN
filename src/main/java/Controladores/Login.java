@@ -1,5 +1,6 @@
 package Controladores;
 
+import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -9,10 +10,15 @@ import javax.swing.JOptionPane;
 
 
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.Pane;
+import javafx.scene.paint.Color;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 
 public class Login {
 	 private Pantalla_principal pantallaprincipal;
@@ -92,5 +98,27 @@ public class Login {
             }
         }
         return false; // Usuario no encontrado o contraseña incorrecta
+    }
+    
+    public void Registro() throws IOException {
+    	
+    	  FXMLLoader loader = new FXMLLoader(getClass().getResource("/Vistas/Registro.fxml"));
+          Pane registro = loader.load();
+
+        
+
+
+
+          // Crear la escena del login con fondo transparente
+          Scene loginScene = new Scene(registro, 450, 600);
+          loginScene.setFill(Color.TRANSPARENT);
+
+          // Crear un nuevo Stage para el login y configurarlo sin decoración y transparente
+          Stage loginStage = new Stage();
+          loginStage.initStyle(StageStyle.TRANSPARENT);
+          loginStage.setScene(loginScene);
+          loginStage.setTitle("REGISTRO");
+          loginStage.show();
+          cerrar();
     }
 }
