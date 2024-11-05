@@ -29,7 +29,9 @@ public class Pantalla_principal implements Initializable {
 
     private boolean drawerVisible = false;
     private boolean Cerrardesplegar = false;
+   
 
+  
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         // Muestra un mensaje en consola para asegurar que el controlador se cargó correctamente
@@ -55,11 +57,12 @@ public class Pantalla_principal implements Initializable {
     	
     	  FXMLLoader loader = new FXMLLoader(getClass().getResource("/Vistas/Carta.fxml"));
           Pane registro = loader.load();
-
+         
+          
           // Crear la escena del login con fondo transparente
           Scene loginScene = new Scene(registro, 600, 500);
           loginScene.setFill(Color.TRANSPARENT);
-
+          
           // Crear un nuevo Stage para el login y configurarlo sin decoración y transparente
           Stage loginStage = new Stage();
           loginStage.initStyle(StageStyle.DECORATED);
@@ -68,4 +71,5 @@ public class Pantalla_principal implements Initializable {
           loginStage.show();
           cerrar();  
 }
+    
 }

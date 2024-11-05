@@ -21,7 +21,8 @@ import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
 public class Login {
-	 private Pantalla_principal pantallaprincipal;
+	private Pantalla_principal pantallaprincipal;
+	private Carta cartavariable;
     @FXML
     Button Cerrar; // Botón de cerrar (ya definido en el FXML)
     @FXML
@@ -34,6 +35,9 @@ public class Login {
     
     public void setVistaControlador(Pantalla_principal principal) {
         this.pantallaprincipal = principal;
+    }
+    public void setVistaControlador(Carta carta) {
+        this.cartavariable = carta;
     }
     // Constructor sin argumentos
     public Login() {
@@ -62,6 +66,7 @@ public class Login {
 
         if (verificarCredencialesUsuario(conexion, "usuarios", emailString, passwordString)) {
         	pantallaprincipal.Username.setText(nombreusuario);
+        	
             
             JOptionPane.showMessageDialog(null, "Login exitoso para el usuario: " + emailString);
             

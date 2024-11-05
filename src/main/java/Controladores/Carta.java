@@ -1,22 +1,36 @@
 package Controladores;
 
 import java.io.IOException;
+import java.net.URL;
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.Statement;
+import java.util.ResourceBundle;
 
+import Modelos.Producto;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
+import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
+import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
+import javafx.scene.text.TextAlignment;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
-public class Carta {
+public class Carta implements Initializable  {
+	@FXML
+	private GridPane panel;
 	@FXML
     Text Username;
-
    @FXML
    private AnchorPane drawer;
 
@@ -25,8 +39,10 @@ public class Carta {
    @FXML
    private Button Cerrar;
 
+   
    private boolean drawerVisible = false;
    private boolean Cerrardesplegar = false;
+
 	  public void toggleDrawer() {
 	    	System.out.println("Funciona");
 	    	Cerrardesplegar=!Cerrardesplegar;
@@ -43,7 +59,7 @@ public class Carta {
 
     	  FXMLLoader loader = new FXMLLoader(getClass().getResource("/Vistas/Pantalla-Principal.fxml"));
           Pane principal = loader.load();
-
+          
           // Crear la escena del login con fondo transparente
           Scene principalScene = new Scene(principal, 600, 500);
           principalScene.getStylesheets().add(getClass().getResource("Pantalla_Principal.css").toExternalForm());
@@ -57,5 +73,71 @@ public class Carta {
           PrincipalStage.show();
           cerrar();  
 	  }
-	  
+	@Override
+	public void initialize(URL location, ResourceBundle resources) {
+		// TODO Auto-generated method stub
+		CargarCarta();
+	}
+
+	public void CargarCarta() {
+		
+		
+		try(Connection conexion=util.Conexiones.dameConexion("burger-queen")) {
+			System.out.println("Iniciando");
+			String sql ="SELECT nombre,descripcion,precio,categoria,peso FROM carta";
+			
+			Statement sentencia = conexion.createStatement();
+			
+			ResultSet productos =sentencia.executeQuery(sql);
+			
+			
+			
+			 int row = 0;
+	         int column = 0;
+	            
+			while(productos.next()) {
+				Producto productobjeto =new Producto();
+				productobjeto.setNombre(productos.getString("nombre"));
+				productobjeto.setPrecio(productos.getDouble("precio"));
+				productobjeto.setCategoria(productos.getString("categoria"));
+				productobjeto.setPeso(productos.getDouble("peso"));
+				productobjeto.setDescripcion(productos.getString("descripcion"));
+			    Button btnProducto = new Button();
+			    VBox item = new VBox();
+			    btnProducto.setPrefSize(100, 100);
+			    btnProducto.setStyle("-fx-background-color: FFFFFF;");
+			    ImageView imageView = new ImageView(new Image(getClass().getResourceAsStream("/Burger_Queen.png")));
+			    imageView.setFitHeight(30.0);
+                imageView.setFitWidth(30.0);
+                imageView.setPreserveRatio(true);
+                btnProducto.setGraphic(imageView);
+              
+                Text descripcion = new Text(productobjeto.getDescripcion());
+                descripcion.setWrappingWidth(100);
+                descripcion.setTextAlignment(TextAlignment.CENTER);
+                
+                item.getChildren().add(btnProducto);
+                item.getChildren().add(descripcion);
+                panel.add(item, column, row);
+                
+
+                column++;
+                if (column == 3) {
+                    column = 0;
+                    row++;
+                }
+                
+			}
+			
+			
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+	}
+	
+	 
+
+	
+	
+	
 }

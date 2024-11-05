@@ -37,7 +37,8 @@ public class Main extends Application {
 
             // Obtener el controlador de Pantalla_principal
             Pantalla_principal pantallaPrincipalController = loader.getController();
-
+           
+         
             // Crear la escena con fondo transparente
             Scene scene = new Scene(root, 600, 500);
             
@@ -58,12 +59,13 @@ public class Main extends Application {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/Vistas/Login.fxml"));
             Pane login = loader.load();
-
+         
             // Obtener el controlador de Login
             Login loginController = loader.getController();
 
             // Configurar el controlador de Pantalla_principal en el controlador de Login
             loginController.setVistaControlador(pantallaPrincipalController);
+          
 
             // Crear la escena del login con fondo transparente
             Scene loginScene = new Scene(login, 450, 600);
