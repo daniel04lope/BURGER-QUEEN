@@ -1,11 +1,18 @@
 package Controladores;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.Pane;
+import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
+import javafx.stage.Stage;
+import javafx.stage.StageStyle;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 
 public class Pantalla_principal implements Initializable {
@@ -31,7 +38,11 @@ public class Pantalla_principal implements Initializable {
         // Configura el botón para que al hacer clic cambie la visibilidad del drawer
        
     }
-
+    public void cerrar() {
+        // Obtener la referencia del Stage a partir del botón
+        Stage stage = (Stage) Cerrar.getScene().getWindow();
+        stage.close(); // Cerrar la ventana
+    }
     public void toggleDrawer() {
     	System.out.println("Funciona");
     	Cerrardesplegar=!Cerrardesplegar;
@@ -40,4 +51,21 @@ public class Pantalla_principal implements Initializable {
         drawer.setVisible(drawerVisible);
     }
     
+    public void Carta() throws IOException{
+    	
+    	  FXMLLoader loader = new FXMLLoader(getClass().getResource("/Vistas/Carta.fxml"));
+          Pane registro = loader.load();
+
+          // Crear la escena del login con fondo transparente
+          Scene loginScene = new Scene(registro, 600, 500);
+          loginScene.setFill(Color.TRANSPARENT);
+
+          // Crear un nuevo Stage para el login y configurarlo sin decoración y transparente
+          Stage loginStage = new Stage();
+          loginStage.initStyle(StageStyle.DECORATED);
+          loginStage.setScene(loginScene);
+          loginStage.setTitle("CARTA");
+          loginStage.show();
+          cerrar();  
+}
 }

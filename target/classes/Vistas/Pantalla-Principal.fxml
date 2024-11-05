@@ -109,7 +109,7 @@
 					<content>
 						<VBox prefHeight="900.0" prefWidth="260.0">
 							<children>
-								<Button mnemonicParsing="false" prefHeight="64.0" prefWidth="255.0" style="-fx-background-color: D28383;" text="CARTA">
+								<Button fx:id="Carta" mnemonicParsing="false" onAction="#Carta" prefHeight="64.0" prefWidth="255.0" style="-fx-background-color: D28383;" text="CARTA">
 									<font>
 										<Font name="Insaniburger" size="20.0" />
 									</font>

@@ -1,11 +1,18 @@
 package Controladores;
 
+import java.sql.Connection;
 import java.sql.Date;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.LocalDate;
 
 import javax.swing.JOptionPane;
 
+
+
+import Modelos.Empleado;
+import Modelos.Usuario;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.DatePicker;
@@ -39,24 +46,45 @@ public class Registro {
         stage.close(); // Cerrar la ventana
     }
 	
-public void registrarse () {
-	String nombrestring = Nombre.getText().toString();
-	String apellidosstring = Apellidos.getText().toString();
-	String usernamestring = Username.getText().toString();
-	String emailstring = Email.getText().toString();
-	String passwordstring = Password.getText().toString();
-	String telefonostring = Telefono.getText().toString();
-	String direccionstring = Direccion.getText().toString();
-	LocalDate nacimiento = Fecha_Nacimiento.getValue();
-	
-	try {
-		util.Conexiones.insertarpersona(nombrestring, apellidosstring, emailstring, usernamestring, passwordstring, telefonostring, direccionstring,nacimiento);
-		JOptionPane.showMessageDialog(null, "Registro exitoso para: " + emailstring);
-	} catch (SQLException e) {
-		// TODO Auto-generated catch block
-		e.printStackTrace();
-		JOptionPane.showMessageDialog(null, "Fallo a la hora del registro");
+	public void registrarse() {
+	    String nombrestring = Nombre.getText().toString();
+	    String apellidosstring = Apellidos.getText().toString();
+	    String usernamestring = Username.getText().toString();
+	    String emailstring = Email.getText().toString();
+	    String passwordstring = Password.getText().toString();
+	    String telefonostring = Telefono.getText().toString();
+	    String direccionstring = Direccion.getText().toString();
+	    LocalDate nacimiento = Fecha_Nacimiento.getValue();
+
+	    Usuario usuario = new Usuario(nombrestring, apellidosstring, emailstring, usernamestring, passwordstring, "Activo", telefonostring, direccionstring, nacimiento);
+
+	    try {
+	        util.Conexiones.insertarpersona(usuario.getNombre(), usuario.getApellido(), usuario.getEmail(), usuario.getUsername(), usuario.getPassword(), usuario.getTelefono(), usuario.getDireccion(), usuario.getFechaNacimiento());
+	        JOptionPane.showMessageDialog(null, "Registro exitoso para: " + emailstring);
+
+	        String sql = "SELECT id_usuario FROM usuarios WHERE email = ?";
+	        try (Connection conexion = util.Conexiones.dameConexion("burger-queen");
+	             PreparedStatement sentencia = conexion.prepareStatement(sql)) {
+
+	            // Establece el parámetro en el PreparedStatement
+	            sentencia.setString(1, emailstring);
+
+	            ResultSet muestra = sentencia.executeQuery();
+
+	            // Mueve el cursor al primer registro
+	            if (muestra.next()) {
+	                usuario.setIdUsuario(muestra.getInt("id_usuario"));
+	               
+	            } else {
+	                JOptionPane.showMessageDialog(null, "No se pudo recuperar el ID de usuario.");
+	            }
+
+	        }
+	    } catch (SQLException e) {
+	        e.printStackTrace();
+	        JOptionPane.showMessageDialog(null, "Fallo a la hora del registro");
+	    }
 	}
-}
+
     
 }

@@ -30,6 +30,7 @@ public class Login {
     PasswordField Password;
     private Pantalla_principal controladorPantallaPrincipal; // Cambiar a private para mejor encapsulación
     String nombreusuario;
+  
     
     public void setVistaControlador(Pantalla_principal principal) {
         this.pantallaprincipal = principal;
@@ -53,7 +54,7 @@ public class Login {
     }
 
     public void iniciarSesion() throws SQLException {
-    	  nombreusuario="a";
+    	  
         String emailString = Email.getText();
         String passwordString = Password.getText();
 
@@ -63,16 +64,19 @@ public class Login {
         	pantallaprincipal.Username.setText(nombreusuario);
             
             JOptionPane.showMessageDialog(null, "Login exitoso para el usuario: " + emailString);
+            
             cerrar();
         } else if (verificarCredencialesUsuario(conexion, "empleados", emailString, passwordString)) {
         	pantallaprincipal.Username.setText(nombreusuario);
             
             JOptionPane.showMessageDialog(null, "Login exitoso para el empleado: " + emailString);
+           
             cerrar();
         } else if (verificarCredencialesUsuario(conexion, "administradores", emailString, passwordString)) {
         	pantallaprincipal.Username.setText(nombreusuario);
             
             JOptionPane.showMessageDialog(null, "Login exitoso para el administrador: " + emailString);
+        
             cerrar();
         } else {
             JOptionPane.showMessageDialog(null, "Login fallido: Correo o contraseña inválidos");
@@ -104,10 +108,6 @@ public class Login {
     	
     	  FXMLLoader loader = new FXMLLoader(getClass().getResource("/Vistas/Registro.fxml"));
           Pane registro = loader.load();
-
-        
-
-
 
           // Crear la escena del login con fondo transparente
           Scene loginScene = new Scene(registro, 450, 600);
