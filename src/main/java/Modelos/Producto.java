@@ -8,11 +8,14 @@ public class Producto {
     private String categoria;
     private String alergenos;
     private double peso;
+    private String ruta;
 
     public Producto() {
     }
 
-    public Producto( String nombre, String descripcion, double precio, String categoria, String alergenos, double peso) {
+    
+
+	public Producto( String nombre, String descripcion, double precio, String categoria, String alergenos, double peso) {
         
         this.nombre = nombre;
         this.descripcion = descripcion;
@@ -77,6 +80,15 @@ public class Producto {
     public void setPeso(double peso) {
         this.peso = peso;
     }
+   
+	public String getRuta() {
+		return ruta;
+	}
+
+	
+	public void setRuta(String ruta) {
+		this.ruta = ruta;
+	}
 
     @Override
     public String toString() {
