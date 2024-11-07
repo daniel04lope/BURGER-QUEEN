@@ -82,7 +82,7 @@ public class Registro {
 	        }
 	    } catch (SQLException e) {
 	        e.printStackTrace();
-	        JOptionPane.showMessageDialog(null, "Fallo a la hora del registro");
+	        JOptionPane.showMessageDialog(null, e.getMessage());
 	    }
 	}
 

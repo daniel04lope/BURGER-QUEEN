@@ -1,6 +1,7 @@
 package Controladores;
 
 import java.io.IOException;
+
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.fxml.FXML;
@@ -72,4 +73,23 @@ public class Pantalla_principal implements Initializable {
           cerrar();  
 }
     
+    public void Reserva() throws IOException{
+    	
+
+  	  FXMLLoader loader = new FXMLLoader(getClass().getResource("/Vistas/Reservas.fxml"));
+        Pane registro = loader.load();
+       
+        
+        // Crear la escena del login con fondo transparente
+        Scene loginScene = new Scene(registro, 600, 500);
+        loginScene.setFill(Color.TRANSPARENT);
+        
+        // Crear un nuevo Stage para el login y configurarlo sin decoración y transparente
+        Stage loginStage = new Stage();
+        loginStage.initStyle(StageStyle.DECORATED);
+        loginStage.setScene(loginScene);
+        loginStage.setTitle("Reservas");
+        loginStage.show();
+        cerrar();  
 }
+    }    

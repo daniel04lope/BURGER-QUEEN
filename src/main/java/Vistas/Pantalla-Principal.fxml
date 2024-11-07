@@ -12,60 +12,43 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane id="Base" maxHeight="-Infinity"
-	maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity"
-	prefHeight="400.0" prefWidth="600.0"
-	xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1"
-	fx:controller="Controladores.Pantalla_principal">
+<AnchorPane id="Base" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controladores.Pantalla_principal">
 	<children>
 
 		<!-- Barra de Navegación -->
-		<HBox id="Barra_Navegacion" layoutX="-1.0" prefHeight="57.0"
-			prefWidth="600.0">
+		<HBox id="Barra_Navegacion" layoutX="-1.0" prefHeight="57.0" prefWidth="600.0">
 			<children>
-				<ImageView fitHeight="57.0" fitWidth="66.0"
-					pickOnBounds="true" preserveRatio="true">
+				<ImageView fitHeight="57.0" fitWidth="66.0" pickOnBounds="true" preserveRatio="true">
 					<image>
 						<Image url="@/Burger_Queen.png" />
 					</image>
 				</ImageView>
-				<Button id="Desplegable" fx:id="Desplegable" layoutX="10.0"
-					layoutY="13.0" minWidth="53.0" onAction="#toggleDrawer"
-					prefHeight="61.0" prefWidth="53.0"
-					style="-fx-background-color: transparent;">
+				<Button id="Desplegable" fx:id="Desplegable" layoutX="10.0" layoutY="13.0" minWidth="53.0" onAction="#toggleDrawer" prefHeight="61.0" prefWidth="53.0" style="-fx-background-color: transparent;">
 					<graphic>
-						<ImageView fitHeight="36.0" fitWidth="29.0"
-							pickOnBounds="true" preserveRatio="true">
+						<ImageView fitHeight="36.0" fitWidth="29.0" pickOnBounds="true" preserveRatio="true">
 							<image>
 								<Image url="@/desplegable.png" />
 							</image>
 						</ImageView>
 					</graphic>
 				</Button>
-				<Text id="Texto" fill="WHITE" strokeType="OUTSIDE"
-					strokeWidth="0.0" text="BURGUER QUEEN" textAlignment="CENTER"
-					wrappingWidth="369.9830513000488">
+				<Text id="Texto" fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="BURGUER QUEEN" textAlignment="CENTER" wrappingWidth="369.9830513000488">
 					<font>
 						<Font name="Insaniburger" size="35.0" />
 					</font>
 				</Text>
-				<Button id="Carrito" layoutX="10.0" layoutY="13.0"
-					minWidth="53.0" prefHeight="65.0" prefWidth="53.0"
-					style="-fx-background-color: transparent;">
+				<Button id="Carrito" layoutX="10.0" layoutY="13.0" minWidth="53.0" prefHeight="65.0" prefWidth="53.0" style="-fx-background-color: transparent;">
 					<graphic>
-						<ImageView fitHeight="39.0" fitWidth="37.0"
-							pickOnBounds="true" preserveRatio="true">
+						<ImageView fitHeight="39.0" fitWidth="37.0" pickOnBounds="true" preserveRatio="true">
 							<image>
 								<Image url="@/carrito.png" />
 							</image>
 						</ImageView>
 					</graphic>
 				</Button>
-				<Button id="Perfil" layoutX="10.0" layoutY="13.0"
-					style="-fx-background-color: transparent;">
+				<Button id="Perfil" layoutX="10.0" layoutY="13.0" style="-fx-background-color: transparent;">
 					<graphic>
-						<ImageView fitHeight="45.0" fitWidth="45.0"
-							pickOnBounds="true" preserveRatio="true">
+						<ImageView fitHeight="45.0" fitWidth="45.0" pickOnBounds="true" preserveRatio="true">
 							<image>
 								<Image url="@/perfil.png" />
 							</image>
@@ -76,176 +59,125 @@
 		</HBox>
 
 		<!-- Contenido Principal -->
-		<AnchorPane layoutX="-2.0" layoutY="62.0"
-			prefHeight="333.0" prefWidth="607.0">
+		<AnchorPane layoutX="-2.0" layoutY="62.0" prefHeight="333.0" prefWidth="607.0">
 			<children>
-				<AnchorPane layoutX="4.0" layoutY="37.0"
-					prefHeight="78.0" prefWidth="600.0">
+				<AnchorPane layoutX="4.0" layoutY="37.0" prefHeight="78.0" prefWidth="600.0">
 					<children>
-						<ImageView fitHeight="150.0" fitWidth="544.0"
-							layoutX="31.0" pickOnBounds="true" preserveRatio="true">
+						<ImageView fitHeight="150.0" fitWidth="544.0" layoutX="31.0" pickOnBounds="true" preserveRatio="true">
 							<image>
 								<Image url="@/burger_logo.jpg" />
 							</image>
 						</ImageView>
-						<Text id="banner" fill="WHITE" layoutX="148.0" layoutY="55.0"
-							stroke="BLACK" strokeType="OUTSIDE"
-							text="¿QUÉ TE APETECE PEDIR HOY?" textAlignment="CENTER"
-							wrappingWidth="285.98308753967285" />
+						<Text id="banner" fill="WHITE" layoutX="148.0" layoutY="55.0" stroke="BLACK" strokeType="OUTSIDE" text="¿QUÉ TE APETECE PEDIR HOY?" textAlignment="CENTER" wrappingWidth="285.98308753967285" />
 					</children>
 				</AnchorPane>
-				<AnchorPane layoutX="4.0" layoutY="133.0"
-					prefHeight="200.0" prefWidth="600.0">
+				<AnchorPane layoutX="4.0" layoutY="133.0" prefHeight="200.0" prefWidth="600.0">
 					<children>
-						<ImageView fitHeight="78.0" fitWidth="146.0"
-							layoutX="40.0" layoutY="78.0" pickOnBounds="true"
-							preserveRatio="true">
+						<ImageView fitHeight="78.0" fitWidth="146.0" layoutX="40.0" layoutY="78.0" pickOnBounds="true" preserveRatio="true">
 							<image>
 								<Image url="@/plato.png" />
 							</image>
 						</ImageView>
-						<ImageView fitHeight="78.0" fitWidth="167.0"
-							layoutX="250.0" layoutY="81.0" pickOnBounds="true"
-							preserveRatio="true">
+						<ImageView fitHeight="78.0" fitWidth="167.0" layoutX="250.0" layoutY="81.0" pickOnBounds="true" preserveRatio="true">
 							<image>
 								<Image url="@/tienda.png" />
 							</image>
 						</ImageView>
-						<ImageView fitHeight="78.0" fitWidth="181.0"
-							layoutX="500.0" layoutY="88.0" pickOnBounds="true"
-							preserveRatio="true">
+						<ImageView fitHeight="78.0" fitWidth="181.0" layoutX="500.0" layoutY="88.0" pickOnBounds="true" preserveRatio="true">
 							<image>
 								<Image url="@/telefono.png" />
 							</image>
 						</ImageView>
-						<Text layoutX="25.0" layoutY="187.0" strokeType="OUTSIDE"
-							strokeWidth="0.0" text="PIDE EN NUESTROS RESTAURANTES"
-							textAlignment="CENTER" wrappingWidth="109.08073425292969" />
-						<Text layoutX="250.0" layoutY="196.0" strokeType="OUTSIDE"
-							strokeWidth="0.0" text="PIDE A DOMICILIO" />
-						<Text layoutX="451.0" layoutY="195.0" strokeType="OUTSIDE"
-							strokeWidth="0.0" text="PIDE EN NUESTRA APP" />
+						<Text layoutX="25.0" layoutY="187.0" strokeType="OUTSIDE" strokeWidth="0.0" text="PIDE EN NUESTROS RESTAURANTES" textAlignment="CENTER" wrappingWidth="109.08073425292969" />
+						<Text layoutX="250.0" layoutY="196.0" strokeType="OUTSIDE" strokeWidth="0.0" text="PIDE A DOMICILIO" />
+						<Text layoutX="451.0" layoutY="195.0" strokeType="OUTSIDE" strokeWidth="0.0" text="PIDE EN NUESTRA APP" />
 					</children>
 				</AnchorPane>
 			</children>
 		</AnchorPane>
 
 		<!-- Username Text -->
-		<Text fx:id="Username" layoutX="536.0" layoutY="49.0"
-			strokeType="OUTSIDE" strokeWidth="0.0" text="Registrate"
-			textAlignment="CENTER" wrappingWidth="63.298828125">
+		<Text fx:id="Username" layoutX="536.0" layoutY="49.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Registrate" textAlignment="CENTER" wrappingWidth="63.298828125">
 			<font>
 				<Font name="Insaniburger" size="9.0" />
 			</font>
 		</Text>
 		<!-- Drawer (Panel Lateral) -->
-		<AnchorPane fx:id="drawer" layoutX="-4.0"
-			prefHeight="400.0" prefWidth="200.0"
-			style="-fx-background-color: #333333;" visible="false">
+		<AnchorPane fx:id="drawer" layoutX="-4.0" prefHeight="400.0" prefWidth="200.0" style="-fx-background-color: #333333;" visible="false">
 			<children>
-				<ScrollPane hbarPolicy="NEVER" prefHeight="650.0"
-					prefWidth="262.0">
+				<ScrollPane hbarPolicy="NEVER" prefHeight="650.0" prefWidth="262.0">
 					<content>
 						<VBox prefHeight="900.0" prefWidth="260.0">
 							<children>
-								<Button fx:id="Carta" mnemonicParsing="false"
-									onAction="#Carta" prefHeight="64.0" prefWidth="255.0"
-									style="-fx-background-color: D28383;" text="CARTA">
+								<Button fx:id="Carta" mnemonicParsing="false" onAction="#Carta" prefHeight="64.0" prefWidth="255.0" style="-fx-background-color: D28383;" text="CARTA">
 									<font>
 										<Font name="Insaniburger" size="20.0" />
 									</font>
 								</Button>
-								<Button mnemonicParsing="false" prefHeight="64.0"
-									prefWidth="255.0" style="-fx-background-color: A6234E;"
-									text="RESERVAS">
+								<Button mnemonicParsing="false" onAction="#Reserva" prefHeight="64.0" prefWidth="255.0" style="-fx-background-color: A6234E;" text="RESERVAS">
 									<font>
 										<Font name="Insaniburger" size="20.0" />
 									</font>
 								</Button>
-								<Button mnemonicParsing="false" prefHeight="64.0"
-									prefWidth="255.0" style="-fx-background-color: D28383;"
-									text="HORARIOS">
+								<Button mnemonicParsing="false" prefHeight="64.0" prefWidth="255.0" style="-fx-background-color: D28383;" text="HORARIOS">
 									<font>
 										<Font name="Insaniburger" size="20.0" />
 									</font>
 								</Button>
-								<Button mnemonicParsing="false" prefHeight="64.0"
-									prefWidth="255.0" style="-fx-background-color: A6234E;"
-									text="UBICACION">
+								<Button mnemonicParsing="false" prefHeight="64.0" prefWidth="255.0" style="-fx-background-color: A6234E;" text="UBICACION">
 									<font>
 										<Font name="Insaniburger" size="20.0" />
 									</font>
 								</Button>
-								<Button mnemonicParsing="false" prefHeight="64.0"
-									prefWidth="255.0" style="-fx-background-color: D28383;"
-									text="OFERTAS ESPECIALES">
+								<Button mnemonicParsing="false" prefHeight="64.0" prefWidth="255.0" style="-fx-background-color: D28383;" text="OFERTAS ESPECIALES">
 									<font>
 										<Font name="Insaniburger" size="20.0" />
 									</font>
 								</Button>
-								<Button mnemonicParsing="false" prefHeight="64.0"
-									prefWidth="255.0" style="-fx-background-color: A6234E;"
-									text="CANJEAR CUPON">
+								<Button mnemonicParsing="false" prefHeight="64.0" prefWidth="255.0" style="-fx-background-color: A6234E;" text="CANJEAR CUPON">
 									<font>
 										<Font name="Insaniburger" size="20.0" />
 									</font>
 								</Button>
-								<Button mnemonicParsing="false" prefHeight="64.0"
-									prefWidth="255.0" style="-fx-background-color: D28383;"
-									text="PERFIL">
+								<Button mnemonicParsing="false" prefHeight="64.0" prefWidth="255.0" style="-fx-background-color: D28383;" text="PERFIL">
 									<font>
 										<Font name="Insaniburger" size="20.0" />
 									</font>
 								</Button>
 								<Accordion prefHeight="24.0" prefWidth="260.0">
 									<panes>
-										<TitledPane animated="false" prefHeight="251.0"
-											prefWidth="260.0" style="-fx-background-color: D28383;"
-											text="PANEL DE CONTROL">
+										<TitledPane animated="false" prefHeight="251.0" prefWidth="260.0" style="-fx-background-color: D28383;" text="PANEL DE CONTROL">
 											<font>
 												<Font name="Insaniburger" size="20.0" />
 											</font>
 											<content>
-												<VBox prefHeight="195.0" prefWidth="258.0"
-													spacing="5.0">
-													<Button mnemonicParsing="false" prefHeight="64.0"
-														prefWidth="255.0" style="-fx-background-color: FFFFFF;"
-														text="PANEL DE CONTROL">
+												<VBox prefHeight="195.0" prefWidth="258.0" spacing="5.0">
+													<Button mnemonicParsing="false" prefHeight="64.0" prefWidth="255.0" style="-fx-background-color: FFFFFF;" text="PANEL DE CONTROL">
 														<font>
 															<Font name="Insaniburger" size="20.0" />
 														</font>
 													</Button>
-													<Button mnemonicParsing="false" prefHeight="64.0"
-														prefWidth="255.0" style="-fx-background-color: FFFFFF;"
-														text="GESTION DE RESERVAS">
+													<Button mnemonicParsing="false" prefHeight="64.0" prefWidth="255.0" style="-fx-background-color: FFFFFF;" text="GESTION DE RESERVAS">
 														<font>
 															<Font name="Insaniburger" size="20.0" />
 														</font>
 													</Button>
-													<Button mnemonicParsing="false" prefHeight="64.0"
-														prefWidth="255.0" style="-fx-background-color: FFFFFF;"
-														text="GESTION DE MENUS">
+													<Button mnemonicParsing="false" prefHeight="64.0" prefWidth="255.0" style="-fx-background-color: FFFFFF;" text="GESTION DE MENUS">
 														<font>
 															<Font name="Insaniburger" size="20.0" />
 														</font>
 													</Button>
-													<Button mnemonicParsing="false" prefHeight="64.0"
-														prefWidth="255.0" style="-fx-background-color: FFFFFF;"
-														text="GESTION DE PRODUCTOS">
+													<Button mnemonicParsing="false" prefHeight="64.0" prefWidth="255.0" style="-fx-background-color: FFFFFF;" text="GESTION DE PRODUCTOS">
 														<font>
 															<Font name="Insaniburger" size="20.0" />
 														</font>
 													</Button>
-													<Button mnemonicParsing="false" prefHeight="64.0"
-														prefWidth="255.0" style="-fx-background-color: FFFFFF;"
-														text="ESTADISTICAS">
+													<Button mnemonicParsing="false" prefHeight="64.0" prefWidth="255.0" style="-fx-background-color: FFFFFF;" text="ESTADISTICAS">
 														<font>
 															<Font name="Insaniburger" size="20.0" />
 														</font>
 													</Button>
-													<Button mnemonicParsing="false" prefHeight="64.0"
-														prefWidth="255.0" style="-fx-background-color: FFFFFF;"
-														text="CONTACTAR ENCARGADO">
+													<Button mnemonicParsing="false" prefHeight="64.0" prefWidth="255.0" style="-fx-background-color: FFFFFF;" text="CONTACTAR ENCARGADO">
 														<font>
 															<Font name="Insaniburger" size="20.0" />
 														</font>
@@ -261,13 +193,9 @@
 				</ScrollPane>
 			</children>
 		</AnchorPane>
-		<Button fx:id="Cerrar" layoutX="246.0" layoutY="2.0"
-			minWidth="53.0" onAction="#toggleDrawer" prefHeight="47.0"
-			prefWidth="53.0" style="-fx-background-color: transparent;"
-			visible="false">
+		<Button fx:id="Cerrar" layoutX="246.0" layoutY="2.0" minWidth="53.0" onAction="#toggleDrawer" prefHeight="47.0" prefWidth="53.0" style="-fx-background-color: transparent;" visible="false">
 			<graphic>
-				<ImageView fitHeight="30.0" fitWidth="30.0"
-					pickOnBounds="true" preserveRatio="true">
+				<ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
 					<image>
 						<Image url="@/eliminar.png" />
 					</image>

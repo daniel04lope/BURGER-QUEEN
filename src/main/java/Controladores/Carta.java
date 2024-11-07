@@ -132,6 +132,25 @@ public class Carta implements Initializable  {
 	        e.printStackTrace();
 	    }
 	}
+	public void Reserva() throws IOException{
+    	
+
+	  	  FXMLLoader loader = new FXMLLoader(getClass().getResource("/Vistas/Reservas.fxml"));
+	        Pane registro = loader.load();
+	       
+	        
+	        // Crear la escena del login con fondo transparente
+	        Scene loginScene = new Scene(registro, 600, 500);
+	        loginScene.setFill(Color.TRANSPARENT);
+	        
+	        // Crear un nuevo Stage para el login y configurarlo sin decoración y transparente
+	        Stage loginStage = new Stage();
+	        loginStage.initStyle(StageStyle.DECORATED);
+	        loginStage.setScene(loginScene);
+	        loginStage.setTitle("Reservas");
+	        loginStage.show();
+	        cerrar();  
+	}
 
 
 }

@@ -85,7 +85,7 @@ public class Login {
             cerrar();
         } else {
             JOptionPane.showMessageDialog(null, "Login fallido: Correo o contraseña inválidos");
-            cerrar();
+           
         }
     }
 

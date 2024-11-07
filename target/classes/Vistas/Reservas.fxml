@@ -2,19 +2,20 @@
 
 <?import javafx.scene.control.Accordion?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
 <?import javafx.scene.control.TitledPane?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.ColumnConstraints?>
-<?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="449.0" prefWidth="600.0" style="-fx-background-color: #D28383;" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controladores.Carta">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="521.0" prefWidth="665.0" style="-fx-background-color: #D28383;" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controladores.Reserva">
    <children>
       <HBox id="Barra_Navegacion" layoutX="-2.0" prefHeight="57.0" prefWidth="600.0" style="-fx-background-color: #905D5D;">
          <children>
@@ -32,7 +33,7 @@
                   </ImageView>
                </graphic>
             </Button>
-            <Text id="Texto" fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="carta" textAlignment="CENTER" wrappingWidth="369.9830513000488">
+            <Text id="Texto" fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="reserva tu mesa" textAlignment="CENTER" wrappingWidth="369.9830513000488">
                <font>
                   <Font name="Insaniburger" size="35.0" />
                </font>
@@ -71,22 +72,21 @@
             </ImageView>
          </graphic>
       </Button>
-<ScrollPane hbarPolicy="NEVER" layoutX="-2.0" layoutY="57.0" prefHeight="387.0" prefWidth="600.0" style="-fx-background-color: TRANSPARENT;" vbarPolicy="ALWAYS">
-    <content>
-        <AnchorPane minHeight="0.0" minWidth="0.0" prefWidth="596.0" style="-fx-background-color: #D28383;">
-            <children>
-                <GridPane fx:id="panel" prefWidth="705.0" GridPane.vgrow="ALWAYS">
-                    <columnConstraints>
-                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                    </columnConstraints>
-                    
-                </GridPane>
-            </children>
-        </AnchorPane>
-    </content>
-</ScrollPane>
+      <Text fill="WHITE" layoutX="26.0" layoutY="116.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Estás a un mordisco de una fiesta inolvidable, rellena nuestro formulario para que podamos contactarte y preparar tu pedido Envío directo desde nuestra parrilla, ¡No hay nada que pare la fiesta! Después de recibir tu reserva, la tramitaremos en un plazo de 3 días laborables. Recibirás un email de confirmación con todos los detalles." textAlignment="JUSTIFY" wrappingWidth="314.41143798828125">
+       <font>
+            <Font name="Insaniburger" size="9.0" />
+         </font>
+      </Text>
+      <Text fill="WHITE" layoutX="26.0" layoutY="83.0" strokeType="OUTSIDE" strokeWidth="0.0" text="¡Reserva tu mesa aquí!" wrappingWidth="339.07812500000006">
+         <font>
+            <Font name="Insaniburger" size="26.0" />
+         </font>
+      </Text>
+      <ImageView fitHeight="278.0" fitWidth="339.0" layoutX="23.0" layoutY="175.0" pickOnBounds="true" preserveRatio="true">
+      <image>
+                  <Image url="@/Reserva.png" />
+               </image>
+      </ImageView>
 
       <AnchorPane fx:id="drawer" layoutX="-4.0" layoutY="-4.0" prefHeight="914.0" prefWidth="272.0" style="-fx-background-color: #333333;" visible="false">
          <children>
@@ -94,12 +94,12 @@
                <content>
                   <VBox prefHeight="900.0" prefWidth="260.0">
                      <children>
-                        <Button fx:id="Pantalla_Principal" mnemonicParsing="false" onAction="#Pantalla_Principal" prefHeight="64.0" prefWidth="255.0" style="-fx-background-color: D28383;" text="Pantalla Principal">
+                        <Button fx:id="Pantalla_Principal" mnemonicParsing="false" onAction="#Pantalla_Principal" prefHeight="64.0" prefWidth="255.0" style="-fx-background-color: D28383;" text="PANTALLA PRINCIPAL">
                            <font>
                               <Font name="Insaniburger" size="20.0" />
                            </font>
                         </Button>
-                        <Button mnemonicParsing="false" onAction="#Reserva" prefHeight="64.0" prefWidth="255.0" style="-fx-background-color: A6234E;" text="RESERVAS">
+                        <Button mnemonicParsing="false" onAction="#Carta" prefHeight="64.0" prefWidth="255.0" style="-fx-background-color: A6234E;" text="CARTA">
                            <font>
                               <Font name="Insaniburger" size="20.0" />
                            </font>
@@ -264,5 +264,41 @@
             </VBox>
          </children>
       </AnchorPane>
+      <Text fill="WHITE" layoutX="451.0" layoutY="79.0" strokeType="OUTSIDE" strokeWidth="0.0" text="NOMBRE">
+         <font>
+            <Font name="Insaniburger" size="16.0" />
+         </font>
+      </Text>
+      <TextField fx:id="Nombre" layoutX="368.0" layoutY="89.0" prefHeight="25.0" prefWidth="222.0" />
+      <Text fill="WHITE" layoutX="410.0" layoutY="143.0" strokeType="OUTSIDE" strokeWidth="0.0" text=" FECHA DE RESERVA">
+         <font>
+            <Font name="Insaniburger" size="16.0" />
+         </font>
+      </Text>
+      <DatePicker fx:id="Fecha_Reserva" layoutX="369.0" layoutY="156.0" prefHeight="25.0" prefWidth="222.0" />
+      <Text fill="WHITE" layoutX="406.0" layoutY="209.0" strokeType="OUTSIDE" strokeWidth="0.0" text="HORA DE LA RESERVA">
+         <font>
+            <Font name="Insaniburger" size="16.0" />
+         </font>
+      </Text>
+      <TextField fx:id="Hora" layoutX="369.0" layoutY="222.0" prefHeight="25.0" prefWidth="222.0" />
+      <Text fill="WHITE" layoutX="398.0" layoutY="275.0" strokeType="OUTSIDE" strokeWidth="0.0" text="NUMERO DE PERSONAS">
+         <font>
+            <Font name="Insaniburger" size="16.0" />
+         </font>
+      </Text>
+      <TextField fx:id="Personas" layoutX="369.0" layoutY="288.0" prefHeight="25.0" prefWidth="222.0" />
+      <Text fill="WHITE" layoutX="407.0" layoutY="341.0" strokeType="OUTSIDE" strokeWidth="0.0" text="DATOS ADICIONALES">
+         <font>
+            <Font name="Insaniburger" size="16.0" />
+         </font>
+      </Text>
+      <TextArea fx:id="Datos_Adicionales" layoutX="374.0" layoutY="351.0" prefHeight="39.0" prefWidth="211.0" />
+      <Button layoutX="412.0" layoutY="402.0" mnemonicParsing="false" onAction="#insertReserva" prefHeight="29.0" prefWidth="135.0" style="-fx-background-color: #F980A9; -fx-border-radius: 20;" text="ENVIAR" textFill="WHITE">
+         <font>
+            <Font name="Insaniburger" size="12.0" />
+         </font>
+      </Button>
    </children>
+  
 </AnchorPane>
