@@ -77,7 +77,7 @@ public class Carta implements Initializable  {
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		// TODO Auto-generated method stub
-		
+		Username.setText(Login.banneruser);
 		CargarCarta();
 	}
 
@@ -117,6 +117,7 @@ public class Carta implements Initializable  {
 
 	            item.getChildren().addAll(btnProducto, nombre);
 	            panel.add(item, column, row);
+	            btnProducto.setOnAction(event -> mostrarItemFocus(productobjeto));
 
 	            if (column == 2) {  // Si la columna llega a 2, pasar a la siguiente fila
 	                column = 0;
@@ -151,6 +152,52 @@ public class Carta implements Initializable  {
 	        loginStage.show();
 	        cerrar();  
 	}
+	 private void showLoginScreen() {
+	        try {
+	            FXMLLoader loader = new FXMLLoader(getClass().getResource("/Vistas/Login.fxml"));
+	            Pane login = loader.load();
+	         
+	         
+	            // Crear la escena del login con fondo transparente
+	            Scene loginScene = new Scene(login, 450, 600);
+	            loginScene.setFill(Color.TRANSPARENT);
+
+	            // Crear un nuevo Stage para el login y configurarlo sin decoración y transparente
+	            Stage loginStage = new Stage();
+	            loginStage.initStyle(StageStyle.TRANSPARENT);
+	            loginStage.setScene(loginScene);
+	            loginStage.setTitle("LOGIN");
+	            loginStage.show();
+	            
+	        } catch (Exception e) {
+	            e.printStackTrace();
+	        }
+	    }
+	 private void mostrarItemFocus(Producto producto) {
+		    try {
+		        FXMLLoader loader = new FXMLLoader(getClass().getResource("/Vistas/ItemFocus.fxml"));
+		        AnchorPane itemFocusPane = loader.load();
+
+		        // Obtener el controlador de la vista ItemFocus
+		        ItemFocus itemFocusController = loader.getController();
+		        itemFocusController.setProducto(producto); // Pasar el producto al controlador
+
+		        // Crear y mostrar la ventana con el tamaño especificado
+		        Stage itemFocusStage = new Stage();
+		        
+		        // Crear la escena con las dimensiones deseadas
+		        Scene scene = new Scene(itemFocusPane, 800, 623);
+		        itemFocusStage.setScene(scene);
+		        
+		        itemFocusStage.setTitle("DETALLES DEL PRODUCTO");
+		        
+		        // Mostrar la ventana
+		        itemFocusStage.show();
+		    } catch (IOException e) {
+		        e.printStackTrace();
+		    }
+		}
+
 
 
 }

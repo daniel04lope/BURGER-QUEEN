@@ -27,7 +27,7 @@ public class Main extends Application {
 
         // Mostrar la pantalla principal y la pantalla de login
         Pantalla_principal pantallaPrincipalController = showMainScreen();
-        showLoginScreen(pantallaPrincipalController);
+        showLoginScreen();
     }
 
     private Pantalla_principal showMainScreen() {
@@ -55,18 +55,12 @@ public class Main extends Application {
         }
     }
 
-    private void showLoginScreen(Pantalla_principal pantallaPrincipalController) {
+    private void showLoginScreen() {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/Vistas/Login.fxml"));
             Pane login = loader.load();
          
-            // Obtener el controlador de Login
-            Login loginController = loader.getController();
-
-            // Configurar el controlador de Pantalla_principal en el controlador de Login
-            loginController.setVistaControlador(pantallaPrincipalController);
-          
-
+         
             // Crear la escena del login con fondo transparente
             Scene loginScene = new Scene(login, 450, 600);
             loginScene.setFill(Color.TRANSPARENT);

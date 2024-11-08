@@ -37,7 +37,7 @@ public class Pantalla_principal implements Initializable {
     public void initialize(URL location, ResourceBundle resources) {
         // Muestra un mensaje en consola para asegurar que el controlador se cargó correctamente
         System.out.println("Pantalla_principal inicializado correctamente");
-
+        Username.setText(Login.banneruser);
         // Configura el botón para que al hacer clic cambie la visibilidad del drawer
        
     }
@@ -92,4 +92,28 @@ public class Pantalla_principal implements Initializable {
         loginStage.show();
         cerrar();  
 }
+    
+    
+    public void showLoginScreen() {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/Vistas/Login.fxml"));
+            Pane login = loader.load();
+         
+         
+            // Crear la escena del login con fondo transparente
+            Scene loginScene = new Scene(login, 450, 600);
+            loginScene.setFill(Color.TRANSPARENT);
+
+            // Crear un nuevo Stage para el login y configurarlo sin decoración y transparente
+            Stage loginStage = new Stage();
+            loginStage.initStyle(StageStyle.TRANSPARENT);
+            loginStage.setScene(loginScene);
+            loginStage.setTitle("LOGIN");
+            loginStage.show();
+            
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
     }    
+

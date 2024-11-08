@@ -15,12 +15,15 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
 public class Login {
+	
+	
 	private Pantalla_principal pantallaprincipal;
 	private Carta cartavariable;
     @FXML
@@ -31,7 +34,7 @@ public class Login {
     PasswordField Password;
     private Pantalla_principal controladorPantallaPrincipal; // Cambiar a private para mejor encapsulación
     String nombreusuario;
-  
+    static String banneruser;
     
     public void setVistaControlador(Pantalla_principal principal) {
         this.pantallaprincipal = principal;
@@ -57,7 +60,7 @@ public class Login {
         this.controladorPantallaPrincipal = controlador;
     }
 
-    public void iniciarSesion() throws SQLException {
+    public void iniciarSesion() throws SQLException, IOException {
     	  
         String emailString = Email.getText();
         String passwordString = Password.getText();
@@ -65,22 +68,25 @@ public class Login {
         Connection conexion = util.Conexiones.dameConexion("burger-queen");
 
         if (verificarCredencialesUsuario(conexion, "usuarios", emailString, passwordString)) {
-        	pantallaprincipal.Username.setText(nombreusuario);
-        	
+        
+        	Login.banneruser=nombreusuario;
+        
             
             JOptionPane.showMessageDialog(null, "Login exitoso para el usuario: " + emailString);
-            
+        	
             cerrar();
         } else if (verificarCredencialesUsuario(conexion, "empleados", emailString, passwordString)) {
-        	pantallaprincipal.Username.setText(nombreusuario);
-            
+        	
+        	Login.banneruser=nombreusuario;
             JOptionPane.showMessageDialog(null, "Login exitoso para el empleado: " + emailString);
+         
            
             cerrar();
         } else if (verificarCredencialesUsuario(conexion, "administradores", emailString, passwordString)) {
-        	pantallaprincipal.Username.setText(nombreusuario);
-            
+        
+        	Login.banneruser=nombreusuario;
             JOptionPane.showMessageDialog(null, "Login exitoso para el administrador: " + emailString);
+         
         
             cerrar();
         } else {
@@ -126,4 +132,9 @@ public class Login {
           loginStage.show();
           cerrar();
     }
+  
+
+
+    
+    
 }
