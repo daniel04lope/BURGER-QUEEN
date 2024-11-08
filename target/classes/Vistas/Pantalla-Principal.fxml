@@ -23,7 +23,7 @@
 						<Image url="@/Burger_Queen.png" />
 					</image>
 				</ImageView>
-				<Button id="Desplegable" fx:id="Desplegable" layoutX="10.0" layoutY="13.0" minWidth="53.0" onAction="#toggleDrawer" prefHeight="61.0" prefWidth="53.0" style="-fx-background-color: transparent;">
+				<Button id="Desplegable" fx:id="Desplegable" layoutX="10.0" layoutY="13.0" minWidth="53.0" onAction="#Despliega" prefHeight="61.0" prefWidth="53.0" style="-fx-background-color: transparent;">
 					<graphic>
 						<ImageView fitHeight="36.0" fitWidth="29.0" pickOnBounds="true" preserveRatio="true">
 							<image>
@@ -46,7 +46,7 @@
 						</ImageView>
 					</graphic>
 				</Button>
-				<Button id="Perfil" layoutX="10.0" layoutY="13.0" onAction="#showLoginScreen" style="-fx-background-color: transparent;">
+				<Button id="Perfil" layoutX="10.0" layoutY="13.0" onAction="#Mostrar_Login" style="-fx-background-color: transparent;">
 					<graphic>
 						<ImageView fitHeight="45.0" fitWidth="45.0" pickOnBounds="true" preserveRatio="true">
 							<image>
@@ -97,13 +97,13 @@
 		</AnchorPane>
 
 		<!-- Username Text -->
-		<Text fx:id="Username" layoutX="532.0" layoutY="49.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Registrate" textAlignment="CENTER" wrappingWidth="63.298828125">
+		<Text fx:id="Nombre_de_usuario" layoutX="532.0" layoutY="49.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Registrate" textAlignment="CENTER" wrappingWidth="63.298828125">
 			<font>
 				<Font name="Insaniburger" size="9.0" />
 			</font>
 		</Text>
 		<!-- Drawer (Panel Lateral) -->
-		<AnchorPane fx:id="drawer" layoutX="-4.0" prefHeight="400.0" prefWidth="200.0" style="-fx-background-color: #333333;" visible="false">
+		<AnchorPane fx:id="Panel_Desplegable" layoutX="-4.0" prefHeight="400.0" prefWidth="200.0" style="-fx-background-color: #333333;" visible="false">
 			<children>
 				<ScrollPane hbarPolicy="NEVER" prefHeight="650.0" prefWidth="262.0">
 					<content>
@@ -193,7 +193,7 @@
 				</ScrollPane>
 			</children>
 		</AnchorPane>
-		<Button fx:id="Cerrar" layoutX="246.0" layoutY="2.0" minWidth="53.0" onAction="#toggleDrawer" prefHeight="47.0" prefWidth="53.0" style="-fx-background-color: transparent;" visible="false">
+		<Button fx:id="Cerrar" layoutX="246.0" layoutY="2.0" minWidth="53.0" onAction="#Despliega" prefHeight="47.0" prefWidth="53.0" style="-fx-background-color: transparent;" visible="false">
 			<graphic>
 				<ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
 					<image>

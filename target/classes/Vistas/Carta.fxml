@@ -23,7 +23,7 @@
                   <Image url="@/Burger_Queen.png" />
                </image>
             </ImageView>
-            <Button id="Desplegable" fx:id="Desplegable" layoutX="10.0" layoutY="13.0" minWidth="53.0" onAction="#toggleDrawer" prefHeight="61.0" prefWidth="53.0" style="-fx-background-color: transparent;">
+            <Button id="Desplegable" fx:id="Desplegable" layoutX="10.0" layoutY="13.0" minWidth="53.0" onAction="#Despliega" prefHeight="61.0" prefWidth="53.0" style="-fx-background-color: transparent;">
                <graphic>
                   <ImageView fitHeight="36.0" fitWidth="29.0" pickOnBounds="true" preserveRatio="true">
                      <image>
@@ -46,7 +46,7 @@
                   </ImageView>
                </graphic>
             </Button>
-            <Button id="Perfil" layoutX="10.0" layoutY="13.0" style="-fx-background-color: transparent;">
+            <Button id="Perfil" layoutX="10.0" layoutY="13.0" onAction="#Mostrar_Login" style="-fx-background-color: transparent;">
                <graphic>
                   <ImageView fitHeight="45.0" fitWidth="45.0" pickOnBounds="true" preserveRatio="true">
                      <image>
@@ -62,7 +62,7 @@
             <Font name="Insaniburger" size="9.0" />
          </font>
       </Text>
-      <Button fx:id="Cerrar" layoutX="256.0" layoutY="12.0" minWidth="53.0" onAction="#toggleDrawer" prefHeight="47.0" prefWidth="53.0" style="-fx-background-color: transparent;" visible="false">
+      <Button fx:id="Cerrar" layoutX="256.0" layoutY="12.0" minWidth="53.0" onAction="#Despliega" prefHeight="47.0" prefWidth="53.0" style="-fx-background-color: transparent;" visible="false">
          <graphic>
             <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
                <image>
@@ -88,7 +88,7 @@
     </content>
 </ScrollPane>
 
-      <AnchorPane fx:id="drawer" layoutX="-4.0" layoutY="-4.0" prefHeight="914.0" prefWidth="272.0" style="-fx-background-color: #333333;" visible="false">
+      <AnchorPane fx:id="Panel_Desplegable" layoutX="-4.0" layoutY="-4.0" prefHeight="914.0" prefWidth="272.0" style="-fx-background-color: #333333;" visible="false">
          <children>
             <ScrollPane hbarPolicy="NEVER" layoutY="-1.0" prefHeight="651.0" prefWidth="272.0">
                <content>
@@ -185,7 +185,7 @@
                         <Font name="Insaniburger" size="20.0" />
                      </font>
                   </Button>
-                  <Button mnemonicParsing="false" prefHeight="64.0" prefWidth="255.0" style="-fx-background-color: A6234E;" text="RESERVAS">
+                  <Button mnemonicParsing="false" onAction="#Reserva" prefHeight="64.0" prefWidth="255.0" style="-fx-background-color: A6234E;" text="RESERVAS">
                      <font>
                         <Font name="Insaniburger" size="20.0" />
                      </font>

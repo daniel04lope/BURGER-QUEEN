@@ -92,7 +92,7 @@
                      <Font name="Insaniburger" size="12.0" />
                   </font>
                </Text>
-               <CheckBox mnemonicParsing="false" prefHeight="17.0" prefWidth="392.0" text=" Acepto los terminos y condiciones" textAlignment="CENTER" />
+               <CheckBox fx:id="Terms" mnemonicParsing="false" prefHeight="17.0" prefWidth="392.0" text=" Acepto los terminos y condiciones" textAlignment="CENTER" />
                <Button fx:id="Registrarse" alignment="CENTER" mnemonicParsing="false" onAction="#registrarse" prefHeight="68.0" prefWidth="439.0" style="-fx-background-color: #F980A9;" text="Registrarse" textFill="WHITE">
                   <font>
                      <Font name="Insaniburger" size="17.0" />

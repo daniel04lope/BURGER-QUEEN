@@ -29,7 +29,7 @@ import javafx.stage.StageStyle;
 
 public class ItemFocus implements Initializable {
     @FXML
-    private AnchorPane drawer;
+    private AnchorPane Panel_Desplegable;
     @FXML
     private Button Desplegable;
     @FXML
@@ -43,7 +43,7 @@ public class ItemFocus implements Initializable {
     @FXML
     private Tab DescripcionTab;
     @FXML
-    private Button addToCartButton; // Botón de añadir al pedido    
+    private Button Carrito;    
     @FXML
     private RadioButton Pclasica;
     @FXML
@@ -62,7 +62,6 @@ public class ItemFocus implements Initializable {
     private RadioButton CcZero;
 	@FXML
 	Text Username;
-    
 
     private boolean drawerVisible = false;
     private boolean Cerrardesplegar = false;
@@ -75,66 +74,55 @@ public class ItemFocus implements Initializable {
     private String complemento;
     private String bebida;
     
-    public void toggleDrawer() {
+    public void Despliega() {
     	System.out.println("Funciona");
-    	Cerrardesplegar=!Cerrardesplegar;
+    	Cerrardesplegar = !Cerrardesplegar;
         drawerVisible = !drawerVisible;
         Cerrar.setVisible(Cerrardesplegar);
-        drawer.setVisible(drawerVisible);
+        Panel_Desplegable.setVisible(drawerVisible);
     }
     
     public void cerrar() {
-        // Obtener la referencia del Stage a partir del botón
         Stage stage = (Stage) Cerrar.getScene().getWindow();
-        stage.close(); // Cerrar la ventana
+        stage.close();
     }
     
     public void Pantalla_Principal() throws IOException {
-
   	  FXMLLoader loader = new FXMLLoader(getClass().getResource("/Vistas/Pantalla-Principal.fxml"));
         Pane principal = loader.load();
-        
-        // Crear la escena del login con fondo transparente
+
         Scene principalScene = new Scene(principal, 600, 500);
         principalScene.getStylesheets().add(getClass().getResource("Pantalla_Principal.css").toExternalForm());
         principalScene.setFill(Color.TRANSPARENT);
 
-        // Crear un nuevo Stage para el login y configurarlo sin decoración y transparente
         Stage PrincipalStage = new Stage();
         PrincipalStage.initStyle(StageStyle.DECORATED);
         PrincipalStage.setScene(principalScene);
         PrincipalStage.setTitle("CARTA");
         PrincipalStage.show();
-        cerrar();  
+        cerrar();
 	  }
-    
-
-    
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-    	
-    Username.setText(Login.banneruser);
-        // Verificar si el producto ha sido establecido y cargarlo
+    	Username.setText(Login.bannerusuario);
         if (producto != null) {
             cargarProducto();
         }
-        
     }
 
     public void setProducto(Producto producto) {
         this.producto = producto;
-        this.precioBase = producto.getPrecio(); // Suponiendo que el modelo Producto tiene un método getPrecio
+        this.precioBase = producto.getPrecio();
         this.precioTotal = precioBase;
         Pclasica.setSelected(true);
-        complemento="Patatas clasicas";
+        complemento = "Patatas clasicas";
         System.out.println(complemento);        
         Cocacola.setSelected(true);
-        bebida="Cocacola";
+        bebida = "Cocacola";
         System.out.println(bebida);
         
-        
-        cargarProducto(); // Cargar el producto en la interfaz
+        cargarProducto();
     }
 
     private void cargarProducto() {
@@ -142,25 +130,21 @@ public class ItemFocus implements Initializable {
         	 Nombre.setText(producto.getNombre());
              Descripcion.setText(producto.getDescripcion());
              DescripcionTab.setText(producto.getNombre());
-             actualizarBotonPedido(); // Mostrar precio inicial en el botón
-            // Puedes agregar código para cargar una imagen o información adicional aquí
-             
+             actualizarBotonPedido();
              imagen.setImage(new Image(getClass().getResourceAsStream("/" + producto.getRuta())));
-
-            
         }
     }
     
     private void actualizarBotonPedido() {
-        addToCartButton.setText("Añadir a mi pedido - " + String.format("%.2f €", precioTotal));
+        Carrito.setText("Añadir a mi pedido - " + String.format("%.2f €", precioTotal));
     }
     
     @FXML
     private void aniadirextra1_20(ActionEvent event) {
-    	if(cantExtras<1) {
+    	if(cantExtras < 1) {
     		precioTotal += 1.20;
             cantExtras++;
-            tipoExtra="Extra queso + bacon";
+            tipoExtra = "Extra queso + bacon";
             actualizarBotonPedido();
     	}        
     }
@@ -168,86 +152,76 @@ public class ItemFocus implements Initializable {
     @FXML
     private void complemento(ActionEvent event) {
     	if(Npollo.isSelected()) {
-    		complemento="Nuggets de pollo";
-    	}else if(Acebolla.isSelected()) {
-    		complemento="Aros de cebolla";
-    	}else if(Psupreme.isSelected()) {
-    		complemento="Patatas supreme";
-    	}else if(Pclasica.isSelected()) {
-    		complemento="Patatas clasicas";
+    		complemento = "Nuggets de pollo";
+    	} else if(Acebolla.isSelected()) {
+    		complemento = "Aros de cebolla";
+    	} else if(Psupreme.isSelected()) {
+    		complemento = "Patatas supreme";
+    	} else if(Pclasica.isSelected()) {
+    		complemento = "Patatas clasicas";
     	}
     	
     	System.out.println(complemento);
-    	
-    	
     }
     
     @FXML
     private void bebida(ActionEvent event) {
     	if(Cocacola.isSelected()) {
-    		bebida="Cocacola";
-    	}else if(Fanta.isSelected()) {
-    		bebida="Fanta de naranja";
-    	}else if(Nestea.isSelected()) {
-    		bebida="Nestea";
-    	}else if(CcZero.isSelected()) {
-    		bebida="Cocacola Zero";
+    		bebida = "Cocacola";
+    	} else if(Fanta.isSelected()) {
+    		bebida = "Fanta de naranja";
+    	} else if(Nestea.isSelected()) {
+    		bebida = "Nestea";
+    	} else if(CcZero.isSelected()) {
+    		bebida = "Cocacola Zero";
     	}
     	
     	System.out.println(bebida);
-    	
-    	
     }
     
     @FXML
     private void aniadirextra1B(ActionEvent event) {
-    	if(cantExtras<1) {
+    	if(cantExtras < 1) {
     		precioTotal += 1;
             cantExtras++;
-            tipoExtra="Extra Bacon";
+            tipoExtra = "Extra Bacon";
             actualizarBotonPedido();
     	}   
     }
     
     @FXML
     private void aniadirextra1Q() {
-    	if(cantExtras<1) {
+    	if(cantExtras < 1) {
     		precioTotal += 1;
             cantExtras++;
-            tipoExtra="Extra Queso";
+            tipoExtra = "Extra Queso";
             actualizarBotonPedido();
     	}   
     }
-    public void Carta() throws IOException{
-    	
+    
+    public void Carta() throws IOException {
   	  FXMLLoader loader = new FXMLLoader(getClass().getResource("/Vistas/Carta.fxml"));
         Pane registro = loader.load();
-       
-        
-        // Crear la escena del login con fondo transparente
+
         Scene loginScene = new Scene(registro, 600, 500);
         loginScene.setFill(Color.TRANSPARENT);
         
-        // Crear un nuevo Stage para el login y configurarlo sin decoración y transparente
         Stage loginStage = new Stage();
         loginStage.initStyle(StageStyle.DECORATED);
         loginStage.setScene(loginScene);
         loginStage.setTitle("CARTA");
         loginStage.show();
-        cerrar();  
-}
+        cerrar();
+    }
 
-    public void showLoginScreen() {
+    public void Mostrar_Login() {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/Vistas/Login.fxml"));
             Pane login = loader.load();
-         
-         
-            // Crear la escena del login con fondo transparente
+
             Scene loginScene = new Scene(login, 450, 600);
             loginScene.setFill(Color.TRANSPARENT);
 
-            // Crear un nuevo Stage para el login y configurarlo sin decoración y transparente
             Stage loginStage = new Stage();
             loginStage.initStyle(StageStyle.TRANSPARENT);
             loginStage.setScene(loginScene);
@@ -258,7 +232,4 @@ public class ItemFocus implements Initializable {
             e.printStackTrace();
         }
     }
-   
 }
-
-

@@ -27,7 +27,7 @@
             <Image url="@/Burger_Queen.png" />
          </image>
       </ImageView>
-      <Button id="Desplegable" fx:id="Desplegable" layoutX="20.0" layoutY="23.0" minWidth="53.0" onAction="#toggleDrawer" prefHeight="61.0" prefWidth="53.0" style="-fx-background-color: transparent;">
+      <Button id="Desplegable" fx:id="Desplegable" layoutX="20.0" layoutY="23.0" minWidth="53.0" onAction="#Despliega" prefHeight="61.0" prefWidth="53.0" style="-fx-background-color: transparent;">
          <graphic>
             <ImageView fitHeight="36.0" fitWidth="29.0" pickOnBounds="true" preserveRatio="true">
                <image>
@@ -87,7 +87,7 @@
                   <padding>
                   <Insets bottom="20" left="20" right="20" top="20" />
                </padding>
-                  <ImageView fx:id="imagen" fitHeight="150" fitWidth="194.0">
+                  <ImageView fx:id="imagen" fitHeight="210.0" fitWidth="250.0">
                      
                   </ImageView>
                   <Label fx:id="Nombre" style="-fx-font-size: 18px; -fx-font-weight: bold;" textFill="WHITE">
@@ -95,7 +95,7 @@
                      <Font name="Insaniburger" size="14.0" />
                   </font>
                </Label>
-                  <Label fx:id="Descripcion" prefHeight="169.0" prefWidth="267.0" style="-fx-font-size: 14px;" textFill="WHITE" wrapText="true">
+                  <Label fx:id="Descripcion" prefHeight="408.0" prefWidth="247.0" style="-fx-font-size: 14px;" textFill="WHITE" wrapText="true">
                   <font>
                      <Font name="Insaniburger" size="11.0" />
                   </font>
@@ -318,7 +318,7 @@
                       </Tab>
                   </TabPane>
       
-                        <Button fx:id="addToCartButton" defaultButton="true" style="-fx-background-color: #F980A9; -fx-text-fill: white; -fx-font-size: 18px; -fx-border-radius: 5px; -fx-border-color: white;" text="Añadir a mi pedido " textAlignment="CENTER" textFill="WHITE">
+                        <Button fx:id="Carrito" defaultButton="true" style="-fx-background-color: #F980A9; -fx-text-fill: white; -fx-font-size: 18px; -fx-border-radius: 5px; -fx-border-color: white;" text="Añadir a mi pedido " textAlignment="CENTER" textFill="WHITE">
                   <font>
                      <Font name="Insaniburger with Cheese" size="18.0" />
                   </font>
@@ -349,7 +349,7 @@
                         </ImageView>
                      </graphic>
                   </Button>
-                  <Button id="Perfil" layoutX="10.0" layoutY="13.0" onAction="#showLoginScreen" style="-fx-background-color: transparent;" translateX="3.0" translateY="7.0">
+                  <Button id="Perfil" layoutX="10.0" layoutY="13.0" onAction="#Mostrar_Login" style="-fx-background-color: transparent;" translateX="3.0" translateY="7.0">
                      <graphic>
                         <ImageView fitHeight="39.0" fitWidth="54.0" pickOnBounds="true" preserveRatio="true">
                            <image>

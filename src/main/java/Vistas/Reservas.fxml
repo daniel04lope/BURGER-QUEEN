@@ -24,7 +24,7 @@
                   <Image url="@/Burger_Queen.png" />
                </image>
             </ImageView>
-            <Button id="Desplegable" fx:id="Desplegable" layoutX="10.0" layoutY="13.0" minWidth="53.0" onAction="#toggleDrawer" prefHeight="61.0" prefWidth="53.0" style="-fx-background-color: transparent;">
+            <Button id="Desplegable" fx:id="Desplegable" layoutX="10.0" layoutY="13.0" minWidth="53.0" onAction="#Despliega" prefHeight="61.0" prefWidth="53.0" style="-fx-background-color: transparent;">
                <graphic>
                   <ImageView fitHeight="36.0" fitWidth="29.0" pickOnBounds="true" preserveRatio="true">
                      <image>
@@ -47,7 +47,7 @@
                   </ImageView>
                </graphic>
             </Button>
-            <Button id="Perfil" layoutX="10.0" layoutY="13.0" onAction="#showLoginScreen" style="-fx-background-color: transparent;">
+            <Button id="Perfil" layoutX="10.0" layoutY="13.0" onAction="#Mostrar_Login" style="-fx-background-color: transparent;">
                <graphic>
                   <ImageView fitHeight="45.0" fitWidth="45.0" pickOnBounds="true" preserveRatio="true">
                      <image>
@@ -63,7 +63,7 @@
             <Font name="Insaniburger" size="9.0" />
          </font>
       </Text>
-      <Button fx:id="Cerrar" layoutX="256.0" layoutY="12.0" minWidth="53.0" onAction="#toggleDrawer" prefHeight="47.0" prefWidth="53.0" style="-fx-background-color: transparent;" visible="false">
+      <Button fx:id="Cerrar" layoutX="256.0" layoutY="12.0" minWidth="53.0" onAction="#Despliega" prefHeight="47.0" prefWidth="53.0" style="-fx-background-color: transparent;" visible="false">
          <graphic>
             <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
                <image>
@@ -178,90 +178,6 @@
                   </VBox>
                </content>
             </ScrollPane>
-            <VBox layoutY="5.0" prefHeight="895.0" prefWidth="272.0" visible="false">
-               <children>
-                  <Button fx:id="Principal" mnemonicParsing="false" onAction="#Pantalla_Principal" prefHeight="64.0" prefWidth="255.0" style="-fx-background-color: D28383;" text="PANTALLA PRINCIPAL">
-                     <font>
-                        <Font name="Insaniburger" size="20.0" />
-                     </font>
-                  </Button>
-                  <Button mnemonicParsing="false" prefHeight="64.0" prefWidth="255.0" style="-fx-background-color: A6234E;" text="RESERVAS">
-                     <font>
-                        <Font name="Insaniburger" size="20.0" />
-                     </font>
-                  </Button>
-                  <Button mnemonicParsing="false" prefHeight="64.0" prefWidth="255.0" style="-fx-background-color: D28383;" text="HORARIOS">
-                     <font>
-                        <Font name="Insaniburger" size="20.0" />
-                     </font>
-                  </Button>
-                  <Button mnemonicParsing="false" prefHeight="64.0" prefWidth="255.0" style="-fx-background-color: A6234E;" text="UBICACION">
-                     <font>
-                        <Font name="Insaniburger" size="20.0" />
-                     </font>
-                  </Button>
-                  <Button mnemonicParsing="false" prefHeight="64.0" prefWidth="255.0" style="-fx-background-color: D28383;" text="OFERTAS ESPECIALES">
-                     <font>
-                        <Font name="Insaniburger" size="20.0" />
-                     </font>
-                  </Button>
-                  <Button mnemonicParsing="false" prefHeight="64.0" prefWidth="255.0" style="-fx-background-color: A6234E;" text="CANJEAR CUPON">
-                     <font>
-                        <Font name="Insaniburger" size="20.0" />
-                     </font>
-                  </Button>
-                  <Button mnemonicParsing="false" prefHeight="64.0" prefWidth="255.0" style="-fx-background-color: D28383;" text="PERFIL">
-                     <font>
-                        <Font name="Insaniburger" size="20.0" />
-                     </font>
-                  </Button>
-                  <Accordion prefHeight="24.0" prefWidth="260.0">
-                     <panes>
-                        <TitledPane animated="false" prefHeight="251.0" prefWidth="260.0" style="-fx-background-color: D28383;" text="PANEL DE CONTROL">
-                           <font>
-                              <Font name="Insaniburger" size="20.0" />
-                           </font>
-                           <content>
-                              <VBox prefHeight="195.0" prefWidth="258.0" spacing="5.0">
-                                 <children>
-                                    <Button mnemonicParsing="false" prefHeight="64.0" prefWidth="255.0" style="-fx-background-color: FFFFFF;" text="PANEL DE CONTROL">
-                                       <font>
-                                          <Font name="Insaniburger" size="20.0" />
-                                       </font>
-                                    </Button>
-                                    <Button mnemonicParsing="false" prefHeight="64.0" prefWidth="255.0" style="-fx-background-color: FFFFFF;" text="GESTION DE RESERVAS">
-                                       <font>
-                                          <Font name="Insaniburger" size="20.0" />
-                                       </font>
-                                    </Button>
-                                    <Button mnemonicParsing="false" prefHeight="64.0" prefWidth="255.0" style="-fx-background-color: FFFFFF;" text="GESTION DE MENUS">
-                                       <font>
-                                          <Font name="Insaniburger" size="20.0" />
-                                       </font>
-                                    </Button>
-                                    <Button mnemonicParsing="false" prefHeight="64.0" prefWidth="255.0" style="-fx-background-color: FFFFFF;" text="GESTION DE PRODUCTOS">
-                                       <font>
-                                          <Font name="Insaniburger" size="20.0" />
-                                       </font>
-                                    </Button>
-                                    <Button mnemonicParsing="false" prefHeight="64.0" prefWidth="255.0" style="-fx-background-color: FFFFFF;" text="ESTADISTICAS">
-                                       <font>
-                                          <Font name="Insaniburger" size="20.0" />
-                                       </font>
-                                    </Button>
-                                    <Button mnemonicParsing="false" prefHeight="64.0" prefWidth="255.0" style="-fx-background-color: FFFFFF;" text="CONTACTAR ENCARGADO">
-                                       <font>
-                                          <Font name="Insaniburger" size="20.0" />
-                                       </font>
-                                    </Button>
-                                 </children>
-                              </VBox>
-                           </content>
-                        </TitledPane>
-                     </panes>
-                  </Accordion>
-               </children>
-            </VBox>
          </children>
       </AnchorPane>
       <Text fill="WHITE" layoutX="451.0" layoutY="79.0" strokeType="OUTSIDE" strokeWidth="0.0" text="NOMBRE">

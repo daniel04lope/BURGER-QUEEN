@@ -8,94 +8,62 @@ import java.sql.SQLException;
 
 import javax.swing.JOptionPane;
 
-
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
-import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
 public class Login {
-	
-	
-	private Pantalla_principal pantallaprincipal;
-	private Carta cartavariable;
+    
     @FXML
-    Button Cerrar; // Botón de cerrar (ya definido en el FXML)
+    Button Cerrar;
     @FXML
     TextField Email;
     @FXML
     PasswordField Password;
-    private Pantalla_principal controladorPantallaPrincipal; // Cambiar a private para mejor encapsulación
+    private Pantalla_principal controladorPantallaPrincipal;
     String nombreusuario;
-    static String banneruser;
-    
-    public void setVistaControlador(Pantalla_principal principal) {
-        this.pantallaprincipal = principal;
-    }
-    public void setVistaControlador(Carta carta) {
-        this.cartavariable = carta;
-    }
-    // Constructor sin argumentos
+    static String bannerusuario;
+
     public Login() {
-        // Constructor vacío para cumplir con la carga de FXML
     }
 
-    // Método para cerrar la ventana de login
     @FXML
     public void cerrar() {
-        // Obtener la referencia del Stage a partir del botón
         Stage stage = (Stage) Cerrar.getScene().getWindow();
-        stage.close(); // Cerrar la ventana
-    }
-
-    // Método para inyectar el controlador principal
-    public void setControladorPantallaPrincipal(Pantalla_principal controlador) {
-        this.controladorPantallaPrincipal = controlador;
+        stage.close();
     }
 
     public void iniciarSesion() throws SQLException, IOException {
-    	  
         String emailString = Email.getText();
         String passwordString = Password.getText();
 
         Connection conexion = util.Conexiones.dameConexion("burger-queen");
 
         if (verificarCredencialesUsuario(conexion, "usuarios", emailString, passwordString)) {
-        
-        	Login.banneruser=nombreusuario;
-        
-            
+            Login.bannerusuario = nombreusuario;
             JOptionPane.showMessageDialog(null, "Login exitoso para el usuario: " + emailString);
-        	
             cerrar();
         } else if (verificarCredencialesUsuario(conexion, "empleados", emailString, passwordString)) {
-        	
-        	Login.banneruser=nombreusuario;
+            Login.bannerusuario = nombreusuario;
             JOptionPane.showMessageDialog(null, "Login exitoso para el empleado: " + emailString);
-         
-           
             cerrar();
         } else if (verificarCredencialesUsuario(conexion, "administradores", emailString, passwordString)) {
-        
-        	Login.banneruser=nombreusuario;
+            Login.bannerusuario = nombreusuario;
             JOptionPane.showMessageDialog(null, "Login exitoso para el administrador: " + emailString);
-         
-        
             cerrar();
         } else {
             JOptionPane.showMessageDialog(null, "Login fallido: Correo o contraseña inválidos");
-           
         }
     }
 
-    // Método para comprobar credenciales
     private boolean verificarCredencialesUsuario(Connection conexion, String tableName, String email, String password) throws SQLException {
         String query = "SELECT password, username FROM " + tableName + " WHERE email = ?";
 
@@ -103,38 +71,29 @@ public class Login {
             statement.setString(1, email);
             
             try (ResultSet resultSet = statement.executeQuery()) {
-                // Si se encuentra el usuario
                 if (resultSet.next()) {
                     String storedPassword = resultSet.getString("password");
                     nombreusuario = resultSet.getString("username");
-                    // Obtiene la contraseña almacenada
-                    return password.equals(storedPassword); // Comparar directamente
+                    return password.equals(storedPassword);
                 }
             }
         }
-        return false; // Usuario no encontrado o contraseña incorrecta
+        return false;
     }
     
     public void Registro() throws IOException {
-    	
-    	  FXMLLoader loader = new FXMLLoader(getClass().getResource("/Vistas/Registro.fxml"));
-          Pane registro = loader.load();
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/Vistas/Registro.fxml"));
+        Pane registro = loader.load();
 
-          // Crear la escena del login con fondo transparente
-          Scene loginScene = new Scene(registro, 450, 600);
-          loginScene.setFill(Color.TRANSPARENT);
+        Scene loginScene = new Scene(registro, 450, 600);
+        loginScene.setFill(Color.TRANSPARENT);
 
-          // Crear un nuevo Stage para el login y configurarlo sin decoración y transparente
-          Stage loginStage = new Stage();
-          loginStage.initStyle(StageStyle.TRANSPARENT);
-          loginStage.setScene(loginScene);
-          loginStage.setTitle("REGISTRO");
-          loginStage.show();
-          cerrar();
+        Stage loginStage = new Stage();
+        loginStage.initStyle(StageStyle.TRANSPARENT);
+        loginStage.setScene(loginScene);
+        loginStage.initModality(Modality.APPLICATION_MODAL);
+        loginStage.setTitle("REGISTRO");
+        loginStage.show();
+        cerrar();
     }
-  
-
-
-    
-    
 }
