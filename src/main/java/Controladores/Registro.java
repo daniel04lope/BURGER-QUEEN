@@ -41,6 +41,7 @@ public class Registro {
     private DatePicker Fecha_Nacimiento;
     @FXML
     private CheckBox Terms;
+    private Usuario usuario;
 
     public void cerrar() {
         Stage stage = (Stage) Cerrar.getScene().getWindow();
@@ -62,10 +63,11 @@ public class Registro {
         String direccionstring = Direccion.getText();
         LocalDate nacimiento = Fecha_Nacimiento.getValue();
 
-        Usuario usuario = new Usuario(nombrestring, apellidosstring, emailstring, usernamestring, passwordstring, "Activo", telefonostring, direccionstring, nacimiento);
+         usuario = new Usuario(nombrestring, apellidosstring, emailstring, usernamestring, passwordstring, "Activo", telefonostring, direccionstring, nacimiento);
 
         try {
             util.Conexiones.insertarpersona(usuario.getNombre(), usuario.getApellido(), usuario.getEmail(), usuario.getUsername(), usuario.getPassword(), usuario.getTelefono(), usuario.getDireccion(), usuario.getFechaNacimiento());
+            
             JOptionPane.showMessageDialog(null, "Registro exitoso para: " + emailstring);
             cerrar();
             Mostrar_Login();
@@ -79,6 +81,7 @@ public class Registro {
 
                 if (muestra.next()) {
                     usuario.setIdUsuario(muestra.getInt("id_usuario"));
+                    CreaCarrito();
                 } else {
                     JOptionPane.showMessageDialog(null, "No se pudo recuperar el ID de usuario.");
                 }
@@ -108,5 +111,23 @@ public class Registro {
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+    
+    public void CreaCarrito() {
+    	  String sql = "INSERT INTO carrito (id_cliente, id_carrito) VALUES (?,?)";
+    	 try (Connection conexion = util.Conexiones.dameConexion("burger-queen");
+                 PreparedStatement sentencia = conexion.prepareStatement(sql)){
+    		 sentencia.setInt(1,usuario.getIdUsuario());
+    		 sentencia.setInt(2, usuario.getIdUsuario());
+    		 int muestra = sentencia.executeUpdate();
+    		 System.out.println("Carrito creado correctamente");
+    		 
+    	 }
+    	 
+    	 catch (Exception e) {
+			// TODO: handle exception
+    		 e.printStackTrace();
+		}
+    	
     }
 }

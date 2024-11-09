@@ -91,4 +91,27 @@ public class Pantalla_principal implements Initializable {
             e.printStackTrace();
         }
     }
+    
+    public void carrito () throws IOException {
+    	try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/Vistas/Carrito.fxml"));
+            AnchorPane itemFocusPane = loader.load();
+
+          
+           
+
+            Stage itemFocusStage = new Stage();
+            itemFocusStage.initStyle(StageStyle.TRANSPARENT);
+            itemFocusStage.initModality(Modality.APPLICATION_MODAL);
+            Scene scene = new Scene(itemFocusPane, 800, 623);
+            itemFocusStage.setScene(scene);
+
+            itemFocusStage.setTitle("DETALLES DEL PRODUCTO");
+
+            itemFocusStage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    	
+    }
 }

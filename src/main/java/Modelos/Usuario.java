@@ -118,8 +118,8 @@ public class Usuario {
         return fechaNacimiento;
     }
 
-    public void setFechaNacimiento(LocalDate fechaNacimiento) {
-        this.fechaNacimiento = fechaNacimiento;
+    public void setFechaNacimiento(LocalDate date) {
+        this.fechaNacimiento = date;
     }
 
     @Override
