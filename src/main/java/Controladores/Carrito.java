@@ -8,12 +8,15 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ResourceBundle;
+import javafx.scene.image.Image;
 
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
@@ -66,40 +69,106 @@ public class Carrito implements Initializable {
 	}
 	
 	public void Muestra_productos() throws SQLException {
-		
-		 try (Connection conexion = util.Conexiones.dameConexion("burger-queen")) {
-		System.out.println("Iniciando");
-        String sql = "SELECT id_item, id_carrito, id_plato, cantidad, precio_unitario  FROM carrito_items where id_carrito= ? ";
+	    try (Connection conexion = util.Conexiones.dameConexion("burger-queen")) {
+	       
+	        String sqlCarritoItems = "SELECT id_plato FROM carrito_items WHERE id_carrito = ?";
+	        PreparedStatement sentenciaCarritoItems = conexion.prepareStatement(sqlCarritoItems);
+	        sentenciaCarritoItems.setInt(1, Login.datos_login.getIdUsuario()); 
+	        ResultSet carritoItems = sentenciaCarritoItems.executeQuery();
 
-      PreparedStatement sentencia = conexion.prepareStatement(sql);
-       sentencia.setInt(1, Login.datos_login.getIdUsuario()); 
-       
-        ResultSet productos = sentencia.executeQuery();
-        	
-        int row = 0;
-        int column = 0;
-		
-        while (productos.next()) {
-        AnchorPane producto = new AnchorPane();
-        producto.setPrefSize(450, 90);
-        producto.setStyle("-fx-background-color: FFFFFF;-fx-background-radius: 20;-fx-border-radius: 20;");
-        Listado.add(producto, column, row);
-        
-        System.out.println("Llego");
-        
-        
-        if (column == 2) {
-            column = 0;
-            row++;
-        } else {
-            column++;
-        }
-        GridPane.setVgrow(producto, javafx.scene.layout.Priority.ALWAYS);
-        	
-        	
-        }
-        
+	        int row = 0;
+
+	        
+	        while (carritoItems.next()) {
+	            int idProducto = carritoItems.getInt("id_plato"); 
+
+	           
+	            String sqlCarta = "SELECT c.id_producto, c.nombre, c.descripcion, c.precio, c.categoria, c.alergenos, c.peso, c.ruta, GROUP_CONCAT(a.nombre SEPARATOR ', ') AS alergenos "
+	                            + "FROM carta c "
+	                            + "LEFT JOIN carta_alergeno ca ON c.id_producto = ca.CARTA_ID "
+	                            + "LEFT JOIN alergeno a ON ca.ALERGENO_ID = a.ID "
+	                            + "WHERE c.id_producto = ? "
+	                            + "GROUP BY c.id_producto";
+
+	            PreparedStatement sentenciaCarta = conexion.prepareStatement(sqlCarta);
+	            sentenciaCarta.setInt(1, idProducto); 
+	            ResultSet productoDetalles = sentenciaCarta.executeQuery();
+
+	            if (productoDetalles.next()) {
+	                
+	                AnchorPane producto = new AnchorPane();
+	                producto.setPrefSize(450, 90);
+	                producto.setStyle("-fx-background-color: A6234E; -fx-background-radius: 20; -fx-border-radius: 20;-fx-border-color: FFFFFF");
+
+	              
+	                Label itemName = new Label(productoDetalles.getString("nombre"));
+	                itemName.setStyle("-fx-font-size: 14px; -fx-font-weight: bold; -fx-text-fill: white;");
+	                AnchorPane.setLeftAnchor(itemName, 10.0);
+	                AnchorPane.setTopAnchor(itemName, 10.0);
+	                producto.getChildren().add(itemName);
+
+	              
+	                Label priceLabel = new Label(productoDetalles.getDouble("precio") + " €");
+	                priceLabel.setStyle("-fx-font-size: 18px; -fx-font-weight: bold; -fx-text-fill: white;");
+	                AnchorPane.setRightAnchor(priceLabel, 10.0);
+	                AnchorPane.setTopAnchor(priceLabel, 10.0);
+	                producto.getChildren().add(priceLabel);
+
+	              /*
+	                Label descripcionLabel = new Label(productoDetalles.getString("descripcion"));
+	                descripcionLabel.setStyle("-fx-font-size: 12px; -fx-text-fill: white;");
+	                AnchorPane.setLeftAnchor(descripcionLabel, 10.0);
+	                AnchorPane.setTopAnchor(descripcionLabel, 30.0);
+	                producto.getChildren().add(descripcionLabel);*/
+
+	              
+	                Label alergenosLabel = new Label("Alérgenos: " + productoDetalles.getString("alergenos"));
+	                alergenosLabel.setStyle("-fx-font-size: 12px; -fx-text-fill: white;");
+	                AnchorPane.setLeftAnchor(alergenosLabel, 10.0);
+	                AnchorPane.setTopAnchor(alergenosLabel, 50.0);
+	                producto.getChildren().add(alergenosLabel);
+
+	             
+	                Button editButton = new Button();
+	                editButton.setStyle("-fx-background-color: transparent;"); 
+	                AnchorPane.setLeftAnchor(editButton, 10.0);
+	                AnchorPane.setBottomAnchor(editButton, 10.0);
+	                producto.getChildren().add(editButton);
+
+	            
+	                Button deleteButton = new Button();
+	                deleteButton.setStyle("-fx-background-color: transparent;"); 
+	               
+	                ImageView deleteIcon = new ImageView(new Image("/basura.png"));
+	                deleteIcon.setFitWidth(20);
+	                deleteIcon.setFitHeight(20); 
+	                deleteIcon.setPreserveRatio(true); 
+
+	             
+	                deleteButton.setGraphic(deleteIcon);
+
+	               
+	                AnchorPane.setRightAnchor(deleteButton, 10.0);
+	                AnchorPane.setBottomAnchor(deleteButton, 10.0);
+	                producto.getChildren().add(deleteButton);
+
+
+	               
+	                Listado.add(producto, 0, row);
+	                row++;
+	                GridPane.setVgrow(producto, javafx.scene.layout.Priority.ALWAYS);
+	            }
+	            
+	            productoDetalles.close();
+	       
+	            sentenciaCarta.close();
+	        }
+	      
+	        carritoItems.close();
+	    
+	        sentenciaCarritoItems.close();
+	    }
 	}
-}
+
 
 }
