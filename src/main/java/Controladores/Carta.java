@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.sql.Connection;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ResourceBundle;
 
@@ -76,59 +77,71 @@ public class Carta implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         Username.setText(Login.bannerusuario);
-        CargarCarta();
+        try {
+			CargarCarta();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
     }
 
-    public void CargarCarta() {
-        try (Connection conexion = util.Conexiones.dameConexion("burger-queen")) {
-            System.out.println("Iniciando");
-            String sql = "SELECT nombre, descripcion, precio, categoria, peso, ruta FROM carta";
+    public void CargarCarta() throws SQLException {
+    	try (Connection conexion = util.Conexiones.dameConexion("burger-queen")) {
+    	    System.out.println("Iniciando");
+    	    String sql = "SELECT nombre, descripcion, precio, categoria, peso, ruta FROM carta";
 
-            Statement sentencia = conexion.createStatement();
-            ResultSet productos = sentencia.executeQuery(sql);
+    	    Statement sentencia = conexion.createStatement();
+    	    ResultSet productos = sentencia.executeQuery(sql);
 
-            int row = 0;
-            int column = 0;
+    	    int row = 0;
+    	    int column = 0;
 
-            while (productos.next()) {
-                Producto productobjeto = new Producto();
-                productobjeto.setNombre(productos.getString("nombre"));
-                productobjeto.setPrecio(productos.getDouble("precio"));
-                productobjeto.setCategoria(productos.getString("categoria"));
-                productobjeto.setPeso(productos.getDouble("peso"));
-                productobjeto.setDescripcion(productos.getString("descripcion"));
-                productobjeto.setRuta(productos.getString("ruta"));
+    	    while (productos.next()) {
+    	        Producto productobjeto = new Producto();
+    	        productobjeto.setNombre(productos.getString("nombre"));
+    	        productobjeto.setPrecio(productos.getDouble("precio"));
+    	        productobjeto.setCategoria(productos.getString("categoria"));
+    	        productobjeto.setPeso(productos.getDouble("peso"));
+    	        productobjeto.setDescripcion(productos.getString("descripcion"));
+    	        productobjeto.setRuta(productos.getString("ruta"));
 
-                Button btnProducto = new Button();
-                VBox item = new VBox();
-                btnProducto.setPrefSize(100, 100);
-                btnProducto.setStyle("-fx-background-color: TRANSPARENT;");
-                ImageView imageView = new ImageView(new Image(getClass().getResourceAsStream("/" + productobjeto.getRuta())));
-                imageView.setFitHeight(100.0);
-                imageView.setFitWidth(100.0);
-                imageView.setPreserveRatio(true);
-                btnProducto.setGraphic(imageView);
+    	        Button btnProducto = new Button();
+    	        VBox item = new VBox();
+    	        btnProducto.setPrefSize(100, 100);
+    	        btnProducto.setStyle("-fx-background-color: TRANSPARENT;");
+    	        ImageView imageView = new ImageView(new Image(getClass().getResourceAsStream("/" + productobjeto.getRuta())));
+    	        imageView.setFitHeight(100.0);
+    	        imageView.setFitWidth(100.0);
+    	        imageView.setPreserveRatio(true);
+    	        btnProducto.setGraphic(imageView);
 
-                Text nombre = new Text(productobjeto.getNombre());
-                nombre.setWrappingWidth(100);
-                nombre.setTextAlignment(TextAlignment.CENTER);
+    	        Text nombre = new Text(productobjeto.getNombre());
+    	        nombre.setWrappingWidth(100);
+    	        nombre.setTextAlignment(TextAlignment.CENTER);
 
-                item.getChildren().addAll(btnProducto, nombre);
-                panel.add(item, column, row);
-                btnProducto.setOnAction(event -> mostrarItemFocus(productobjeto));
+    	        item.getChildren().addAll(btnProducto, nombre);
+    	        panel.add(item, column, row);
+    	        btnProducto.setOnAction(event -> mostrarItemFocus(productobjeto));
 
-                if (column == 2) {
-                    column = 0;
-                    row++;
-                } else {
-                    column++;
-                }
+    	        if (column == 2) {
+    	            column = 0;
+    	            row++;
+    	        } else {
+    	            column++;
+    	        }
 
-                GridPane.setVgrow(item, javafx.scene.layout.Priority.ALWAYS);
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+    	        GridPane.setVgrow(item, javafx.scene.layout.Priority.ALWAYS);
+    	    }
+
+    	   
+    	    if (column == 3) {
+    	        column = 0;
+    	        row++;
+    	    }
+    	    
+    	    
+    	}
+
     }
 
     public void Reserva() throws IOException {

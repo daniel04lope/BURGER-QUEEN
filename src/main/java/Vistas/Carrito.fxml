@@ -14,11 +14,11 @@
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="623.0" prefWidth="800.0" style="-fx-background-color: #D28383;" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controladores.Carrito">
    <children>
- <ScrollPane fitToHeight="false" fitToWidth="false" hbarPolicy="NEVER" layoutX="14.0" layoutY="80.0" prefHeight="295.0" prefWidth="476.0" style="-fx-background-color: TRANSPARENT;" vbarPolicy="ALWAYS">
+ <ScrollPane fitToHeight="false" fitToWidth="false" hbarPolicy="NEVER" layoutX="14.0" layoutY="80.0" prefHeight="264.0" prefWidth="476.0" style="-fx-background-color: transparent; -fx-background: transparent;" vbarPolicy="ALWAYS">
     <content>
         <AnchorPane minHeight="0.0" minWidth="0.0" style="-fx-background-color: #D28383;">
             <children>
-                <GridPane fx:id="Listado" prefWidth="466.0">
+                <GridPane fx:id="Listado" prefWidth="466.0" style="-fx-background-color: #D28383;">
                     <columnConstraints>
                         <ColumnConstraints hgrow="ALWAYS" minWidth="10.0" prefWidth="100.0" />
                     </columnConstraints>
@@ -73,7 +73,7 @@
       </Text>
       <AnchorPane layoutX="12.0" layoutY="389.0" prefHeight="200.0" prefWidth="484.0" style="-fx-background-color: A6234E; -fx-border-radius: 20; -fx-border-color: FFFFFF; -fx-background-radius: 20;">
          <children>
-                <Button id="Perfil" layoutX="24.0" layoutY="31.0" prefHeight="119.0" prefWidth="150.0" style="-fx-background-color: transparent;">
+                <Button id="Perfil" fx:id="Nugguest" layoutX="24.0" layoutY="31.0" prefHeight="119.0" prefWidth="150.0" style="-fx-background-color: transparent;">
                      <graphic>
                         <ImageView fitHeight="113.0" fitWidth="140.0" pickOnBounds="true" preserveRatio="true">
                            <image>
@@ -82,7 +82,7 @@
                         </ImageView>
                      </graphic>
                   </Button>
-            <Button id="Perfil" layoutX="180.0" layoutY="32.0" prefHeight="113.0" prefWidth="135.0" style="-fx-background-color: transparent;">
+            <Button id="Perfil" fx:id="Patatas" layoutX="180.0" layoutY="32.0" prefHeight="113.0" prefWidth="135.0" style="-fx-background-color: transparent;">
                <graphic>
                   <ImageView fitHeight="112.0" fitWidth="140.0" pickOnBounds="true" preserveRatio="true">
                      <image>
@@ -91,7 +91,7 @@
                   </ImageView>
                </graphic>
             </Button>
-            <Button id="Perfil" layoutX="336.0" layoutY="40.0" prefHeight="120.0" prefWidth="156.0" style="-fx-background-color: transparent;">
+            <Button id="Perfil" fx:id="Cocacola" layoutX="336.0" layoutY="40.0" prefHeight="120.0" prefWidth="156.0" style="-fx-background-color: transparent;">
                <graphic>
                   <ImageView fitHeight="112.0" fitWidth="140.0" pickOnBounds="true" preserveRatio="true">
                      <image>
@@ -137,7 +137,7 @@
               <content>
                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="184.0" prefWidth="237.0" style="-fx-background-color: #2F2F2F;">
                      <children>
-                        <GridPane layoutY="1.0" prefHeight="183.0" prefWidth="224.0">
+                        <GridPane fx:id="factura" layoutY="1.0" prefHeight="183.0" prefWidth="224.0">
                           <columnConstraints>
                             <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
                           </columnConstraints>

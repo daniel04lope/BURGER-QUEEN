@@ -73,6 +73,10 @@ public class Login {
                 } else {
                     System.out.println("No se encontró un usuario con el email especificado.");
                 }
+                if (nombreusuario.length()<15) {
+                    Login.bannerusuario = nombreusuario;}
+                	
+                	else {Login.bannerusuario= nombreusuario.substring(0, 12)+"...";}
 
             } catch (Exception e) {
                 e.printStackTrace();
@@ -80,11 +84,18 @@ public class Login {
 
             cerrar();
         } else if (verificarCredencialesUsuario(conexion, "empleados", emailString, passwordString)) {
-            Login.bannerusuario = nombreusuario;
+        	
+        	if (nombreusuario.length()<15) {
+            Login.bannerusuario = nombreusuario;}
+        	
+        	else {Login.bannerusuario= nombreusuario.substring(0, 12)+"...";}
             JOptionPane.showMessageDialog(null, "Login exitoso para el empleado: " + emailString);
             cerrar();
         } else if (verificarCredencialesUsuario(conexion, "administradores", emailString, passwordString)) {
-            Login.bannerusuario = nombreusuario;
+        	if (nombreusuario.length()<15) {
+                Login.bannerusuario = nombreusuario;}
+            	
+            	else {Login.bannerusuario= nombreusuario.substring(0, 12)+"...";}
             JOptionPane.showMessageDialog(null, "Login exitoso para el administrador: " + emailString);
             cerrar();
         } else {
