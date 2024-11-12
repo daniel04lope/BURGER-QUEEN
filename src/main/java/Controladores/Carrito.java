@@ -151,12 +151,14 @@ public class Carrito implements Initializable {
 	            int precio = carritoItems.getInt("precio_unitario");
 	            int iditem =carritoItems.getInt("id_item");
 	           
-	            String sqlCarta = "SELECT c.id_producto, c.nombre, c.descripcion, c.precio, c.categoria, c.alergenos, c.peso, c.ruta, GROUP_CONCAT(a.nombre SEPARATOR ', ') AS alergenos "
-	                            + "FROM carta c "
-	                            + "LEFT JOIN carta_alergeno ca ON c.id_producto = ca.CARTA_ID "
-	                            + "LEFT JOIN alergeno a ON ca.ALERGENO_ID = a.ID "
-	                            + "WHERE c.id_producto = ? "
-	                            + "GROUP BY c.id_producto";
+	            String sqlCarta = "SELECT c.id_producto, c.nombre, c.descripcion, c.precio, c.categoria, c.peso, c.ruta, " +
+	                    "GROUP_CONCAT(a.nombre SEPARATOR ', ') AS alergenos " +
+	                    "FROM carta c " +
+	                    "LEFT JOIN carta_alergeno ca ON c.id_producto = ca.CARTA_ID " +
+	                    "LEFT JOIN alergeno a ON ca.ALERGENO_ID = a.ID " +
+	                    "WHERE c.id_producto = ? " +
+	                    "GROUP BY c.id_producto";
+
 
 	            PreparedStatement sentenciaCarta = conexion.prepareStatement(sqlCarta);
 	            sentenciaCarta.setInt(1, idProducto); 
@@ -189,8 +191,8 @@ public class Carrito implements Initializable {
 	                AnchorPane.setTopAnchor(descripcionLabel, 30.0);
 	                producto.getChildren().add(descripcionLabel);*/
 
-	              
 	                Label alergenosLabel = new Label("Alérgenos: " + productoDetalles.getString("alergenos"));
+
 	                alergenosLabel.setStyle("-fx-font-size: 12px; -fx-text-fill: white;");
 	                AnchorPane.setLeftAnchor(alergenosLabel, 10.0);
 	                AnchorPane.setTopAnchor(alergenosLabel, 50.0);
