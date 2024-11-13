@@ -88,7 +88,7 @@ public class Carta implements Initializable {
     public void CargarCarta() throws SQLException {
     	try (Connection conexion = util.Conexiones.dameConexion("burger-queen")) {
     	    System.out.println("Iniciando");
-    	    String sql = "SELECT nombre, descripcion, precio, categoria, peso, ruta FROM carta";
+    	    String sql = "SELECT id_producto, nombre, descripcion, precio, categoria, peso, ruta FROM carta";
 
     	    Statement sentencia = conexion.createStatement();
     	    ResultSet productos = sentencia.executeQuery(sql);
@@ -98,6 +98,7 @@ public class Carta implements Initializable {
 
     	    while (productos.next()) {
     	        Producto productobjeto = new Producto();
+    	        productobjeto.setIdProducto(productos.getInt("id_producto"));
     	        productobjeto.setNombre(productos.getString("nombre"));
     	        productobjeto.setPrecio(productos.getDouble("precio"));
     	        productobjeto.setCategoria(productos.getString("categoria"));

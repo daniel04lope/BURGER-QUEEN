@@ -109,8 +109,8 @@
                   <padding>
                   <Insets bottom="20" left="20" right="20" top="20" />
                </padding>
-                  <TabPane prefHeight="235.0" prefWidth="453.0" style="-fx-background-color: #905D5D;">
-                      <Tab fx:id="DescripcionTab" style="-fx-text-fill: white; -fx-font-size: 16px; -fx-background-color: #905D5D;">
+                  <TabPane fx:id="tabla" prefHeight="235.0" prefWidth="453.0" style="-fx-background-color: #905D5D;">
+                      <Tab fx:id="DescripcionTab" closable="false" style="-fx-text-fill: white; -fx-font-size: 16px; -fx-background-color: #905D5D;">
                           <StackPane>
                
                                  <VBox spacing="10" style="-fx-background-color: #905D5D; -fx-border-width: 5;">
@@ -149,7 +149,7 @@
                            </VBox>
                           </StackPane>
                       </Tab>
-                      <Tab style="-fx-background-color: #905D5D; -fx-font-size: 16px; -fx-text-fill: white;" text="Complemento">
+                      <Tab closable="false" style="-fx-background-color: #905D5D; -fx-font-size: 16px; -fx-text-fill: white;" text="Complemento">
                           <StackPane>
                         <GridPane>
                           <columnConstraints>
@@ -233,7 +233,7 @@
                         </GridPane>
                           </StackPane>
                       </Tab>
-                      <Tab style="-fx-background-color: #905D5D; -fx-text-fill: white; -fx-font-size: 16px;" text="Bebida">
+                      <Tab closable="false" style="-fx-background-color: #905D5D; -fx-text-fill: white; -fx-font-size: 16px;" text="Bebida">
                           <StackPane>
                         <children>
                            <GridPane>
@@ -303,7 +303,7 @@
                                        <Image url="@/Cocacola_zero.png" />
                                     </image>
                                  </ImageView>
-                                 <RadioButton fx:id="Pepsi" mnemonicParsing="false" onAction="#bebida" text="Cocacola Zero" textFill="WHITE" toggleGroup="$complemento1" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                                 <RadioButton fx:id="CcZero" mnemonicParsing="false" onAction="#bebida" text="Cocacola Zero" textFill="WHITE" toggleGroup="$complemento1" GridPane.columnIndex="1" GridPane.rowIndex="1">
                                     <GridPane.margin>
                                        <Insets left="100.0" />
                                     </GridPane.margin>
@@ -318,7 +318,7 @@
                       </Tab>
                   </TabPane>
       
-                        <Button fx:id="Carrito" defaultButton="true" style="-fx-background-color: #F980A9; -fx-text-fill: white; -fx-font-size: 18px; -fx-border-radius: 5px; -fx-border-color: white;" text="Añadir a mi pedido " textAlignment="CENTER" textFill="WHITE">
+                        <Button fx:id="Carrito" defaultButton="true" onAction="#metercarrito" style="-fx-background-color: #F980A9; -fx-text-fill: white; -fx-font-size: 18px; -fx-border-radius: 5px; -fx-border-color: white;" text="Añadir a mi pedido " textAlignment="CENTER" textFill="WHITE">
                   <font>
                      <Font name="Insaniburger with Cheese" size="18.0" />
                   </font>
@@ -340,7 +340,7 @@
                         <Font name="Insaniburger" size="40.0" />
                      </font>
                   </Text>
-                  <Button id="Carrito" layoutX="10.0" layoutY="13.0" minWidth="53.0" prefHeight="65.0" prefWidth="40.0" style="-fx-background-color: transparent;" translateX="-13.0">
+                  <Button id="Carrito" layoutX="10.0" layoutY="13.0" minWidth="53.0" onAction="#carrito" prefHeight="65.0" prefWidth="40.0" style="-fx-background-color: transparent;" translateX="-13.0">
                      <graphic>
                         <ImageView fitHeight="48.0" fitWidth="53.0" pickOnBounds="true" preserveRatio="true">
                            <image>

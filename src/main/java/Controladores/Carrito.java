@@ -72,7 +72,16 @@ public class Carrito implements Initializable {
 		// TODO Auto-generated method stub
 		Username.setText(Login.bannerusuario);
 		
+		
+		  
 		Nugguest.setOnAction(event -> {
+			
+
+			   if (Login.datos_login.getIdUsuario() == 0) {
+		            Mostrar_Login();
+		               
+			   }
+			   else {
 			
 			try (Connection conexion = util.Conexiones.dameConexion("burger-queen")){
 				PreparedStatement sentencia = conexion.prepareStatement("INSERT INTO carrito_items(id_carrito, id_plato, cantidad, precio_unitario) VALUES (?,43,1,2)");
@@ -85,11 +94,18 @@ public class Carrito implements Initializable {
 				e.printStackTrace();
 			}
 			
-		});
+		}});
 		
+		   
 		
 		Cocacola.setOnAction(event -> {
 			
+			if (Login.datos_login.getIdUsuario() == 0) {
+	            Mostrar_Login();
+	               
+		   }
+			
+			else {
 			try (Connection conexion = util.Conexiones.dameConexion("burger-queen")){
 				PreparedStatement sentencia = conexion.prepareStatement("INSERT INTO carrito_items(id_carrito, id_plato, cantidad, precio_unitario) VALUES (?,44,1,5)");
 				sentencia.setInt(1, Login.datos_login.getIdUsuario());
@@ -102,9 +118,16 @@ public class Carrito implements Initializable {
 				e.printStackTrace();
 			}
 			
-		});
+		}});
 		
 		Patatas.setOnAction(event ->{
+
+			if (Login.datos_login.getIdUsuario() == 0) {
+	            Mostrar_Login();
+	               
+		   }
+			else {
+			
 			try (Connection conexion = util.Conexiones.dameConexion("burger-queen")){
 				PreparedStatement sentencia = conexion.prepareStatement("INSERT INTO carrito_items(id_carrito, id_plato, cantidad, precio_unitario) VALUES (?,45,1,1)");
 				sentencia.setInt(1, Login.datos_login.getIdUsuario());
@@ -116,9 +139,9 @@ public class Carrito implements Initializable {
 				e.printStackTrace();
 			}
 			
-		});	
+		}});	
 			
-			
+		   
 		
 		
 		
@@ -148,7 +171,7 @@ public class Carrito implements Initializable {
 	        
 	        while (carritoItems.next()) {
 	            int idProducto = carritoItems.getInt("id_plato"); 
-	            int precio = carritoItems.getInt("precio_unitario");
+	            Double precio = carritoItems.getDouble("precio_unitario");
 	            int iditem =carritoItems.getInt("id_item");
 	           
 	            String sqlCarta = "SELECT c.id_producto, c.nombre, c.descripcion, c.precio, c.categoria, c.peso, c.ruta, " +
@@ -267,7 +290,7 @@ public class Carrito implements Initializable {
 	
 	public void Factura() throws SQLException {
 	    factura.getChildren().clear(); 
-	    int total = 0; 
+	    Double total = 0.0; 
 	    int facturaRow = 0;
 
 	    try (Connection conexion = util.Conexiones.dameConexion("burger-queen")) {
@@ -279,7 +302,7 @@ public class Carrito implements Initializable {
 	  
 	        while (carritoItems.next()) {
 	            int idProducto = carritoItems.getInt("id_plato");
-	            int precio = carritoItems.getInt("precio_unitario");
+	            Double precio = carritoItems.getDouble("precio_unitario");
 	            total += precio; 
 
 	           
