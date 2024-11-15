@@ -114,4 +114,18 @@ public class Pantalla_principal implements Initializable {
         }
     	
     }
+    
+    
+    public void Gestion_usuarios() throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/Vistas/Gestion_usuarios.fxml"));
+        Pane registro = loader.load();
+        Scene loginScene = new Scene(registro, 600, 500);
+        loginScene.setFill(Color.TRANSPARENT);
+        Stage loginStage = new Stage();
+        loginStage.initStyle(StageStyle.DECORATED);
+        loginStage.setScene(loginScene);
+        loginStage.setTitle("Reservas");
+        loginStage.show();
+        cerrar();  
+    }
 }

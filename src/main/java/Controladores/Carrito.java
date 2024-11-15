@@ -1,6 +1,7 @@
 package Controladores;
 
 import java.io.IOException;
+
 import java.net.URL;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -177,7 +178,7 @@ public class Carrito implements Initializable {
 	        sentenciaObtenerCarrito.close();
 
 	        // Obtener los ítems del carrito
-	        String sqlCarritoItems = "SELECT id_plato, precio_unitario, id_item FROM carrito_items WHERE id_carrito = ?";
+	        String sqlCarritoItems = "SELECT id_plato, precio_unitario, id_item, Detalles FROM carrito_items WHERE id_carrito = ?";
 	        PreparedStatement sentenciaCarritoItems = conexion.prepareStatement(sqlCarritoItems);
 	        sentenciaCarritoItems.setInt(1, idCarrito);
 	        ResultSet carritoItems = sentenciaCarritoItems.executeQuery();
@@ -188,6 +189,7 @@ public class Carrito implements Initializable {
 	            int idProducto = carritoItems.getInt("id_plato");
 	            double precio = carritoItems.getDouble("precio_unitario");
 	            int idItem = carritoItems.getInt("id_item");
+	            String Detalles = carritoItems.getString("Detalles");
 
 	            // Obtener los detalles del producto
 	            String sqlCarta = "SELECT c.id_producto, c.nombre, c.descripcion, c.precio, c.categoria, c.peso, c.ruta, " +
@@ -205,7 +207,7 @@ public class Carrito implements Initializable {
 	                producto.setStyle("-fx-background-color: A6234E; -fx-background-radius: 20; -fx-border-radius: 20;-fx-border-color: FFFFFF");
 
 	                // Nombre del producto
-	                Label nombreProducto = new Label(productoDetalles.getString("nombre"));
+	                Label nombreProducto = new Label(productoDetalles.getString("nombre")+Detalles);
 	                nombreProducto.setStyle("-fx-font-size: 14px; -fx-font-weight: bold; -fx-text-fill: white;");
 	                AnchorPane.setLeftAnchor(nombreProducto, 10.0);
 	                AnchorPane.setTopAnchor(nombreProducto, 10.0);

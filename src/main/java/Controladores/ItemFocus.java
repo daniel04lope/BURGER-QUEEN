@@ -5,6 +5,7 @@ import java.net.URL;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ResourceBundle;
 
@@ -81,9 +82,10 @@ public class ItemFocus implements Initializable {
     private double precioBase;
     private double precioTotal;
     private int cantExtras;
-    private String tipoExtra;
-    private String complemento;
-    private String bebida;
+    static String tipoExtra;
+    
+    private Producto complemento;
+    private Producto bebida;
     
     public void Despliega() {
     	System.out.println("Funciona");
@@ -126,32 +128,54 @@ public class ItemFocus implements Initializable {
         this.producto = producto;
         this.precioBase = producto.getPrecio();
         this.precioTotal = precioBase;
-        Pclasica.setSelected(true);
-        complemento = "Patatas clasicas";
-        System.out.println(complemento);        
-        Cocacola.setSelected(true);
-        bebida = "Cocacola";
-        System.out.println(bebida);
+        
         
         cargarProducto();
     }
 
-    private void cargarProducto() {
+  private void cargarProducto() {
+    	
+    	
+    	
         if (producto != null) {
         	 Nombre.setText(producto.getNombre());
              Descripcion.setText(producto.getDescripcion());
              DescripcionTab.setText(producto.getNombre());
+             
              actualizarBotonPedido();
              imagen.setImage(new Image(getClass().getResourceAsStream("/" + producto.getRuta())));
+              
+             
         }
-        
-        if ("bebida".equals(producto.getCategoria())) {
+        if ("Bebida".equals(producto.getCategoria())) {
             tabla.getTabs().remove(DescripcionTab);
         }
         
         
         
-        System.out.println(producto.getCategoria());
+    }
+    
+    public void carrito () throws IOException {
+    	try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/Vistas/Carrito.fxml"));
+            AnchorPane itemFocusPane = loader.load();
+
+          
+           
+
+            Stage itemFocusStage = new Stage();
+            itemFocusStage.initStyle(StageStyle.TRANSPARENT);
+            itemFocusStage.initModality(Modality.APPLICATION_MODAL);
+            Scene scene = new Scene(itemFocusPane, 800, 623);
+            itemFocusStage.setScene(scene);
+
+            itemFocusStage.setTitle("DETALLES DEL PRODUCTO");
+
+            itemFocusStage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    	
     }
     
     private void actualizarBotonPedido() {
@@ -163,59 +187,183 @@ public class ItemFocus implements Initializable {
     	if(cantExtras < 1) {
     		precioTotal += 1.20;
             cantExtras++;
-            tipoExtra = "Extra queso + bacon";
+            tipoExtra = " + Extra queso + bacon";
             actualizarBotonPedido();
     	}        
     }
     
-    @FXML
-    private void complemento(ActionEvent event) {
-    	if(Npollo.isSelected()) {
-    		complemento = "Nuggets de pollo";
-    	} else if(Acebolla.isSelected()) {
-    		complemento = "Aros de cebolla";
-    	} else if(Psupreme.isSelected()) {
-    		complemento = "Patatas supreme";
-    	} else if(Pclasica.isSelected()) {
-    		complemento = "Patatas clasicas";
-    	}
-    	
-    	System.out.println(complemento);
+    public void complemento(ActionEvent event) throws SQLException {
+        
+        if (complemento == null) {
+            complemento = new Producto(); 
+        }
+        
+        
+
+        try (Connection conexioncomplementos = util.Conexiones.dameConexion("burger-queen")) {
+            PreparedStatement sentenciacomplementos = conexioncomplementos.prepareStatement("SELECT id_producto, nombre, descripcion, precio, categoria, peso FROM carta WHERE id_producto = ?");
+
+            ResultSet ejecutar = null;
+
+            if (Npollo.isSelected()) {
+                sentenciacomplementos.setInt(1, 43);
+                ejecutar = sentenciacomplementos.executeQuery();
+            } else if (Acebolla.isSelected()) {
+                sentenciacomplementos.setInt(1, 46);
+                ejecutar = sentenciacomplementos.executeQuery();
+            } else if (Psupreme.isSelected()) {
+                sentenciacomplementos.setInt(1, 48);
+                ejecutar = sentenciacomplementos.executeQuery();
+            } else if (Pclasica.isSelected()) {
+                sentenciacomplementos.setInt(1, 47);
+                ejecutar = sentenciacomplementos.executeQuery();
+            }
+
+            if (ejecutar.next()) {
+                complemento.setIdProducto(ejecutar.getInt("id_producto"));
+                complemento.setNombre(ejecutar.getString("nombre"));
+                complemento.setPrecio(ejecutar.getDouble("precio"));
+                complemento.setDescripcion(ejecutar.getString("descripcion"));
+                complemento.setPeso(ejecutar.getDouble("peso"));
+                complemento.setCategoria(ejecutar.getString("categoria"));
+            }
+        }
+        System.out.println(complemento.getNombre());
     }
+
     
     @FXML
-    private void bebida(ActionEvent event) {
+    public void bebida(ActionEvent event) throws SQLException {
+    	
+    	
+
+        if (bebida == null) {
+            bebida = new Producto(); 
+        }
+        
+        
+
+        try (Connection conexioncomplementos = util.Conexiones.dameConexion("burger-queen")) {
+            PreparedStatement sentenciacomplementos = conexioncomplementos.prepareStatement("SELECT id_producto, nombre, descripcion, precio, categoria, peso FROM carta WHERE id_producto = ?");
+
+            ResultSet ejecutar = null;
     	if(Cocacola.isSelected()) {
-    		bebida = "Cocacola";
+    		 sentenciacomplementos.setInt(1, 44);
+    		 ejecutar = sentenciacomplementos.executeQuery();
     	} else if(Fanta.isSelected()) {
-    		bebida = "Fanta de naranja";
+    		 sentenciacomplementos.setInt(1, 49);
+    		 ejecutar = sentenciacomplementos.executeQuery();
+    		
     	} else if(Nestea.isSelected()) {
-    		bebida = "Nestea";
+    		 sentenciacomplementos.setInt(1, 50);
+    		 ejecutar = sentenciacomplementos.executeQuery();
+    		
     	} else if(CcZero.isSelected()) {
-    		bebida = "Cocacola Zero";
+    		 sentenciacomplementos.setInt(1, 51);
+    		 ejecutar = sentenciacomplementos.executeQuery();
+    		
     	}
     	
-    	System.out.println(bebida);
+
+        if (ejecutar.next()) {
+            bebida.setIdProducto(ejecutar.getInt("id_producto"));
+            bebida.setNombre(ejecutar.getString("nombre"));
+            bebida.setPrecio(ejecutar.getDouble("precio"));
+            bebida.setDescripcion(ejecutar.getString("descripcion"));
+            bebida.setPeso(ejecutar.getDouble("peso"));
+            bebida.setCategoria(ejecutar.getString("categoria"));
+        }
+       
+        System.out.println(bebida.getNombre());
+        }
+        
+        
+    	
     }
     
     @FXML
     private void aniadirextra1B(ActionEvent event) {
     	if(cantExtras < 1) {
-    		precioTotal += 1;
+    		precioTotal += 1.20;
             cantExtras++;
-            tipoExtra = "Extra Bacon";
+           
+            tipoExtra = " + Extra Bacon";
             actualizarBotonPedido();
     	}   
     }
     
+    
+    public void metercarrito() throws SQLException {
+        if (Login.datos_login.getIdUsuario() == 0) {
+            Mostrar_Login();
+        } else {
+            try (Connection conexion = util.Conexiones.dameConexion("burger-queen")) {
+                
+                PreparedStatement sentencia = conexion.prepareStatement(
+                    "SELECT id_producto, nombre, descripcion, precio, categoria, peso FROM carta WHERE id_producto = ?");
+                sentencia.setInt(1, producto.getIdProducto());
+
+                ResultSet resultado = sentencia.executeQuery();
+
+                if (resultado.next()) {
+                    PreparedStatement insertaproductobase = conexion.prepareStatement(
+                        "INSERT INTO carrito_items (id_carrito, id_plato, cantidad, precio_unitario, Detalles) VALUES (?,?,?,?,?)");
+                    insertaproductobase.setInt(1, Login.datos_login.getIdUsuario());
+                    insertaproductobase.setInt(2, resultado.getInt("id_producto"));
+                    insertaproductobase.setInt(3, 1);
+                    insertaproductobase.setDouble(4, precioTotal);
+                    insertaproductobase.setString(5, tipoExtra);
+
+                    int ejecutainsertar = insertaproductobase.executeUpdate();
+                    System.out.println("Producto base añadido al carrito con éxito.");
+                }
+
+              
+                if (complemento != null) {
+                    PreparedStatement insertacomplemento = conexion.prepareStatement(
+                        "INSERT INTO carrito_items (id_carrito, id_plato, cantidad, precio_unitario, Detalles) VALUES (?,?,?,?,?)");
+                    insertacomplemento.setInt(1, Login.datos_login.getIdUsuario());
+                    insertacomplemento.setInt(2, complemento.getIdProducto());
+                    insertacomplemento.setInt(3, 1); 
+                    insertacomplemento.setDouble(4, complemento.getPrecio()); 
+                    insertacomplemento.setString(5, "");
+
+                    int ejecutarInsertComplemento = insertacomplemento.executeUpdate();
+                    System.out.println("Complemento añadido al carrito con éxito.");
+                }
+                
+                
+                if (bebida != null) {
+                    PreparedStatement insertacomplemento = conexion.prepareStatement(
+                        "INSERT INTO carrito_items (id_carrito, id_plato, cantidad, precio_unitario, Detalles) VALUES (?,?,?,?,?)");
+                    insertacomplemento.setInt(1, Login.datos_login.getIdUsuario());
+                    insertacomplemento.setInt(2, bebida.getIdProducto());
+                    insertacomplemento.setInt(3, 1); 
+                    insertacomplemento.setDouble(4, bebida.getPrecio()); 
+                    insertacomplemento.setString(5, "");
+
+                    int ejecutarInsertComplemento = insertacomplemento.executeUpdate();
+                    System.out.println("Complemento añadido al carrito con éxito.");
+                }
+            }
+        }
+    }
     @FXML
     private void aniadirextra1Q() {
     	if(cantExtras < 1) {
-    		precioTotal += 1;
+    		precioTotal += 1.20;
             cantExtras++;
-            tipoExtra = "Extra Queso";
+            tipoExtra = " + Extra Queso";
             actualizarBotonPedido();
     	}   
+    }
+    
+    
+    public void sinextras() {
+    	precioTotal -= 1.20;
+    	cantExtras--;
+    	tipoExtra="";
+    	actualizarBotonPedido();
     }
     
     public void Carta() throws IOException {
