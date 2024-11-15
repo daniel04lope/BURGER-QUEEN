@@ -160,133 +160,120 @@ public class Carrito implements Initializable {
 	
 	public void Muestra_productos() throws SQLException {
 	    try (Connection conexion = util.Conexiones.dameConexion("burger-queen")) {
-	       
-	        String sqlCarritoItems = "SELECT id_plato,precio_unitario,id_item FROM carrito_items WHERE id_carrito = ?";
+	        
+	        // Obtener el ID del carrito asociado al usuario
+	        String sqlObtenerCarrito = "SELECT id_carrito FROM carrito WHERE id_cliente = ? AND estado = 'pendiente'";
+	        PreparedStatement sentenciaObtenerCarrito = conexion.prepareStatement(sqlObtenerCarrito);
+	        sentenciaObtenerCarrito.setInt(1, Login.datos_login.getIdUsuario());
+	        ResultSet resultadoCarrito = sentenciaObtenerCarrito.executeQuery();
+
+	        if (!resultadoCarrito.next()) {
+	            System.out.println("No se encontró un carrito pendiente para el usuario.");
+	            return;
+	        }
+
+	        int idCarrito = resultadoCarrito.getInt("id_carrito");
+	        resultadoCarrito.close();
+	        sentenciaObtenerCarrito.close();
+
+	        // Obtener los ítems del carrito
+	        String sqlCarritoItems = "SELECT id_plato, precio_unitario, id_item FROM carrito_items WHERE id_carrito = ?";
 	        PreparedStatement sentenciaCarritoItems = conexion.prepareStatement(sqlCarritoItems);
-	        sentenciaCarritoItems.setInt(1, Login.datos_login.getIdUsuario()); 
+	        sentenciaCarritoItems.setInt(1, idCarrito);
 	        ResultSet carritoItems = sentenciaCarritoItems.executeQuery();
 
 	        int row = 0;
 
-	        
 	        while (carritoItems.next()) {
-	            int idProducto = carritoItems.getInt("id_plato"); 
-	            Double precio = carritoItems.getDouble("precio_unitario");
-	            int iditem =carritoItems.getInt("id_item");
-	           
+	            int idProducto = carritoItems.getInt("id_plato");
+	            double precio = carritoItems.getDouble("precio_unitario");
+	            int idItem = carritoItems.getInt("id_item");
+
+	            // Obtener los detalles del producto
 	            String sqlCarta = "SELECT c.id_producto, c.nombre, c.descripcion, c.precio, c.categoria, c.peso, c.ruta, " +
-	                    "GROUP_CONCAT(a.nombre SEPARATOR ', ') AS alergenos " +
+	                    "c.alergenos " +
 	                    "FROM carta c " +
-	                    "LEFT JOIN carta_alergeno ca ON c.id_producto = ca.CARTA_ID " +
-	                    "LEFT JOIN alergeno a ON ca.ALERGENO_ID = a.ID " +
-	                    "WHERE c.id_producto = ? " +
-	                    "GROUP BY c.id_producto";
-
-
+	                    "WHERE c.id_producto = ?";
 	            PreparedStatement sentenciaCarta = conexion.prepareStatement(sqlCarta);
-	            sentenciaCarta.setInt(1, idProducto); 
+	            sentenciaCarta.setInt(1, idProducto);
 	            ResultSet productoDetalles = sentenciaCarta.executeQuery();
 
 	            if (productoDetalles.next()) {
-	                
+	                // Crear el panel del producto
 	                AnchorPane producto = new AnchorPane();
 	                producto.setPrefSize(450, 90);
 	                producto.setStyle("-fx-background-color: A6234E; -fx-background-radius: 20; -fx-border-radius: 20;-fx-border-color: FFFFFF");
 
-	              
-	                Label Nombredelobjeto = new Label(productoDetalles.getString("nombre"));
-	                Nombredelobjeto.setStyle("-fx-font-size: 14px; -fx-font-weight: bold; -fx-text-fill: white;");
-	                AnchorPane.setLeftAnchor(Nombredelobjeto, 10.0);
-	                AnchorPane.setTopAnchor(Nombredelobjeto, 10.0);
-	                producto.getChildren().add(Nombredelobjeto);
+	                // Nombre del producto
+	                Label nombreProducto = new Label(productoDetalles.getString("nombre"));
+	                nombreProducto.setStyle("-fx-font-size: 14px; -fx-font-weight: bold; -fx-text-fill: white;");
+	                AnchorPane.setLeftAnchor(nombreProducto, 10.0);
+	                AnchorPane.setTopAnchor(nombreProducto, 10.0);
+	                producto.getChildren().add(nombreProducto);
 
-	              
-	                Label precioetiqueta = new Label(precio + " €");
-	                precioetiqueta.setStyle("-fx-font-size: 18px; -fx-font-weight: bold; -fx-text-fill: white;");
-	                AnchorPane.setRightAnchor(precioetiqueta, 10.0);
-	                AnchorPane.setTopAnchor(precioetiqueta, 10.0);
-	                producto.getChildren().add(precioetiqueta);
+	                // Precio
+	                Label precioEtiqueta = new Label(precio + " €");
+	                precioEtiqueta.setStyle("-fx-font-size: 18px; -fx-font-weight: bold; -fx-text-fill: white;");
+	                AnchorPane.setRightAnchor(precioEtiqueta, 10.0);
+	                AnchorPane.setTopAnchor(precioEtiqueta, 10.0);
+	                producto.getChildren().add(precioEtiqueta);
 
-	              /*
-	                Label descripcionLabel = new Label(productoDetalles.getString("descripcion"));
-	                descripcionLabel.setStyle("-fx-font-size: 12px; -fx-text-fill: white;");
-	                AnchorPane.setLeftAnchor(descripcionLabel, 10.0);
-	                AnchorPane.setTopAnchor(descripcionLabel, 30.0);
-	                producto.getChildren().add(descripcionLabel);*/
-
-	                Label alergenosLabel = new Label("Alérgenos: " + productoDetalles.getString("alergenos"));
-
+	                // Alérgenos
+	                String alergenos = productoDetalles.getString("alergenos");
+	                Label alergenosLabel = new Label("Alérgenos: " + (alergenos != null ? alergenos : "Ninguno"));
 	                alergenosLabel.setStyle("-fx-font-size: 12px; -fx-text-fill: white;");
 	                AnchorPane.setLeftAnchor(alergenosLabel, 10.0);
 	                AnchorPane.setTopAnchor(alergenosLabel, 50.0);
 	                producto.getChildren().add(alergenosLabel);
 
-	          
+	                // Botón de borrar
+	                Button botonBorrar = new Button();
+	                botonBorrar.setStyle("-fx-background-color: transparent;");
+	                ImageView iconoBorrar = new ImageView(new Image("/basura.png"));
+	                iconoBorrar.setFitWidth(20);
+	                iconoBorrar.setFitHeight(20);
+	                iconoBorrar.setPreserveRatio(true);
+	                botonBorrar.setGraphic(iconoBorrar);
 
-	            
-	                Button botondeborrar = new Button();
-	                botondeborrar.setStyle("-fx-background-color: transparent;"); 
-	               
-	                ImageView iconodeborrar = new ImageView(new Image("/basura.png"));
-	                iconodeborrar.setFitWidth(20);
-	                iconodeborrar.setFitHeight(20); 
-	                iconodeborrar.setPreserveRatio(true); 
-
-	             
-	                botondeborrar.setGraphic(iconodeborrar);
-
-	               
-	                	
-
-	               
-	                botondeborrar.setUserData(iditem);
-
-	               
-	                botondeborrar.setOnAction(event -> {
-	                    int idProductoEliminar = (int) botondeborrar.getUserData();
-	                    Connection conexioneliminar = util.Conexiones.dameConexion("burger-queen");
-	                    try {
-	                      
-	                        PreparedStatement sentenciaEliminar = conexioneliminar.prepareStatement(
-	                                "DELETE FROM `burger-queen`.`carrito_items` WHERE id_item = ? AND id_carrito = ?");
-	                        sentenciaEliminar.setInt(1, idProductoEliminar);
-	                        sentenciaEliminar.setInt(2, Login.datos_login.getIdUsuario());
+	                botonBorrar.setUserData(idItem);
+	                botonBorrar.setOnAction(event -> {
+	                    int idItemEliminar = (int) botonBorrar.getUserData();
+	                    try (Connection conexionEliminar = util.Conexiones.dameConexion("burger-queen")) {
+	                        PreparedStatement sentenciaEliminar = conexionEliminar.prepareStatement(
+	                                "DELETE FROM carrito_items WHERE id_item = ?");
+	                        sentenciaEliminar.setInt(1, idItemEliminar);
 	                        int resultado = sentenciaEliminar.executeUpdate();
 
 	                        if (resultado > 0) {
 	                            System.out.println("Producto eliminado del carrito con éxito.");
-	                           
 	                            Listado.getChildren().clear();
-	                            Muestra_productos(); 
+	                            Muestra_productos();
 	                            Factura();
-	                            
 	                        }
 	                    } catch (SQLException e) {
 	                        e.printStackTrace();
 	                    }
 	                });
-	               
-	                AnchorPane.setRightAnchor(botondeborrar, 10.0);
-	                AnchorPane.setBottomAnchor(botondeborrar, 10.0);
-	                producto.getChildren().add(botondeborrar);
-	                
 
-	               
+	                AnchorPane.setRightAnchor(botonBorrar, 10.0);
+	                AnchorPane.setBottomAnchor(botonBorrar, 10.0);
+	                producto.getChildren().add(botonBorrar);
+
+	                // Agregar el producto al listado
 	                Listado.add(producto, 0, row);
 	                row++;
 	                GridPane.setVgrow(producto, javafx.scene.layout.Priority.ALWAYS);
 	            }
-	            
+
 	            productoDetalles.close();
-	       
 	            sentenciaCarta.close();
 	        }
-	      
+
 	        carritoItems.close();
-	    
 	        sentenciaCarritoItems.close();
 	    }
 	}
+
 	
 	public void Factura() throws SQLException {
 	    factura.getChildren().clear(); 

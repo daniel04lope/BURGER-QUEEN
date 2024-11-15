@@ -303,7 +303,7 @@
                                        <Image url="@/Cocacola_zero.png" />
                                     </image>
                                  </ImageView>
-                                 <RadioButton fx:id="CcZero" mnemonicParsing="false" onAction="#bebida" text="Cocacola Zero" textFill="WHITE" toggleGroup="$complemento1" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                                 <RadioButton fx:id="Pepsi" mnemonicParsing="false" onAction="#bebida" text="Cocacola Zero" textFill="WHITE" toggleGroup="$complemento1" GridPane.columnIndex="1" GridPane.rowIndex="1">
                                     <GridPane.margin>
                                        <Insets left="100.0" />
                                     </GridPane.margin>
@@ -318,12 +318,20 @@
                       </Tab>
                   </TabPane>
       
-                        <Button fx:id="Carrito" defaultButton="true" onAction="#metercarrito" style="-fx-background-color: #F980A9; -fx-text-fill: white; -fx-font-size: 18px; -fx-border-radius: 5px; -fx-border-color: white;" text="Añadir a mi pedido " textAlignment="CENTER" textFill="WHITE">
+                        <Button fx:id="Carrito" defaultButton="true" style="-fx-background-color: #F980A9; -fx-text-fill: white; -fx-font-size: 18px; -fx-border-radius: 5px; -fx-border-color: white;" text="Añadir a mi pedido " textAlignment="CENTER" textFill="WHITE">
                   <font>
-                     <Font name="Insaniburger with Cheese" size="18.0" />
+                     <Font name="Insaniburger" size="21.0" />
                   </font>
                </Button>
                <Button fx:id="modificar" mnemonicParsing="false" prefHeight="50.0" prefWidth="136.0" style="-fx-background-color: yellow; -fx-border-radius: 10px;" text="Modificar" visible="false" />
+               <Button fx:id="Modificar" mnemonicParsing="false" onAction="#mostrarModificaProducto" style="-fx-background-color: gold; -fx-border-color: white; -fx-border-radius: 5px; -fx-background-radius: 5px;" text="Modificar" textFill="WHITE">
+                  <font>
+                     <Font name="Insaniburger" size="21.0" />
+                  </font></Button>
+               <Button fx:id="Eliminar" mnemonicParsing="false" onAction="#eliminaProducto" prefHeight="49.0" prefWidth="134.0" style="-fx-background-color: red; -fx-border-color: white; -fx-border-radius: 5px; -fx-background-radius: 10px;" text="Eliminar" textFill="WHITE">
+                  <font>
+                     <Font name="Insaniburger" size="21.0" />
+                  </font></Button>
                <Button fx:id="Eliminar" mnemonicParsing="false" prefHeight="64.0" prefWidth="137.0" style="-fx-background-color: Red; -fx-text-fill: white;" text="Eliminar" visible="false" />
               </VBox>
           </center>
@@ -340,7 +348,7 @@
                         <Font name="Insaniburger" size="40.0" />
                      </font>
                   </Text>
-                  <Button id="Carrito" layoutX="10.0" layoutY="13.0" minWidth="53.0" onAction="#carrito" prefHeight="65.0" prefWidth="40.0" style="-fx-background-color: transparent;" translateX="-13.0">
+                  <Button id="Carrito" layoutX="10.0" layoutY="13.0" minWidth="53.0" prefHeight="65.0" prefWidth="40.0" style="-fx-background-color: transparent;" translateX="-13.0">
                      <graphic>
                         <ImageView fitHeight="48.0" fitWidth="53.0" pickOnBounds="true" preserveRatio="true">
                            <image>
@@ -362,7 +370,7 @@
             </HBox>
          </top>
       </BorderPane>
-      <Button fx:id="Cerrar" layoutX="86.0" layoutY="7.0" mnemonicParsing="false" onAction="#cerrar" prefHeight="45.0" prefWidth="61.0" style="-fx-background-color: #D28383;                 -fx-border-color: #FFFFFF;                 -fx-border-radius: 22.5px;                 -fx-background-radius: 22.5px;" text="←">
+      <Button fx:id="Cerrar" layoutX="86.0" layoutY="7.0" mnemonicParsing="false" onAction="#cerrar" prefHeight="57.0" prefWidth="66.0" style="-fx-background-color: #D28383;                 -fx-border-color: #FFFFFF;                 -fx-border-radius: 22.5px;                 -fx-background-radius: 22.5px;" text="←">
          <font>
             <Font name="Insaniburger" size="25.3" />
          </font>

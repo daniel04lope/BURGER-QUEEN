@@ -5,7 +5,6 @@ import java.io.IOException;
 import java.net.URL;
 import java.sql.Connection;
 import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ResourceBundle;
 
@@ -77,18 +76,13 @@ public class Carta implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         Username.setText(Login.bannerusuario);
-        try {
-			CargarCarta();
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+        CargarCarta();
     }
 
-    public void CargarCarta() throws SQLException {
-    	try (Connection conexion = util.Conexiones.dameConexion("burger-queen")) {
-    	    System.out.println("Iniciando");
-    	    String sql = "SELECT id_producto, nombre, descripcion, precio, categoria, peso, ruta FROM carta";
+    public void CargarCarta() {
+        try (Connection conexion = util.Conexiones.dameConexion("burger-queen")) {
+            System.out.println("Iniciando");
+            String sql = "SELECT id_producto, nombre, descripcion, precio, categoria, peso, alergenos, ruta FROM carta";
 
     	    Statement sentencia = conexion.createStatement();
     	    ResultSet productos = sentencia.executeQuery(sql);
@@ -103,49 +97,88 @@ public class Carta implements Initializable {
     	        productobjeto.setPrecio(productos.getDouble("precio"));
     	        productobjeto.setCategoria(productos.getString("categoria"));
     	        productobjeto.setPeso(productos.getDouble("peso"));
+    	        productobjeto.setAlergenos(productos.getString("alergenos"));
     	        productobjeto.setDescripcion(productos.getString("descripcion"));
     	        productobjeto.setRuta(productos.getString("ruta"));
 
-    	        Button btnProducto = new Button();
-    	        VBox item = new VBox();
-    	        btnProducto.setPrefSize(100, 100);
-    	        btnProducto.setStyle("-fx-background-color: TRANSPARENT;");
-    	        ImageView imageView = new ImageView(new Image(getClass().getResourceAsStream("/" + productobjeto.getRuta())));
-    	        imageView.setFitHeight(100.0);
-    	        imageView.setFitWidth(100.0);
-    	        imageView.setPreserveRatio(true);
-    	        btnProducto.setGraphic(imageView);
+                Button btnProducto = new Button();
+                VBox item = new VBox();
+                btnProducto.setPrefSize(100, 100);
+                btnProducto.setStyle("-fx-background-color: TRANSPARENT;");
+                ImageView imageView = new ImageView(new Image(getClass().getResourceAsStream("/" + productobjeto.getRuta())));
+                imageView.setFitHeight(100.0);
+                imageView.setFitWidth(100.0);
+                imageView.setPreserveRatio(true);
+                btnProducto.setGraphic(imageView);
 
-    	        Text nombre = new Text(productobjeto.getNombre());
-    	        nombre.setWrappingWidth(100);
-    	        nombre.setTextAlignment(TextAlignment.CENTER);
+                Text nombre = new Text(productobjeto.getNombre());
+                nombre.setWrappingWidth(100);
+                nombre.setTextAlignment(TextAlignment.CENTER);
 
-    	        item.getChildren().addAll(btnProducto, nombre);
-    	        panel.add(item, column, row);
-    	        btnProducto.setOnAction(event -> mostrarItemFocus(productobjeto));
+                item.getChildren().addAll(btnProducto, nombre);
+                panel.add(item, column, row);
+                btnProducto.setOnAction(event -> mostrarItemFocus(productobjeto));
 
-    	        if (column == 2) {
-    	            column = 0;
-    	            row++;
-    	        } else {
-    	            column++;
-    	        }
+                if (column == 2) {
+                    column = 0;
+                    row++;
+                } else {
+                    column++;
+                }
 
-    	        GridPane.setVgrow(item, javafx.scene.layout.Priority.ALWAYS);
-    	    }
+                GridPane.setVgrow(item, javafx.scene.layout.Priority.ALWAYS);
+            }
+            
+            // mostrar boton añadir
+            Button crear = new Button();           
+            crear.setText("+");
+            crear.setStyle("-fx-background-color: A6234E; -fx-border-color: FFFFFF; -fx-font-size: 40; -fx-border-radius: 50; -fx-background-radius: 50;");
+            crear.setPrefSize(100, 100);
 
-    	   
-    	    if (column == 3) {
-    	        column = 0;
-    	        row++;
-    	    }
+            
+            VBox otro = new VBox();
+            otro.setSpacing(10);
+            otro.getChildren().add(crear);
+
+            
+            VBox.setMargin(crear, new Insets(5, 5, 5, 5)); 
+
+            // Verificar si el VBox se está agregando correctamente al panel
+            panel.add(otro, column, row); // En lugar de añadir directamente el botón, añadimos el VBox que contiene el botón
+
+
     	    
     	    
-    	}
-
+    	    crear.setOnAction(event -> mostrarNuevoProducto());
+            
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
-    public void Reserva() throws IOException {
+    private void mostrarNuevoProducto() {
+		// TODO Auto-generated method stub
+    	 try {
+             FXMLLoader loader = new FXMLLoader(getClass().getResource("/Vistas/NuevoProducto.fxml"));
+             AnchorPane NuevoProductoPane = loader.load();
+
+             NuevoProducto NuevoProductoController = loader.getController();             
+
+             Stage NuevoProductoStage = new Stage();
+             NuevoProductoStage.initStyle(StageStyle.TRANSPARENT);
+             NuevoProductoStage.initModality(Modality.APPLICATION_MODAL);
+             Scene scene = new Scene(NuevoProductoPane, 800, 600);
+             NuevoProductoStage.setScene(scene);
+
+             NuevoProductoStage.setTitle("NuevoProducto");
+
+             NuevoProductoStage.show();
+         } catch (IOException e) {
+             e.printStackTrace();
+         }
+	}
+
+	public void Reserva() throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/Vistas/Reservas.fxml"));
         Pane registro = loader.load();
 
@@ -223,4 +256,7 @@ public class Carta implements Initializable {
         }
     	
     }
+    
+    
+    
 }
