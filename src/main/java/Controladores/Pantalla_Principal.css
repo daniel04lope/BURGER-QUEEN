@@ -1,0 +1,30 @@
+/* style.css */
+
+
+.root {
+    -fx-background-color: #D28383; /* Color de fondo deseado */
+}
+
+#Barra_Navegacion {
+    -fx-background-color: #905D5D; /* Color de la barra de navegación */
+}
+
+#Texto {
+    -fx-font-family: 'Insaniburger';
+     -fx-font-size: 40px;
+    -fx-text-fill: #FFFFFF; 
+}
+#Banda_Central{
+	
+	 -fx-border-radius: 20px;
+}
+#AnchorPanel_Banda_Central{
+	-fx-border-radius: 20px;
+}
+
+#banner {
+    -fx-text-fill: #FFFFFF; 
+    -fx-font-family: 'Insaniburger';
+    -fx-font-size: 20px;
+    -fx-stroke: #000000;
+}
