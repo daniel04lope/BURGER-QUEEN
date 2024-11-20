@@ -91,9 +91,10 @@ public class Reserva implements Initializable {
     }
 
     public void insertReserva() {
-        if (Nombre.getText() == null || Nombre.getText().trim().isEmpty()) {
-            MostrarNotificaciones("Nombre es requerido", AlertType.ERROR);
-            return;
+      
+    	if (Login.datos_login.getIdUsuario() == 0) {
+            Mostrar_Login();
+           
         }
 
         if (Fecha_Reserva.getValue() == null) {
@@ -111,7 +112,7 @@ public class Reserva implements Initializable {
             return;
         }
 
-        String nombreCliente = Nombre.getText();
+        String nombreCliente = Login.datos_login.getNombre();
         LocalDate fechaReserva = Fecha_Reserva.getValue();
         LocalTime horaReserva = LocalTime.parse(Hora.getText());
         int numeroPersonas = Integer.parseInt(Personas.getText());
@@ -160,6 +161,7 @@ public class Reserva implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
     	Username.textProperty().bind(Login.bannerusuarioProperty());
+    	
     }
 
     public void Mostrar_Login() {

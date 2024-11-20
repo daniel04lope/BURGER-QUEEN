@@ -17,7 +17,7 @@
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="521.0" prefWidth="665.0" style="-fx-background-color: #D28383;" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controladores.Reserva">
    <children>
-      <HBox id="Barra_Navegacion" layoutX="-2.0" prefHeight="57.0" prefWidth="600.0" style="-fx-background-color: #905D5D;">
+      <HBox id="Barra_Navegacion" layoutX="-2.0" prefHeight="57.0" prefWidth="612.0" style="-fx-background-color: #905D5D;">
          <children>
             <ImageView fitHeight="57.0" fitWidth="66.0" pickOnBounds="true" preserveRatio="true">
                <image>
@@ -180,37 +180,31 @@
             </ScrollPane>
          </children>
       </AnchorPane>
-      <Text fill="WHITE" layoutX="451.0" layoutY="79.0" strokeType="OUTSIDE" strokeWidth="0.0" text="NOMBRE">
+      <Text fill="WHITE" layoutX="406.0" layoutY="103.0" strokeType="OUTSIDE" strokeWidth="0.0" text=" FECHA DE RESERVA">
          <font>
             <Font name="Insaniburger" size="16.0" />
          </font>
       </Text>
-      <TextField fx:id="Nombre" layoutX="368.0" layoutY="89.0" prefHeight="25.0" prefWidth="222.0" />
-      <Text fill="WHITE" layoutX="410.0" layoutY="143.0" strokeType="OUTSIDE" strokeWidth="0.0" text=" FECHA DE RESERVA">
+      <DatePicker fx:id="Fecha_Reserva" layoutX="365.0" layoutY="116.0" prefHeight="25.0" prefWidth="222.0" />
+      <Text fill="WHITE" layoutX="402.0" layoutY="169.0" strokeType="OUTSIDE" strokeWidth="0.0" text="HORA DE LA RESERVA">
          <font>
             <Font name="Insaniburger" size="16.0" />
          </font>
       </Text>
-      <DatePicker fx:id="Fecha_Reserva" layoutX="369.0" layoutY="156.0" prefHeight="25.0" prefWidth="222.0" />
-      <Text fill="WHITE" layoutX="406.0" layoutY="209.0" strokeType="OUTSIDE" strokeWidth="0.0" text="HORA DE LA RESERVA">
+      <TextField fx:id="Hora" layoutX="365.0" layoutY="182.0" prefHeight="25.0" prefWidth="222.0" />
+      <Text fill="WHITE" layoutX="394.0" layoutY="235.0" strokeType="OUTSIDE" strokeWidth="0.0" text="NUMERO DE PERSONAS">
          <font>
             <Font name="Insaniburger" size="16.0" />
          </font>
       </Text>
-      <TextField fx:id="Hora" layoutX="369.0" layoutY="222.0" prefHeight="25.0" prefWidth="222.0" />
-      <Text fill="WHITE" layoutX="398.0" layoutY="275.0" strokeType="OUTSIDE" strokeWidth="0.0" text="NUMERO DE PERSONAS">
+      <TextField fx:id="Personas" layoutX="365.0" layoutY="248.0" prefHeight="25.0" prefWidth="222.0" />
+      <Text fill="WHITE" layoutX="403.0" layoutY="301.0" strokeType="OUTSIDE" strokeWidth="0.0" text="DATOS ADICIONALES">
          <font>
             <Font name="Insaniburger" size="16.0" />
          </font>
       </Text>
-      <TextField fx:id="Personas" layoutX="369.0" layoutY="288.0" prefHeight="25.0" prefWidth="222.0" />
-      <Text fill="WHITE" layoutX="407.0" layoutY="341.0" strokeType="OUTSIDE" strokeWidth="0.0" text="DATOS ADICIONALES">
-         <font>
-            <Font name="Insaniburger" size="16.0" />
-         </font>
-      </Text>
-      <TextArea fx:id="Datos_Adicionales" layoutX="374.0" layoutY="351.0" prefHeight="39.0" prefWidth="211.0" />
-      <Button layoutX="412.0" layoutY="402.0" mnemonicParsing="false" onAction="#insertReserva" prefHeight="29.0" prefWidth="135.0" style="-fx-background-color: #F980A9; -fx-border-radius: 20;" text="ENVIAR" textFill="WHITE">
+      <TextArea fx:id="Datos_Adicionales" layoutX="370.0" layoutY="311.0" prefHeight="39.0" prefWidth="211.0" />
+      <Button layoutX="408.0" layoutY="362.0" mnemonicParsing="false" onAction="#insertReserva" prefHeight="29.0" prefWidth="135.0" style="-fx-background-color: #F980A9; -fx-border-radius: 20;" text="ENVIAR" textFill="WHITE">
          <font>
             <Font name="Insaniburger" size="12.0" />
          </font>
