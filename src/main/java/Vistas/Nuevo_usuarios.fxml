@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.CheckBox?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="599.0" prefWidth="772.0" style="-fx-background-color: #D28383;" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controladores.Nuevo_usuario">
+   <children>
+      <HBox id="Barra_Navegacion" layoutX="8.0" layoutY="7.0" prefHeight="73.0" prefWidth="1067.0" style="-fx-background-color: #905D5D;" translateX="-8.0" translateY="-7.0">
+         <children>
+            <ImageView fitHeight="57.0" fitWidth="66.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@/Burger_Queen.png" />
+               </image>
+               <HBox.margin>
+                  <Insets left="5.0" top="5.0" />
+               </HBox.margin>
+            </ImageView>
+            <Button fx:id="Cerrar" mnemonicParsing="false" onAction="#cerrar" prefHeight="57.0" prefWidth="66.0" style="-fx-background-color: #D28383;                 -fx-border-color: #FFFFFF;                 -fx-border-radius: 22.5px;                 -fx-background-radius: 22.5px;" text="←" translateX="9.0" translateY="8.0">
+               <font>
+                  <Font name="Insaniburger" size="25.3" />
+               </font>
+            </Button>
+            <Text id="Texto" fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="nuevo usuario" textAlignment="CENTER" translateX="143.0" translateY="17.0" wrappingWidth="265.9830513000488">
+               <font>
+                  <Font name="Insaniburger" size="31.0" />
+               </font>
+            </Text>
+         </children>
+      </HBox>
+      <Button fx:id="guardar" layoutX="283.0" layoutY="498.0" mnemonicParsing="false" prefHeight="38.0" prefWidth="104.0" style="-fx-background-color: green; -fx-border-color: white; -fx-border-radius: 5px; -fx-background-radius: 10px;" text="GUARDAR" textFill="WHITE">
+         <font>
+            <Font name="System Bold" size="16.0" />
+         </font></Button>
+      <Button fx:id="cancelar" layoutX="523.0" layoutY="498.0" mnemonicParsing="false" prefHeight="38.0" prefWidth="121.0" style="-fx-background-color: red; -fx-border-color: white; -fx-border-radius: 5px; -fx-background-radius: 10;" text="CANCELAR" textFill="WHITE">
+         <font>
+            <Font name="Insaniburger" size="16.0" />
+         </font></Button>
+      <ImageView fx:id="imageView" fitHeight="223.0" fitWidth="266.0" layoutX="16.0" layoutY="104.0" pickOnBounds="true" preserveRatio="true">
+      <image>
+                  <Image url="@/fotodefault.jpg" />
+               </image>
+      </ImageView>
+      <ScrollPane hbarPolicy="NEVER" layoutX="233.0" layoutY="97.0" prefHeight="388.0" prefWidth="435.0" style="-fx-background-color: TRANSPARENT;">
+        <content>
+          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="664.0" prefWidth="434.0" style="-fx-background-color: #D28383;">
+               <children>
+                  <Text fill="WHITE" layoutX="112.0" layoutY="51.0" strokeType="OUTSIDE" strokeWidth="0.0" text="NOMBRE">
+                     <font>
+                        <Font name="Insaniburger" size="12.0" />
+                     </font>
+                  </Text>
+                  <TextField fx:id="nombre" layoutX="59.0" layoutY="62.0" />
+                  <Text fill="WHITE" layoutX="272.0" layoutY="51.0" strokeType="OUTSIDE" strokeWidth="0.0" text="APELLIDOS">
+                     <font>
+                        <Font name="Insaniburger" size="12.0" />
+                     </font></Text>
+                  <TextField fx:id="apellidos" layoutX="225.0" layoutY="62.0" />
+                  <Text fill="#fbfbfb" layoutX="119.0" layoutY="109.0" strokeType="OUTSIDE" strokeWidth="0.0" text="EMAIL">
+                     <font>
+                        <Font name="Insaniburger" size="12.0" />
+                     </font></Text>
+                  <TextField fx:id="email" layoutX="59.0" layoutY="125.0" />
+                  <Text fill="WHITE" layoutX="272.0" layoutY="115.0" strokeType="OUTSIDE" strokeWidth="0.0" text="USERNAME">
+                     <font>
+                        <Font name="Insaniburger" size="12.0" />
+                     </font>
+                  </Text>
+                  <TextField fx:id="username" layoutX="225.0" layoutY="125.0" />
+                  <Text fill="WHITE" layoutX="102.0" layoutY="181.0" strokeType="OUTSIDE" strokeWidth="0.0" text="PASSWORD">
+                     <font>
+                        <Font name="Insaniburger" size="12.0" />
+                     </font>
+                  </Text>
+                  <PasswordField fx:id="password" layoutX="57.0" layoutY="192.0" />
+                  <Text fill="WHITE" layoutX="278.0" layoutY="181.0" strokeType="OUTSIDE" strokeWidth="0.0" text="ESTADO">
+                     <font>
+                        <Font name="Insaniburger" size="12.0" />
+                     </font>
+                  </Text>
+                  <ComboBox fx:id="estado" layoutX="225.0" layoutY="192.0" prefWidth="150.0" />
+                  <Text fill="WHITE" layoutX="103.0" layoutY="243.0" strokeType="OUTSIDE" strokeWidth="0.0" text="TELEFONO">
+                     <font>
+                        <Font name="Insaniburger" size="12.0" />
+                     </font>
+                  </Text>
+                  <TextField fx:id="telefono" layoutX="59.0" layoutY="252.0" />
+                  <Text fill="WHITE" layoutX="269.0" layoutY="243.0" strokeType="OUTSIDE" strokeWidth="0.0" text="DIRECCION">
+                     <font>
+                        <Font name="Insaniburger" size="12.0" />
+                     </font>
+                  </Text>
+                  <TextField fx:id="direccion" layoutX="226.0" layoutY="252.0" />
+                  <Text fill="WHITE" layoutX="71.0" layoutY="306.0" strokeType="OUTSIDE" strokeWidth="0.0" text="FECHA DE NACIMIENTO">
+                     <font>
+                        <Font name="Insaniburger" size="12.0" />
+                     </font>
+                  </Text>
+                  <DatePicker fx:id="fechanacimiento" layoutX="47.0" layoutY="317.0" />
+                  <Text fill="WHITE" layoutX="286.0" layoutY="306.0" strokeType="OUTSIDE" strokeWidth="0.0" text="FOTO">
+                     <font>
+                        <Font name="Insaniburger" size="12.0" />
+                     </font></Text>
+                  <Button fx:id="btnSeleccionarFoto" layoutX="240.0" layoutY="317.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="121.0" style="-fx-text-fill: white;" text="Seleccionar Foto">
+                     <font>
+                        <Font name="Insaniburger" size="12.0" />
+                     </font></Button>
+                  <Text fill="WHITE" layoutX="203.0" layoutY="464.0" strokeType="OUTSIDE" strokeWidth="0.0" text="CARTA" />
+                  <CheckBox layoutX="80.0" layoutY="479.0" mnemonicParsing="false" text="Lectura" />
+                  <CheckBox layoutX="295.0" layoutY="479.0" mnemonicParsing="false" text="Escritura" />
+                  <Text layoutX="177.0" layoutY="365.0" strokeType="OUTSIDE" strokeWidth="0.0" text="TIPO DE EMPLEADO">
+                     <font>
+                        <Font name="Insaniburger" size="12.0" />
+                     </font>
+                  </Text>
+                  <ComboBox fx:id="tipo" layoutX="164.0" layoutY="375.0" prefWidth="150.0" />
+                  <Text fill="WHITE" layoutX="199.0" layoutY="520.0" strokeType="OUTSIDE" strokeWidth="0.0" text="RESERVAS" />
+                  <CheckBox fx:id="lectura_reserva" layoutX="80.0" layoutY="524.0" mnemonicParsing="false" text="Lectura" />
+                  <CheckBox fx:id="escritura_reserva" layoutX="295.0" layoutY="524.0" mnemonicParsing="false" text="Escritura" />
+                  <Text fill="WHITE" layoutX="199.0" layoutY="569.0" strokeType="OUTSIDE" strokeWidth="0.0" text="PEDIDOS" />
+                  <CheckBox fx:id="lectura_pedidos" layoutX="80.0" layoutY="573.0" mnemonicParsing="false" text="Lectura" />
+                  <CheckBox fx:id="escritura_pedidos" layoutX="295.0" layoutY="573.0" mnemonicParsing="false" text="Escritura" />
+                  
+               </children>
+            </AnchorPane>
+        </content>
+      </ScrollPane>
+   </children>
+</AnchorPane>

@@ -33,7 +33,7 @@ public class Pantalla_principal implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         System.out.println("Pantalla_principal inicializado correctamente");
-        Nombre_de_usuario.setText(Login.bannerusuario);
+        Nombre_de_usuario.textProperty().bind(Login.bannerusuarioProperty());
     }
 
     public void cerrar() {

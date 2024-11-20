@@ -159,7 +159,7 @@ public class Reserva implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        Username.setText(Login.bannerusuario);
+    	Username.textProperty().bind(Login.bannerusuarioProperty());
     }
 
     public void Mostrar_Login() {

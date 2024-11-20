@@ -58,7 +58,7 @@
             </Button>
          </children>
       </HBox>
-      <Text fx:id="Username" layoutX="532.0" layoutY="49.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Registrate" textAlignment="CENTER" wrappingWidth="63.298828125">
+      <Text fx:id="Username" layoutX="532.0" layoutY="49.0" strokeType="OUTSIDE" strokeWidth="0.0" textAlignment="CENTER" wrappingWidth="63.298828125">
          <font>
             <Font name="Insaniburger" size="9.0" />
          </font>

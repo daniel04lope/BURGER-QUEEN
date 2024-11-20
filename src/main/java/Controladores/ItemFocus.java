@@ -118,7 +118,7 @@ public class ItemFocus implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-    	Username.setText(Login.bannerusuario);
+    	Username.textProperty().bind(Login.bannerusuarioProperty());
         if (producto != null) {
             cargarProducto();
         }

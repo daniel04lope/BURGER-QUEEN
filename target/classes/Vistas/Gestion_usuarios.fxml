@@ -66,7 +66,7 @@
             </ImageView>
          </graphic>
       </Button>
-      <Text fx:id="Nombre_de_usuario" layoutX="532.0" layoutY="50.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Registrate" textAlignment="CENTER" wrappingWidth="63.298828125">
+      <Text fx:id="Username" layoutX="532.0" layoutY="50.0" strokeType="OUTSIDE" strokeWidth="0.0" textAlignment="CENTER" wrappingWidth="63.298828125">
          <font>
             <Font name="Insaniburger" size="9.0" />
          </font>
@@ -84,11 +84,11 @@
             </AnchorPane>
          </content>
       </ScrollPane>
-      <AnchorPane fx:id="Panel_Desplegable" layoutX="-1.0" layoutY="-1.0" prefHeight="661.0" prefWidth="269.0" style="-fx-background-color: #333333;" visible="false">
+      <AnchorPane fx:id="Panel_Desplegable" layoutX="-1.0" layoutY="-1.0" prefHeight="714.0" prefWidth="269.0" style="-fx-background-color: #333333;" visible="false">
          <children>
-            <ScrollPane hbarPolicy="NEVER" prefHeight="650.0" prefWidth="269.0">
+            <ScrollPane hbarPolicy="NEVER" prefHeight="714.0" prefWidth="269.0">
                <content>
-                  <VBox prefHeight="900.0" prefWidth="260.0">
+                  <VBox prefHeight="900.0" prefWidth="271.0">
                      <children>
                         <Button layoutX="10.0" layoutY="10.0" mnemonicParsing="false" onAction="#Pantalla_Principal" prefHeight="64.0" prefWidth="255.0" style="-fx-background-color: A6234E;" text="PANTALLA PRINCIPAL">
                            <font>
@@ -176,7 +176,7 @@
             </ScrollPane>
          </children>
       </AnchorPane>
-      <Button layoutX="477.0" layoutY="59.0" mnemonicParsing="false" prefHeight="29.0" prefWidth="107.0" style="-fx-background-color: #AE4800; -fx-background-radius: 20; -fx-border-radius: 20;" text="NUEVO" textFill="WHITE">
+      <Button layoutX="477.0" layoutY="59.0" mnemonicParsing="false" onAction="#nuevo_usuario" prefHeight="29.0" prefWidth="107.0" style="-fx-background-color: #AE4800; -fx-background-radius: 20; -fx-border-radius: 20;" text="NUEVO" textFill="WHITE">
          <font>
             <Font name="Insaniburger" size="12.0" />
          </font>

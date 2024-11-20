@@ -43,6 +43,8 @@ public class Carta implements Initializable {
 
     private boolean drawerVisible = false;
     private boolean Cerrardesplegar = false;
+    
+    
 
     public void Despliega() {
         System.out.println("Funciona");
@@ -75,7 +77,7 @@ public class Carta implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        Username.setText(Login.bannerusuario);
+    	Username.textProperty().bind(Login.bannerusuarioProperty());
         CargarCarta();
     }
 

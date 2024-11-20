@@ -1,15 +1,14 @@
 package Controladores;
 
 import java.io.IOException;
-
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-
 import javax.swing.JOptionPane;
-
 import Modelos.Usuario;
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.property.StringProperty;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -32,8 +31,15 @@ public class Login {
     PasswordField Password;
     private Pantalla_principal controladorPantallaPrincipal;
     String nombreusuario;
-    static String bannerusuario;
+ 
     public static Usuario datos_login = new Usuario();
+    
+    public static StringProperty banner = new SimpleStringProperty();
+    
+    public static StringProperty bannerusuarioProperty() {
+        return banner;
+    }
+    
     public Login() {
     }
 
@@ -50,8 +56,9 @@ public class Login {
         Connection conexion = util.Conexiones.dameConexion("burger-queen");
 
         if (verificarCredencialesUsuario(conexion, "usuarios", emailString, passwordString)) {
-            Login.bannerusuario = nombreusuario;
+            banner.set(nombreusuario);
             JOptionPane.showMessageDialog(null, "Login exitoso para el usuario: " + emailString);
+            
             try {
                 PreparedStatement sentencia = conexion.prepareStatement(
                     "SELECT id_usuario, nombre, apellido, email, username, fecha_registro, estado, telefono, direccion, fecha_nacimiento FROM usuarios WHERE email = ?"
@@ -59,7 +66,6 @@ public class Login {
                 sentencia.setString(1, emailString);
                 ResultSet ejecuta = sentencia.executeQuery();
 
-           
                 if (ejecuta.next()) {
                     datos_login.setNombre(ejecuta.getString("nombre"));
                     datos_login.setIdUsuario(ejecuta.getInt("id_usuario"));
@@ -70,14 +76,15 @@ public class Login {
                     datos_login.setUsername(ejecuta.getString("username"));
                     datos_login.setFechaRegistro(ejecuta.getTimestamp("fecha_registro"));
                     datos_login.setFechaNacimiento(ejecuta.getDate("fecha_nacimiento").toLocalDate());
-                    System.out.println("Datos guardados correctamente");
                 } else {
                     System.out.println("No se encontró un usuario con el email especificado.");
                 }
-                if (nombreusuario.length()<15) {
-                    Login.bannerusuario = nombreusuario;}
-                	
-                	else {Login.bannerusuario= nombreusuario.substring(0, 12)+"...";}
+
+                if (nombreusuario.length() < 15) {
+                    banner.set(nombreusuario);
+                } else {
+                    banner.set(nombreusuario.substring(0, 12) + "...");
+                }
 
             } catch (Exception e) {
                 e.printStackTrace();
@@ -85,25 +92,25 @@ public class Login {
 
             cerrar();
         } else if (verificarCredencialesUsuario(conexion, "empleados", emailString, passwordString)) {
-        	
-        	if (nombreusuario.length()<15) {
-            Login.bannerusuario = nombreusuario;}
-        	
-        	else {Login.bannerusuario= nombreusuario.substring(0, 12)+"...";}
+            if (nombreusuario.length() < 15) {
+                banner.set(nombreusuario);
+            } else {
+                banner.set(nombreusuario.substring(0, 12) + "...");
+            }
             JOptionPane.showMessageDialog(null, "Login exitoso para el empleado: " + emailString);
             cerrar();
         } else if (verificarCredencialesUsuario(conexion, "administradores", emailString, passwordString)) {
-        	if (nombreusuario.length()<15) {
-                Login.bannerusuario = nombreusuario;}
-            	
-            	else {Login.bannerusuario= nombreusuario.substring(0, 12)+"...";}
+            if (nombreusuario.length() < 15) {
+                banner.set(nombreusuario);
+            } else {
+                banner.set(nombreusuario.substring(0, 12) + "...");
+            }
             JOptionPane.showMessageDialog(null, "Login exitoso para el administrador: " + emailString);
             cerrar();
         } else {
             JOptionPane.showMessageDialog(null, "Login fallido: Correo o contraseña inválidos");
         }
     }
-
 
     private boolean verificarCredencialesUsuario(Connection conexion, String tableName, String email, String password) throws SQLException {
         String query = "SELECT password, username FROM " + tableName + " WHERE email = ?";

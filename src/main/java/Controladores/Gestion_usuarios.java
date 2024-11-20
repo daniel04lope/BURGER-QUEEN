@@ -29,8 +29,8 @@ import javafx.stage.StageStyle;
 
 public class Gestion_usuarios implements Initializable {
 
-	 @FXML
-	    Text Nombre_de_usuario;
+		@FXML
+		Text Username;
 	    @FXML
 	    private AnchorPane Panel_Desplegable;
 	    @FXML
@@ -227,7 +227,7 @@ public class Gestion_usuarios implements Initializable {
 		@Override
 		public void initialize(URL location, ResourceBundle resources) {
 			// TODO Auto-generated method stub
-			 Nombre_de_usuario.setText(Login.bannerusuario);
+			Username.textProperty().bind(Login.bannerusuarioProperty());
 			try {
 				Muestra_usuarios();
 			} catch (SQLException e) {
@@ -237,6 +237,29 @@ public class Gestion_usuarios implements Initializable {
 			
 		}
 
+		
+		public void nuevo_usuario () {
+			try {
+	            FXMLLoader loader = new FXMLLoader(getClass().getResource("/Vistas/Nuevo_usuarios.fxml"));
+	            AnchorPane itemFocusPane = loader.load();
+
+	            
+
+	            Stage itemFocusStage = new Stage();
+	            itemFocusStage.initStyle(StageStyle.TRANSPARENT);
+	            itemFocusStage.initModality(Modality.APPLICATION_MODAL);
+	            Scene scene = new Scene(itemFocusPane, 800, 623);
+	            itemFocusStage.setScene(scene);
+
+	            itemFocusStage.setTitle("DETALLES DEL PRODUCTO");
+
+	            itemFocusStage.show();
+	        } catch (IOException e) {
+	            e.printStackTrace();
+	        }
+	    }
+			
+		}
 
 
-}
+

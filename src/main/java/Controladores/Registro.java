@@ -53,7 +53,7 @@ public class Registro {
             JOptionPane.showMessageDialog(null, "Debes aceptar los términos y condiciones para registrarte.");
             return;
         }
-        
+
         String nombrestring = Nombre.getText();
         String apellidosstring = Apellidos.getText();
         String usernamestring = Username.getText();
@@ -63,19 +63,33 @@ public class Registro {
         String direccionstring = Direccion.getText();
         LocalDate nacimiento = Fecha_Nacimiento.getValue();
 
-         usuario = new Usuario(nombrestring, apellidosstring, emailstring, usernamestring, passwordstring, "Activo", telefonostring, direccionstring, nacimiento);
+        
+        usuario = new Usuario(nombrestring, apellidosstring, emailstring, usernamestring, passwordstring, "Activo", telefonostring, direccionstring, nacimiento);
 
-        try {
-            util.Conexiones.insertarpersona(usuario.getNombre(), usuario.getApellido(), usuario.getEmail(), usuario.getUsername(), usuario.getPassword(), usuario.getTelefono(), usuario.getDireccion(), usuario.getFechaNacimiento());
-            
+        try (Connection conexion = util.Conexiones.dameConexion("burger-queen")) {
+          
+            String consultaEmail = "SELECT COUNT(*) AS total FROM usuarios WHERE email = ?";
+            try (PreparedStatement verificaEmail = conexion.prepareStatement(consultaEmail)) {
+                verificaEmail.setString(1, emailstring);
+                ResultSet resultado = verificaEmail.executeQuery();
+
+                if (resultado.next() && resultado.getInt("total") > 0) {
+                    JOptionPane.showMessageDialog(null, "El correo electrónico ya está registrado. No se puede completar el registro.");
+                    return;
+                }
+            }
+
+           
+            util.Conexiones.insertarpersona(usuario.getNombre(), usuario.getApellido(), usuario.getEmail(), usuario.getUsername(),
+                    usuario.getPassword(), usuario.getTelefono(), usuario.getDireccion(), usuario.getFechaNacimiento());
+
             JOptionPane.showMessageDialog(null, "Registro exitoso para: " + emailstring);
             cerrar();
             Mostrar_Login();
 
+        
             String sql = "SELECT id_usuario FROM usuarios WHERE email = ?";
-            try (Connection conexion = util.Conexiones.dameConexion("burger-queen");
-                 PreparedStatement sentencia = conexion.prepareStatement(sql)) {
-
+            try (PreparedStatement sentencia = conexion.prepareStatement(sql)) {
                 sentencia.setString(1, emailstring);
                 ResultSet muestra = sentencia.executeQuery();
 
@@ -85,7 +99,6 @@ public class Registro {
                 } else {
                     JOptionPane.showMessageDialog(null, "No se pudo recuperar el ID de usuario.");
                 }
-
             }
 
         } catch (SQLException e) {
@@ -93,6 +106,7 @@ public class Registro {
             JOptionPane.showMessageDialog(null, e.getMessage());
         }
     }
+
 
     public void Mostrar_Login() {
         try {
