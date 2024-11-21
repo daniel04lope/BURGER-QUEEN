@@ -19,7 +19,8 @@ public class Empleado {
     private boolean lectura;
     private boolean escritura;
     private boolean controlTotal;
-
+    private String ruta;
+    
     // Constructor
     public Empleado() {}
 
@@ -182,5 +183,12 @@ public class Empleado {
                 ", escritura=" + escritura +
                 ", controlTotal=" + controlTotal +
                 '}';
+    }
+    public String getRuta() {
+        return ruta;
+    }
+
+    public void setRuta(String ruta) {
+        this.ruta = ruta;
     }
 }

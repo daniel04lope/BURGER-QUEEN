@@ -39,11 +39,11 @@
             </Text>
          </children>
       </HBox>
-      <Button fx:id="guardar" layoutX="283.0" layoutY="498.0" mnemonicParsing="false" prefHeight="38.0" prefWidth="104.0" style="-fx-background-color: green; -fx-border-color: white; -fx-border-radius: 5px; -fx-background-radius: 10px;" text="GUARDAR" textFill="WHITE">
+      <Button fx:id="guardar" layoutX="283.0" layoutY="498.0" mnemonicParsing="false" onAction="#registrar" prefHeight="38.0" prefWidth="104.0" style="-fx-background-color: green; -fx-border-color: white; -fx-border-radius: 5px; -fx-background-radius: 10px;" text="GUARDAR" textFill="WHITE">
          <font>
             <Font name="System Bold" size="16.0" />
          </font></Button>
-      <Button fx:id="cancelar" layoutX="523.0" layoutY="498.0" mnemonicParsing="false" prefHeight="38.0" prefWidth="121.0" style="-fx-background-color: red; -fx-border-color: white; -fx-border-radius: 5px; -fx-background-radius: 10;" text="CANCELAR" textFill="WHITE">
+      <Button fx:id="cancelar" layoutX="523.0" layoutY="498.0" mnemonicParsing="false" onAction="#cancelarFormulario" prefHeight="38.0" prefWidth="121.0" style="-fx-background-color: red; -fx-border-color: white; -fx-border-radius: 5px; -fx-background-radius: 10;" text="CANCELAR" textFill="WHITE">
          <font>
             <Font name="Insaniburger" size="16.0" />
          </font></Button>
@@ -102,35 +102,41 @@
                      </font>
                   </Text>
                   <TextField fx:id="direccion" layoutX="226.0" layoutY="252.0" />
-                  <Text fill="WHITE" layoutX="71.0" layoutY="306.0" strokeType="OUTSIDE" strokeWidth="0.0" text="FECHA DE NACIMIENTO">
+                  <Text fill="WHITE" layoutX="76.0" layoutY="303.0" strokeType="OUTSIDE" strokeWidth="0.0" text="FECHA DE NACIMIENTO">
                      <font>
                         <Font name="Insaniburger" size="12.0" />
                      </font>
                   </Text>
-                  <DatePicker fx:id="fechanacimiento" layoutX="47.0" layoutY="317.0" />
-                  <Text fill="WHITE" layoutX="286.0" layoutY="306.0" strokeType="OUTSIDE" strokeWidth="0.0" text="FOTO">
+                  <DatePicker fx:id="fechanacimiento" layoutX="52.0" layoutY="314.0" />
+                  <Text fill="WHITE" layoutX="291.0" layoutY="303.0" strokeType="OUTSIDE" strokeWidth="0.0" text="FOTO">
                      <font>
                         <Font name="Insaniburger" size="12.0" />
                      </font></Text>
-                  <Button fx:id="btnSeleccionarFoto" layoutX="240.0" layoutY="317.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="121.0" style="-fx-text-fill: white;" text="Seleccionar Foto">
+                  <Button fx:id="btnSeleccionarFoto" layoutX="245.0" layoutY="314.0" mnemonicParsing="false" onAction="#seleccionarFoto" prefHeight="25.0" prefWidth="121.0" style="-fx-text-fill: white;" text="Seleccionar Foto">
                      <font>
                         <Font name="Insaniburger" size="12.0" />
                      </font></Button>
-                  <Text fill="WHITE" layoutX="203.0" layoutY="464.0" strokeType="OUTSIDE" strokeWidth="0.0" text="CARTA" />
-                  <CheckBox layoutX="80.0" layoutY="479.0" mnemonicParsing="false" text="Lectura" />
-                  <CheckBox layoutX="295.0" layoutY="479.0" mnemonicParsing="false" text="Escritura" />
-                  <Text layoutX="177.0" layoutY="365.0" strokeType="OUTSIDE" strokeWidth="0.0" text="TIPO DE EMPLEADO">
+                  <Text fx:id="texto_carta" fill="WHITE" layoutX="203.0" layoutY="464.0" strokeType="OUTSIDE" strokeWidth="0.0" text="CARTA" />
+                  <CheckBox fx:id="lectura_carta" layoutX="80.0" layoutY="479.0" mnemonicParsing="false" text="Lectura" />
+                  <CheckBox fx:id="escritura_carta" layoutX="295.0" layoutY="479.0" mnemonicParsing="false" text="Escritura" />
+                  <Text fill="WHITE" layoutX="81.0" layoutY="366.0" strokeType="OUTSIDE" strokeWidth="0.0" text="TIPO DE EMPLEADO">
                      <font>
                         <Font name="Insaniburger" size="12.0" />
                      </font>
                   </Text>
-                  <ComboBox fx:id="tipo" layoutX="164.0" layoutY="375.0" prefWidth="150.0" />
-                  <Text fill="WHITE" layoutX="199.0" layoutY="520.0" strokeType="OUTSIDE" strokeWidth="0.0" text="RESERVAS" />
+                  <ComboBox fx:id="tipo" layoutX="59.0" layoutY="376.0" prefWidth="150.0" />
+                  <Text fx:id="texto_reserva" fill="WHITE" layoutX="199.0" layoutY="520.0" strokeType="OUTSIDE" strokeWidth="0.0" text="RESERVAS" />
                   <CheckBox fx:id="lectura_reserva" layoutX="80.0" layoutY="524.0" mnemonicParsing="false" text="Lectura" />
                   <CheckBox fx:id="escritura_reserva" layoutX="295.0" layoutY="524.0" mnemonicParsing="false" text="Escritura" />
-                  <Text fill="WHITE" layoutX="199.0" layoutY="569.0" strokeType="OUTSIDE" strokeWidth="0.0" text="PEDIDOS" />
+                  <Text fx:id="texto_pedidos" fill="WHITE" layoutX="199.0" layoutY="569.0" strokeType="OUTSIDE" strokeWidth="0.0" text="PEDIDOS" />
                   <CheckBox fx:id="lectura_pedidos" layoutX="80.0" layoutY="573.0" mnemonicParsing="false" text="Lectura" />
                   <CheckBox fx:id="escritura_pedidos" layoutX="295.0" layoutY="573.0" mnemonicParsing="false" text="Escritura" />
+                  <TextField fx:id="posicion" layoutX="226.0" layoutY="376.0" />
+                  <Text fx:id="texto_posicion" fill="WHITE" layoutX="272.0" layoutY="366.0" strokeType="OUTSIDE" strokeWidth="0.0" text="posicion">
+                     <font>
+                        <Font name="Insaniburger" size="12.0" />
+                     </font>
+                  </Text>
                   
                </children>
             </AnchorPane>

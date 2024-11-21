@@ -192,6 +192,11 @@ public class Gestion_usuarios implements Initializable {
 	                botonModificar.setGraphic(iconoModificar); // Establece la imagen como el gráfico del botón
 	                botonModificar.setUserData(idUsuario); // Puedes agregar datos adicionales si es necesario
 
+	                botonModificar.setOnAction(e ->{
+	                	muestraeditar();
+	                	
+	                });
+	                
 	                AnchorPane.setRightAnchor(botonModificar, 80.0);
 	                AnchorPane.setBottomAnchor(botonModificar, 10.0);
 	                usuarioPanel.getChildren().add(botonModificar);
@@ -206,13 +211,24 @@ public class Gestion_usuarios implements Initializable {
 	                botonEliminar.setGraphic(iconoEliminar); // Establece la imagen como el gráfico del botón
 	                botonEliminar.setUserData(idUsuario); // Puedes agregar datos adicionales si es necesario
 
+	                botonEliminar.setOnAction(e -> {
+	                    eliminarUsuario(idUsuario);
+	                    // Recargar la lista de usuarios después de eliminar
+	                    try {
+	                        Muestra_usuarios();
+	                    } catch (SQLException ex) {
+	                        ex.printStackTrace();
+	                    }
+	                });
+
 	                AnchorPane.setRightAnchor(botonEliminar, 10.0);
 	                AnchorPane.setBottomAnchor(botonEliminar, 10.0);
 	                usuarioPanel.getChildren().add(botonEliminar);
+	                
 
-	                // Agregar el usuario al listado con margen
+	                
 	                Listado.add(usuarioPanel, 0, row);
-	                GridPane.setMargin(usuarioPanel, new Insets(10, 0, 10, 0)); // Espacio superior e inferior entre paneles
+	                GridPane.setMargin(usuarioPanel, new Insets(10, 0, 10, 0)); 
 	                row++;
 	                GridPane.setVgrow(usuarioPanel, javafx.scene.layout.Priority.ALWAYS);
 	            }
@@ -258,8 +274,56 @@ public class Gestion_usuarios implements Initializable {
 	            e.printStackTrace();
 	        }
 	    }
+		
+		private void eliminarUsuario(int idUsuario) {
+		    String sqlEliminarEmpleado = "DELETE FROM empleados WHERE id_empleado = ?";
+		    String sqlEliminarAdmin = "DELETE FROM administradores WHERE id_admin = ?";
+
+		    try (Connection conexion = util.Conexiones.dameConexion("burger-queen")) {
+		        // Primero intentamos eliminar al usuario como empleado
+		        try (PreparedStatement stmt = conexion.prepareStatement(sqlEliminarEmpleado)) {
+		            stmt.setInt(1, idUsuario);
+		            int filasAfectadas = stmt.executeUpdate();
+		            // Si no afectó ninguna fila, intentamos eliminarlo como administrador
+		            if (filasAfectadas == 0) {
+		                try (PreparedStatement stmtAdmin = conexion.prepareStatement(sqlEliminarAdmin)) {
+		                    stmtAdmin.setInt(1, idUsuario);
+		                    stmtAdmin.executeUpdate();
+		                }
+		            }
+		        }
+		    } catch (SQLException e) {
+		        e.printStackTrace();
+		    }
 			
 		}
+		
+		
+		
+		
+		private void muestraeditar() {
+			try {
+	            FXMLLoader loader = new FXMLLoader(getClass().getResource("/Vistas/Editar_usuarios.fxml"));
+	            AnchorPane itemFocusPane = loader.load();
+
+	            
+
+	            Stage itemFocusStage = new Stage();
+	            itemFocusStage.initStyle(StageStyle.TRANSPARENT);
+	            itemFocusStage.initModality(Modality.APPLICATION_MODAL);
+	            Scene scene = new Scene(itemFocusPane, 800, 623);
+	            itemFocusStage.setScene(scene);
+
+	            itemFocusStage.setTitle("DETALLES DEL PRODUCTO");
+
+	            itemFocusStage.show();
+	        } catch (IOException e) {
+	            e.printStackTrace();
+	        }
+			
+			
+		}
+}
 
 
 

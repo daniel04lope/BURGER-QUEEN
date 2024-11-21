@@ -71,7 +71,7 @@ public class Carrito implements Initializable {
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		// TODO Auto-generated method stub
-		Nombre_de_usuario.textProperty().bind(Login.bannerusuarioProperty());
+		Username.textProperty().bind(Login.bannerusuarioProperty());
 		
 		
 		  

@@ -61,7 +61,7 @@ public class Login {
             
             try {
                 PreparedStatement sentencia = conexion.prepareStatement(
-                    "SELECT id_usuario, nombre, apellido, email, username, fecha_registro, estado, telefono, direccion, fecha_nacimiento FROM usuarios WHERE email = ?"
+                    "SELECT id_usuario, nombre, apellido, email, username, fecha_registro, estado, telefono, direccion, fecha_nacimiento,ruta FROM usuarios WHERE email = ?"
                 );
                 sentencia.setString(1, emailString);
                 ResultSet ejecuta = sentencia.executeQuery();
@@ -76,6 +76,7 @@ public class Login {
                     datos_login.setUsername(ejecuta.getString("username"));
                     datos_login.setFechaRegistro(ejecuta.getTimestamp("fecha_registro"));
                     datos_login.setFechaNacimiento(ejecuta.getDate("fecha_nacimiento").toLocalDate());
+                    datos_login.setRuta(ejecuta.getString("ruta"));
                 } else {
                     System.out.println("No se encontró un usuario con el email especificado.");
                 }

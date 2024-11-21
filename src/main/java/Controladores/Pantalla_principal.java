@@ -15,25 +15,31 @@ import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 
 public class Pantalla_principal implements Initializable {
     
     @FXML
-    Text Nombre_de_usuario;
+    Text Username;
     @FXML
     private AnchorPane Panel_Desplegable;
     @FXML
     private Button Desplegable;
     @FXML
     private Button Cerrar;
+    @FXML
+    private ImageView imagenperfil;
 
     private boolean Panel_Visible = false;
     private boolean Cerrardesplegar = false;
 
-    @Override
     public void initialize(URL location, ResourceBundle resources) {
         System.out.println("Pantalla_principal inicializado correctamente");
-        Nombre_de_usuario.textProperty().bind(Login.bannerusuarioProperty());
+
+      
+        Username.textProperty().bind(Login.bannerusuarioProperty());
+
     }
 
     public void cerrar() {

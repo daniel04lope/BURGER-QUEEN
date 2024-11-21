@@ -15,6 +15,7 @@ public class Usuario {
     private String telefono;
     private String direccion;
     private LocalDate fechaNacimiento;
+    private String ruta;
 
     // Constructor
     public Usuario() {}
@@ -137,5 +138,13 @@ public class Usuario {
                 ", direccion='" + direccion + '\'' +
                 ", fechaNacimiento=" + fechaNacimiento +
                 '}';
+    }
+    
+    public String getRuta() {
+        return ruta;
+    }
+
+    public void setRuta(String ruta) {
+        this.ruta = ruta;
     }
 }
