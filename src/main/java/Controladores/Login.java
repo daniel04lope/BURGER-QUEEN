@@ -22,7 +22,7 @@ import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
 public class Login {
-    
+    //hola
     @FXML
     Button Cerrar;
     @FXML
