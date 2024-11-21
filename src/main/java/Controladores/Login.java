@@ -126,3 +126,7 @@ public class Login {
         cerrar();
     }
 }
+<<<<<<< HEAD
+=======
+
+>>>>>>> branch 'Pablo' of https://github.com/daniel04lope/BURGER-QUEEN.git
