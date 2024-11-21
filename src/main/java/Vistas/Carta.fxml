@@ -1,0 +1,268 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Accordion?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.TitledPane?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="449.0" prefWidth="600.0" style="-fx-background-color: #D28383;" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controladores.Carta">
+   <children>
+      <HBox id="Barra_Navegacion" layoutX="-2.0" prefHeight="57.0" prefWidth="600.0" style="-fx-background-color: #905D5D;">
+         <children>
+            <ImageView fitHeight="57.0" fitWidth="66.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@/Burger_Queen.png" />
+               </image>
+            </ImageView>
+            <Button id="Desplegable" fx:id="Desplegable" layoutX="10.0" layoutY="13.0" minWidth="53.0" onAction="#Despliega" prefHeight="61.0" prefWidth="53.0" style="-fx-background-color: transparent;">
+               <graphic>
+                  <ImageView fitHeight="36.0" fitWidth="29.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@/desplegable.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+            </Button>
+            <Text id="Texto" fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="carta" textAlignment="CENTER" wrappingWidth="369.9830513000488">
+               <font>
+                  <Font name="Insaniburger" size="35.0" />
+               </font>
+            </Text>
+            <Button id="Carrito" layoutX="10.0" layoutY="13.0" minWidth="53.0" prefHeight="65.0" prefWidth="53.0" style="-fx-background-color: transparent;">
+               <graphic>
+                  <ImageView fitHeight="39.0" fitWidth="37.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@/carrito.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+            </Button>
+            <Button id="Perfil" layoutX="10.0" layoutY="13.0" onAction="#Mostrar_Login" style="-fx-background-color: transparent;">
+               <graphic>
+                  <ImageView fitHeight="45.0" fitWidth="45.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@/perfil.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+            </Button>
+         </children>
+      </HBox>
+      <Text fx:id="Username" layoutX="532.0" layoutY="49.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Registrate" textAlignment="CENTER" wrappingWidth="63.298828125">
+         <font>
+            <Font name="Insaniburger" size="9.0" />
+         </font>
+      </Text>
+      <Button fx:id="Cerrar" layoutX="256.0" layoutY="12.0" minWidth="53.0" onAction="#Despliega" prefHeight="47.0" prefWidth="53.0" style="-fx-background-color: transparent;" visible="false">
+         <graphic>
+            <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@/eliminar.png" />
+               </image>
+            </ImageView>
+         </graphic>
+      </Button>
+<ScrollPane hbarPolicy="NEVER" layoutX="-2.0" layoutY="57.0" prefHeight="387.0" prefWidth="600.0" style="-fx-background-color: TRANSPARENT;" vbarPolicy="ALWAYS">
+    <content>
+        <AnchorPane minHeight="0.0" minWidth="0.0" prefWidth="596.0" style="-fx-background-color: #D28383;">
+            <children>
+                <GridPane fx:id="panel" prefWidth="705.0" GridPane.vgrow="ALWAYS">
+                    <columnConstraints>
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                    </columnConstraints>
+                    
+                </GridPane>
+            </children>
+        </AnchorPane>
+    </content>
+</ScrollPane>
+
+      <AnchorPane fx:id="Panel_Desplegable" layoutX="-4.0" layoutY="-4.0" prefHeight="914.0" prefWidth="272.0" style="-fx-background-color: #333333;" visible="false">
+         <children>
+            <ScrollPane hbarPolicy="NEVER" layoutY="-1.0" prefHeight="651.0" prefWidth="272.0">
+               <content>
+                  <VBox prefHeight="900.0" prefWidth="260.0">
+                     <children>
+                        <Button fx:id="Pantalla_Principal" mnemonicParsing="false" onAction="#Pantalla_Principal" prefHeight="64.0" prefWidth="255.0" style="-fx-background-color: D28383;" text="Pantalla Principal">
+                           <font>
+                              <Font name="Insaniburger" size="20.0" />
+                           </font>
+                        </Button>
+                        <Button mnemonicParsing="false" onAction="#Reserva" prefHeight="64.0" prefWidth="255.0" style="-fx-background-color: A6234E;" text="RESERVAS">
+                           <font>
+                              <Font name="Insaniburger" size="20.0" />
+                           </font>
+                        </Button>
+                        <Button mnemonicParsing="false" prefHeight="64.0" prefWidth="255.0" style="-fx-background-color: D28383;" text="HORARIOS">
+                           <font>
+                              <Font name="Insaniburger" size="20.0" />
+                           </font>
+                        </Button>
+                        <Button mnemonicParsing="false" prefHeight="64.0" prefWidth="255.0" style="-fx-background-color: A6234E;" text="UBICACION">
+                           <font>
+                              <Font name="Insaniburger" size="20.0" />
+                           </font>
+                        </Button>
+                        <Button mnemonicParsing="false" prefHeight="64.0" prefWidth="255.0" style="-fx-background-color: D28383;" text="OFERTAS ESPECIALES">
+                           <font>
+                              <Font name="Insaniburger" size="20.0" />
+                           </font>
+                        </Button>
+                        <Button mnemonicParsing="false" prefHeight="64.0" prefWidth="255.0" style="-fx-background-color: A6234E;" text="CANJEAR CUPON">
+                           <font>
+                              <Font name="Insaniburger" size="20.0" />
+                           </font>
+                        </Button>
+                        <Button mnemonicParsing="false" prefHeight="64.0" prefWidth="255.0" style="-fx-background-color: D28383;" text="PERFIL">
+                           <font>
+                              <Font name="Insaniburger" size="20.0" />
+                           </font>
+                        </Button>
+                        <Accordion prefHeight="24.0" prefWidth="260.0">
+                           <panes>
+                              <TitledPane animated="false" prefHeight="251.0" prefWidth="260.0" style="-fx-background-color: D28383;" text="PANEL DE CONTROL">
+                                 <font>
+                                    <Font name="Insaniburger" size="20.0" />
+                                 </font>
+                                 <content>
+                                    <VBox prefHeight="195.0" prefWidth="258.0" spacing="5.0">
+                                       <children>
+                                          <Button mnemonicParsing="false" prefHeight="64.0" prefWidth="255.0" style="-fx-background-color: FFFFFF;" text="PANEL DE CONTROL">
+                                             <font>
+                                                <Font name="Insaniburger" size="20.0" />
+                                             </font>
+                                          </Button>
+                                          <Button mnemonicParsing="false" prefHeight="64.0" prefWidth="255.0" style="-fx-background-color: FFFFFF;" text="GESTION DE RESERVAS">
+                                             <font>
+                                                <Font name="Insaniburger" size="20.0" />
+                                             </font>
+                                          </Button>
+                                          <Button mnemonicParsing="false" prefHeight="64.0" prefWidth="255.0" style="-fx-background-color: FFFFFF;" text="GESTION DE MENUS">
+                                             <font>
+                                                <Font name="Insaniburger" size="20.0" />
+                                             </font>
+                                          </Button>
+                                          <Button mnemonicParsing="false" prefHeight="64.0" prefWidth="255.0" style="-fx-background-color: FFFFFF;" text="GESTION DE PRODUCTOS">
+                                             <font>
+                                                <Font name="Insaniburger" size="20.0" />
+                                             </font>
+                                          </Button>
+                                          <Button mnemonicParsing="false" prefHeight="64.0" prefWidth="255.0" style="-fx-background-color: FFFFFF;" text="ESTADISTICAS">
+                                             <font>
+                                                <Font name="Insaniburger" size="20.0" />
+                                             </font>
+                                          </Button>
+                                          <Button mnemonicParsing="false" prefHeight="64.0" prefWidth="255.0" style="-fx-background-color: FFFFFF;" text="CONTACTAR ENCARGADO">
+                                             <font>
+                                                <Font name="Insaniburger" size="20.0" />
+                                             </font>
+                                          </Button>
+                                       </children>
+                                    </VBox>
+                                 </content>
+                              </TitledPane>
+                           </panes>
+                        </Accordion>
+                     </children>
+                  </VBox>
+               </content>
+            </ScrollPane>
+            <VBox layoutY="5.0" prefHeight="895.0" prefWidth="272.0" visible="false">
+               <children>
+                  <Button fx:id="Principal" mnemonicParsing="false" onAction="#Pantalla_Principal" prefHeight="64.0" prefWidth="255.0" style="-fx-background-color: D28383;" text="PANTALLA PRINCIPAL">
+                     <font>
+                        <Font name="Insaniburger" size="20.0" />
+                     </font>
+                  </Button>
+                  <Button mnemonicParsing="false" onAction="#Reserva" prefHeight="64.0" prefWidth="255.0" style="-fx-background-color: A6234E;" text="RESERVAS">
+                     <font>
+                        <Font name="Insaniburger" size="20.0" />
+                     </font>
+                  </Button>
+                  <Button mnemonicParsing="false" prefHeight="64.0" prefWidth="255.0" style="-fx-background-color: D28383;" text="HORARIOS">
+                     <font>
+                        <Font name="Insaniburger" size="20.0" />
+                     </font>
+                  </Button>
+                  <Button mnemonicParsing="false" prefHeight="64.0" prefWidth="255.0" style="-fx-background-color: A6234E;" text="UBICACION">
+                     <font>
+                        <Font name="Insaniburger" size="20.0" />
+                     </font>
+                  </Button>
+                  <Button mnemonicParsing="false" prefHeight="64.0" prefWidth="255.0" style="-fx-background-color: D28383;" text="OFERTAS ESPECIALES">
+                     <font>
+                        <Font name="Insaniburger" size="20.0" />
+                     </font>
+                  </Button>
+                  <Button mnemonicParsing="false" prefHeight="64.0" prefWidth="255.0" style="-fx-background-color: A6234E;" text="CANJEAR CUPON">
+                     <font>
+                        <Font name="Insaniburger" size="20.0" />
+                     </font>
+                  </Button>
+                  <Button mnemonicParsing="false" prefHeight="64.0" prefWidth="255.0" style="-fx-background-color: D28383;" text="PERFIL">
+                     <font>
+                        <Font name="Insaniburger" size="20.0" />
+                     </font>
+                  </Button>
+                  <Accordion prefHeight="24.0" prefWidth="260.0">
+                     <panes>
+                        <TitledPane animated="false" prefHeight="251.0" prefWidth="260.0" style="-fx-background-color: D28383;" text="PANEL DE CONTROL">
+                           <font>
+                              <Font name="Insaniburger" size="20.0" />
+                           </font>
+                           <content>
+                              <VBox prefHeight="195.0" prefWidth="258.0" spacing="5.0">
+                                 <children>
+                                    <Button mnemonicParsing="false" prefHeight="64.0" prefWidth="255.0" style="-fx-background-color: FFFFFF;" text="PANEL DE CONTROL">
+                                       <font>
+                                          <Font name="Insaniburger" size="20.0" />
+                                       </font>
+                                    </Button>
+                                    <Button mnemonicParsing="false" prefHeight="64.0" prefWidth="255.0" style="-fx-background-color: FFFFFF;" text="GESTION DE RESERVAS">
+                                       <font>
+                                          <Font name="Insaniburger" size="20.0" />
+                                       </font>
+                                    </Button>
+                                    <Button mnemonicParsing="false" prefHeight="64.0" prefWidth="255.0" style="-fx-background-color: FFFFFF;" text="GESTION DE MENUS">
+                                       <font>
+                                          <Font name="Insaniburger" size="20.0" />
+                                       </font>
+                                    </Button>
+                                    <Button mnemonicParsing="false" prefHeight="64.0" prefWidth="255.0" style="-fx-background-color: FFFFFF;" text="GESTION DE PRODUCTOS">
+                                       <font>
+                                          <Font name="Insaniburger" size="20.0" />
+                                       </font>
+                                    </Button>
+                                    <Button mnemonicParsing="false" prefHeight="64.0" prefWidth="255.0" style="-fx-background-color: FFFFFF;" text="ESTADISTICAS">
+                                       <font>
+                                          <Font name="Insaniburger" size="20.0" />
+                                       </font>
+                                    </Button>
+                                    <Button mnemonicParsing="false" prefHeight="64.0" prefWidth="255.0" style="-fx-background-color: FFFFFF;" text="CONTACTAR ENCARGADO">
+                                       <font>
+                                          <Font name="Insaniburger" size="20.0" />
+                                       </font>
+                                    </Button>
+                                 </children>
+                              </VBox>
+                           </content>
+                        </TitledPane>
+                     </panes>
+                  </Accordion>
+               </children>
+            </VBox>
+         </children>
+      </AnchorPane>
+   </children>
+</AnchorPane>
