@@ -82,12 +82,14 @@ public class Reserva implements Initializable {
         Pane registro = loader.load();
         Scene loginScene = new Scene(registro, 600, 500);
         loginScene.setFill(Color.TRANSPARENT);
+
         Stage loginStage = new Stage();
+        loginStage.setResizable(false);
         loginStage.initStyle(StageStyle.DECORATED);
         loginStage.setScene(loginScene);
         loginStage.setTitle("CARTA");
         loginStage.show();
-        cerrar();
+        cerrar();  
     }
 
     public void insertReserva() {

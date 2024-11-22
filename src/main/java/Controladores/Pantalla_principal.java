@@ -60,7 +60,9 @@ public class Pantalla_principal implements Initializable {
         Pane registro = loader.load();
         Scene loginScene = new Scene(registro, 600, 500);
         loginScene.setFill(Color.TRANSPARENT);
+
         Stage loginStage = new Stage();
+        loginStage.setResizable(false);
         loginStage.initStyle(StageStyle.DECORATED);
         loginStage.setScene(loginScene);
         loginStage.setTitle("CARTA");
@@ -74,6 +76,7 @@ public class Pantalla_principal implements Initializable {
         Scene loginScene = new Scene(registro, 600, 500);
         loginScene.setFill(Color.TRANSPARENT);
         Stage loginStage = new Stage();
+        loginStage.setResizable(false);
         loginStage.initStyle(StageStyle.DECORATED);
         loginStage.setScene(loginScene);
         loginStage.setTitle("Reservas");

@@ -68,6 +68,7 @@ public class Carta implements Initializable {
         principalScene.setFill(Color.TRANSPARENT);
 
         Stage PrincipalStage = new Stage();
+        PrincipalStage.setResizable(false);
         PrincipalStage.initStyle(StageStyle.DECORATED);
         PrincipalStage.setScene(principalScene);
         PrincipalStage.setTitle("CARTA");
@@ -180,19 +181,18 @@ public class Carta implements Initializable {
          }
 	}
 
-	public void Reserva() throws IOException {
+    public void Reserva() throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/Vistas/Reservas.fxml"));
         Pane registro = loader.load();
-
         Scene loginScene = new Scene(registro, 600, 500);
         loginScene.setFill(Color.TRANSPARENT);
-
         Stage loginStage = new Stage();
+        loginStage.setResizable(false);
         loginStage.initStyle(StageStyle.DECORATED);
         loginStage.setScene(loginScene);
         loginStage.setTitle("Reservas");
         loginStage.show();
-        cerrar();
+        cerrar();  
     }
 
     public void Mostrar_Login() {

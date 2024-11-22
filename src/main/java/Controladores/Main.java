@@ -30,7 +30,8 @@ public class Main extends Application {
             AnchorPane root = loader.load();
             Scene scene = new Scene(root, 600, 500);
             primaryStage.initStyle(StageStyle.DECORATED);
-            scene.getStylesheets().add(getClass().getResource("Pantalla_Principal.css").toExternalForm());
+            
+            primaryStage.setResizable(false);
             primaryStage.setScene(scene);
             primaryStage.setTitle("BURGER QUEEN");
             primaryStage.show();
