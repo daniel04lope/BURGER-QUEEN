@@ -14,9 +14,28 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="449.0" prefWidth="600.0" style="-fx-background-color: #D28383;" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controladores.Carta">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="600.0" style="-fx-background-color: #D28383;" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controladores.ReservaAdmin">
    <children>
-      <HBox id="Barra_Navegacion" layoutX="-2.0" prefHeight="57.0" prefWidth="600.0" style="-fx-background-color: #905D5D;">
+ <ScrollPane fitToHeight="false" fitToWidth="false" hbarPolicy="NEVER" layoutX="83.0" layoutY="61.0" prefHeight="408.0" prefWidth="506.0" style="-fx-background-color: transparent; -fx-background: transparent;" vbarPolicy="ALWAYS">
+    <content>
+        <AnchorPane minHeight="0.0" minWidth="0.0" style="-fx-background-color: transparent;">
+            <children>
+                <GridPane fx:id="Listado" prefWidth="466.0" style="-fx-background-color: #D28383;">
+                    <columnConstraints>
+                        <ColumnConstraints hgrow="ALWAYS" minWidth="10.0" prefWidth="100.0" />
+                    </columnConstraints>
+                    
+                </GridPane>
+            </children>
+        </AnchorPane>
+    </content>
+</ScrollPane>
+      <Text fx:id="Username" layoutX="718.0" layoutY="59.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Registrate" textAlignment="CENTER" wrappingWidth="84.63238525390625">
+         <font>
+            <Font name="Insaniburger" size="9.0" />
+         </font>
+      </Text>
+      <HBox id="Barra_Navegacion" prefHeight="57.0" prefWidth="600.0" style="-fx-background-color: #905D5D;">
          <children>
             <ImageView fitHeight="57.0" fitWidth="66.0" pickOnBounds="true" preserveRatio="true">
                <image>
@@ -32,7 +51,7 @@
                   </ImageView>
                </graphic>
             </Button>
-            <Text id="Texto" fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="carta" textAlignment="CENTER" wrappingWidth="369.9830513000488">
+            <Text id="Texto" fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="reservas" textAlignment="CENTER" wrappingWidth="369.9830513000488">
                <font>
                   <Font name="Insaniburger" size="35.0" />
                </font>
@@ -57,83 +76,57 @@
             </Button>
          </children>
       </HBox>
-      <Text fx:id="Username" layoutX="532.0" layoutY="49.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Registrate" textAlignment="CENTER" wrappingWidth="63.298828125">
-         <font>
-            <Font name="Insaniburger" size="9.0" />
-         </font>
-      </Text>
-      <Button fx:id="Cerrar" layoutX="256.0" layoutY="12.0" minWidth="53.0" onAction="#Despliega" prefHeight="47.0" prefWidth="53.0" style="-fx-background-color: transparent;" visible="false">
-         <graphic>
-            <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@/eliminar.png" />
-               </image>
-            </ImageView>
-         </graphic>
-      </Button>
-<ScrollPane hbarPolicy="NEVER" layoutX="-2.0" layoutY="57.0" prefHeight="387.0" prefWidth="600.0" style="-fx-background-color: TRANSPARENT;" vbarPolicy="ALWAYS">
-    <content>
-        <AnchorPane minHeight="0.0" minWidth="0.0" prefWidth="596.0" style="-fx-background-color: #D28383;">
-            <children>
-                <GridPane fx:id="panel" prefWidth="705.0" GridPane.vgrow="ALWAYS">
-                    <columnConstraints>
-                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                    </columnConstraints>
-                    
-                </GridPane>
-            </children>
-        </AnchorPane>
-    </content>
-</ScrollPane>
-
-      <AnchorPane fx:id="Panel_Desplegable" layoutX="-4.0" layoutY="-4.0" prefHeight="914.0" prefWidth="272.0" style="-fx-background-color: #333333;" visible="false">
+      <AnchorPane fx:id="Panel_Desplegable" layoutX="-1.0" layoutY="-1.0" prefHeight="724.0" prefWidth="279.0" style="-fx-background-color: #333333;" visible="false">
          <children>
-            <ScrollPane hbarPolicy="NEVER" layoutY="-1.0" prefHeight="651.0" prefWidth="272.0">
+            <ScrollPane hbarPolicy="NEVER" prefHeight="737.0" prefWidth="279.0">
                <content>
-                  <VBox prefHeight="767.0" prefWidth="272.0">
+                  <VBox prefHeight="900.0" prefWidth="281.0">
                      <children>
-                        <Button fx:id="Principal" mnemonicParsing="false" onAction="#Pantalla_Principal" prefHeight="64.0" prefWidth="272.0" style="-fx-background-color: D28383;" text="PANTALLA PRINCIPAL">
+                        <Button layoutX="10.0" layoutY="10.0" mnemonicParsing="false" onAction="#Pantalla_Principal" prefHeight="64.0" prefWidth="282.0" style="-fx-background-color: A6234E;" text="PANTALLA PRINCIPAL">
                            <font>
                               <Font name="Insaniburger" size="20.0" />
                            </font>
                         </Button>
-                        <Button mnemonicParsing="false" onAction="#Reserva" prefHeight="64.0" prefWidth="272.0" style="-fx-background-color: A6234E;" text="RESERVAS">
+                        <Button fx:id="Carta" mnemonicParsing="false" onAction="#Carta" prefHeight="64.0" prefWidth="283.0" style="-fx-background-color: D28383;" text="CARTA">
                            <font>
                               <Font name="Insaniburger" size="20.0" />
                            </font>
                         </Button>
-                        <Button mnemonicParsing="false" prefHeight="64.0" prefWidth="275.0" style="-fx-background-color: D28383;" text="HORARIOS">
+                        <Button mnemonicParsing="false" onAction="#Reserva" prefHeight="64.0" prefWidth="291.0" style="-fx-background-color: A6234E;" text="RESERVAS">
                            <font>
                               <Font name="Insaniburger" size="20.0" />
                            </font>
                         </Button>
-                        <Button mnemonicParsing="false" prefHeight="64.0" prefWidth="277.0" style="-fx-background-color: A6234E;" text="UBICACION">
+                        <Button mnemonicParsing="false" prefHeight="64.0" prefWidth="289.0" style="-fx-background-color: D28383;" text="HORARIOS">
                            <font>
                               <Font name="Insaniburger" size="20.0" />
                            </font>
                         </Button>
-                        <Button mnemonicParsing="false" prefHeight="64.0" prefWidth="273.0" style="-fx-background-color: D28383;" text="PERFIL">
+                        <Button mnemonicParsing="false" prefHeight="64.0" prefWidth="284.0" style="-fx-background-color: A6234E;" text="UBICACION">
+                           <font>
+                              <Font name="Insaniburger" size="20.0" />
+                           </font>
+                        </Button>
+                        <Button mnemonicParsing="false" prefHeight="64.0" prefWidth="294.0" style="-fx-background-color: D28383;" text="PERFIL">
                            <font>
                               <Font name="Insaniburger" size="20.0" />
                            </font>
                         </Button>
                         <Accordion prefHeight="24.0" prefWidth="260.0">
                            <panes>
-                              <TitledPane animated="false" prefHeight="194.0" prefWidth="272.0" style="-fx-background-color: D28383;" text="PANEL DE CONTROL">
+                              <TitledPane animated="false" prefHeight="251.0" prefWidth="281.0" style="-fx-background-color: D28383;" text="PANEL DE CONTROL">
                                  <font>
                                     <Font name="Insaniburger" size="20.0" />
                                  </font>
                                  <content>
-                                    <VBox prefHeight="151.0" prefWidth="270.0" spacing="5.0">
+                                    <VBox prefHeight="310.0" prefWidth="279.0" spacing="5.0">
                                        <children>
-                                          <Button mnemonicParsing="false" onAction="#ReservaAdmin" prefHeight="64.0" prefWidth="255.0" style="-fx-background-color: FFFFFF;" text="GESTION DE RESERVAS">
+                                          <Button mnemonicParsing="false" onAction="#Gestion_usuarios" prefHeight="64.0" prefWidth="255.0" style="-fx-background-color: FFFFFF;" text="GESTION DE USUARIOS">
                                              <font>
                                                 <Font name="Insaniburger" size="20.0" />
                                              </font>
                                           </Button>
-                                          <Button mnemonicParsing="false" onAction="#Gestion_usuarios" prefHeight="64.0" prefWidth="255.0" style="-fx-background-color: FFFFFF;" text="GESTION DE USUARIOS">
+                                          <Button mnemonicParsing="false" onAction="#Carta" prefHeight="64.0" prefWidth="255.0" style="-fx-background-color: FFFFFF;" text="GESTION DE MENUS">
                                              <font>
                                                 <Font name="Insaniburger" size="20.0" />
                                              </font>
@@ -160,5 +153,14 @@
             </ScrollPane>
          </children>
       </AnchorPane>
+      <Button fx:id="Cerrar" layoutX="266.0" layoutY="22.0" minWidth="53.0" onAction="#Despliega" prefHeight="47.0" prefWidth="53.0" style="-fx-background-color: transparent;" visible="false">
+         <graphic>
+            <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@/eliminar.png" />
+               </image>
+            </ImageView>
+         </graphic>
+      </Button>
    </children>
 </AnchorPane>

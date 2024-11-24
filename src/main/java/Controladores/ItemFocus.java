@@ -142,7 +142,7 @@ public class ItemFocus implements Initializable {
              Descripcion.setText(producto.getDescripcion());
              DescripcionTab.setText(producto.getNombre());
              
-             actualizarBotonPedido();
+             Carrito.setText("Añadir a mi pedido - " + String.format("%.2f €", precioTotal));
              imagen.setImage(new Image(getClass().getResourceAsStream("/" + producto.getRuta())));
               
              
@@ -178,9 +178,7 @@ public class ItemFocus implements Initializable {
     	
     }
     
-    private void actualizarBotonPedido() {
-        Carrito.setText("Añadir a mi pedido - " + String.format("%.2f €", precioTotal));
-    }
+   
     
     @FXML
     private void aniadirextra1_20(ActionEvent event) {
@@ -188,7 +186,7 @@ public class ItemFocus implements Initializable {
     		precioTotal += 1.20;
             cantExtras++;
             tipoExtra = " + Extra queso + bacon";
-            actualizarBotonPedido();
+            Carrito.setText("Añadir a mi pedido - " + String.format("%.2f €", precioTotal));
     	}        
     }
     
@@ -288,7 +286,7 @@ public class ItemFocus implements Initializable {
             cantExtras++;
            
             tipoExtra = " + Extra Bacon";
-            actualizarBotonPedido();
+            Carrito.setText("Añadir a mi pedido - " + String.format("%.2f €", precioTotal));
     	}   
     }
     
@@ -354,7 +352,7 @@ public class ItemFocus implements Initializable {
     		precioTotal += 1.20;
             cantExtras++;
             tipoExtra = " + Extra Queso";
-            actualizarBotonPedido();
+            Carrito.setText("Añadir a mi pedido - " + String.format("%.2f €", precioTotal));
     	}   
     }
     
@@ -363,7 +361,7 @@ public class ItemFocus implements Initializable {
     	precioTotal -= 1.20;
     	cantExtras--;
     	tipoExtra="";
-    	actualizarBotonPedido();
+    	 Carrito.setText("Añadir a mi pedido - " + String.format("%.2f €", precioTotal));
     }
     
     public void Carta() throws IOException {
@@ -386,13 +384,13 @@ public class ItemFocus implements Initializable {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/Vistas/ModificaProducto.fxml"));
             AnchorPane ModificarProductoPane = loader.load();
 
-            // Obtener el controlador de la vista de ModificarProducto
+           
             ModificarProducto ModificarProductoController = loader.getController();
 
-            // Pasar el producto actual al controlador de ModificarProducto
+           
             ModificarProductoController.setProducto(producto);
 
-            // Configurar la ventana y mostrar la interfaz
+            
             Stage ModificarProductoStage = new Stage();
             ModificarProductoStage.initStyle(StageStyle.TRANSPARENT);
             ModificarProductoStage.initModality(Modality.APPLICATION_MODAL);

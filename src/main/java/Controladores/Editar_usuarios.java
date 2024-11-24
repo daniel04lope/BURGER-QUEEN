@@ -135,20 +135,23 @@ public class Editar_usuarios implements Initializable {
             if (Files.exists(ruta)) {
                 imageView.setImage(new javafx.scene.image.Image(ruta.toUri().toString()));
             } else {
-                cargarImagenPorDefecto();
+            	  String rutaPorDefecto = "src/main/resources/imagenes/perfil.png";
+                  ruta = Paths.get(rutaPorDefecto);
+                  if (Files.exists(ruta)) {
+                      imageView.setImage(new javafx.scene.image.Image(ruta.toUri().toString()));
+                  } 
             }
         } else {
-            cargarImagenPorDefecto();
+        	  String rutaPorDefecto = "src/main/resources/imagenes/perfil.png";
+              Path ruta = Paths.get(rutaPorDefecto);
+              if (Files.exists(ruta)) {
+                  imageView.setImage(new javafx.scene.image.Image(ruta.toUri().toString()));
+              } 
         }
     }
 
-    private void cargarImagenPorDefecto() {
-        String rutaPorDefecto = "src/main/resources/imagenes/perfil.png";
-        Path ruta = Paths.get(rutaPorDefecto);
-        if (Files.exists(ruta)) {
-            imageView.setImage(new javafx.scene.image.Image(ruta.toUri().toString()));
-        } 
-    }
+   
+   
 
     public void cerrar() {
         Stage stage = (Stage) Cerrar.getScene().getWindow();
@@ -262,30 +265,30 @@ public class Editar_usuarios implements Initializable {
     
     
     public void actualizar() {
-        // Primero, validar que todos los campos sean correctos
+       
         if (!validarCampos()) {
             return;
         }
 
-        // Obtener el ID del usuario seleccionado para actualizar
+        
         int idUsuario = Gestion_usuarios.idtraspaso;
 
-        // Guardar la imagen seleccionada y obtener la ruta donde se almacenará
+       
         String rutaImagenGuardada = guardarImagen();
 
         try (Connection conexion = util.Conexiones.dameConexion("burger-queen")) {
-            // Determinar si el usuario es empleado o administrador
+        
             String sql;
             boolean esEmpleado = "Empleado".equals(tipo.getValue());
 
-            // Definir la consulta SQL según el tipo de usuario
+           
             if (esEmpleado) {
                 sql = "UPDATE empleados SET nombre = ?, apellido = ?, email = ?, password = ?, telefono = ?, direccion = ?, estado = ?, fecha_nacimiento = ?, posicion = ?, ruta = ? WHERE id_empleado = ?";
             } else {
                 sql = "UPDATE administradores SET nombre = ?, apellido = ?, email = ?, password = ?, telefono = ?, direccion = ?, estado = ?, fecha_nacimiento = ?, ruta = ? WHERE id_admin = ?";
             }
 
-            // Preparar la sentencia SQL para la actualización
+        
             PreparedStatement pst = conexion.prepareStatement(sql);
             pst.setString(1, nombre.getText());
             pst.setString(2, apellidos.getText());
@@ -297,20 +300,20 @@ public class Editar_usuarios implements Initializable {
             pst.setString(8, fechanacimiento.getValue().toString());
             
             if (esEmpleado) {
-                // Si es un empleado, incluir también el campo "posición" y la ruta de la imagen
+               
                 pst.setString(9, posicion.getText());
-                pst.setString(10, rutaImagenGuardada); // Ruta de la imagen guardada
-                pst.setInt(11, idUsuario); // El ID del empleado
+                pst.setString(10, rutaImagenGuardada); 
+                pst.setInt(11, idUsuario);
             } else {
-                // Si es un administrador, no se incluye el campo "posición"
-                pst.setString(9, rutaImagenGuardada); // Ruta de la imagen guardada
-                pst.setInt(10, idUsuario); // El ID del administrador
+             
+                pst.setString(9, rutaImagenGuardada);
+                pst.setInt(10, idUsuario);
             }
 
-            // Ejecutar la sentencia de actualización
+           
             int filasAfectadas = pst.executeUpdate();
 
-            // Si se actualizó correctamente, mostrar un mensaje de éxito
+           
             if (filasAfectadas > 0) {
                 Alert alerta = new Alert(Alert.AlertType.INFORMATION);
                 alerta.setTitle("Actualizado");
@@ -320,7 +323,7 @@ public class Editar_usuarios implements Initializable {
             }
         } catch (SQLException e) {
             e.printStackTrace();
-            // Si ocurre un error SQL, mostrar un mensaje de error
+         
             mostrarError("Error SQL", "No se pudo actualizar el usuario.");
         }
     }

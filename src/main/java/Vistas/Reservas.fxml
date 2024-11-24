@@ -114,16 +114,6 @@
                               <Font name="Insaniburger" size="20.0" />
                            </font>
                         </Button>
-                        <Button mnemonicParsing="false" prefHeight="64.0" prefWidth="255.0" style="-fx-background-color: D28383;" text="OFERTAS ESPECIALES">
-                           <font>
-                              <Font name="Insaniburger" size="20.0" />
-                           </font>
-                        </Button>
-                        <Button mnemonicParsing="false" prefHeight="64.0" prefWidth="255.0" style="-fx-background-color: A6234E;" text="CANJEAR CUPON">
-                           <font>
-                              <Font name="Insaniburger" size="20.0" />
-                           </font>
-                        </Button>
                         <Button mnemonicParsing="false" prefHeight="64.0" prefWidth="255.0" style="-fx-background-color: D28383;" text="PERFIL">
                            <font>
                               <Font name="Insaniburger" size="20.0" />
@@ -138,22 +128,17 @@
                                  <content>
                                     <VBox prefHeight="195.0" prefWidth="258.0" spacing="5.0">
                                        <children>
-                                          <Button mnemonicParsing="false" prefHeight="64.0" prefWidth="255.0" style="-fx-background-color: FFFFFF;" text="PANEL DE CONTROL">
+                                          <Button mnemonicParsing="false" onAction="#ReservaAdmin" prefHeight="64.0" prefWidth="255.0" style="-fx-background-color: FFFFFF;" text="GESTION DE RESERVAS">
                                              <font>
                                                 <Font name="Insaniburger" size="20.0" />
                                              </font>
                                           </Button>
-                                          <Button mnemonicParsing="false" prefHeight="64.0" prefWidth="255.0" style="-fx-background-color: FFFFFF;" text="GESTION DE RESERVAS">
+                                          <Button mnemonicParsing="false" onAction="#Carta" prefHeight="64.0" prefWidth="255.0" style="-fx-background-color: FFFFFF;" text="GESTION DE MENUS">
                                              <font>
                                                 <Font name="Insaniburger" size="20.0" />
                                              </font>
                                           </Button>
-                                          <Button mnemonicParsing="false" prefHeight="64.0" prefWidth="255.0" style="-fx-background-color: FFFFFF;" text="GESTION DE MENUS">
-                                             <font>
-                                                <Font name="Insaniburger" size="20.0" />
-                                             </font>
-                                          </Button>
-                                          <Button mnemonicParsing="false" prefHeight="64.0" prefWidth="255.0" style="-fx-background-color: FFFFFF;" text="GESTION DE PRODUCTOS">
+                                          <Button mnemonicParsing="false" onAction="#Gestion_usuarios" prefHeight="64.0" prefWidth="255.0" style="-fx-background-color: FFFFFF;" text="GESTION DE USUARIOS">
                                              <font>
                                                 <Font name="Insaniburger" size="20.0" />
                                              </font>

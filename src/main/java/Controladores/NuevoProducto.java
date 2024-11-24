@@ -74,13 +74,13 @@ public class NuevoProducto {
     
     
     
-    private String rutaImagen; // Para almacenar la ruta del archivo seleccionado
+    private String rutaImagen; 
     
     
 
     @FXML
     public void initialize() {
-        // Inicialización de cualquier cosa si es necesario
+        
     }
 
     
@@ -92,37 +92,37 @@ public class NuevoProducto {
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("Seleccionar imagen");
 
-        File initialDirectory = new File("/BURGER-QUEEN/src/main/resources");  // ruta
-        if (initialDirectory.exists()) {
-            fileChooser.setInitialDirectory(initialDirectory);
+        File directoriopordefecto = new File("/BURGER-QUEEN/src/main/resources");  
+        if (directoriopordefecto.exists()) {
+            fileChooser.setInitialDirectory(directoriopordefecto);
         }
 
-        // Filtro para tipos de archivos de imagen
+      
         fileChooser.getExtensionFilters().addAll(
             new FileChooser.ExtensionFilter("Archivos de Imagen", "*.png", "*.jpg", "*.jpeg")
         );
 
-        // Mostrar el diálogo de selección de archivo
+        
         File archivoSeleccionado = fileChooser.showOpenDialog(null);
 
         if (archivoSeleccionado != null) {
-            // Verificar el tamaño del archivo (10 MB en bytes)
+          
             final long TAMANO_MAXIMO_MB = 10 * 1024 * 1024;
             if (archivoSeleccionado.length() > TAMANO_MAXIMO_MB) {
-                // Mostrar una alerta si el archivo es demasiado grande
+               
                 Alert alert = new Alert(Alert.AlertType.WARNING);
                 alert.setTitle("Archivo demasiado grande");
                 alert.setHeaderText(null);
                 alert.setContentText("La imagen seleccionada supera el límite de 10 MB. Por favor, elige una imagen más pequeña.");
                 alert.showAndWait();
-                return; // Salir del método si el archivo supera el tamaño permitido
+                return; 
             }
 
-            // Obtener la ruta absoluta del archivo seleccionado
+         
             rutaImagen = archivoSeleccionado.getAbsolutePath();
             System.out.println(rutaImagen);
 
-            // Mostrar la imagen seleccionada en el ImageView
+            
             imageView.setImage(new Image(archivoSeleccionado.toURI().toString()));
         }
     }
@@ -131,7 +131,7 @@ public class NuevoProducto {
     
     @FXML
     private void onGuardar() {
-        // Obtener los datos desde los campos de texto
+        
         String nombre = nombreField.getText().trim().toLowerCase();
         String precio = precioField.getText().trim().toLowerCase();
         String categoria = categoriaField.getText().trim().toLowerCase();
@@ -139,23 +139,17 @@ public class NuevoProducto {
         String peso = pesoField.getText().trim().toLowerCase();
         String descripcion = descripcionArea.getText().trim().toLowerCase();
 
-        // Validación de campos vacíos
+       
         if (nombre.isEmpty() || precio.isEmpty() || categoria.isEmpty() || peso.isEmpty() || rutaImagen == null || descripcion.isEmpty()) {
             mostrarAlerta(AlertType.WARNING, "Campos Vacíos", "Por favor, complete todos los campos.");
             return;
         }
 
-        // Validación de longitudes de texto
-        if (nombre.length() > 100 || descripcion.length() > 500 || categoria.length() > 50 || alergenos.length() > 100) {
-            mostrarAlerta(AlertType.WARNING, "Texto demasiado largo", "Los campos tienen una longitud máxima:\n" +
-                    "Nombre: 100 caracteres\n" +
-                    "Descripción: 500 caracteres\n" +
-                    "Categoría: 50 caracteres\n" +
-                    "Alérgenos: 100 caracteres.");
-            return;
-        }
+        
+        if (nombre.length() > 100 || descripcion.length() > 500 || categoria.length() > 50 || alergenos.length() > 100) { mostrarAlerta(AlertType.WARNING, "Texto demasiado largo", "Los campos tienen una longitud máxima: Nombre (100 caracteres), Descripción (500 caracteres), Categoría (50 caracteres), Alérgenos (100 caracteres)."); return; }
 
-        // Validación de formato numérico para precio y peso
+
+      
         double precioDouble;
         double pesoDouble;
         try {
@@ -171,14 +165,14 @@ public class NuevoProducto {
             return;
         }
 
-        // Validar la imagen seleccionada
+        
         File archivoImagen = new File(rutaImagen);
         if (!archivoImagen.exists() || (!rutaImagen.endsWith(".jpg") && !rutaImagen.endsWith(".jpeg") && !rutaImagen.endsWith(".png"))) {
             mostrarAlerta(AlertType.WARNING, "Imagen no válida", "Seleccione una imagen válida en formato .jpg, .jpeg o .png.");
             return;
         }
 
-        // Copiar la imagen al directorio de recursos
+        
         String nombreArchivo = archivoImagen.getName();
         Path rutaDestino = Paths.get("src/main/resources", nombreArchivo);
 
@@ -190,11 +184,11 @@ public class NuevoProducto {
             return;
         }
 
-        // Crear un objeto Producto con los datos validados
+        
         Producto nuevoProducto = new Producto(nombre, descripcion, precioDouble, categoria, alergenos, pesoDouble);
         nuevoProducto.setRuta(nombreArchivo);
 
-        // Guardar el producto en la base de datos
+        
         try (Connection conexion = util.Conexiones.dameConexion("burger-queen")) {
             String sql = "INSERT INTO carta (nombre, descripcion, precio, categoria, alergenos, peso, ruta) VALUES (?, ?, ?, ?, ?, ?, ?)";
 
@@ -207,7 +201,7 @@ public class NuevoProducto {
                 stmt.setDouble(6, nuevoProducto.getPeso());
                 stmt.setString(7, nuevoProducto.getRuta());
 
-                // Ejecutar la inserción
+                
                 int filasAfectadas = stmt.executeUpdate();
 
                 if (filasAfectadas > 0) {
@@ -228,7 +222,7 @@ public class NuevoProducto {
         }
     }
 
-    // Método auxiliar para mostrar alertas
+    
     private void mostrarAlerta(AlertType tipo, String titulo, String mensaje) {
         Alert alert = new Alert(tipo);
         alert.setTitle(titulo);
@@ -243,7 +237,7 @@ public class NuevoProducto {
 
     @FXML
     private void onCancelar() {
-        // Lógica para cancelar la acción y limpiar los campos si es necesario
+        
         nombreField.clear();
         precioField.clear();
         categoriaField.clear();

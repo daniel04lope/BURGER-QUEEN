@@ -66,7 +66,7 @@ public class ModificarProducto {
     private String rutaImagen;
     private String rutaImagenOriginal;
 
-    // Método para inicializar el producto a modificar y cargar sus datos en los campos
+   
     public void setProducto(Producto producto) {
         this.producto = producto;
         cargarDatosProducto();
@@ -83,7 +83,7 @@ public class ModificarProducto {
             pesoField.setText(String.valueOf(producto.getPeso()));
             descripcionArea.setText(producto.getDescripcion());
             rutaImagen = producto.getRuta();
-            rutaImagenOriginal = rutaImagen; // Guardar la ruta original
+            rutaImagenOriginal = rutaImagen; 
 
             if (rutaImagen != null) {
                 imageView.setImage(new Image(getClass().getResourceAsStream("/" + rutaImagen)));
@@ -117,7 +117,7 @@ public class ModificarProducto {
     }
 
     public void onGuardar() {
-        // Obtener los datos desde los campos de texto
+       
         String nombre = nombreField.getText();
         String precio = precioField.getText();
         String categoria = categoriaField.getText();
@@ -125,13 +125,13 @@ public class ModificarProducto {
         String peso = pesoField.getText();
         String descripcion = descripcionArea.getText();
 
-        // Validación de campos vacíos
+      
         if (nombre.isEmpty() || precio.isEmpty() || categoria.isEmpty() || peso.isEmpty() || descripcion.isEmpty()) {
             mostrarAlerta(AlertType.WARNING, "Campos Vacíos", "Por favor, complete todos los campos obligatorios.");
             return;
         }
 
-        // Validación de longitudes de texto
+        
         if (nombre.length() > 100 || descripcion.length() > 500 || categoria.length() > 50 ) {
             mostrarAlerta(AlertType.WARNING, "Texto demasiado largo", "Los campos tienen una longitud máxima:\n" +
                     "- Nombre: 100 caracteres\n" +
@@ -140,7 +140,7 @@ public class ModificarProducto {
             return;
         }
 
-        // Validación de formato numérico para precio y peso
+       
         double precioDouble;
         double pesoDouble;
         try {
@@ -156,9 +156,9 @@ public class ModificarProducto {
             return;
         }
 
-        // Validar la imagen seleccionada si fue cambiada
+       
         String nombreArchivo;
-        if (!rutaImagen.equals(rutaImagenOriginal)) { // Si la imagen fue cambiada
+        if (!rutaImagen.equals(rutaImagenOriginal)) { 
             File archivoImagen = new File(rutaImagen);
 
             if (!archivoImagen.exists() || (!rutaImagen.endsWith(".jpg") && !rutaImagen.endsWith(".jpeg") && !rutaImagen.endsWith(".png"))) {
@@ -177,10 +177,10 @@ public class ModificarProducto {
 
             nombreArchivo = archivoImagen.getName();
         } else {
-            nombreArchivo = rutaImagenOriginal; // Usar la ruta original si no cambió
+            nombreArchivo = rutaImagenOriginal; 
         }
 
-        // Asignar valores al objeto Producto
+        
         producto.setNombre(nombre);
         producto.setDescripcion(descripcion);
         producto.setPrecio(precioDouble);
@@ -189,7 +189,7 @@ public class ModificarProducto {
         producto.setPeso(pesoDouble);
         producto.setRuta(nombreArchivo);
 
-        // Actualizar en la base de datos
+        
         actualizarProductoEnBaseDatos();
     }
 

@@ -20,11 +20,11 @@ public class Main extends Application {
         this.primaryStage = primaryStage;
         Font.loadFont(getClass().getResourceAsStream("/Insanibu.ttf"), 12);
         primaryStage.initStyle(StageStyle.TRANSPARENT);
-        showMainScreen();
-        showLoginScreen();
+        Muestramain();
+        Muestralogin();
     }
 
-    private void showMainScreen() {
+    private void Muestramain() {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/Vistas/Pantalla-Principal.fxml"));
             AnchorPane root = loader.load();
@@ -40,7 +40,7 @@ public class Main extends Application {
         }
     }
 
-    private void showLoginScreen() {
+    private void Muestralogin() {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/Vistas/Login.fxml"));
             Pane login = loader.load();

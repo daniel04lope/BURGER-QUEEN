@@ -57,6 +57,34 @@ public class Reserva implements Initializable {
         Cerrar.setVisible(Cerrardesplegar);
         drawer.setVisible(drawerVisible);
     }
+    
+    public void Gestion_usuarios() throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/Vistas/Gestion_usuarios.fxml"));
+        Pane registro = loader.load();
+        Scene loginScene = new Scene(registro, 600, 500);
+        loginScene.setFill(Color.TRANSPARENT);
+        Stage loginStage = new Stage();
+        loginStage.setResizable(false);
+        loginStage.initStyle(StageStyle.DECORATED);
+        loginStage.setScene(loginScene);
+        loginStage.setTitle("Reservas");
+        loginStage.show();
+        cerrar();  
+    }
+    
+    public void ReservaAdmin() throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/Vistas/ReservaAdmin.fxml"));
+        Pane registro = loader.load();
+        Scene loginScene = new Scene(registro, 600, 500);
+        loginScene.setFill(Color.TRANSPARENT);
+        Stage loginStage = new Stage();
+        loginStage.setResizable(false);
+        loginStage.initStyle(StageStyle.DECORATED);
+        loginStage.setScene(loginScene);
+        loginStage.setTitle("Reservas");
+        loginStage.show();
+         cerrar();
+    }
 
     public void cerrar() {
         Stage stage = (Stage) Cerrar.getScene().getWindow();
@@ -67,7 +95,7 @@ public class Reserva implements Initializable {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/Vistas/Pantalla-Principal.fxml"));
         Pane principal = loader.load();
         Scene principalScene = new Scene(principal, 600, 500);
-        principalScene.getStylesheets().add(getClass().getResource("Pantalla_Principal.css").toExternalForm());
+       
         principalScene.setFill(Color.TRANSPARENT);
         Stage PrincipalStage = new Stage();
         PrincipalStage.initStyle(StageStyle.DECORATED);
