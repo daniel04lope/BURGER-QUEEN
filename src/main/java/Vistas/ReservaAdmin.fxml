@@ -102,7 +102,7 @@
                               <Font name="Insaniburger" size="20.0" />
                            </font>
                         </Button>
-                        <Button mnemonicParsing="false" prefHeight="64.0" prefWidth="284.0" style="-fx-background-color: A6234E;" text="UBICACION">
+                        <Button mnemonicParsing="false" onAction="#Ubicacion" prefHeight="64.0" prefWidth="284.0" style="-fx-background-color: A6234E;" text="UBICACION">
                            <font>
                               <Font name="Insaniburger" size="20.0" />
                            </font>

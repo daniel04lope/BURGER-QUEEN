@@ -9,6 +9,8 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ResourceBundle;
 
+import org.controlsfx.control.Notifications;
+
 import Modelos.Producto;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -305,7 +307,7 @@ public class ItemFocus implements Initializable {
 
                 if (resultado.next()) {
                     PreparedStatement insertaproductobase = conexion.prepareStatement(
-                        "INSERT INTO carrito_items (id_carrito, id_plato, cantidad, precio_unitario, Detalles) VALUES (?,?,?,?,?)");
+                        "INSERT INTO carrito_items (id_carrito, id_plato, cantidad, precio_unitario, Detalles,estado) VALUES (?,?,?,?,?,'pendiente')");
                     insertaproductobase.setInt(1, Login.datos_login.getIdUsuario());
                     insertaproductobase.setInt(2, resultado.getInt("id_producto"));
                     insertaproductobase.setInt(3, 1);
@@ -344,6 +346,12 @@ public class ItemFocus implements Initializable {
                     System.out.println("Complemento añadido al carrito con éxito.");
                 }
             }
+            AlertType alertType = AlertType.CONFIRMATION;
+            Notifications notification = Notifications.create().title(alertType == AlertType.ERROR ? "Error en la seleccion del producto" : "Producto añadido").text("El producto ha sido agregado").hideAfter(javafx.util.Duration.seconds(5));
+            notification.showInformation();
+            if (alertType == AlertType.ERROR) {
+                notification.showError();
+            } 
         }
     }
     @FXML

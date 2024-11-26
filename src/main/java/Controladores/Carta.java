@@ -48,6 +48,21 @@ public class Carta implements Initializable {
         Cerrar.setVisible(Cerrardesplegar);
         Panel_Desplegable.setVisible(drawerVisible);
     }
+    
+    public void Ubicacion() throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/Vistas/Ubicacion.fxml"));
+        Pane registro = loader.load();
+        Scene loginScene = new Scene(registro, 600, 500);
+        loginScene.setFill(Color.TRANSPARENT);
+
+        Stage loginStage = new Stage();
+        loginStage.setResizable(false);
+        loginStage.initStyle(StageStyle.DECORATED);
+        loginStage.setScene(loginScene);
+        loginStage.setTitle("CARTA");
+        loginStage.show();
+        cerrar();  
+    }
 
     public void cerrar() {
         Stage stage = (Stage) Cerrar.getScene().getWindow();

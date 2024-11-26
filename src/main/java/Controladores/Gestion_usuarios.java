@@ -75,6 +75,21 @@ public class Gestion_usuarios implements Initializable {
             e.printStackTrace();
         }
     }
+    
+    public void Ubicacion() throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/Vistas/Ubicacion.fxml"));
+        Pane registro = loader.load();
+        Scene loginScene = new Scene(registro, 600, 500);
+        loginScene.setFill(Color.TRANSPARENT);
+
+        Stage loginStage = new Stage();
+        loginStage.setResizable(false);
+        loginStage.initStyle(StageStyle.DECORATED);
+        loginStage.setScene(loginScene);
+        loginStage.setTitle("CARTA");
+        loginStage.show();
+        cerrar();  
+    }
 
     public void Reserva() throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/Vistas/Reservas.fxml"));

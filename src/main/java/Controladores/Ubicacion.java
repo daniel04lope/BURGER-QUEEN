@@ -1,52 +1,90 @@
 package Controladores;
 
+
+
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
+
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Scene;
+import javafx.scene.control.Button;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
+import javafx.scene.web.WebEngine;
+import javafx.scene.web.WebView;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
-import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 
-public class Pantalla_principal implements Initializable {
-    
-    @FXML
-    Text Username;
-    @FXML
-    private AnchorPane Panel_Desplegable;
-    @FXML
-    private Button Desplegable;
-    @FXML
-    private Button Cerrar;
-    @FXML
-    private ImageView imagenperfil;
+public class Ubicacion implements Initializable {
+	  @FXML
+	    Text Username;
+	    @FXML
+	    private AnchorPane Panel_Desplegable;
+	    @FXML
+	    private Button Desplegable;
+	    @FXML
+	    private Button Cerrar;
+	    @FXML
+	    private ImageView imagenperfil;
 
-    private boolean Panel_Visible = false;
-    private boolean Cerrardesplegar = false;
+	    private boolean Panel_Visible = false;
+	    private boolean Cerrardesplegar = false;
 
+    @FXML
+    private WebView webView;
+
+
+    @Override
     public void initialize(URL location, ResourceBundle resources) {
-        System.out.println("Pantalla_principal inicializado correctamente");
+        // Aseguramos que el WebView se inicializa correctamente
+        if (webView == null) {
+            System.out.println("WebView no se ha inicializado correctamente.");
+            return;
+        }
 
-      
-        Username.textProperty().bind(Login.bannerusuarioProperty());
+        WebEngine webEngine = webView.getEngine();
 
+        // Habilitar JavaScript
+        webEngine.setJavaScriptEnabled(true);
+
+        // Cargar directamente la URL de Google Maps (como un sitio web, no como texto)
+        String googleMapsUrl = "https://www.google.com/maps/place/Burger+Queen/@38.530303,-8.8699675,17z/data=!3m2!4b1!5s0xd1942599711639d:0xad6eb38a6fd5d7d6!4m6!3m5!1s0xd194361a43e444b:0x866e61fc20791b9b!8m2!3d38.530303!4d-8.8673926!16s%2Fg%2F11rzdb4fgz?authuser=0&entry=ttu&g_ep=EgoyMDI0MTExOS4yIKXMDSoASAFQAw%3D%3D";
+
+        // Cargar la URL directamente
+        webEngine.load(googleMapsUrl);
+
+        // Verificar si la carga fue exitosa
+        webEngine.setOnAlert(event -> {
+            System.out.println("Mensaje de alerta desde el WebEngine: " + event.getData());
+        });
     }
 
+	
+	
     public void cerrar() {
         Stage stage = (Stage) Cerrar.getScene().getWindow();
         stage.close();
     }
-    
+    public void Pantalla_Principal() throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/Vistas/Pantalla-Principal.fxml"));
+        Pane principal = loader.load();
+        Scene principalScene = new Scene(principal, 600, 500);
+        
+        principalScene.setFill(Color.TRANSPARENT);
+        Stage PrincipalStage = new Stage();
+        PrincipalStage.initStyle(StageStyle.DECORATED);
+        PrincipalStage.setScene(principalScene);
+        PrincipalStage.setTitle("CARTA");
+        PrincipalStage.show();
+        cerrar();
+    }
 
     public void Despliega() {
         System.out.println("Funciona");

@@ -12,8 +12,10 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
@@ -74,7 +76,7 @@ public class Carrito implements Initializable {
                 Mostrar_Login();
             } else {
                 try (Connection conexion = util.Conexiones.dameConexion("burger-queen")) {
-                    PreparedStatement sentencia = conexion.prepareStatement("INSERT INTO carrito_items(id_carrito, id_plato, cantidad, precio_unitario) VALUES (?,43,1,2)");
+                    PreparedStatement sentencia = conexion.prepareStatement("INSERT INTO carrito_items(id_carrito, id_plato, cantidad, precio_unitario,estado) VALUES (?,43,1,2,'pendiente')");
                     sentencia.setInt(1, Login.datos_login.getIdUsuario());
                     int ejecuta = sentencia.executeUpdate();
                     Muestra_productos();
@@ -90,7 +92,7 @@ public class Carrito implements Initializable {
                 Mostrar_Login();
             } else {
                 try (Connection conexion = util.Conexiones.dameConexion("burger-queen")) {
-                    PreparedStatement sentencia = conexion.prepareStatement("INSERT INTO carrito_items(id_carrito, id_plato, cantidad, precio_unitario) VALUES (?,44,1,5)");
+                    PreparedStatement sentencia = conexion.prepareStatement("INSERT INTO carrito_items(id_carrito, id_plato, cantidad, precio_unitario,estado) VALUES (?,44,1,5,'pendiente')");
                     sentencia.setInt(1, Login.datos_login.getIdUsuario());
                     int ejecuta = sentencia.executeUpdate();
                     Muestra_productos();
@@ -106,7 +108,7 @@ public class Carrito implements Initializable {
                 Mostrar_Login();
             } else {
                 try (Connection conexion = util.Conexiones.dameConexion("burger-queen")) {
-                    PreparedStatement sentencia = conexion.prepareStatement("INSERT INTO carrito_items(id_carrito, id_plato, cantidad, precio_unitario) VALUES (?,45,1,1)");
+                    PreparedStatement sentencia = conexion.prepareStatement("INSERT INTO carrito_items(id_carrito, id_plato, cantidad, precio_unitario,estado) VALUES (?,45,1,1,'pendiente')");
                     sentencia.setInt(1, Login.datos_login.getIdUsuario());
                     int ejecuta = sentencia.executeUpdate();
                     Muestra_productos();
@@ -141,7 +143,8 @@ public class Carrito implements Initializable {
             resultadoCarrito.close();
             sentenciaObtenerCarrito.close();
 
-            String sqlCarritoItems = "SELECT id_plato, precio_unitario, id_item, Detalles FROM carrito_items WHERE id_carrito = ?";
+            // Filtrar productos solo con estado 'pendiente'
+            String sqlCarritoItems = "SELECT id_plato, precio_unitario, id_item, Detalles FROM carrito_items WHERE id_carrito = ? AND estado = 'pendiente'";
             PreparedStatement sentenciaCarritoItems = conexion.prepareStatement(sqlCarritoItems);
             sentenciaCarritoItems.setInt(1, idCarrito);
             ResultSet carritoItems = sentenciaCarritoItems.executeQuery();
@@ -232,15 +235,32 @@ public class Carrito implements Initializable {
         }
     }
 
+
     public void Factura() throws SQLException {
         factura.getChildren().clear();
         Double total = 0.0;
         int facturaRow = 0;
 
         try (Connection conexion = util.Conexiones.dameConexion("burger-queen")) {
-            String sqlCarritoItems = "SELECT id_plato, precio_unitario FROM carrito_items WHERE id_carrito = ?";
+            // Obtener el ID del carrito con estado pendiente
+            String sqlObtenerCarrito = "SELECT id_carrito FROM carrito WHERE id_cliente = ? AND estado = 'pendiente'";
+            PreparedStatement sentenciaObtenerCarrito = conexion.prepareStatement(sqlObtenerCarrito);
+            sentenciaObtenerCarrito.setInt(1, Login.datos_login.getIdUsuario());
+            ResultSet resultadoCarrito = sentenciaObtenerCarrito.executeQuery();
+
+            if (!resultadoCarrito.next()) {
+                System.out.println("No se encontró un carrito pendiente para el usuario.");
+                return;
+            }
+
+            int idCarrito = resultadoCarrito.getInt("id_carrito");
+            resultadoCarrito.close();
+            sentenciaObtenerCarrito.close();
+
+            // Filtrar productos en carrito_items con estado 'Pendiente'
+            String sqlCarritoItems = "SELECT id_plato, precio_unitario FROM carrito_items WHERE id_carrito = ? AND estado = 'Pendiente'";
             PreparedStatement sentenciaCarritoItems = conexion.prepareStatement(sqlCarritoItems);
-            sentenciaCarritoItems.setInt(1, Login.datos_login.getIdUsuario());
+            sentenciaCarritoItems.setInt(1, idCarrito);
             ResultSet carritoItems = sentenciaCarritoItems.executeQuery();
 
             while (carritoItems.next()) {
@@ -282,4 +302,85 @@ public class Carrito implements Initializable {
             sentenciaCarritoItems.close();
         }
     }
-}
+
+    
+    public void resetearcarrito() {
+        try (Connection conexion = util.Conexiones.dameConexion("burger-queen")) {
+            // Obtener el ID del carrito del usuario con estado 'pendiente'
+            String sqlObtenerCarrito = "SELECT id_carrito FROM carrito WHERE id_cliente = ? AND estado = 'pendiente'";
+            PreparedStatement sentenciaObtenerCarrito = conexion.prepareStatement(sqlObtenerCarrito);
+            sentenciaObtenerCarrito.setInt(1, Login.datos_login.getIdUsuario());
+            ResultSet resultadoCarrito = sentenciaObtenerCarrito.executeQuery();
+
+            if (!resultadoCarrito.next()) {
+                System.out.println("No se encontró un carrito pendiente para el usuario.");
+                return;
+            }
+
+            int idCarrito = resultadoCarrito.getInt("id_carrito");
+            resultadoCarrito.close();
+            sentenciaObtenerCarrito.close();
+
+            // Crear un nuevo pedido en la tabla pedidos
+            String sqlInsertarPedido = "INSERT INTO pedidos (id_carrito, id_usuario,estado) VALUES (?, ?,'en_curso')";
+            PreparedStatement sentenciaInsertarPedido = conexion.prepareStatement(sqlInsertarPedido, PreparedStatement.RETURN_GENERATED_KEYS);
+            sentenciaInsertarPedido.setInt(1, idCarrito);
+            sentenciaInsertarPedido.setInt(2, Login.datos_login.getIdUsuario());
+            int filasAfectadas = sentenciaInsertarPedido.executeUpdate();
+
+            if (filasAfectadas == 0) {
+                System.out.println("No se pudo crear el pedido.");
+                return;
+            }
+
+            ResultSet clavesGeneradas = sentenciaInsertarPedido.getGeneratedKeys();
+            int idPedido = 0;
+            if (clavesGeneradas.next()) {
+                idPedido = clavesGeneradas.getInt(1);
+            }
+            clavesGeneradas.close();
+            sentenciaInsertarPedido.close();
+
+            // Actualizar los productos en carrito_items para asignarlos al nuevo pedido y marcar como "tramitados"
+         // Actualizar los productos en carrito_items para marcarlos como "Tramitado"
+            String sqlActualizarCarritoItems = "UPDATE carrito_items SET estado = 'Tramitado' WHERE id_carrito = ? AND estado = 'Pendiente'";
+            PreparedStatement sentenciaActualizarCarritoItems = conexion.prepareStatement(sqlActualizarCarritoItems);
+            sentenciaActualizarCarritoItems.setInt(1, idCarrito);
+            int productosActualizados = sentenciaActualizarCarritoItems.executeUpdate();
+
+            if (productosActualizados > 0) {
+                System.out.println("Carrito procesado con éxito. Pedido creado con ID: " + idPedido);
+            } else {
+                System.out.println("No se encontraron productos pendientes para procesar.");
+            }
+
+            sentenciaActualizarCarritoItems.close();
+
+
+           
+
+            // Refrescar la vista del carrito
+            Listado.getChildren().clear();
+            factura.getChildren().clear();
+            Muestra_productos();
+            Factura();
+            
+            Alert successAlert = new Alert(AlertType.INFORMATION);
+            successAlert.setTitle("Pedido completado");
+            successAlert.setHeaderText(null);
+            successAlert.setContentText("OPERACION COMPLETADA");
+            successAlert.initModality(Modality.APPLICATION_MODAL);
+            successAlert.showAndWait();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+
+    
+   
+    }
+
+
+
+
