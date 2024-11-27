@@ -159,6 +159,9 @@ public class Gestion_usuarios implements Initializable {
     }
 
     public void Muestra_usuarios() throws SQLException {
+        // Limpia el contenido actual del GridPane antes de añadir los nuevos elementos
+        Listado.getChildren().clear();
+
         try (Connection conexion = util.Conexiones.dameConexion("burger-queen")) {
             String sqlUsuarios = "SELECT id_empleado AS id, nombre, apellido, email, estado, 'Empleado' AS tipo FROM empleados UNION ALL SELECT id_admin AS id, nombre, apellido, email, estado, 'Administrador' AS tipo FROM administradores";
             PreparedStatement sentenciaUsuarios = conexion.prepareStatement(sqlUsuarios);
@@ -220,10 +223,14 @@ public class Gestion_usuarios implements Initializable {
                 botonEliminar.setGraphic(iconoEliminar);
                 botonEliminar.setUserData(idUsuario);
                 botonEliminar.setOnAction(e -> {
-                    eliminarUsuario((int) botonEliminar.getUserData());
                     try {
-                        Muestra_usuarios();
-                    } catch (SQLException ex) {
+                        try {
+							eliminarUsuario((int) botonEliminar.getUserData());
+						} catch (SQLException e1) {
+							// TODO Auto-generated catch block
+							e1.printStackTrace();
+						}
+                    } catch (IOException ex) {
                         ex.printStackTrace();
                     }
                 });
@@ -241,6 +248,7 @@ public class Gestion_usuarios implements Initializable {
         }
     }
 
+
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         Username.textProperty().bind(Login.bannerusuarioProperty());
@@ -253,6 +261,7 @@ public class Gestion_usuarios implements Initializable {
 
     public void nuevo_usuario() {
         try {
+        	cerrar();
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/Vistas/Nuevo_usuarios.fxml"));
             AnchorPane itemFocusPane = loader.load();
             Stage itemFocusStage = new Stage();
@@ -266,15 +275,28 @@ public class Gestion_usuarios implements Initializable {
             e.printStackTrace();
         }
     }
+    public void Gestion_usuarios() throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/Vistas/Gestion_usuarios.fxml"));
+        Pane registro = loader.load();
+        Scene loginScene = new Scene(registro, 600, 500);
+        loginScene.setFill(Color.TRANSPARENT);
+        Stage loginStage = new Stage();
+        loginStage.setResizable(false);
+        loginStage.initStyle(StageStyle.DECORATED);
+        loginStage.setScene(loginScene);
+        loginStage.setTitle("Reservas");
+        loginStage.show();
+        cerrar();
+    }
 
-    private void eliminarUsuario(int idUsuario) {
+    private void eliminarUsuario(int idUsuario) throws IOException, SQLException {
         String sqlEliminarEmpleado = "DELETE FROM empleados WHERE id_empleado = ?";
         String sqlEliminarAdmin = "DELETE FROM administradores WHERE id_admin = ?";
         try (Connection conexion = util.Conexiones.dameConexion("burger-queen")) {
             try (PreparedStatement stmt = conexion.prepareStatement(sqlEliminarEmpleado)) {
                 stmt.setInt(1, idUsuario);
                 int filasAfectadas = stmt.executeUpdate();
-                if (filasAfectadas == 0) {
+                if (filasAfectadas == 0) { // Si no se eliminó como empleado, intentar como administrador
                     try (PreparedStatement stmtAdmin = conexion.prepareStatement(sqlEliminarAdmin)) {
                         stmtAdmin.setInt(1, idUsuario);
                         stmtAdmin.executeUpdate();
@@ -284,10 +306,16 @@ public class Gestion_usuarios implements Initializable {
         } catch (SQLException e) {
             e.printStackTrace();
         }
+        
+        // Llama a Muestra_usuarios para actualizar el contenido sin cerrar la ventana
+        Muestra_usuarios();
     }
+
+
 
     private void muestraeditar() {
         try {
+        	cerrar();
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/Vistas/Editar_usuarios.fxml"));
             AnchorPane itemFocusPane = loader.load();
             Stage itemFocusStage = new Stage();
@@ -300,5 +328,8 @@ public class Gestion_usuarios implements Initializable {
         } catch (IOException e) {
             e.printStackTrace();
         }
+        cerrar();
     }
+    
+   
 }

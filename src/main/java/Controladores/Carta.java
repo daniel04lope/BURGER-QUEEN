@@ -260,4 +260,19 @@ public class Carta implements Initializable {
         loginStage.show();
         cerrar();
     }
+    
+    
+    public void Horarios() throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/Vistas/Horarios.fxml"));
+        Pane registro = loader.load();
+        Scene loginScene = new Scene(registro, 600, 500);
+        loginScene.setFill(Color.TRANSPARENT);
+        Stage loginStage = new Stage();
+        loginStage.setResizable(false);
+        loginStage.initStyle(StageStyle.DECORATED);
+        loginStage.setScene(loginScene);
+        loginStage.setTitle("Reservas");
+        loginStage.show();
+        cerrar();
+    }
 }

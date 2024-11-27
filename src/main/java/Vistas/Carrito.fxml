@@ -12,26 +12,15 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity"
-	minHeight="-Infinity" minWidth="-Infinity" prefHeight="623.0"
-	prefWidth="800.0" style="-fx-background-color: #D28383;"
-	xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1"
-	fx:controller="Controladores.Carrito">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="623.0" prefWidth="800.0" style="-fx-background-color: #D28383;" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controladores.Carrito">
 	<children>
-		<ScrollPane fitToHeight="false" fitToWidth="false"
-			hbarPolicy="NEVER" layoutX="14.0" layoutY="80.0" prefHeight="264.0"
-			prefWidth="476.0"
-			style="-fx-background-color: transparent; -fx-background: transparent;"
-			vbarPolicy="ALWAYS">
+		<ScrollPane fitToHeight="false" fitToWidth="false" hbarPolicy="NEVER" layoutX="14.0" layoutY="80.0" prefHeight="264.0" prefWidth="476.0" style="-fx-background-color: transparent; -fx-background: transparent;" vbarPolicy="ALWAYS">
 			<content>
-				<AnchorPane minHeight="0.0" minWidth="0.0"
-					style="-fx-background-color: #D28383;">
+				<AnchorPane minHeight="0.0" minWidth="0.0" style="-fx-background-color: #D28383;">
 					<children>
-						<GridPane fx:id="Listado" prefWidth="466.0"
-							style="-fx-background-color: #D28383;">
+						<GridPane fx:id="Listado" prefWidth="466.0" style="-fx-background-color: #D28383;">
 							<columnConstraints>
-								<ColumnConstraints hgrow="ALWAYS"
-									minWidth="10.0" prefWidth="100.0" />
+								<ColumnConstraints hgrow="ALWAYS" minWidth="10.0" prefWidth="100.0" />
 							</columnConstraints>
 
 						</GridPane>
@@ -40,170 +29,108 @@
 			</content>
 		</ScrollPane>
 
-		<HBox id="Barra_Navegacion" layoutX="-1.0" layoutY="-2.0"
-			prefHeight="66.0" prefWidth="859.0"
-			style="-fx-background-color: #905D5D;">
+		<HBox id="Barra_Navegacion" layoutX="-1.0" layoutY="-2.0" prefHeight="66.0" prefWidth="859.0" style="-fx-background-color: #905D5D;">
 			<children>
-				<ImageView fitHeight="57.0" fitWidth="66.0"
-					pickOnBounds="true" preserveRatio="true">
+				<ImageView fitHeight="57.0" fitWidth="66.0" pickOnBounds="true" preserveRatio="true">
 					<image>
 						<Image url="@/Burger_Queen.png" />
 					</image>
 				</ImageView>
-				<Text id="Texto" fill="WHITE" strokeType="OUTSIDE"
-					strokeWidth="0.0" text="                            carrito"
-					wrappingWidth="620.3163642883301">
+				<Text id="Texto" fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="                            carrito" wrappingWidth="620.3163642883301">
 					<font>
 						<Font name="Insaniburger" size="40.0" />
 					</font>
 				</Text>
-				<Button id="Carrito" layoutX="10.0" layoutY="13.0"
-					minWidth="53.0" prefHeight="65.0" prefWidth="40.0"
-					style="-fx-background-color: transparent;" translateX="-13.0"
-					visible="false">
+				<Button id="Carrito" layoutX="10.0" layoutY="13.0" minWidth="53.0" prefHeight="65.0" prefWidth="40.0" style="-fx-background-color: transparent;" translateX="-13.0" visible="false">
 					<graphic>
-						<ImageView fitHeight="48.0" fitWidth="53.0"
-							pickOnBounds="true" preserveRatio="true" visible="false">
+						<ImageView fitHeight="48.0" fitWidth="53.0" pickOnBounds="true" preserveRatio="true" visible="false">
 							<image>
 								<Image url="@/carrito.png" />
 							</image>
 						</ImageView>
 					</graphic>
 				</Button>
-				<Button id="Perfil" layoutX="10.0" layoutY="13.0"
-					onAction="#Mostrar_Login"
-					style="-fx-background-color: transparent;" translateX="3.0"
-					translateY="7.0">
-					<graphic>
-						<ImageView fitHeight="39.0" fitWidth="54.0"
-							pickOnBounds="true" preserveRatio="true">
-							<image>
-								<Image url="@/perfil.png" />
-							</image>
-						</ImageView>
-					</graphic>
-				</Button>
+				<Button id="Perfil" layoutX="10.0" layoutY="13.0" onAction="#Mostrar_Login" style="-fx-background-color: transparent;" translateX="3.0" translateY="7.0" />
 			</children>
 		</HBox>
-		<Button fx:id="Cerrar" layoutX="96.0" layoutY="7.0"
-			mnemonicParsing="false" onAction="#cerrar" prefHeight="47.0"
-			prefWidth="61.0"
-			style="-fx-background-color: #D28383;                 -fx-border-color: #FFFFFF;                 -fx-border-radius: 22.5px;                 -fx-background-radius: 22.5px;"
-			text="←">
+		<Button fx:id="Cerrar" layoutX="96.0" layoutY="7.0" mnemonicParsing="false" onAction="#cerrar" prefHeight="47.0" prefWidth="61.0" style="-fx-background-color: #D28383;                 -fx-border-color: #FFFFFF;                 -fx-border-radius: 22.5px;                 -fx-background-radius: 22.5px;" text="←">
 			<font>
 				<Font name="Insaniburger" size="25.3" />
 			</font>
 		</Button>
-		<Text fx:id="Username" layoutX="725.0" layoutY="60.0"
-			strokeType="OUTSIDE" strokeWidth="0.0" text="Registrate"
-			textAlignment="CENTER" wrappingWidth="84.63238525390625">
-			<font>
-				<Font name="Insaniburger" size="9.0" />
-			</font>
-		</Text>
-		<AnchorPane layoutX="12.0" layoutY="389.0"
-			prefHeight="200.0" prefWidth="484.0"
-			style="-fx-background-color: A6234E; -fx-border-radius: 20; -fx-border-color: FFFFFF; -fx-background-radius: 20;">
+		<AnchorPane layoutX="12.0" layoutY="389.0" prefHeight="200.0" prefWidth="484.0" style="-fx-background-color: A6234E; -fx-border-radius: 20; -fx-border-color: FFFFFF; -fx-background-radius: 20;">
 			<children>
-				<Button id="Perfil" fx:id="Nugguest" layoutX="24.0"
-					layoutY="31.0" prefHeight="119.0" prefWidth="150.0"
-					style="-fx-background-color: transparent;">
+				<Button id="Perfil" fx:id="Nugguest" layoutX="24.0" layoutY="31.0" prefHeight="119.0" prefWidth="150.0" style="-fx-background-color: transparent;">
 					<graphic>
-						<ImageView fitHeight="113.0" fitWidth="140.0"
-							pickOnBounds="true" preserveRatio="true">
+						<ImageView fitHeight="113.0" fitWidth="140.0" pickOnBounds="true" preserveRatio="true">
 							<image>
 								<Image url="@/Nugguets_pollo.png" />
 							</image>
 						</ImageView>
 					</graphic>
 				</Button>
-				<Button id="Perfil" fx:id="Patatas" layoutX="180.0"
-					layoutY="32.0" prefHeight="113.0" prefWidth="135.0"
-					style="-fx-background-color: transparent;">
+				<Button id="Perfil" fx:id="Patatas" layoutX="180.0" layoutY="32.0" prefHeight="113.0" prefWidth="135.0" style="-fx-background-color: transparent;">
 					<graphic>
-						<ImageView fitHeight="112.0" fitWidth="140.0"
-							pickOnBounds="true" preserveRatio="true">
+						<ImageView fitHeight="112.0" fitWidth="140.0" pickOnBounds="true" preserveRatio="true">
 							<image>
 								<Image url="@/Patatas_clasicas.png" />
 							</image>
 						</ImageView>
 					</graphic>
 				</Button>
-				<Button id="Perfil" fx:id="Cocacola" layoutX="336.0"
-					layoutY="40.0" prefHeight="120.0" prefWidth="156.0"
-					style="-fx-background-color: transparent;">
+				<Button id="Perfil" fx:id="Cocacola" layoutX="336.0" layoutY="40.0" prefHeight="120.0" prefWidth="156.0" style="-fx-background-color: transparent;">
 					<graphic>
-						<ImageView fitHeight="112.0" fitWidth="140.0"
-							pickOnBounds="true" preserveRatio="true">
+						<ImageView fitHeight="112.0" fitWidth="140.0" pickOnBounds="true" preserveRatio="true">
 							<image>
 								<Image url="@/Cocacola.png" />
 							</image>
 						</ImageView>
 					</graphic>
 				</Button>
-				<Text fill="WHITE" layoutX="74.0" layoutY="173.0"
-					strokeType="OUTSIDE" strokeWidth="0.0" text="Nugguest">
+				<Text fill="WHITE" layoutX="74.0" layoutY="173.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Nugguest">
 					<font>
 						<Font name="Insaniburger" size="12.0" />
 					</font>
 				</Text>
-				<Text fill="WHITE" layoutX="233.0" layoutY="173.0"
-					strokeType="OUTSIDE" strokeWidth="0.0" text="Patatas">
+				<Text fill="WHITE" layoutX="233.0" layoutY="173.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Patatas">
 					<font>
 						<Font name="Insaniburger" size="12.0" />
 					</font>
 				</Text>
-				<Text fill="WHITE" layoutX="389.0" layoutY="173.0"
-					strokeType="OUTSIDE" strokeWidth="0.0" text="Cocacola">
+				<Text fill="WHITE" layoutX="389.0" layoutY="173.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Cocacola">
 					<font>
 						<Font name="Insaniburger" size="12.0" />
 					</font>
 				</Text>
 			</children>
 		</AnchorPane>
-		<AnchorPane layoutX="516.0" layoutY="80.0"
-			prefHeight="507.0" prefWidth="267.0"
-			style="-fx-background-color: #2F2F2F; -fx-background-radius: 20; -fx-border-radius: 20; -fx-border-color: #FFFFFF;">
+		<AnchorPane layoutX="516.0" layoutY="80.0" prefHeight="507.0" prefWidth="267.0" style="-fx-background-color: #2F2F2F; -fx-background-radius: 20; -fx-border-radius: 20; -fx-border-color: #FFFFFF;">
 			<children>
-				<Text fill="WHITE" layoutX="55.0" layoutY="36.0"
-					strokeType="OUTSIDE" strokeWidth="0.0" text="Detalles del pedido">
+				<Text fill="WHITE" layoutX="55.0" layoutY="36.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Detalles del pedido">
 					<font>
 						<Font name="Insaniburger" size="17.0" />
 					</font>
 				</Text>
-				<ImageView fitHeight="172.0" fitWidth="239.0"
-					layoutX="16.0" layoutY="239.0" pickOnBounds="true"
-					preserveRatio="true">
+				<ImageView fitHeight="172.0" fitWidth="239.0" layoutX="16.0" layoutY="239.0" pickOnBounds="true" preserveRatio="true">
 					<image>
 						<Image url="@/Mapa.png" />
 					</image>
 				</ImageView>
-				<Button layoutX="30.0" layoutY="425.0"
-					mnemonicParsing="false" onAction="#resetearcarrito"
-					prefHeight="44.0" prefWidth="208.0"
-					style="-fx-background-color: #AE4800; -fx-border-radius: 20; -fx-background-radius: 20;"
-					text="TRAMITAR PEDIDO" textFill="WHITE">
+				<Button layoutX="30.0" layoutY="425.0" mnemonicParsing="false" onAction="#resetearcarrito" prefHeight="44.0" prefWidth="208.0" style="-fx-background-color: #AE4800; -fx-border-radius: 20; -fx-background-radius: 20;" text="TRAMITAR PEDIDO" textFill="WHITE">
 					<font>
 						<Font name="Insaniburger" size="12.0" />
 					</font>
 				</Button>
-				<ScrollPane hbarPolicy="NEVER" layoutX="17.0"
-					layoutY="40.0" prefHeight="183.0" prefWidth="239.0"
-					style="-fx-background-color: TRANSPARENT;">
+				<ScrollPane hbarPolicy="NEVER" layoutX="17.0" layoutY="40.0" prefHeight="183.0" prefWidth="239.0" style="-fx-background-color: TRANSPARENT;">
 					<content>
-						<AnchorPane minHeight="0.0" minWidth="0.0"
-							prefHeight="184.0" prefWidth="237.0"
-							style="-fx-background-color: #2F2F2F;">
+						<AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="184.0" prefWidth="237.0" style="-fx-background-color: #2F2F2F;">
 							<children>
-								<GridPane fx:id="factura" layoutY="1.0"
-									prefHeight="183.0" prefWidth="224.0">
+								<GridPane fx:id="factura" layoutY="1.0" prefHeight="183.0" prefWidth="224.0">
 									<columnConstraints>
-										<ColumnConstraints hgrow="SOMETIMES"
-											minWidth="10.0" prefWidth="100.0" />
+										<ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
 									</columnConstraints>
 									<rowConstraints>
-										<RowConstraints minHeight="10.0"
-											prefHeight="30.0" vgrow="SOMETIMES" />
+										<RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
 									</rowConstraints>
 								</GridPane>
 							</children>

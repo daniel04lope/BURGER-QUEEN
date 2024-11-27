@@ -14,12 +14,17 @@ import java.util.ResourceBundle;
 import java.util.regex.Pattern;
 
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.Pane;
+import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 
 public class Editar_usuarios implements Initializable {
 
@@ -39,6 +44,7 @@ public class Editar_usuarios implements Initializable {
     private Text texto_carta, texto_reserva, texto_pedidos, texto_posicion;
 
     private File fotoSeleccionada;
+   
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -135,30 +141,35 @@ public class Editar_usuarios implements Initializable {
             if (Files.exists(ruta)) {
                 imageView.setImage(new javafx.scene.image.Image(ruta.toUri().toString()));
             } else {
-            	  String rutaPorDefecto = "src/main/resources/imagenes/perfil.png";
-                  ruta = Paths.get(rutaPorDefecto);
-                  if (Files.exists(ruta)) {
-                      imageView.setImage(new javafx.scene.image.Image(ruta.toUri().toString()));
-                  } 
+                cargarImagenPorDefecto();
             }
         } else {
-        	  String rutaPorDefecto = "src/main/resources/imagenes/perfil.png";
-              Path ruta = Paths.get(rutaPorDefecto);
-              if (Files.exists(ruta)) {
-                  imageView.setImage(new javafx.scene.image.Image(ruta.toUri().toString()));
-              } 
+            cargarImagenPorDefecto();
         }
     }
 
+    private void cargarImagenPorDefecto() {
+        String rutaPorDefecto = "src/main/resources/imagenes/perfil.png";
+        Path ruta = Paths.get(rutaPorDefecto);
+        if (Files.exists(ruta)) {
+            imageView.setImage(new javafx.scene.image.Image(ruta.toUri().toString()));
+        }
+    }
    
-   
+    
+    public void flechaatras() throws IOException {
+    	cerrar();
+    	Gestion_usuarios();
+    }
 
-    public void cerrar() {
+    public void cerrar() throws IOException {
+    	
         Stage stage = (Stage) Cerrar.getScene().getWindow();
         stage.close();
     }
 
-    public void cancelarFormulario() {
+    public void cancelarFormulario() throws IOException {
+    	Gestion_usuarios();
         Stage stage = (Stage) cancelar.getScene().getWindow();
         stage.close();
     }
@@ -175,7 +186,7 @@ public class Editar_usuarios implements Initializable {
         }
     }
 
-    private String guardarImagen() {
+    private String guardarImagen(int idUsuario) {
         if (fotoSeleccionada == null) {
             return null;
         }
@@ -191,10 +202,12 @@ public class Editar_usuarios implements Initializable {
             }
         }
 
-        String nombreArchivo = System.currentTimeMillis() + "_" + fotoSeleccionada.getName();
+        // Generar un nombre único utilizando ID del usuario y timestamp
+        String nombreArchivo = idUsuario + "_" + System.currentTimeMillis() + "_" + fotoSeleccionada.getName();
         Path destinoArchivo = destinoCarpeta.resolve(nombreArchivo);
 
         try {
+            // Guardar la nueva imagen
             Files.copy(fotoSeleccionada.toPath(), destinoArchivo);
             return "imagenes/" + nombreArchivo;
         } catch (IOException e) {
@@ -228,10 +241,12 @@ public class Editar_usuarios implements Initializable {
         return true;
     }
 
-    public void guardar() {
+    public void guardar() throws IOException {
         if (!validarCampos()) return;
 
-        String imagenRuta = guardarImagen();
+        // Guardar imagen con un nombre único basado en el ID del usuario
+        String imagenRuta = guardarImagen(Gestion_usuarios.idtraspaso);
+
         String sql = "UPDATE empleados SET nombre = ?, apellido = ?, email = ?, username = ?, password = ?, telefono = ?, direccion = ?, fecha_nacimiento = ?, tipo = ?, estado = ?, ruta_imagen = ?, posicion = ? WHERE id_empleado = ?";
 
         try (Connection conexion = util.Conexiones.dameConexion("burger-queen")) {
@@ -246,85 +261,111 @@ public class Editar_usuarios implements Initializable {
             stmt.setDate(8, java.sql.Date.valueOf(fechanacimiento.getValue()));
             stmt.setString(9, tipo.getValue());
             stmt.setString(10, estado.getValue());
-            stmt.setString(11, imagenRuta);
+            stmt.setString(11, imagenRuta); // Guardar ruta de imagen
             stmt.setString(12, posicion.getText());
             stmt.setInt(13, Gestion_usuarios.idtraspaso);
             stmt.executeUpdate();
 
-            if ("Empleado".equals(tipo.getValue())) {
-            }
-
             Stage stage = (Stage) guardar.getScene().getWindow();
             stage.close();
-
+            cerrar();
+            Gestion_usuarios();
+            
+        
         } catch (SQLException e) {
             e.printStackTrace();
             mostrarError("Error SQL", "No se pudo guardar los cambios.");
         }
     }
+    public void Gestion_usuarios() throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/Vistas/Gestion_usuarios.fxml"));
+        Pane registro = loader.load();
+        Scene loginScene = new Scene(registro, 600, 500);
+        loginScene.setFill(Color.TRANSPARENT);
+        Stage loginStage = new Stage();
+        loginStage.setResizable(false);
+        loginStage.initStyle(StageStyle.DECORATED);
+        loginStage.setScene(loginScene);
+        loginStage.setTitle("Reservas");
+        loginStage.show();
+        cerrar();
+    }
+
     
     
-    public void actualizar() {
-       
+    public void actualizar() throws IOException {
         if (!validarCampos()) {
             return;
         }
 
-        
         int idUsuario = Gestion_usuarios.idtraspaso;
+        boolean esEmpleado = "Empleado".equals(tipo.getValue());
+        boolean esAdministrador = "Administrador".equals(tipo.getValue());
 
-       
-        String rutaImagenGuardada = guardarImagen();
+        // Guardar imagen con un nombre único basado en el ID del usuario
+        String rutaImagenGuardada = guardarImagen(idUsuario);
 
         try (Connection conexion = util.Conexiones.dameConexion("burger-queen")) {
-        
-            String sql;
-            boolean esEmpleado = "Empleado".equals(tipo.getValue());
-
-           
+            // Verificar si el tipo de usuario ha cambiado
             if (esEmpleado) {
-                sql = "UPDATE empleados SET nombre = ?, apellido = ?, email = ?, password = ?, telefono = ?, direccion = ?, estado = ?, fecha_nacimiento = ?, posicion = ?, ruta = ? WHERE id_empleado = ?";
-            } else {
-                sql = "UPDATE administradores SET nombre = ?, apellido = ?, email = ?, password = ?, telefono = ?, direccion = ?, estado = ?, fecha_nacimiento = ?, ruta = ? WHERE id_admin = ?";
+                // Si el usuario es de tipo Empleado y estaba en la tabla de administradores, moverlo a la tabla de empleados
+                String sqlEliminarAdmin = "DELETE FROM administradores WHERE id_admin = ?";
+                PreparedStatement stmtEliminarAdmin = conexion.prepareStatement(sqlEliminarAdmin);
+                stmtEliminarAdmin.setInt(1, idUsuario);
+                stmtEliminarAdmin.executeUpdate();
+
+                String sqlInsertEmpleado = "INSERT INTO empleados (id_empleado, nombre, apellido, email, username, password, telefono, direccion, estado, fecha_nacimiento, posicion, ruta) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+                PreparedStatement stmtInsertEmpleado = conexion.prepareStatement(sqlInsertEmpleado);
+                stmtInsertEmpleado.setInt(1, idUsuario);
+                stmtInsertEmpleado.setString(2, nombre.getText());
+                stmtInsertEmpleado.setString(3, apellidos.getText());
+                stmtInsertEmpleado.setString(4, email.getText());
+                stmtInsertEmpleado.setString(5, username.getText());
+                stmtInsertEmpleado.setString(6, password.getText());
+                stmtInsertEmpleado.setString(7, telefono.getText());
+                stmtInsertEmpleado.setString(8, direccion.getText());
+                stmtInsertEmpleado.setString(9, estado.getValue());
+                stmtInsertEmpleado.setDate(10, java.sql.Date.valueOf(fechanacimiento.getValue()));
+                stmtInsertEmpleado.setString(11, posicion.getText());
+                stmtInsertEmpleado.setString(12, rutaImagenGuardada);
+                stmtInsertEmpleado.executeUpdate();
+            } else if (esAdministrador) {
+                // Si el usuario es de tipo Administrador y estaba en la tabla de empleados, moverlo a la tabla de administradores
+                String sqlEliminarEmpleado = "DELETE FROM empleados WHERE id_empleado = ?";
+                PreparedStatement stmtEliminarEmpleado = conexion.prepareStatement(sqlEliminarEmpleado);
+                stmtEliminarEmpleado.setInt(1, idUsuario);
+                stmtEliminarEmpleado.executeUpdate();
+
+                String sqlInsertAdmin = "INSERT INTO administradores (id_admin, nombre, apellido, email, username, password, telefono, direccion, estado, fecha_nacimiento, ruta) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+                PreparedStatement stmtInsertAdmin = conexion.prepareStatement(sqlInsertAdmin);
+                stmtInsertAdmin.setInt(1, idUsuario);
+                stmtInsertAdmin.setString(2, nombre.getText());
+                stmtInsertAdmin.setString(3, apellidos.getText());
+                stmtInsertAdmin.setString(4, email.getText());
+                stmtInsertAdmin.setString(5, username.getText());
+                stmtInsertAdmin.setString(6, password.getText());
+                stmtInsertAdmin.setString(7, telefono.getText());
+                stmtInsertAdmin.setString(8, direccion.getText());
+                stmtInsertAdmin.setString(9, estado.getValue());
+                stmtInsertAdmin.setDate(10, java.sql.Date.valueOf(fechanacimiento.getValue()));
+                stmtInsertAdmin.setString(11, rutaImagenGuardada);
+                stmtInsertAdmin.executeUpdate();
             }
 
-        
-            PreparedStatement pst = conexion.prepareStatement(sql);
-            pst.setString(1, nombre.getText());
-            pst.setString(2, apellidos.getText());
-            pst.setString(3, email.getText());
-            pst.setString(4, password.getText());
-            pst.setString(5, telefono.getText());
-            pst.setString(6, direccion.getText());
-            pst.setString(7, estado.getValue());
-            pst.setString(8, fechanacimiento.getValue().toString());
-            
-            if (esEmpleado) {
-               
-                pst.setString(9, posicion.getText());
-                pst.setString(10, rutaImagenGuardada); 
-                pst.setInt(11, idUsuario);
-            } else {
-             
-                pst.setString(9, rutaImagenGuardada);
-                pst.setInt(10, idUsuario);
-            }
+            // Confirmación de éxito
+            Alert alerta = new Alert(Alert.AlertType.INFORMATION);
+            alerta.setTitle("Actualizado");
+            alerta.setHeaderText(null);
+            alerta.setContentText("El usuario ha sido actualizado correctamente.");
+            alerta.showAndWait();
 
-           
-            int filasAfectadas = pst.executeUpdate();
-
-           
-            if (filasAfectadas > 0) {
-                Alert alerta = new Alert(Alert.AlertType.INFORMATION);
-                alerta.setTitle("Actualizado");
-                alerta.setHeaderText(null);
-                alerta.setContentText("El usuario ha sido actualizado correctamente.");
-                alerta.showAndWait();
-            }
+            cerrar();
+            Gestion_usuarios();
         } catch (SQLException e) {
             e.printStackTrace();
-         
             mostrarError("Error SQL", "No se pudo actualizar el usuario.");
         }
     }
+
+
 }

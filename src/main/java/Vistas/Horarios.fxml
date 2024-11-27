@@ -1,0 +1,200 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Accordion?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.TitledPane?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: #D28383;" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controladores.Horarios">
+   <children>
+      <HBox id="Barra_Navegacion" prefHeight="57.0" prefWidth="600.0" style="-fx-background-color: #905D5D;">
+         <children>
+            <ImageView fitHeight="57.0" fitWidth="66.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@/Burger_Queen.png" />
+               </image>
+            </ImageView>
+            <Button id="Desplegable" fx:id="Desplegable" layoutX="10.0" layoutY="13.0" minWidth="53.0" onAction="#Despliega" prefHeight="61.0" prefWidth="53.0" style="-fx-background-color: transparent;">
+               <graphic>
+                  <ImageView fitHeight="36.0" fitWidth="29.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@/desplegable.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+            </Button>
+            <Text id="Texto" fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-family: Insaniburger; -fx-font-size: 40; -fx-text-fill: #FFFFFF;" text="BURGUER QUEEN" textAlignment="CENTER" wrappingWidth="369.9830513000488">
+               <font>
+                  <Font name="Insaniburger" size="35.0" />
+               </font>
+            </Text>
+            <Button id="Carrito" layoutX="10.0" layoutY="13.0" minWidth="53.0" onAction="#carrito" prefHeight="65.0" prefWidth="53.0" style="-fx-background-color: transparent;">
+               <graphic>
+                  <ImageView fitHeight="39.0" fitWidth="37.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@/carrito.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+            </Button>
+            <Button id="Perfil" layoutX="10.0" layoutY="13.0" onAction="#Mostrar_Login" style="-fx-background-color: transparent;">
+               <graphic>
+                  <ImageView fx:id="imagenperfil" fitHeight="45.0" fitWidth="45.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@/perfil.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+            </Button>
+         </children>
+      </HBox>
+      <ImageView fitHeight="231.0" fitWidth="229.0" layoutX="45.0" layoutY="130.0">
+         <image>
+            <Image url="@/relojhorario.png" />
+         </image>
+      </ImageView>
+      <Text layoutX="391.0" layoutY="101.0" strokeType="OUTSIDE" strokeWidth="0.0" text="horarios">
+         <font>
+            <Font name="Insaniburger" size="25.0" />
+         </font>
+      </Text>
+      <Text layoutX="306.0" layoutY="155.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Lunes a Viernes:" textAlignment="JUSTIFY">
+         <font>
+            <Font name="Insaniburger" size="19.0" />
+         </font></Text>
+      <Text layoutX="306.0" layoutY="182.0" strokeType="OUTSIDE" strokeWidth="0.0" text="• Desayuno: 7:00 a 10:00 a.m." textAlignment="JUSTIFY">
+         <font>
+            <Font size="19.0" />
+         </font></Text>
+      <Text layoutX="306.0" layoutY="207.0" strokeType="OUTSIDE" strokeWidth="0.0" text="• Almuerzo: 12:00 p.m. a 3:00 p.m." textAlignment="JUSTIFY">
+         <font>
+            <Font size="19.0" />
+         </font></Text>
+      <Text layoutX="306.0" layoutY="232.0" strokeType="OUTSIDE" strokeWidth="0.0" text="• Merienda: 4:00 p.m. a 6:00 p.m." textAlignment="JUSTIFY">
+         <font>
+            <Font size="19.0" />
+         </font></Text>
+      <Text layoutX="306.0" layoutY="257.0" strokeType="OUTSIDE" strokeWidth="0.0" text="• Cena: 7:00 p.m. a 11:00 p.m." textAlignment="JUSTIFY">
+         <font>
+            <Font size="19.0" />
+         </font></Text>
+      <Text layoutX="303.0" layoutY="324.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Sábados y Domingos:" textAlignment="JUSTIFY">
+         <font>
+            <Font name="Insaniburger" size="19.0" />
+         </font></Text>
+      <Text layoutX="303.0" layoutY="349.0" strokeType="OUTSIDE" strokeWidth="0.0" text="• Desayuno: 8:00 a 11:00 a.m." textAlignment="JUSTIFY">
+         <font>
+            <Font size="19.0" />
+         </font></Text>
+      <Text layoutX="303.0" layoutY="374.0" strokeType="OUTSIDE" strokeWidth="0.0" text="• Almuerzo: 12:00 p.m. a 4:00 p.m." textAlignment="JUSTIFY">
+         <font>
+            <Font size="19.0" />
+         </font></Text>
+      <Text layoutX="303.0" layoutY="399.0" strokeType="OUTSIDE" strokeWidth="0.0" text="• Merienda: 4:30 p.m. a 6:30 p.m." textAlignment="JUSTIFY">
+         <font>
+            <Font size="19.0" />
+         </font></Text>
+      <Text layoutX="303.0" layoutY="424.0" strokeType="OUTSIDE" strokeWidth="0.0" text="• Cena: 7:00 p.m. a 12:00 a.m." textAlignment="JUSTIFY">
+         <font>
+            <Font size="19.0" />
+         </font></Text>
+      <AnchorPane fx:id="Panel_Desplegable" layoutX="-4.0" layoutY="-6.0" prefHeight="530.0" prefWidth="262.0" style="-fx-background-color: #333333;" visible="false">
+         <children>
+            <ScrollPane hbarPolicy="NEVER" prefHeight="530.0" prefWidth="262.0">
+               <content>
+                  <VBox prefHeight="531.0" prefWidth="263.0">
+                     <children>
+                        <Button mnemonicParsing="false" onAction="#Pantalla_Principal" prefHeight="64.0" prefWidth="271.0" style="-fx-background-color: A6234E;" text="PANTALLA PRINCIPAL">
+                           <font>
+                              <Font name="Insaniburger" size="20.0" />
+                           </font>
+                        </Button>
+                        <Button fx:id="Carta" mnemonicParsing="false" onAction="#Carta" prefHeight="64.0" prefWidth="267.0" style="-fx-background-color: D28383;" text="CARTA">
+                           <font>
+                              <Font name="Insaniburger" size="20.0" />
+                           </font>
+                        </Button>
+                        <Button mnemonicParsing="false" onAction="#Reserva" prefHeight="64.0" prefWidth="267.0" style="-fx-background-color: A6234E;" text="RESERVAS">
+                           <font>
+                              <Font name="Insaniburger" size="20.0" />
+                           </font>
+                        </Button>
+                        <Button mnemonicParsing="false" onAction="#Ubicacion" prefHeight="64.0" prefWidth="267.0" style="-fx-background-color: D28383;" text="UBICACION">
+                           <font>
+                              <Font name="Insaniburger" size="20.0" />
+                           </font>
+                        </Button>
+                        <Button mnemonicParsing="false" prefHeight="64.0" prefWidth="265.0" style="-fx-background-color: A6234E;" text="PERFIL">
+                           <font>
+                              <Font name="Insaniburger" size="20.0" />
+                           </font>
+                        </Button>
+                        <Accordion prefHeight="24.0" prefWidth="260.0">
+                           <panes>
+                              <TitledPane animated="false" prefHeight="251.0" prefWidth="260.0" style="-fx-background-color: D28383;" text="PANEL DE CONTROL">
+                                 <font>
+                                    <Font name="Insaniburger" size="20.0" />
+                                 </font>
+                                 <content>
+                                    <VBox prefHeight="195.0" prefWidth="258.0" spacing="5.0">
+                                       <children>
+                                          <Button mnemonicParsing="false" onAction="#ReservaAdmin" prefHeight="64.0" prefWidth="255.0" style="-fx-background-color: FFFFFF;" text="GESTION DE RESERVAS">
+                                             <font>
+                                                <Font name="Insaniburger" size="20.0" />
+                                             </font>
+                                          </Button>
+                                          <Button mnemonicParsing="false" onAction="#Carta" prefHeight="64.0" prefWidth="255.0" style="-fx-background-color: FFFFFF;" text="GESTION DE MENUS">
+                                             <font>
+                                                <Font name="Insaniburger" size="20.0" />
+                                             </font>
+                                          </Button>
+                                          <Button mnemonicParsing="false" onAction="#Gestion_usuarios" prefHeight="64.0" prefWidth="255.0" style="-fx-background-color: FFFFFF;" text="GESTION DE USUARIOS">
+                                             <font>
+                                                <Font name="Insaniburger" size="20.0" />
+                                             </font>
+                                          </Button>
+                                          <Button mnemonicParsing="false" prefHeight="64.0" prefWidth="255.0" style="-fx-background-color: FFFFFF;" text="ESTADISTICAS">
+                                             <font>
+                                                <Font name="Insaniburger" size="20.0" />
+                                             </font>
+                                          </Button>
+                                          <Button mnemonicParsing="false" prefHeight="64.0" prefWidth="255.0" style="-fx-background-color: FFFFFF;" text="CONTACTAR ENCARGADO">
+                                             <font>
+                                                <Font name="Insaniburger" size="20.0" />
+                                             </font>
+                                          </Button>
+                                       </children>
+                                    </VBox>
+                                 </content>
+                              </TitledPane>
+                           </panes>
+                        </Accordion>
+                     </children>
+                  </VBox>
+               </content>
+            </ScrollPane>
+         </children>
+      </AnchorPane>
+      <Button fx:id="Cerrar" layoutX="256.0" layoutY="12.0" minWidth="53.0" onAction="#Despliega" prefHeight="47.0" prefWidth="53.0" style="-fx-background-color: transparent;" visible="false">
+         <graphic>
+            <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@/eliminar.png" />
+               </image>
+            </ImageView>
+         </graphic>
+      </Button>
+      <Text fx:id="Username" layoutX="535.0" layoutY="50.0" strokeType="OUTSIDE" strokeWidth="0.0" textAlignment="CENTER" wrappingWidth="63.298828125">
+         <font>
+            <Font name="Insaniburger" size="9.0" />
+         </font>
+      </Text>
+   </children>
+</AnchorPane>

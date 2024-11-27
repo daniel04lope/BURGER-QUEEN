@@ -5,6 +5,9 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.HashMap;
+import java.util.Map;
+
 import javax.swing.JOptionPane;
 import Modelos.Usuario;
 import javafx.beans.property.SimpleStringProperty;
@@ -48,6 +51,9 @@ public class Login {
         Stage stage = (Stage) Cerrar.getScene().getWindow();
         stage.close();
     }
+    
+    
+ 
 
     public void iniciarSesion() throws SQLException, IOException {
         String emailString = Email.getText();
@@ -111,7 +117,11 @@ public class Login {
         } else {
             JOptionPane.showMessageDialog(null, "Login fallido: Correo o contraseña inválidos");
         }
+        
+        
     }
+    
+    
 
     private boolean verificarCredencialesUsuario(Connection conexion, String tableName, String email, String password) throws SQLException {
         String query = "SELECT password, username FROM " + tableName + " WHERE email = ?";

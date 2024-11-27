@@ -1,7 +1,5 @@
 package Controladores;
 
-
-
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -23,26 +21,30 @@ import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
 public class Ubicacion implements Initializable {
-	  @FXML
-	    Text Username;
-	    @FXML
-	    private AnchorPane Panel_Desplegable;
-	    @FXML
-	    private Button Desplegable;
-	    @FXML
-	    private Button Cerrar;
-	    @FXML
-	    private ImageView imagenperfil;
 
-	    private boolean Panel_Visible = false;
-	    private boolean Cerrardesplegar = false;
+    @FXML
+    Text Username;
+    @FXML
+    private AnchorPane Panel_Desplegable;
+    @FXML
+    private Button Desplegable;
+    @FXML
+    private Button Cerrar;
+    @FXML
+    private ImageView imagenperfil;
+
+    private boolean Panel_Visible = false;
+    private boolean Cerrardesplegar = false;
 
     @FXML
     private WebView webView;
 
+    // URL de Google Maps que se puede modificar o pasar dinámicamente
+    private String googleMapsUrl = "https://www.google.com/maps/place/Burger+Queen/@38.530303,-8.8699675,17z/data=!3m2!4b1!5s0xd1942599711639d:0xad6eb38a6fd5d7d6!4m6!3m5!1s0xd194361a43e444b:0x866e61fc20791b9b!8m2!3d38.530303!4d-8.8673926!16s%2Fg%2F11rzdb4fgz?authuser=0&entry=ttu&g_ep=EgoyMDI0MTExOS4yIKXMDSoASAFQAw%3D%3D";
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+    	 Username.textProperty().bind(Login.bannerusuarioProperty());
         // Aseguramos que el WebView se inicializa correctamente
         if (webView == null) {
             System.out.println("WebView no se ha inicializado correctamente.");
@@ -54,10 +56,7 @@ public class Ubicacion implements Initializable {
         // Habilitar JavaScript
         webEngine.setJavaScriptEnabled(true);
 
-        // Cargar directamente la URL de Google Maps (como un sitio web, no como texto)
-        String googleMapsUrl = "https://www.google.com/maps/place/Burger+Queen/@38.530303,-8.8699675,17z/data=!3m2!4b1!5s0xd1942599711639d:0xad6eb38a6fd5d7d6!4m6!3m5!1s0xd194361a43e444b:0x866e61fc20791b9b!8m2!3d38.530303!4d-8.8673926!16s%2Fg%2F11rzdb4fgz?authuser=0&entry=ttu&g_ep=EgoyMDI0MTExOS4yIKXMDSoASAFQAw%3D%3D";
-
-        // Cargar la URL directamente
+        // Cargar la URL de Google Maps (puedes modificar esta URL para que se pase dinámicamente)
         webEngine.load(googleMapsUrl);
 
         // Verificar si la carga fue exitosa
@@ -66,17 +65,25 @@ public class Ubicacion implements Initializable {
         });
     }
 
-	
-	
+    // Método para actualizar la URL del mapa dinámicamente
+    public void cargarMapa(String nuevaUrl) {
+        WebEngine webEngine = webView.getEngine();
+        if (webEngine != null && nuevaUrl != null && !nuevaUrl.isEmpty()) {
+            // Cambiar la URL del mapa
+            webEngine.load(nuevaUrl);
+        }
+    }
+
     public void cerrar() {
         Stage stage = (Stage) Cerrar.getScene().getWindow();
         stage.close();
     }
+
     public void Pantalla_Principal() throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/Vistas/Pantalla-Principal.fxml"));
         Pane principal = loader.load();
         Scene principalScene = new Scene(principal, 600, 500);
-        
+
         principalScene.setFill(Color.TRANSPARENT);
         Stage PrincipalStage = new Stage();
         PrincipalStage.initStyle(StageStyle.DECORATED);
@@ -93,7 +100,7 @@ public class Ubicacion implements Initializable {
         Cerrar.setVisible(Cerrardesplegar);
         Panel_Desplegable.setVisible(Panel_Visible);
     }
-    
+
     public void Carta() throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/Vistas/Carta.fxml"));
         Pane registro = loader.load();
@@ -106,10 +113,9 @@ public class Ubicacion implements Initializable {
         loginStage.setScene(loginScene);
         loginStage.setTitle("CARTA");
         loginStage.show();
-        cerrar();  
+        cerrar();
     }
-    
-    
+
     public void Ubicacion() throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/Vistas/Ubicacion.fxml"));
         Pane registro = loader.load();
@@ -122,8 +128,9 @@ public class Ubicacion implements Initializable {
         loginStage.setScene(loginScene);
         loginStage.setTitle("CARTA");
         loginStage.show();
-        cerrar();  
+        cerrar();
     }
+
     public void ReservaAdmin() throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/Vistas/ReservaAdmin.fxml"));
         Pane registro = loader.load();
@@ -136,9 +143,8 @@ public class Ubicacion implements Initializable {
         loginStage.setTitle("Reservas");
         loginStage.show();
         cerrar();
-         
     }
-    
+
     public void Reserva() throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/Vistas/Reservas.fxml"));
         Pane registro = loader.load();
@@ -150,9 +156,9 @@ public class Ubicacion implements Initializable {
         loginStage.setScene(loginScene);
         loginStage.setTitle("Reservas");
         loginStage.show();
-        cerrar();  
+        cerrar();
     }
-    
+
     public void Mostrar_Login() {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/Vistas/Login.fxml"));
@@ -169,14 +175,11 @@ public class Ubicacion implements Initializable {
             e.printStackTrace();
         }
     }
-    
-    public void carrito () throws IOException {
-    	try {
+
+    public void carrito() throws IOException {
+        try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/Vistas/Carrito.fxml"));
             AnchorPane itemFocusPane = loader.load();
-
-          
-           
 
             Stage itemFocusStage = new Stage();
             itemFocusStage.initStyle(StageStyle.TRANSPARENT);
@@ -190,10 +193,8 @@ public class Ubicacion implements Initializable {
         } catch (IOException e) {
             e.printStackTrace();
         }
-    	
     }
-    
-    
+
     public void Gestion_usuarios() throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/Vistas/Gestion_usuarios.fxml"));
         Pane registro = loader.load();
@@ -205,6 +206,6 @@ public class Ubicacion implements Initializable {
         loginStage.setScene(loginScene);
         loginStage.setTitle("Reservas");
         loginStage.show();
-        cerrar();  
+        cerrar();
     }
 }

@@ -6,6 +6,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.Map;
 import java.util.ResourceBundle;
 import javafx.scene.image.Image;
 import javafx.fxml.FXML;
@@ -28,8 +29,7 @@ import javafx.stage.StageStyle;
 
 public class Carrito implements Initializable {
 
-    @FXML
-    Text Nombre_de_usuario;
+    
     @FXML
     GridPane Listado;
     @FXML
@@ -52,6 +52,7 @@ public class Carrito implements Initializable {
 
     public void Mostrar_Login() {
         try {
+        	
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/Vistas/Login.fxml"));
             Pane login = loader.load();
             Scene loginScene = new Scene(login, 450, 600);
@@ -66,10 +67,27 @@ public class Carrito implements Initializable {
             e.printStackTrace();
         }
     }
+    
+    public void Pantalla_Principal() throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/Vistas/Pantalla-Principal.fxml"));
+        Pane principal = loader.load();
+        Scene principalScene = new Scene(principal, 600, 500);
+       
+        principalScene.setFill(Color.TRANSPARENT);
+        Stage PrincipalStage = new Stage();
+        PrincipalStage.initStyle(StageStyle.DECORATED);
+        PrincipalStage.setScene(principalScene);
+        PrincipalStage.setTitle("CARTA");
+        PrincipalStage.show();
+        cerrar();
+    }
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        Username.textProperty().bind(Login.bannerusuarioProperty());
+        
+        
+        Connection conn=util.Conexiones.dameConexion("burger-queen");
+      
 
         Nugguest.setOnAction(event -> {
             if (Login.datos_login.getIdUsuario() == 0) {
@@ -125,6 +143,7 @@ public class Carrito implements Initializable {
         } catch (SQLException e) {
             e.printStackTrace();
         }
+     
     }
 
     public void Muestra_productos() throws SQLException {
@@ -375,6 +394,9 @@ public class Carrito implements Initializable {
             e.printStackTrace();
         }
     }
+    
+    
+   
 
 
     
