@@ -20,7 +20,7 @@ public class Main extends Application {
         this.primaryStage = primaryStage;
         Font.loadFont(getClass().getResourceAsStream("/Insanibu.ttf"), 12);
         primaryStage.initStyle(StageStyle.TRANSPARENT);
-        Muestramain();
+        //Muestramain();
         Muestralogin();
     }
 
@@ -52,6 +52,7 @@ public class Main extends Application {
             loginStage.setScene(loginScene);
             loginStage.setTitle("LOGIN");
             loginStage.show();
+           
         } catch (Exception e) {
             e.printStackTrace();
         }

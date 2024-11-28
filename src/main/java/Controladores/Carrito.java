@@ -63,6 +63,7 @@ public class Carrito implements Initializable {
             loginStage.initModality(Modality.APPLICATION_MODAL);
             loginStage.setTitle("LOGIN");
             loginStage.show();
+            cerrar();
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -325,6 +326,24 @@ public class Carrito implements Initializable {
     
     public void resetearcarrito() {
         try (Connection conexion = util.Conexiones.dameConexion("burger-queen")) {
+            // Consulta para contar los pedidos en curso del usuario
+            PreparedStatement cuentaPedidos = conexion.prepareStatement(
+                "SELECT COUNT(*) FROM pedidos WHERE id_usuario = ? AND estado = 'en_curso'");
+            cuentaPedidos.setInt(1, Login.datos_login.getIdUsuario());
+            ResultSet resultadoCuenta = cuentaPedidos.executeQuery();
+
+            int cantidadPedidosEnCurso = 0;
+            if (resultadoCuenta.next()) {
+                cantidadPedidosEnCurso = resultadoCuenta.getInt(1);
+            }
+
+            // Si hay un pedido en curso, mostrar alerta y salir
+            if (cantidadPedidosEnCurso > 0) {
+                mostrarAlerta(AlertType.WARNING, "Pedido en curso", 
+                    "Por favor, espera a que tu pedido actual sea completado antes de realizar un nuevo pedido.");
+                return; // Salir del método sin procesar el nuevo pedido
+            }
+
             // Obtener el ID del carrito del usuario con estado 'pendiente'
             String sqlObtenerCarrito = "SELECT id_carrito FROM carrito WHERE id_cliente = ? AND estado = 'pendiente'";
             PreparedStatement sentenciaObtenerCarrito = conexion.prepareStatement(sqlObtenerCarrito);
@@ -341,7 +360,7 @@ public class Carrito implements Initializable {
             sentenciaObtenerCarrito.close();
 
             // Crear un nuevo pedido en la tabla pedidos
-            String sqlInsertarPedido = "INSERT INTO pedidos (id_carrito, id_usuario,estado) VALUES (?, ?,'en_curso')";
+            String sqlInsertarPedido = "INSERT INTO pedidos (id_carrito, id_usuario, estado) VALUES (?, ?, 'en_curso')";
             PreparedStatement sentenciaInsertarPedido = conexion.prepareStatement(sqlInsertarPedido, PreparedStatement.RETURN_GENERATED_KEYS);
             sentenciaInsertarPedido.setInt(1, idCarrito);
             sentenciaInsertarPedido.setInt(2, Login.datos_login.getIdUsuario());
@@ -360,8 +379,7 @@ public class Carrito implements Initializable {
             clavesGeneradas.close();
             sentenciaInsertarPedido.close();
 
-            // Actualizar los productos en carrito_items para asignarlos al nuevo pedido y marcar como "tramitados"
-         // Actualizar los productos en carrito_items para marcarlos como "Tramitado"
+            // Actualizar los productos en carrito_items para marcarlos como "Tramitado"
             String sqlActualizarCarritoItems = "UPDATE carrito_items SET estado = 'Tramitado' WHERE id_carrito = ? AND estado = 'Pendiente'";
             PreparedStatement sentenciaActualizarCarritoItems = conexion.prepareStatement(sqlActualizarCarritoItems);
             sentenciaActualizarCarritoItems.setInt(1, idCarrito);
@@ -374,9 +392,6 @@ public class Carrito implements Initializable {
             }
 
             sentenciaActualizarCarritoItems.close();
-
-
-           
 
             // Refrescar la vista del carrito
             Listado.getChildren().clear();
@@ -394,7 +409,15 @@ public class Carrito implements Initializable {
             e.printStackTrace();
         }
     }
-    
+
+    private void mostrarAlerta(AlertType tipo, String titulo, String mensaje) {
+        Alert alert = new Alert(tipo);
+        alert.setTitle(titulo);
+        alert.setHeaderText(null);
+        alert.setContentText(mensaje);
+        alert.initModality(Modality.APPLICATION_MODAL);
+        alert.showAndWait();
+    }
     
    
 

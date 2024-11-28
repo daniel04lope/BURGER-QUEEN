@@ -5,19 +5,23 @@ import java.net.URL;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ResourceBundle;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
+import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import javafx.scene.Scene;
+import javafx.scene.control.Accordion;
 import javafx.scene.control.Button;
+import javafx.scene.control.TitledPane;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
@@ -34,72 +38,109 @@ public class Pantalla_principal implements Initializable {
     @FXML
     private ImageView imagenperfil;
 
+    @FXML
+    private Accordion administradores;
+    @FXML
+    private TitledPane titledpaneadmin;
+    @FXML
+    private VBox Vboxadmin;
+    
     private boolean Panel_Visible = false;
     private boolean Cerrardesplegar = false;
+    @FXML
+    private Button reservaadmin;
+    @FXML
+    private Button menuadmin;
+    @FXML
+    private Button usuariosadmin;
+    @FXML
+    private Button pedidosadmin;
 
     public void initialize(URL location, ResourceBundle resources) {
+    	
         System.out.println("Pantalla_principal inicializado correctamente");
-       
-        
+     
         Username.textProperty().bind(Login.bannerusuarioProperty());
-
+        
+      if(Login.tipo.equals("administradores")) {
+    	  
+    	  administradores.setVisible(true);
+    	  titledpaneadmin.setVisible(true);
+    	  Vboxadmin.setVisible(true);  
+    	  usuariosadmin.setDisable(false);
+      }     
+       
+      if (Login.tipo.equals("empleados") && permisos(Login.datos_login.getIdUsuario(), "RESERVA", "lectura")==true) {
+    	  administradores.setVisible(true);
+    	  titledpaneadmin.setVisible(true);
+    	  Vboxadmin.setVisible(true);  
+    	  reservaadmin.setDisable(false);
+    	  
+      }
+   
+      
+      if (Login.tipo.equals("empleados") && !permisos(Login.datos_login.getIdUsuario(), "CARTA", "lectura")==true) {
+    	  administradores.setVisible(true);
+    	  titledpaneadmin.setVisible(true);
+    	  Vboxadmin.setVisible(true);  
+    	 menuadmin.setDisable(false);
+    	  
+      }
+  
+      
+      
+      if (Login.tipo.equals("empleados") && permisos(Login.datos_login.getIdUsuario(), "PEDIDO", "lectura")==true) {
+    	  administradores.setVisible(true);
+    	  titledpaneadmin.setVisible(true);
+    	  Vboxadmin.setVisible(true);  
+    	  pedidosadmin.setDisable(false);
+      } 
+      
+      
+      if (Login.tipo.equals("usuarios")){
+    	  administradores.setVisible(false);
+    	  titledpaneadmin.setVisible(false);
+    	  Vboxadmin.setVisible(false);  
+    	  
+      }
+        
     }
-    
-    
-    public String obtenerPermisosPorUsuarioYModulo(int idUsuario, String nombreModulo) {
-        // Consulta SQL
-        String query = """
-            SELECT p.lectura, p.escritura, p.control_total 
-            FROM permisos p
-            INNER JOIN modulos m ON p.id_modulo = m.id_modulo
-            INNER JOIN empleados e ON p.id_empleado = e.id_empleado
-            INNER JOIN usuarios u ON e.id_empleado = u.id_usuario
-            WHERE u.id_usuario = ? AND m.nombre_modulo = ?;
-        """;
+    public void Pantalla_Principal() throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/Vistas/Pantalla-Principal.fxml"));
+        Pane principal = loader.load();
+        Scene principalScene = new Scene(principal, 600, 500);
+       
+        principalScene.setFill(Color.TRANSPARENT);
+        Stage PrincipalStage = new Stage();
+        PrincipalStage.initStyle(StageStyle.DECORATED);
+        PrincipalStage.setScene(principalScene);
+        PrincipalStage.setTitle("CARTA");
+        PrincipalStage.show();
+        cerrar();
+    }
+    public static boolean permisos(int idEmpleado, String nombreModulo, String tipoPermiso) {
+        String query = "SELECT COUNT(*) FROM permisos p " +
+                       "JOIN modulos m ON p.id_modulo = m.id_modulo " +
+                       "WHERE p.id_empleado = ? AND m.nombre_modulo = ? AND " + tipoPermiso + " = 1";
 
-        try (Connection conn = util.Conexiones.dameConexion("burger-queen");
-             PreparedStatement stmt = conn.prepareStatement(query)) {
-            
-            // Establecer parámetros de la consulta
-            stmt.setInt(1, idUsuario);
-            stmt.setString(2, nombreModulo);
+        try (Connection conexion = util.Conexiones.dameConexion("burger-queen");
+             PreparedStatement preparedStatement = conexion.prepareStatement(query)) {
 
-            try (ResultSet rs = stmt.executeQuery()) {
-                StringBuilder permisos = new StringBuilder();
+            preparedStatement.setInt(1, idEmpleado);
+            preparedStatement.setString(2, nombreModulo);
 
-                // Recorrer los resultados
-                while (rs.next()) {
-                    int lectura = rs.getInt("lectura");
-                    int escritura = rs.getInt("escritura");
-                    int controlTotal = rs.getInt("control_total");
-
-                    // Agregar permisos a la cadena
-                    if (lectura == 1) {
-                        permisos.append("Lectura, ");
-                    }
-                    if (escritura == 1) {
-                        permisos.append("Escritura, ");
-                    }
-                    if (controlTotal == 1) {
-                        permisos.append("Control Total, ");
-                    }
-                }
-
-                // Eliminar la última coma y espacio, si existen
-                if (permisos.length() > 0) {
-                    permisos.setLength(permisos.length() - 2);
-                }
-
-                // Retornar permisos o "Sin permisos"
-                return permisos.length() > 0 ? permisos.toString() : "Sin permisos";
+            ResultSet resultSet = preparedStatement.executeQuery();
+            if (resultSet.next()) {
+                return resultSet.getInt(1) > 0; // Devuelve true si hay al menos un permiso
             }
-
         } catch (Exception e) {
             e.printStackTrace();
-            return "Error al obtener permisos";
         }
+        return false; 
     }
 
+ 
+   
 
     public void cerrar() {
         Stage stage = (Stage) Cerrar.getScene().getWindow();
@@ -116,7 +157,7 @@ public class Pantalla_principal implements Initializable {
     }
     
     public void Carta() throws IOException {
-    System.out.println( obtenerPermisosPorUsuarioYModulo(36,"CARTA" ));
+    System.out.println(permisos(36, "CARTA", "escritura"));
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/Vistas/Carta.fxml"));
         Pane registro = loader.load();
         Scene loginScene = new Scene(registro, 600, 500);
@@ -201,6 +242,8 @@ public class Pantalla_principal implements Initializable {
             loginStage.initModality(Modality.APPLICATION_MODAL);
             loginStage.setTitle("LOGIN");
             loginStage.show();
+            cerrar();
+            
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -210,9 +253,6 @@ public class Pantalla_principal implements Initializable {
     	try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/Vistas/Carrito.fxml"));
             AnchorPane itemFocusPane = loader.load();
-
-          
-           
 
             Stage itemFocusStage = new Stage();
             itemFocusStage.initStyle(StageStyle.TRANSPARENT);

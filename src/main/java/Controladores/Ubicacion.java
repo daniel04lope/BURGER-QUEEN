@@ -171,6 +171,7 @@ public class Ubicacion implements Initializable {
             loginStage.initModality(Modality.APPLICATION_MODAL);
             loginStage.setTitle("LOGIN");
             loginStage.show();
+            cerrar();
         } catch (Exception e) {
             e.printStackTrace();
         }

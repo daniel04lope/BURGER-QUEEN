@@ -118,20 +118,12 @@
         </AnchorPane>
     </children>
 </AnchorPane>
-
-
-		<!-- Username Text -->
-		<Text fx:id="Username" layoutX="532.0" layoutY="49.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Registrate" textAlignment="CENTER" wrappingWidth="63.298828125">
-			<font>
-				<Font name="Insaniburger" size="9.0" />
-			</font>
-		</Text>
 		<!-- Drawer (Panel Lateral) -->
-		<AnchorPane fx:id="Panel_Desplegable" layoutX="-4.0" prefHeight="400.0" prefWidth="200.0" style="-fx-background-color: #333333;" visible="false">
+		<AnchorPane fx:id="Panel_Desplegable" layoutX="-4.0" prefHeight="400.0" prefWidth="249.0" style="-fx-background-color: #333333;" visible="false">
 			<children>
 				<ScrollPane hbarPolicy="NEVER" prefHeight="514.0" prefWidth="262.0">
 					<content>
-						<VBox prefHeight="519.0" prefWidth="263.0">
+						<VBox prefHeight="519.0" prefWidth="262.0">
 							<children>
 								<Button fx:id="Carta" mnemonicParsing="false" onAction="#Carta" prefHeight="64.0" prefWidth="255.0" style="-fx-background-color: D28383;" text="CARTA">
 									<font>
@@ -158,25 +150,30 @@
 										<Font name="Insaniburger" size="20.0" />
 									</font>
 								</Button>
-								<Accordion prefHeight="24.0" prefWidth="260.0">
+								<Accordion fx:id="administradores" prefHeight="120.0" prefWidth="263.0" visible="false">
 									<panes>
-										<TitledPane animated="false" prefHeight="251.0" prefWidth="260.0" style="-fx-background-color: D28383;" text="PANEL DE CONTROL">
+										<TitledPane fx:id="titledpaneadmin" animated="false" prefHeight="251.0" prefWidth="260.0" style="-fx-background-color: D28383;" text="PANEL DE CONTROL" visible="false">
 											<font>
 												<Font name="Insaniburger" size="20.0" />
 											</font>
 											<content>
-												<VBox prefHeight="195.0" prefWidth="258.0" spacing="5.0">
-													<Button mnemonicParsing="false" onAction="#ReservaAdmin" prefHeight="64.0" prefWidth="255.0" style="-fx-background-color: FFFFFF;" text="GESTION DE RESERVAS">
+												<VBox fx:id="Vboxadmin" prefHeight="130.0" prefWidth="261.0" spacing="5.0" visible="false">
+													<Button fx:id="reservaadmin" mnemonicParsing="false" onAction="#ReservaAdmin" prefHeight="64.0" prefWidth="255.0" style="-fx-background-color: FFFFFF;" text="GESTION DE RESERVAS">
 														<font>
 															<Font name="Insaniburger" size="20.0" />
 														</font>
 													</Button>
-													<Button mnemonicParsing="false" onAction="#Carta" prefHeight="64.0" prefWidth="255.0" style="-fx-background-color: FFFFFF;" text="GESTION DE MENUS">
+													<Button fx:id="menuadmin" mnemonicParsing="false" onAction="#Carta" prefHeight="64.0" prefWidth="255.0" style="-fx-background-color: FFFFFF;" text="GESTION DE MENUS">
 														<font>
 															<Font name="Insaniburger" size="20.0" />
 														</font>
 													</Button>
-                                       <Button mnemonicParsing="false" onAction="#Gestion_usuarios" prefHeight="64.0" prefWidth="255.0" style="-fx-background-color: FFFFFF;" text="GESTION DE USUARIOS">
+                                       <Button fx:id="usuariosadmin" disable="true" mnemonicParsing="false" onAction="#Gestion_usuarios" prefHeight="64.0" prefWidth="255.0" style="-fx-background-color: FFFFFF;" text="GESTION DE USUARIOS">
+                                          <font>
+                                             <Font name="Insaniburger" size="20.0" />
+                                          </font>
+                                       </Button>
+                                       <Button fx:id="pedidosadmin" mnemonicParsing="false" prefHeight="64.0" prefWidth="255.0" style="-fx-background-color: FFFFFF;" text="GESTION DE PEDIDOS">
                                           <font>
                                              <Font name="Insaniburger" size="20.0" />
                                           </font>
@@ -211,5 +208,13 @@
 				</ImageView>
 			</graphic>
 		</Button>
+
+
+		<!-- Username Text -->
+		<Text fx:id="Username" layoutX="532.0" layoutY="49.0" strokeType="OUTSIDE" strokeWidth="0.0" textAlignment="CENTER" wrappingWidth="63.298828125">
+			<font>
+				<Font name="Insaniburger" size="9.0" />
+			</font>
+		</Text>
 	</children>
 </AnchorPane>

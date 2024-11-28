@@ -26,6 +26,7 @@ import javafx.stage.StageStyle;
 
 public class Login {
     
+	public static String tipo="";
     @FXML
     Button Cerrar;
     @FXML
@@ -42,6 +43,7 @@ public class Login {
     public static StringProperty bannerusuarioProperty() {
         return banner;
     }
+
     
     public Login() {
     }
@@ -52,6 +54,10 @@ public class Login {
         stage.close();
     }
     
+    public void cancela() throws IOException {
+    	cerrar();
+    	Pantalla_Principal();
+    }
     
  
 
@@ -64,7 +70,8 @@ public class Login {
         if (verificarCredencialesUsuario(conexion, "usuarios", emailString, passwordString)) {
             banner.set(nombreusuario);
             JOptionPane.showMessageDialog(null, "Login exitoso para el usuario: " + emailString);
-            
+            tipo="usuarios";
+            Pantalla_Principal();
             try {
                 PreparedStatement sentencia = conexion.prepareStatement(
                     "SELECT id_usuario, nombre, apellido, email, username, fecha_registro, estado, telefono, direccion, fecha_nacimiento,ruta FROM usuarios WHERE email = ?"
@@ -83,6 +90,7 @@ public class Login {
                     datos_login.setFechaRegistro(ejecuta.getTimestamp("fecha_registro"));
                     datos_login.setFechaNacimiento(ejecuta.getDate("fecha_nacimiento").toLocalDate());
                     datos_login.setRuta(ejecuta.getString("ruta"));
+                    
                 } else {
                     System.out.println("No se encontró un usuario con el email especificado.");
                 }
@@ -101,12 +109,15 @@ public class Login {
         } else if (verificarCredencialesUsuario(conexion, "empleados", emailString, passwordString)) {
             if (nombreusuario.length() < 15) {
                 banner.set(nombreusuario);
+                tipo="empleados";
             } else {
                 banner.set(nombreusuario.substring(0, 12) + "...");
             }
             JOptionPane.showMessageDialog(null, "Login exitoso para el empleado: " + emailString);
             cerrar();
+            Pantalla_Principal();
         } else if (verificarCredencialesUsuario(conexion, "administradores", emailString, passwordString)) {
+        	tipo="administradores";
             if (nombreusuario.length() < 15) {
                 banner.set(nombreusuario);
             } else {
@@ -114,9 +125,13 @@ public class Login {
             }
             JOptionPane.showMessageDialog(null, "Login exitoso para el administrador: " + emailString);
             cerrar();
+            Pantalla_Principal();
         } else {
             JOptionPane.showMessageDialog(null, "Login fallido: Correo o contraseña inválidos");
         }
+    
+        
+       
         
         
     }
@@ -140,6 +155,9 @@ public class Login {
         return false;
     }
     
+    
+    
+    
     public void Registro() throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/Vistas/Registro.fxml"));
         Pane registro = loader.load();
@@ -153,6 +171,20 @@ public class Login {
         loginStage.initModality(Modality.APPLICATION_MODAL);
         loginStage.setTitle("REGISTRO");
         loginStage.show();
+        cerrar();
+    }
+    
+    public void Pantalla_Principal() throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/Vistas/Pantalla-Principal.fxml"));
+        Pane principal = loader.load();
+        Scene principalScene = new Scene(principal, 600, 500);
+        principalScene.setFill(Color.TRANSPARENT);
+        Stage PrincipalStage = new Stage();
+        PrincipalStage.setResizable(false);
+        PrincipalStage.initStyle(StageStyle.DECORATED);
+        PrincipalStage.setScene(principalScene);
+        PrincipalStage.setTitle("CARTA");
+        PrincipalStage.show();
         cerrar();
     }
 }

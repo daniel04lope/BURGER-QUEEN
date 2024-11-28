@@ -195,6 +195,7 @@ public class Carta implements Initializable {
             loginStage.setScene(loginScene);
             loginStage.setTitle("LOGIN");
             loginStage.show();
+            cerrar();
         } catch (Exception e) {
             e.printStackTrace();
         }

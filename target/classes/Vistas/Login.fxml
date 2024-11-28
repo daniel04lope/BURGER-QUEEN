@@ -39,7 +39,7 @@
       </Text>
 
       <!-- Botón con imagen en la esquina superior derecha -->
-      <Button fx:id="Cerrar" layoutX="386.0" layoutY="13.0" onAction="#cerrar" style="-fx-background-color: transparent;">
+      <Button fx:id="Cerrar" layoutX="386.0" layoutY="13.0" onAction="#cancela" style="-fx-background-color: transparent;">
          <graphic>
             <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
                <image>

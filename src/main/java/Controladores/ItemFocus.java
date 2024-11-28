@@ -298,7 +298,26 @@ public class ItemFocus implements Initializable {
             Mostrar_Login();
         } else {
             try (Connection conexion = util.Conexiones.dameConexion("burger-queen")) {
-                
+                // Consulta para contar los pedidos en curso del usuario
+                PreparedStatement cuentaPedidos = conexion.prepareStatement(
+                    "SELECT COUNT(*) FROM pedidos WHERE id_usuario = ?");
+                cuentaPedidos.setInt(1, Login.datos_login.getIdUsuario());
+                ResultSet resultadoCuenta = cuentaPedidos.executeQuery();
+
+                int cantidadPedidosEnCurso = 0;
+                if (resultadoCuenta.next()) {
+                    cantidadPedidosEnCurso = resultadoCuenta.getInt(1);
+                }
+
+                // Si hay un pedido en curso, mostrar alerta y salir
+                if (cantidadPedidosEnCurso > 0) {
+                    mostrarAlerta(AlertType.WARNING, "Pedido en curso", 
+                        "Por favor, espera a que tu pedido actual sea completado antes de realizar un nuevo pedido.");
+                    return; // Salir del método sin procesar el nuevo pedido
+                }
+                else {
+
+                // Si no hay pedidos en curso, proceder a insertar el nuevo pedido
                 PreparedStatement sentencia = conexion.prepareStatement(
                     "SELECT id_producto, nombre, descripcion, precio, categoria, peso FROM carta WHERE id_producto = ?");
                 sentencia.setInt(1, producto.getIdProducto());
@@ -307,7 +326,7 @@ public class ItemFocus implements Initializable {
 
                 if (resultado.next()) {
                     PreparedStatement insertaproductobase = conexion.prepareStatement(
-                        "INSERT INTO carrito_items (id_carrito, id_plato, cantidad, precio_unitario, Detalles,estado) VALUES (?,?,?,?,?,'pendiente')");
+                        "INSERT INTO carrito_items (id_carrito, id_plato, cantidad, precio_unitario, Detalles, estado) VALUES (?,?,?,?,?,'pendiente')");
                     insertaproductobase.setInt(1, Login.datos_login.getIdUsuario());
                     insertaproductobase.setInt(2, resultado.getInt("id_producto"));
                     insertaproductobase.setInt(3, 1);
@@ -318,40 +337,46 @@ public class ItemFocus implements Initializable {
                     System.out.println("Producto base añadido al carrito con éxito.");
                 }
 
-              
+                // Procesar complementos
                 if (complemento != null) {
                     PreparedStatement insertacomplemento = conexion.prepareStatement(
-                        "INSERT INTO carrito_items (id_carrito, id_plato, cantidad, precio_unitario, Detalles) VALUES (?,?,?,?,?)");
+                        "INSERT INTO carrito_items (id_carrito, id_plato, cantidad, precio_unitario, Detalles, estado) VALUES (?,?,?,?,?,'pendiente')");
                     insertacomplemento.setInt(1, Login.datos_login.getIdUsuario());
                     insertacomplemento.setInt(2, complemento.getIdProducto());
-                    insertacomplemento.setInt(3, 1); 
-                    insertacomplemento.setDouble(4, complemento.getPrecio()); 
+                    insertacomplemento.setInt(3, 1);
+                    insertacomplemento.setDouble(4, complemento.getPrecio());
                     insertacomplemento.setString(5, "");
 
                     int ejecutarInsertComplemento = insertacomplemento.executeUpdate();
                     System.out.println("Complemento añadido al carrito con éxito.");
                 }
-                
-                
+
+                // Procesar bebida
                 if (bebida != null) {
                     PreparedStatement insertacomplemento = conexion.prepareStatement(
-                        "INSERT INTO carrito_items (id_carrito, id_plato, cantidad, precio_unitario, Detalles) VALUES (?,?,?,?,?)");
+                        "INSERT INTO carrito_items (id_carrito, id_plato, cantidad, precio_unitario, Detalles, estado) VALUES (?,?,?,?,?,'pendiente')");
                     insertacomplemento.setInt(1, Login.datos_login.getIdUsuario());
                     insertacomplemento.setInt(2, bebida.getIdProducto());
-                    insertacomplemento.setInt(3, 1); 
-                    insertacomplemento.setDouble(4, bebida.getPrecio()); 
+                    insertacomplemento.setInt(3, 1);
+                    insertacomplemento.setDouble(4, bebida.getPrecio());
                     insertacomplemento.setString(5, "");
 
                     int ejecutarInsertComplemento = insertacomplemento.executeUpdate();
                     System.out.println("Complemento añadido al carrito con éxito.");
                 }
+
+                // Notificación de éxito
+                Notifications notification = Notifications.create()
+                    .title("Producto añadido")
+                    .text("El producto ha sido agregado")
+                    .hideAfter(javafx.util.Duration.seconds(5));
+                notification.showInformation();
+
+            }} catch (SQLException e) {
+                e.printStackTrace();
+                mostrarAlerta(AlertType.ERROR, "Error de conexión", "No se pudo conectar a la base de datos.");
             }
-            AlertType alertType = AlertType.CONFIRMATION;
-            Notifications notification = Notifications.create().title(alertType == AlertType.ERROR ? "Error en la seleccion del producto" : "Producto añadido").text("El producto ha sido agregado").hideAfter(javafx.util.Duration.seconds(5));
-            notification.showInformation();
-            if (alertType == AlertType.ERROR) {
-                notification.showError();
-            } 
+            
         }
     }
     @FXML
@@ -366,10 +391,12 @@ public class ItemFocus implements Initializable {
     
     
     public void sinextras() {
+    	if(cantExtras < 1) {
     	precioTotal -= 1.20;
-    	cantExtras--;
+    	cantExtras++;
     	tipoExtra="";
     	 Carrito.setText("Añadir a mi pedido - " + String.format("%.2f €", precioTotal));
+    }
     }
     
     public void Carta() throws IOException {
