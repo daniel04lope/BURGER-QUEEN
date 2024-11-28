@@ -124,6 +124,34 @@ public class ItemFocus implements Initializable {
         if (producto != null) {
             cargarProducto();
         }
+        
+        
+        
+        if (Login.tipo.equals("administradores")) {
+        	Modificar.setVisible(true);
+        	Eliminar.setVisible(true);
+        }
+        if (Login.tipo.equals("empleados")) {
+        
+            try {
+				if (permisos(1, "escritura") == 1) {
+					Modificar.setVisible(true);
+		        	Eliminar.setVisible(true);
+				} else {
+					Modificar.setVisible(false);
+		        	Eliminar.setVisible(false);
+				}
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+
+         
+        }
+
+       
+
+       
     }
 
     public void setProducto(Producto producto) {
@@ -135,6 +163,30 @@ public class ItemFocus implements Initializable {
         cargarProducto();
     }
 
+    
+    public int permisos(int nombreModulo, String tipoPermiso) throws SQLException {
+        String sql = "SELECT " + tipoPermiso + " FROM permisos WHERE id_empleado = ? AND id_modulo = ?";
+        int valor = 0;
+
+        try (Connection conexion = util.Conexiones.dameConexion("burger-queen")) {
+            PreparedStatement sentencia = conexion.prepareStatement(sql);
+            sentencia.setInt(1, Login.datos_login.getIdUsuario());
+            sentencia.setInt(2, nombreModulo);
+            
+            System.out.println("Cadena: " + sentencia);
+            
+            ResultSet ejecuta = sentencia.executeQuery();
+
+            if (ejecuta.next()) {
+                valor = ejecuta.getInt(tipoPermiso);
+                System.out.println("Valor: " + valor);
+            } else {
+                System.out.println("No valor encontrado id_empleado = " + Login.datos_login.getIdUsuario() + " and id_modulo = " + nombreModulo);
+            }
+        }
+
+        return valor;
+    }
   private void cargarProducto() {
     	
     	

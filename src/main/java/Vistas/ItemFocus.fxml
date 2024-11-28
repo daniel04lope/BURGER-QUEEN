@@ -27,58 +27,6 @@
             <Image url="@/Burger_Queen.png" />
          </image>
       </ImageView>
-      <Button id="Desplegable" fx:id="Desplegable" layoutX="20.0" layoutY="23.0" minWidth="53.0" onAction="#Despliega" prefHeight="61.0" prefWidth="53.0" style="-fx-background-color: transparent;">
-         <graphic>
-            <ImageView fitHeight="36.0" fitWidth="29.0" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@/desplegable.png" />
-               </image>
-            </ImageView>
-         </graphic>
-      </Button>
-      <ImageView fitHeight="36.0" fitWidth="29.0" layoutX="10.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true">
-         <image>
-            <Image url="@/desplegable.png" />
-         </image>
-      </ImageView>
-      <Text id="Texto" fill="WHITE" layoutX="10.0" layoutY="10.0" strokeType="OUTSIDE" strokeWidth="0.0" text="carta" textAlignment="CENTER" wrappingWidth="369.9830513000488">
-         <font>
-            <Font name="Insaniburger" size="35.0" />
-         </font>
-      </Text>
-      <Button id="Carrito" layoutX="20.0" layoutY="23.0" minWidth="53.0" prefHeight="65.0" prefWidth="53.0" style="-fx-background-color: transparent;">
-         <graphic>
-            <ImageView fitHeight="39.0" fitWidth="37.0" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@/carrito.png" />
-               </image>
-            </ImageView>
-         </graphic>
-      </Button>
-      <ImageView fitHeight="39.0" fitWidth="37.0" layoutX="10.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true">
-         <image>
-            <Image url="@/carrito.png" />
-         </image>
-      </ImageView>
-      <Button id="Perfil" layoutX="20.0" layoutY="23.0" style="-fx-background-color: transparent;">
-         <graphic>
-            <ImageView fitHeight="45.0" fitWidth="45.0" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@/perfil.png" />
-               </image>
-            </ImageView>
-         </graphic>
-      </Button>
-      <ImageView fitHeight="45.0" fitWidth="45.0" layoutX="10.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true">
-         <image>
-            <Image url="@/perfil.png" />
-         </image>
-      </ImageView>
-      <Text fx:id="Username" layoutX="545.0" layoutY="59.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Registrate" textAlignment="CENTER" wrappingWidth="63.298828125">
-         <font>
-            <Font name="Insaniburger" size="9.0" />
-         </font>
-      </Text>
       <BorderPane prefHeight="650.0" prefWidth="800">
       
                 <!-- Left Section (Image and Description) -->
@@ -331,16 +279,14 @@
                      <Font name="Insaniburger" size="21.0" />
                   </font>
                </Button>
-               <Button fx:id="modificar" mnemonicParsing="false" prefHeight="50.0" prefWidth="136.0" style="-fx-background-color: yellow; -fx-border-radius: 10px;" text="Modificar" visible="false" />
-               <Button fx:id="Modificar" mnemonicParsing="false" onAction="#mostrarModificaProducto" style="-fx-background-color: gold; -fx-border-color: white; -fx-border-radius: 5px; -fx-background-radius: 5px;" text="Modificar" textFill="WHITE">
+               <Button fx:id="Modificar" mnemonicParsing="false" onAction="#mostrarModificaProducto" style="-fx-background-color: gold; -fx-border-color: white; -fx-border-radius: 5px; -fx-background-radius: 5px;" text="Modificar" textFill="WHITE" visible="false">
                   <font>
                      <Font name="Insaniburger" size="21.0" />
                   </font></Button>
-               <Button fx:id="Eliminar" mnemonicParsing="false" onAction="#eliminaProducto" prefHeight="49.0" prefWidth="134.0" style="-fx-background-color: red; -fx-border-color: white; -fx-border-radius: 5px; -fx-background-radius: 10px;" text="Eliminar" textFill="WHITE">
+               <Button fx:id="Eliminar" mnemonicParsing="false" onAction="#eliminaProducto" prefHeight="49.0" prefWidth="134.0" style="-fx-background-color: red; -fx-border-color: white; -fx-border-radius: 5px; -fx-background-radius: 10px;" text="Eliminar" textFill="WHITE" visible="false">
                   <font>
                      <Font name="Insaniburger" size="21.0" />
                   </font></Button>
-               <Button fx:id="Eliminar" mnemonicParsing="false" prefHeight="64.0" prefWidth="137.0" style="-fx-background-color: Red; -fx-text-fill: white;" text="Eliminar" visible="false" />
               </VBox>
           </center>
          <top>
@@ -383,7 +329,7 @@
             <Font name="Insaniburger" size="25.3" />
          </font>
       </Button>
-      <Text fx:id="Username" layoutX="722.0" layoutY="62.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Registrate" textAlignment="CENTER" wrappingWidth="84.63238525390625">
+      <Text fx:id="Username" layoutX="722.0" layoutY="62.0" strokeType="OUTSIDE" strokeWidth="0.0" textAlignment="CENTER" wrappingWidth="84.63238525390625">
          <font>
             <Font name="Insaniburger" size="9.0" />
          </font>

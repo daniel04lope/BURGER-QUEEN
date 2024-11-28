@@ -62,48 +62,70 @@ public class Pantalla_principal implements Initializable {
      
         Username.textProperty().bind(Login.bannerusuarioProperty());
         
-      if(Login.tipo.equals("administradores")) {
-    	  
-    	  administradores.setVisible(true);
-    	  titledpaneadmin.setVisible(true);
-    	  Vboxadmin.setVisible(true);  
-    	  usuariosadmin.setDisable(false);
-      }     
-       
-      if (Login.tipo.equals("empleados") && permisos(Login.datos_login.getIdUsuario(), "RESERVA", "lectura")==true) {
-    	  administradores.setVisible(true);
-    	  titledpaneadmin.setVisible(true);
-    	  Vboxadmin.setVisible(true);  
-    	  reservaadmin.setDisable(false);
-    	  
-      }
+        if (Login.tipo.equals("administradores")) {
+            administradores.setVisible(true);
+            titledpaneadmin.setVisible(true);
+            Vboxadmin.setVisible(true);
+            usuariosadmin.setDisable(false);
+            
+            pedidosadmin.setDisable(false);
+            menuadmin.setDisable(false);
+            reservaadmin.setDisable(false);
+        }
+
+        if (Login.tipo.equals("empleados")) {
+            administradores.setVisible(true);
+            titledpaneadmin.setVisible(true);
+            Vboxadmin.setVisible(true);
+            System.out.println("llegue");
+
+            // Verificar permisos para cada botón
+            try {
+				if (permisos(2, "lectura") == 1) {
+				    reservaadmin.setDisable(false);
+				} else {
+				    reservaadmin.setDisable(true);
+				}
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+
+            try {
+				if (permisos(1, "lectura") == 1) {
+				    menuadmin.setDisable(false);
+				} else {
+				    menuadmin.setDisable(true);
+				}
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+
+            try {
+				if (permisos(3, "lectura") == 1) {
+				    pedidosadmin.setDisable(false);
+				} else {
+				    pedidosadmin.setDisable(true);
+				}
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+        }
+
+        if (Login.tipo.equals("usuarios")) {
+            administradores.setVisible(false);
+            titledpaneadmin.setVisible(false);
+            Vboxadmin.setVisible(false);
+        }
+
+        try {
+            System.out.println(permisos(1, "lectura"));
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
    
-      
-      if (Login.tipo.equals("empleados") && !permisos(Login.datos_login.getIdUsuario(), "CARTA", "lectura")==true) {
-    	  administradores.setVisible(true);
-    	  titledpaneadmin.setVisible(true);
-    	  Vboxadmin.setVisible(true);  
-    	 menuadmin.setDisable(false);
-    	  
-      }
-  
-      
-      
-      if (Login.tipo.equals("empleados") && permisos(Login.datos_login.getIdUsuario(), "PEDIDO", "lectura")==true) {
-    	  administradores.setVisible(true);
-    	  titledpaneadmin.setVisible(true);
-    	  Vboxadmin.setVisible(true);  
-    	  pedidosadmin.setDisable(false);
-      } 
-      
-      
-      if (Login.tipo.equals("usuarios")){
-    	  administradores.setVisible(false);
-    	  titledpaneadmin.setVisible(false);
-    	  Vboxadmin.setVisible(false);  
-    	  
-      }
-        
     }
     public void Pantalla_Principal() throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/Vistas/Pantalla-Principal.fxml"));
@@ -118,28 +140,31 @@ public class Pantalla_principal implements Initializable {
         PrincipalStage.show();
         cerrar();
     }
-    public static boolean permisos(int idEmpleado, String nombreModulo, String tipoPermiso) {
-        String query = "SELECT COUNT(*) FROM permisos p " +
-                       "JOIN modulos m ON p.id_modulo = m.id_modulo " +
-                       "WHERE p.id_empleado = ? AND m.nombre_modulo = ? AND " + tipoPermiso + " = 1";
+    public int permisos(int nombreModulo, String tipoPermiso) throws SQLException {
+        String sql = "SELECT " + tipoPermiso + " FROM permisos WHERE id_empleado = ? AND id_modulo = ?";
+        int valor = 0;
 
-        try (Connection conexion = util.Conexiones.dameConexion("burger-queen");
-             PreparedStatement preparedStatement = conexion.prepareStatement(query)) {
+        try (Connection conexion = util.Conexiones.dameConexion("burger-queen")) {
+            PreparedStatement sentencia = conexion.prepareStatement(sql);
+            sentencia.setInt(1, Login.datos_login.getIdUsuario());
+            sentencia.setInt(2, nombreModulo);
+            
+            System.out.println("Cadena: " + sentencia);
+            
+            ResultSet ejecuta = sentencia.executeQuery();
 
-            preparedStatement.setInt(1, idEmpleado);
-            preparedStatement.setString(2, nombreModulo);
-
-            ResultSet resultSet = preparedStatement.executeQuery();
-            if (resultSet.next()) {
-                return resultSet.getInt(1) > 0; // Devuelve true si hay al menos un permiso
+            if (ejecuta.next()) {
+                valor = ejecuta.getInt(tipoPermiso);
+                System.out.println("Valor: " + valor);
+            } else {
+                System.out.println("No valor encontrado id_empleado = " + Login.datos_login.getIdUsuario() + " and id_modulo = " + nombreModulo);
             }
-        } catch (Exception e) {
-            e.printStackTrace();
         }
-        return false; 
+
+        return valor;
     }
 
- 
+
    
 
     public void cerrar() {
@@ -157,7 +182,7 @@ public class Pantalla_principal implements Initializable {
     }
     
     public void Carta() throws IOException {
-    System.out.println(permisos(36, "CARTA", "escritura"));
+    
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/Vistas/Carta.fxml"));
         Pane registro = loader.load();
         Scene loginScene = new Scene(registro, 600, 500);

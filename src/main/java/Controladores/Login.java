@@ -70,11 +70,12 @@ public class Login {
         if (verificarCredencialesUsuario(conexion, "usuarios", emailString, passwordString)) {
             banner.set(nombreusuario);
             JOptionPane.showMessageDialog(null, "Login exitoso para el usuario: " + emailString);
-            tipo="usuarios";
+            tipo = "usuarios";
             Pantalla_Principal();
+
             try {
                 PreparedStatement sentencia = conexion.prepareStatement(
-                    "SELECT id_usuario, nombre, apellido, email, username, fecha_registro, estado, telefono, direccion, fecha_nacimiento,ruta FROM usuarios WHERE email = ?"
+                    "SELECT id_usuario, nombre, apellido, email, username, fecha_registro, estado, telefono, direccion, fecha_nacimiento, ruta FROM usuarios WHERE email = ?"
                 );
                 sentencia.setString(1, emailString);
                 ResultSet ejecuta = sentencia.executeQuery();
@@ -90,7 +91,6 @@ public class Login {
                     datos_login.setFechaRegistro(ejecuta.getTimestamp("fecha_registro"));
                     datos_login.setFechaNacimiento(ejecuta.getDate("fecha_nacimiento").toLocalDate());
                     datos_login.setRuta(ejecuta.getString("ruta"));
-                    
                 } else {
                     System.out.println("No se encontró un usuario con el email especificado.");
                 }
@@ -107,34 +107,87 @@ public class Login {
 
             cerrar();
         } else if (verificarCredencialesUsuario(conexion, "empleados", emailString, passwordString)) {
-            if (nombreusuario.length() < 15) {
-                banner.set(nombreusuario);
-                tipo="empleados";
-            } else {
-                banner.set(nombreusuario.substring(0, 12) + "...");
+            tipo = "empleados";
+
+            try {
+                PreparedStatement sentencia = conexion.prepareStatement(
+                    "SELECT id_empleado, nombre, apellido, email, username, fecha_contratacion, estado, telefono, direccion, fecha_nacimiento, ruta FROM empleados WHERE email = ?"
+                );
+                sentencia.setString(1, emailString);
+                ResultSet ejecuta = sentencia.executeQuery();
+
+                if (ejecuta.next()) {
+                    datos_login.setNombre(ejecuta.getString("nombre"));
+                    datos_login.setIdUsuario(ejecuta.getInt("id_empleado"));
+                    datos_login.setApellido(ejecuta.getString("apellido"));
+                    datos_login.setEmail(ejecuta.getString("email"));
+                    datos_login.setDireccion(ejecuta.getString("direccion"));
+                    datos_login.setEstado(ejecuta.getString("estado"));
+                    datos_login.setUsername(ejecuta.getString("username"));
+                    datos_login.setFechaRegistro(ejecuta.getTimestamp("fecha_contratacion"));
+                    datos_login.setFechaNacimiento(ejecuta.getDate("fecha_nacimiento").toLocalDate());
+                    datos_login.setRuta(ejecuta.getString("ruta"));
+                } else {
+                    System.out.println("No se encontró un empleado con el email especificado.");
+                }
+
+                if (nombreusuario.length() < 15) {
+                    banner.set(nombreusuario);
+                } else {
+                    banner.set(nombreusuario.substring(0, 12) + "...");
+                }
+
+            } catch (Exception e) {
+                e.printStackTrace();
             }
+
             JOptionPane.showMessageDialog(null, "Login exitoso para el empleado: " + emailString);
             cerrar();
             Pantalla_Principal();
+
         } else if (verificarCredencialesUsuario(conexion, "administradores", emailString, passwordString)) {
-        	tipo="administradores";
-            if (nombreusuario.length() < 15) {
-                banner.set(nombreusuario);
-            } else {
-                banner.set(nombreusuario.substring(0, 12) + "...");
+            tipo = "administradores";
+
+            try {
+                PreparedStatement sentencia = conexion.prepareStatement(
+                    "SELECT id_admin, nombre, apellido, email, username, fecha_contratacion, estado, telefono, direccion, fecha_nacimiento, ruta FROM administradores WHERE email = ?"
+                );
+                sentencia.setString(1, emailString);
+                ResultSet ejecuta = sentencia.executeQuery();
+
+                if (ejecuta.next()) {
+                    datos_login.setNombre(ejecuta.getString("nombre"));
+                    datos_login.setIdUsuario(ejecuta.getInt("id_admin"));
+                    datos_login.setApellido(ejecuta.getString("apellido"));
+                    datos_login.setEmail(ejecuta.getString("email"));
+                    datos_login.setDireccion(ejecuta.getString("direccion"));
+                    datos_login.setEstado(ejecuta.getString("estado"));
+                    datos_login.setUsername(ejecuta.getString("username"));
+                    datos_login.setFechaRegistro(ejecuta.getTimestamp("fecha_contratacion"));
+                    datos_login.setFechaNacimiento(ejecuta.getDate("fecha_nacimiento").toLocalDate());
+                    datos_login.setRuta(ejecuta.getString("ruta"));
+                } else {
+                    System.out.println("No se encontró un administrador con el email especificado.");
+                }
+
+                if (nombreusuario.length() < 15) {
+                    banner.set(nombreusuario);
+                } else {
+                    banner.set(nombreusuario.substring(0, 12) + "...");
+                }
+
+            } catch (Exception e) {
+                e.printStackTrace();
             }
+
             JOptionPane.showMessageDialog(null, "Login exitoso para el administrador: " + emailString);
             cerrar();
             Pantalla_Principal();
         } else {
             JOptionPane.showMessageDialog(null, "Login fallido: Correo o contraseña inválidos");
         }
-    
-        
-       
-        
-        
     }
+
     
     
 
@@ -183,7 +236,7 @@ public class Login {
         PrincipalStage.setResizable(false);
         PrincipalStage.initStyle(StageStyle.DECORATED);
         PrincipalStage.setScene(principalScene);
-        PrincipalStage.setTitle("CARTA");
+        PrincipalStage.setTitle("BURGER QUEEN");
         PrincipalStage.show();
         cerrar();
     }

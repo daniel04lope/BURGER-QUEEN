@@ -158,12 +158,12 @@
 											</font>
 											<content>
 												<VBox fx:id="Vboxadmin" prefHeight="130.0" prefWidth="261.0" spacing="5.0" visible="false">
-													<Button fx:id="reservaadmin" mnemonicParsing="false" onAction="#ReservaAdmin" prefHeight="64.0" prefWidth="255.0" style="-fx-background-color: FFFFFF;" text="GESTION DE RESERVAS">
+													<Button fx:id="reservaadmin" disable="true" mnemonicParsing="false" onAction="#ReservaAdmin" prefHeight="64.0" prefWidth="255.0" style="-fx-background-color: FFFFFF;" text="GESTION DE RESERVAS">
 														<font>
 															<Font name="Insaniburger" size="20.0" />
 														</font>
 													</Button>
-													<Button fx:id="menuadmin" mnemonicParsing="false" onAction="#Carta" prefHeight="64.0" prefWidth="255.0" style="-fx-background-color: FFFFFF;" text="GESTION DE MENUS">
+													<Button fx:id="menuadmin" disable="true" mnemonicParsing="false" onAction="#Carta" prefHeight="64.0" prefWidth="255.0" style="-fx-background-color: FFFFFF;" text="GESTION DE MENUS">
 														<font>
 															<Font name="Insaniburger" size="20.0" />
 														</font>
@@ -173,7 +173,7 @@
                                              <Font name="Insaniburger" size="20.0" />
                                           </font>
                                        </Button>
-                                       <Button fx:id="pedidosadmin" mnemonicParsing="false" prefHeight="64.0" prefWidth="255.0" style="-fx-background-color: FFFFFF;" text="GESTION DE PEDIDOS">
+                                       <Button fx:id="pedidosadmin" disable="true" mnemonicParsing="false" prefHeight="64.0" prefWidth="255.0" style="-fx-background-color: FFFFFF;" text="GESTION DE PEDIDOS">
                                           <font>
                                              <Font name="Insaniburger" size="20.0" />
                                           </font>

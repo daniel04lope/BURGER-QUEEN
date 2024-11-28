@@ -3,7 +3,9 @@ package Controladores;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ResourceBundle;
 import Modelos.Producto;
@@ -12,7 +14,9 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
+import javafx.scene.control.Accordion;
 import javafx.scene.control.Button;
+import javafx.scene.control.TitledPane;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
@@ -41,12 +45,120 @@ public class Carta implements Initializable {
 
     private boolean drawerVisible = false;
     private boolean Cerrardesplegar = false;
-
+    @FXML
+    private Button reservaadmin;
+    Button crear;
+    
+    @FXML
+    private Button usuariosadmin;
+    @FXML
+    private Button pedidosadmin;
+    @FXML
+    private Accordion administradores;
+    @FXML
+    private TitledPane titledpaneadmin;
+    @FXML
+    private VBox Vboxadmin;
     public void Despliega() {
         Cerrardesplegar = !Cerrardesplegar;
         drawerVisible = !drawerVisible;
         Cerrar.setVisible(Cerrardesplegar);
         Panel_Desplegable.setVisible(drawerVisible);
+    }
+    
+    @Override
+    public void initialize(URL location, ResourceBundle resources) {
+        Username.textProperty().bind(Login.bannerusuarioProperty());
+        CargarCarta();
+        
+        
+        if (Login.tipo.equals("administradores")) {
+            administradores.setVisible(true);
+            titledpaneadmin.setVisible(true);
+            Vboxadmin.setVisible(true);
+            usuariosadmin.setDisable(false);
+            
+            pedidosadmin.setDisable(false);
+            
+            reservaadmin.setDisable(false);
+            crear.setVisible(true);
+        }
+        if (Login.tipo.equals("empleados")) {
+            administradores.setVisible(true);
+            titledpaneadmin.setVisible(true);
+            Vboxadmin.setVisible(true);
+            System.out.println("llegue");
+
+            // Verificar permisos para cada botón
+            try {
+				if (permisos(2, "lectura") == 1) {
+				    reservaadmin.setDisable(false);
+				} else {
+				    reservaadmin.setDisable(true);
+				}
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+
+            try {
+				if (permisos(1, "escritura") == 1) {
+					 crear.setVisible(true);
+				} else {
+					 crear.setVisible(false);
+				}
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+
+            try {
+				if (permisos(3, "lectura") == 1) {
+				    pedidosadmin.setDisable(false);
+				} else {
+				    pedidosadmin.setDisable(true);
+				}
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+        }
+
+        if (Login.tipo.equals("usuarios")) {
+            administradores.setVisible(false);
+            titledpaneadmin.setVisible(false);
+            Vboxadmin.setVisible(false);
+        }
+
+        try {
+            System.out.println(permisos(1, "lectura"));
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+    
+    public int permisos(int nombreModulo, String tipoPermiso) throws SQLException {
+        String sql = "SELECT " + tipoPermiso + " FROM permisos WHERE id_empleado = ? AND id_modulo = ?";
+        int valor = 0;
+
+        try (Connection conexion = util.Conexiones.dameConexion("burger-queen")) {
+            PreparedStatement sentencia = conexion.prepareStatement(sql);
+            sentencia.setInt(1, Login.datos_login.getIdUsuario());
+            sentencia.setInt(2, nombreModulo);
+            
+            System.out.println("Cadena: " + sentencia);
+            
+            ResultSet ejecuta = sentencia.executeQuery();
+
+            if (ejecuta.next()) {
+                valor = ejecuta.getInt(tipoPermiso);
+                System.out.println("Valor: " + valor);
+            } else {
+                System.out.println("No valor encontrado id_empleado = " + Login.datos_login.getIdUsuario() + " and id_modulo = " + nombreModulo);
+            }
+        }
+
+        return valor;
     }
     
     public void Ubicacion() throws IOException {
@@ -83,11 +195,7 @@ public class Carta implements Initializable {
         cerrar();
     }
 
-    @Override
-    public void initialize(URL location, ResourceBundle resources) {
-        Username.textProperty().bind(Login.bannerusuarioProperty());
-        CargarCarta();
-    }
+   
 
     public void CargarCarta() {
         try (Connection conexion = util.Conexiones.dameConexion("burger-queen")) {
@@ -137,9 +245,16 @@ public class Carta implements Initializable {
                 GridPane.setVgrow(item, javafx.scene.layout.Priority.ALWAYS);
             }
 
-            Button crear = new Button();
-            crear.setText("+");
-            crear.setStyle("-fx-background-color: A6234E; -fx-border-color: FFFFFF; -fx-font-size: 40; -fx-border-radius: 50; -fx-background-radius: 50;");
+           crear = new Button();
+            crear.setVisible(false);
+            Image imagen = new Image("/SUMAR.png");
+            ImageView imageView = new ImageView(imagen);
+            imageView.setFitWidth(40);
+            imageView.setFitHeight(40);
+            crear.setGraphic(imageView);
+            
+            
+            crear.setStyle("-fx-background-color: A6234E; -fx-border-color: FFFFFF; -fx-background-radius: 50; -fx-border-radius: 50;");
             crear.setPrefSize(100, 100);
 
             VBox otro = new VBox();
