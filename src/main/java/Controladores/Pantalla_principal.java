@@ -37,6 +37,8 @@ public class Pantalla_principal implements Initializable {
     private Button Cerrar;
     @FXML
     private ImageView imagenperfil;
+    @FXML
+    private Button botoncarrito;
 
     @FXML
     private Accordion administradores;
@@ -67,7 +69,7 @@ public class Pantalla_principal implements Initializable {
             titledpaneadmin.setVisible(true);
             Vboxadmin.setVisible(true);
             usuariosadmin.setDisable(false);
-            
+            botoncarrito.setVisible(false);
             pedidosadmin.setDisable(false);
             menuadmin.setDisable(false);
             reservaadmin.setDisable(false);
@@ -77,6 +79,7 @@ public class Pantalla_principal implements Initializable {
             administradores.setVisible(true);
             titledpaneadmin.setVisible(true);
             Vboxadmin.setVisible(true);
+            botoncarrito.setVisible(false);
             System.out.println("llegue");
 
             // Verificar permisos para cada botón

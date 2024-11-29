@@ -38,7 +38,7 @@
                   <Font name="Insaniburger" size="35.0" />
                </font>
             </Text>
-            <Button id="Carrito" layoutX="10.0" layoutY="13.0" minWidth="53.0" onAction="#carrito" prefHeight="65.0" prefWidth="53.0" style="-fx-background-color: transparent;">
+            <Button id="Carrito" fx:id="botoncarrito" layoutX="10.0" layoutY="13.0" minWidth="53.0" onAction="#carrito" prefHeight="65.0" prefWidth="53.0" style="-fx-background-color: transparent;">
                <graphic>
                   <ImageView fitHeight="39.0" fitWidth="37.0" pickOnBounds="true" preserveRatio="true">
                      <image>
@@ -119,26 +119,31 @@
                               <Font name="Insaniburger" size="20.0" />
                            </font>
                         </Button>
-                        <Accordion prefHeight="24.0" prefWidth="260.0">
+                        <Accordion fx:id="administradores" prefHeight="24.0" prefWidth="260.0">
                            <panes>
-                              <TitledPane animated="false" prefHeight="251.0" prefWidth="260.0" style="-fx-background-color: D28383;" text="PANEL DE CONTROL">
+                              <TitledPane fx:id="titledpaneadmin" animated="false" prefHeight="251.0" prefWidth="260.0" style="-fx-background-color: D28383;" text="PANEL DE CONTROL">
                                  <font>
                                     <Font name="Insaniburger" size="20.0" />
                                  </font>
                                  <content>
-                                    <VBox prefHeight="195.0" prefWidth="258.0" spacing="5.0">
+                                    <VBox fx:id="Vboxadmin" prefHeight="195.0" prefWidth="258.0" spacing="5.0">
                                        <children>
-                                          <Button mnemonicParsing="false" onAction="#ReservaAdmin" prefHeight="64.0" prefWidth="255.0" style="-fx-background-color: FFFFFF;" text="GESTION DE RESERVAS">
+                                          <Button fx:id="reservaadmin" mnemonicParsing="false" onAction="#ReservaAdmin" prefHeight="64.0" prefWidth="255.0" style="-fx-background-color: FFFFFF;" text="GESTION DE RESERVAS">
                                              <font>
                                                 <Font name="Insaniburger" size="20.0" />
                                              </font>
                                           </Button>
-                                          <Button mnemonicParsing="false" onAction="#Carta" prefHeight="64.0" prefWidth="255.0" style="-fx-background-color: FFFFFF;" text="GESTION DE MENUS">
+                                          <Button fx:id="menuadmin" mnemonicParsing="false" onAction="#Carta" prefHeight="64.0" prefWidth="255.0" style="-fx-background-color: FFFFFF;" text="GESTION DE MENUS">
                                              <font>
                                                 <Font name="Insaniburger" size="20.0" />
                                              </font>
                                           </Button>
-                                          <Button mnemonicParsing="false" onAction="#Gestion_usuarios" prefHeight="64.0" prefWidth="255.0" style="-fx-background-color: FFFFFF;" text="GESTION DE USUARIOS">
+                                          <Button fx:id="usuariosadmin" disable="true" mnemonicParsing="false" onAction="#Gestion_usuarios" prefHeight="64.0" prefWidth="255.0" style="-fx-background-color: FFFFFF;" text="GESTION DE USUARIOS">
+                                             <font>
+                                                <Font name="Insaniburger" size="20.0" />
+                                             </font>
+                                          </Button>
+                                          <Button fx:id="pedidosadmin" mnemonicParsing="false" prefHeight="64.0" prefWidth="255.0" style="-fx-background-color: FFFFFF;" text="GESTION DE PEDIDOS">
                                              <font>
                                                 <Font name="Insaniburger" size="20.0" />
                                              </font>

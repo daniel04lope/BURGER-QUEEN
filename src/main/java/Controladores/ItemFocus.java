@@ -41,6 +41,8 @@ public class ItemFocus implements Initializable {
     @FXML
     private TabPane tabla;
     @FXML
+    private Button botoncarrito;
+    @FXML
     private Button Desplegable;
     @FXML
     private Button Cerrar;
@@ -132,6 +134,7 @@ public class ItemFocus implements Initializable {
         	Eliminar.setVisible(true);
         }
         if (Login.tipo.equals("empleados")) {
+        	botoncarrito.setVisible(false);
         
             try {
 				if (permisos(1, "escritura") == 1) {

@@ -2,16 +2,23 @@ package Controladores;
 
 import java.io.IOException;
 import java.net.URL;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ResourceBundle;
 
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Scene;
+import javafx.scene.control.Accordion;
 import javafx.scene.control.Button;
+import javafx.scene.control.TitledPane;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
+import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 import javafx.stage.Modality;
@@ -32,7 +39,118 @@ public class Horarios implements Initializable {
 
 	    private boolean Panel_Visible = false;
 	    private boolean Cerrardesplegar = false;
+	    @FXML
+	    private Button  botoncarrito;
+	    @FXML
+	    private Button usuariosadmin;
+	    @FXML
+	    private Button pedidosadmin;
+	    @FXML
+	    private Accordion administradores;
+	    @FXML
+	    private TitledPane titledpaneadmin;
+	    @FXML
+	    private VBox Vboxadmin;
+	    @FXML
+	    private Button reservaadmin;
+	    @FXML
+	    private Button menuadmin;
 	    
+		@Override
+		public void initialize(URL location, ResourceBundle resources) {
+			// TODO Auto-generated method stub
+			
+			 Username.textProperty().bind(Login.bannerusuarioProperty());
+			 
+			 if (Login.tipo.equals("administradores")) {
+		            administradores.setVisible(true);
+		            titledpaneadmin.setVisible(true);
+		            Vboxadmin.setVisible(true);
+		            usuariosadmin.setDisable(false);
+		            botoncarrito.setVisible(false);
+		            pedidosadmin.setDisable(false);
+		            menuadmin.setDisable(false);
+		            reservaadmin.setDisable(false);
+		        }
+
+		        if (Login.tipo.equals("empleados")) {
+		            administradores.setVisible(true);
+		            titledpaneadmin.setVisible(true);
+		            Vboxadmin.setVisible(true);
+		            botoncarrito.setVisible(false);
+		            System.out.println("llegue");
+
+		            // Verificar permisos para cada botón
+		            try {
+						if (permisos(2, "lectura") == 1) {
+						    reservaadmin.setDisable(false);
+						} else {
+						    reservaadmin.setDisable(true);
+						}
+					} catch (SQLException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+
+		            try {
+						if (permisos(1, "lectura") == 1) {
+						    menuadmin.setDisable(false);
+						} else {
+						    menuadmin.setDisable(true);
+						}
+					} catch (SQLException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+
+		            try {
+						if (permisos(3, "lectura") == 1) {
+						    pedidosadmin.setDisable(false);
+						} else {
+						    pedidosadmin.setDisable(true);
+						}
+					} catch (SQLException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+		        }
+
+		        if (Login.tipo.equals("usuarios")) {
+		            administradores.setVisible(false);
+		            titledpaneadmin.setVisible(false);
+		            Vboxadmin.setVisible(false);
+		        }
+
+		        try {
+		            System.out.println(permisos(1, "lectura"));
+		        } catch (SQLException e) {
+		            e.printStackTrace();
+		        }
+		}
+		
+	    public int permisos(int nombreModulo, String tipoPermiso) throws SQLException {
+	        String sql = "SELECT " + tipoPermiso + " FROM permisos WHERE id_empleado = ? AND id_modulo = ?";
+	        int valor = 0;
+
+	        try (Connection conexion = util.Conexiones.dameConexion("burger-queen")) {
+	            PreparedStatement sentencia = conexion.prepareStatement(sql);
+	            sentencia.setInt(1, Login.datos_login.getIdUsuario());
+	            sentencia.setInt(2, nombreModulo);
+	            
+	            System.out.println("Cadena: " + sentencia);
+	            
+	            ResultSet ejecuta = sentencia.executeQuery();
+
+	            if (ejecuta.next()) {
+	                valor = ejecuta.getInt(tipoPermiso);
+	                System.out.println("Valor: " + valor);
+	            } else {
+	                System.out.println("No valor encontrado id_empleado = " + Login.datos_login.getIdUsuario() + " and id_modulo = " + nombreModulo);
+	            }
+	        }
+
+	        return valor;
+	    }
 	    
 	    
 	    public void cerrar() {
@@ -171,10 +289,5 @@ public class Horarios implements Initializable {
 	        cerrar();
 	    }
 
-		@Override
-		public void initialize(URL location, ResourceBundle resources) {
-			// TODO Auto-generated method stub
-			
-			 Username.textProperty().bind(Login.bannerusuarioProperty());
-		}
+
 }

@@ -302,7 +302,7 @@
                         <Font name="Insaniburger" size="40.0" />
                      </font>
                   </Text>
-                  <Button id="Carrito" layoutX="10.0" layoutY="13.0" minWidth="53.0" onAction="#carrito" prefHeight="65.0" prefWidth="40.0" style="-fx-background-color: transparent;" translateX="-13.0">
+                  <Button id="Carrito" fx:id="botoncarrito" layoutX="10.0" layoutY="13.0" minWidth="53.0" onAction="#carrito" prefHeight="65.0" prefWidth="40.0" style="-fx-background-color: transparent;" translateX="-13.0">
                      <graphic>
                         <ImageView fitHeight="48.0" fitWidth="53.0" pickOnBounds="true" preserveRatio="true">
                            <image>

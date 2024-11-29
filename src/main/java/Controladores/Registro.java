@@ -47,6 +47,13 @@ public class Registro {
         Stage stage = (Stage) Cerrar.getScene().getWindow();
         stage.close();
     }
+    
+    
+    public void cancelar() {
+    	cerrar();
+    	Mostrar_Login();
+    	
+    }
 
     public void registrarse() {
         if (!Terms.isSelected()) {

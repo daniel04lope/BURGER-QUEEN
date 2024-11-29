@@ -50,6 +50,8 @@ public class Carta implements Initializable {
     Button crear;
     
     @FXML
+    private Button  botoncarrito;
+    @FXML
     private Button usuariosadmin;
     @FXML
     private Button pedidosadmin;
@@ -79,7 +81,7 @@ public class Carta implements Initializable {
             usuariosadmin.setDisable(false);
             
             pedidosadmin.setDisable(false);
-            
+            botoncarrito.setVisible(false);
             reservaadmin.setDisable(false);
             crear.setVisible(true);
         }
@@ -88,6 +90,7 @@ public class Carta implements Initializable {
             titledpaneadmin.setVisible(true);
             Vboxadmin.setVisible(true);
             System.out.println("llegue");
+            botoncarrito.setVisible(false);
 
             // Verificar permisos para cada botón
             try {
@@ -227,10 +230,10 @@ public class Carta implements Initializable {
                 imagen.setPreserveRatio(true);
                 btnProducto.setGraphic(imagen);
 
-                Text nombre = new Text(productobjeto.getNombre());
+                Text nombre = new Text(productobjeto.getNombre().toUpperCase());
                 nombre.setWrappingWidth(100);
                 nombre.setTextAlignment(TextAlignment.CENTER);
-
+                nombre.setStyle("-fx-font-family:Insaniburger");
                 item.getChildren().addAll(btnProducto, nombre);
                 panel.add(item, columna, fila);
                 btnProducto.setOnAction(event -> mostrarItemFocus(productobjeto));

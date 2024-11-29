@@ -292,7 +292,6 @@ public class Editar_usuarios implements Initializable {
     }
 
     
-    
     public void actualizar() throws IOException {
         if (!validarCampos()) {
             return;
@@ -306,50 +305,105 @@ public class Editar_usuarios implements Initializable {
         String rutaImagenGuardada = guardarImagen(idUsuario);
 
         try (Connection conexion = util.Conexiones.dameConexion("burger-queen")) {
-            // Verificar si el tipo de usuario ha cambiado
+            // Verificar el tipo actual del usuario
+            String tipoActual = esEmpleado ? "Empleado" : "Administrador";
+
+            if (tipoActual.equals(tipo.getValue())) {
+                // Si el tipo de usuario no ha cambiado, hacer un UPDATE
+                String sqlUpdate = "UPDATE empleados SET nombre = ?, apellido = ?, email = ?, username = ?, password = ?, telefono = ?, direccion = ?, estado = ?, fecha_nacimiento = ?, ruta = ?, posicion = ? WHERE id_empleado = ?";
+                PreparedStatement stmtUpdate = conexion.prepareStatement(sqlUpdate);
+                stmtUpdate.setString(1, nombre.getText());
+                stmtUpdate.setString(2, apellidos.getText());
+                stmtUpdate.setString(3, email.getText());
+                stmtUpdate.setString(4, username.getText());
+                stmtUpdate.setString(5, password.getText());
+                stmtUpdate.setString(6, telefono.getText());
+                stmtUpdate.setString(7, direccion.getText());
+                stmtUpdate.setString(8, estado.getValue());
+                stmtUpdate.setDate(9, java.sql.Date.valueOf(fechanacimiento.getValue()));
+                stmtUpdate.setString(10, rutaImagenGuardada); // Guardar ruta de imagen
+                stmtUpdate.setString(11, posicion.getText());
+                stmtUpdate.setInt(12, idUsuario);
+                stmtUpdate.executeUpdate();
+            } else {
+                // Si el tipo ha cambiado, mover el usuario a la tabla correspondiente
+                if (esEmpleado) {
+                    // Mover de administradores a empleados
+                    String sqlEliminarAdmin = "DELETE FROM administradores WHERE id_admin = ?";
+                    PreparedStatement stmtEliminarAdmin = conexion.prepareStatement(sqlEliminarAdmin);
+                    stmtEliminarAdmin.setInt(1, idUsuario);
+                    stmtEliminarAdmin.executeUpdate();
+
+                    String sqlInsertEmpleado = "INSERT INTO empleados (id_empleado, nombre, apellido, email, username, password, telefono, direccion, estado, fecha_nacimiento, posicion, ruta) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+                    PreparedStatement stmtInsertEmpleado = conexion.prepareStatement(sqlInsertEmpleado);
+                    stmtInsertEmpleado.setInt(1, idUsuario);
+                    stmtInsertEmpleado.setString(2, nombre.getText());
+                    stmtInsertEmpleado.setString(3, apellidos.getText());
+                    stmtInsertEmpleado.setString(4, email.getText());
+                    stmtInsertEmpleado.setString(5, username.getText());
+                    stmtInsertEmpleado.setString(6, password.getText());
+                    stmtInsertEmpleado.setString(7, telefono.getText());
+                    stmtInsertEmpleado.setString(8, direccion.getText());
+                    stmtInsertEmpleado.setString(9, estado.getValue());
+                    stmtInsertEmpleado.setDate(10, java.sql.Date.valueOf(fechanacimiento.getValue()));
+                    stmtInsertEmpleado.setString(11, posicion.getText());
+                    stmtInsertEmpleado.setString(12, rutaImagenGuardada);
+                    stmtInsertEmpleado.executeUpdate();
+                } else if (esAdministrador) {
+                    // Mover de empleados a administradores
+                    String sqlEliminarEmpleado = "DELETE FROM empleados WHERE id_empleado = ?";
+                    PreparedStatement stmtEliminarEmpleado = conexion.prepareStatement(sqlEliminarEmpleado);
+                    stmtEliminarEmpleado.setInt(1, idUsuario);
+                    stmtEliminarEmpleado.executeUpdate();
+
+                    String sqlInsertAdmin = "INSERT INTO administradores (id_admin, nombre, apellido, email, username, password, telefono, direccion, estado, fecha_nacimiento, ruta) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+                    PreparedStatement stmtInsertAdmin = conexion.prepareStatement(sqlInsertAdmin);
+                    stmtInsertAdmin.setInt(1, idUsuario);
+                    stmtInsertAdmin.setString(2, nombre.getText());
+                    stmtInsertAdmin.setString(3, apellidos.getText());
+                    stmtInsertAdmin.setString(4, email.getText());
+                    stmtInsertAdmin.setString(5, username.getText());
+                    stmtInsertAdmin.setString (6, password.getText());
+                    stmtInsertAdmin.setString(7, telefono.getText());
+                    stmtInsertAdmin.setString(8, direccion.getText());
+                    stmtInsertAdmin.setString(9, estado.getValue());
+                    stmtInsertAdmin.setDate(10, java.sql.Date.valueOf(fechanacimiento.getValue()));
+                    stmtInsertAdmin.setString(11, rutaImagenGuardada);
+                    stmtInsertAdmin.executeUpdate();
+                }
+            }
+
+            // Eliminar permisos existentes
+            String sqlEliminarPermisos = "DELETE FROM permisos WHERE id_empleado = ?";
+            PreparedStatement stmtEliminarPermisos = conexion.prepareStatement(sqlEliminarPermisos);
+            stmtEliminarPermisos.setInt(1, idUsuario);
+            stmtEliminarPermisos.executeUpdate();
+
+            // Insertar nuevos permisos para los módulos 1, 2 y 3
             if (esEmpleado) {
-                // Si el usuario es de tipo Empleado y estaba en la tabla de administradores, moverlo a la tabla de empleados
-                String sqlEliminarAdmin = "DELETE FROM administradores WHERE id_admin = ?";
-                PreparedStatement stmtEliminarAdmin = conexion.prepareStatement(sqlEliminarAdmin);
-                stmtEliminarAdmin.setInt(1, idUsuario);
-                stmtEliminarAdmin.executeUpdate();
+                String sqlInsertPermisos = "INSERT INTO permisos (id_empleado, id_modulo, lectura, escritura) VALUES (?, ?, ?, ?)";
+                PreparedStatement stmtInsertPermisos = conexion.prepareStatement(sqlInsertPermisos);
 
-                String sqlInsertEmpleado = "INSERT INTO empleados (id_empleado, nombre, apellido, email, username, password, telefono, direccion, estado, fecha_nacimiento, posicion, ruta) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
-                PreparedStatement stmtInsertEmpleado = conexion.prepareStatement(sqlInsertEmpleado);
-                stmtInsertEmpleado.setInt(1, idUsuario);
-                stmtInsertEmpleado.setString(2, nombre.getText());
-                stmtInsertEmpleado.setString(3, apellidos.getText());
-                stmtInsertEmpleado.setString(4, email.getText());
-                stmtInsertEmpleado.setString(5, username.getText());
-                stmtInsertEmpleado.setString(6, password.getText());
-                stmtInsertEmpleado.setString(7, telefono.getText());
-                stmtInsertEmpleado.setString(8, direccion.getText());
-                stmtInsertEmpleado.setString(9, estado.getValue());
-                stmtInsertEmpleado.setDate(10, java.sql.Date.valueOf(fechanacimiento.getValue()));
-                stmtInsertEmpleado.setString(11, posicion.getText());
-                stmtInsertEmpleado.setString(12, rutaImagenGuardada);
-                stmtInsertEmpleado.executeUpdate();
-            } else if (esAdministrador) {
-                // Si el usuario es de tipo Administrador y estaba en la tabla de empleados, moverlo a la tabla de administradores
-                String sqlEliminarEmpleado = "DELETE FROM empleados WHERE id_empleado = ?";
-                PreparedStatement stmtEliminarEmpleado = conexion.prepareStatement(sqlEliminarEmpleado);
-                stmtEliminarEmpleado.setInt(1, idUsuario);
-                stmtEliminarEmpleado.executeUpdate();
+                // Módulo 1
+                stmtInsertPermisos.setInt(1, idUsuario);
+                stmtInsertPermisos.setInt(2, 1); // ID del módulo 1
+                stmtInsertPermisos.setInt(3, lectura_carta.isSelected() ? 1 : 0);
+                stmtInsertPermisos.setInt(4, escritura_carta.isSelected() ? 1 : 0);
+                stmtInsertPermisos.executeUpdate();
 
-                String sqlInsertAdmin = "INSERT INTO administradores (id_admin, nombre, apellido, email, username, password, telefono, direccion, estado, fecha_nacimiento, ruta) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
-                PreparedStatement stmtInsertAdmin = conexion.prepareStatement(sqlInsertAdmin);
-                stmtInsertAdmin.setInt(1, idUsuario);
-                stmtInsertAdmin.setString(2, nombre.getText());
-                stmtInsertAdmin.setString(3, apellidos.getText());
-                stmtInsertAdmin.setString(4, email.getText());
-                stmtInsertAdmin.setString(5, username.getText());
-                stmtInsertAdmin.setString(6, password.getText());
-                stmtInsertAdmin.setString(7, telefono.getText());
-                stmtInsertAdmin.setString(8, direccion.getText());
-                stmtInsertAdmin.setString(9, estado.getValue());
-                stmtInsertAdmin.setDate(10, java.sql.Date.valueOf(fechanacimiento.getValue()));
-                stmtInsertAdmin.setString(11, rutaImagenGuardada);
-                stmtInsertAdmin.executeUpdate();
+                // Módulo 2
+                stmtInsertPermisos.setInt(1, idUsuario);
+                stmtInsertPermisos.setInt(2, 2); // ID del módulo 2
+                stmtInsertPermisos.setInt(3, lectura_reserva.isSelected() ? 1 : 0);
+                stmtInsertPermisos.setInt(4, escritura_reserva.isSelected() ? 1 : 0);
+                stmtInsertPermisos.executeUpdate();
+
+                // Módulo 3
+                stmtInsertPermisos.setInt(1, idUsuario);
+                stmtInsertPermisos.setInt(2, 3); // ID del módulo 3
+                stmtInsertPermisos.setInt(3, lectura_pedidos.isSelected() ? 1 : 0);
+                stmtInsertPermisos.setInt(4, escritura_pedidos.isSelected() ? 1 : 0);
+                stmtInsertPermisos.executeUpdate();
             }
 
             // Confirmación de éxito
@@ -366,6 +420,5 @@ public class Editar_usuarios implements Initializable {
             mostrarError("Error SQL", "No se pudo actualizar el usuario.");
         }
     }
-
 
 }

@@ -20,7 +20,7 @@
                 <Font name="Insaniburger" size="32.0" />
             </font>
         </Text>
-        <Button fx:id="Cerrar" layoutX="374.0" layoutY="13.0" mnemonicParsing="false" onAction="#cerrar" prefHeight="49.0" prefWidth="60.0" style="-fx-background-color: transparent;">
+        <Button fx:id="Cerrar" layoutX="374.0" layoutY="13.0" mnemonicParsing="false" onAction="#cancelar" prefHeight="49.0" prefWidth="60.0" style="-fx-background-color: transparent;">
             <graphic>
                 <ImageView fitHeight="30.0" fitWidth="30.0" layoutX="391.0" layoutY="26.0" pickOnBounds="true" preserveRatio="true">
                     <image>
@@ -33,55 +33,55 @@
         <!-- ScrollPane -->
         <ScrollPane hbarPolicy="NEVER" hmax="3.0" layoutX="-1.0" layoutY="60.0" prefHeight="759.0" prefWidth="450.0" style="-fx-background-color: #905D5D;" vvalue="1.0">
             <content>
-                <VBox prefHeight="950" prefWidth="1140.0" spacing="10.0" style="-fx-background-color: #905D5D;">
+                <VBox prefHeight="950" prefWidth="1111.0" spacing="10.0" style="-fx-background-color: #905D5D;">
                     <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="NOMBRE" textAlignment="CENTER" wrappingWidth="417.518177986145">
                         <font>
                             <Font name="Insaniburger" size="20.0" />
                         </font>
                     </Text>
-                    <TextField fx:id="Nombre" prefHeight="25.0" prefWidth="404.0" />
+                    <TextField fx:id="Nombre" maxHeight="23.0" maxWidth="424.0" prefHeight="23.0" prefWidth="424.0" translateX="5.0" />
                     <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="APELLIDOS" textAlignment="CENTER" wrappingWidth="418.87107849121094">
                         <font>
                             <Font name="Insaniburger" size="20.0" />
                         </font>
                     </Text>
-                    <TextField fx:id="Apellidos" prefHeight="25.0" prefWidth="347.0" />
+                    <TextField fx:id="Apellidos" maxHeight="23.0" maxWidth="424.0" prefHeight="23.0" prefWidth="424.0" translateX="5.0" />
                <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Nombre de usuario" textAlignment="CENTER" wrappingWidth="424.4048843383789">
                   <font>
                      <Font name="Insaniburger" size="20.0" />
                   </font>
                </Text>
-               <TextField fx:id="Username" prefHeight="25.0" prefWidth="347.0" />
+               <TextField fx:id="Username" maxHeight="23.0" maxWidth="424.0" prefHeight="23.0" prefWidth="424.0" translateX="5.0" />
                     <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="EMAIL" textAlignment="CENTER" wrappingWidth="421.1672782897949">
                         <font>
                             <Font name="Insaniburger" size="20.0" />
                         </font>
                     </Text>
-                    <TextField fx:id="Email" prefHeight="25.0" prefWidth="347.0" />
+                    <TextField fx:id="Email" maxHeight="23.0" maxWidth="424.0" prefHeight="23.0" prefWidth="424.0" translateX="5.0" />
                     <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="CONTRASEÑA" textAlignment="CENTER" wrappingWidth="424.4048843383789">
                         <font>
                             <Font name="Insaniburger" size="20.0" />
                         </font>
                     </Text>
-                    <PasswordField fx:id="Password" prefHeight="11.0" prefWidth="406.0" />
+                    <PasswordField fx:id="Password" maxHeight="23.0" maxWidth="424.0" prefHeight="23.0" prefWidth="424.0" translateX="5.0" />
                <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="telefono" textAlignment="CENTER" wrappingWidth="424.4048843383789">
                   <font>
                      <Font name="Insaniburger" size="20.0" />
                   </font>
                </Text>
-               <TextField fx:id="Telefono" />
+               <TextField fx:id="Telefono" maxHeight="23.0" maxWidth="424.0" prefHeight="23.0" prefWidth="424.0" translateX="5.0" />
                <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="direccion" textAlignment="CENTER" wrappingWidth="424.4048843383789">
                   <font>
                      <Font name="Insaniburger" size="20.0" />
                   </font>
                </Text>
-               <TextField fx:id="Direccion" />
+               <TextField fx:id="Direccion" maxHeight="23.0" maxWidth="424.0" prefHeight="23.0" prefWidth="424.0" translateX="5.0" />
                <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="fecha de nacimiento" textAlignment="CENTER" wrappingWidth="424.4048843383789">
                   <font>
                      <Font name="Insaniburger" size="20.0" />
                   </font>
                </Text>
-               <DatePicker fx:id="Fecha_Nacimiento" prefHeight="23.0" prefWidth="424.0" />
+               <DatePicker fx:id="Fecha_Nacimiento" prefHeight="23.0" prefWidth="424.0" translateX="5.0" />
                <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" textAlignment="CENTER" wrappingWidth="420.681640625">
                   <font>
                      <Font name="Insaniburger" size="12.0" />
