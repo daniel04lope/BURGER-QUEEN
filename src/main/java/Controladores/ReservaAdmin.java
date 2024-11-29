@@ -16,13 +16,16 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
+import javafx.scene.control.Accordion;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.TitledPane;
 import javafx.scene.effect.DropShadow;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
+import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 import javafx.stage.Modality;
@@ -45,11 +48,30 @@ public class ReservaAdmin implements Initializable {
 	    private Button Desplegable;
 	   
 	    @FXML
-	    private ImageView imagenperfil;
+	    private Button imagenperfil;
 
 	    private boolean Panel_Visible = false;
 	    private boolean Cerrardesplegar = false;
-
+	    @FXML
+	    private Button botoncarrito;
+	    @FXML
+	    private Accordion administradores;
+	    @FXML
+	    private TitledPane titledpaneadmin;
+	    @FXML
+	    private VBox Vboxadmin;
+	  
+	    
+	    @FXML
+	    private Button menuadmin;
+	    @FXML
+	    private Button usuariosadmin;
+	    @FXML
+	    private Button pedidosadmin;
+	    
+	    Button btnModificar;
+	    Button btnEliminar;
+	    int oculta =3;
 
 	    @Override
 	    public void initialize(URL location, ResourceBundle resources) {
@@ -58,8 +80,116 @@ public class ReservaAdmin implements Initializable {
 	        } catch (SQLException e) {
 	            e.printStackTrace();
 	        }
+	        
+	        Username.setText(Login.datos_login.getUsername());
+	        
+	        if (Login.tipo.equals("administradores")) {
+	            administradores.setVisible(true);
+	            titledpaneadmin.setVisible(true);
+	            Vboxadmin.setVisible(true);
+	            usuariosadmin.setDisable(false);
+	            botoncarrito.setVisible(false);
+	            pedidosadmin.setDisable(false);
+	            menuadmin.setDisable(false);
+	            imagenperfil.setVisible(true);
+	        }
+
+	        if (Login.tipo.equals("empleados")) {
+	            administradores.setVisible(true);
+	            titledpaneadmin.setVisible(true);
+	            Vboxadmin.setVisible(true);
+	            botoncarrito.setVisible(false);
+	            imagenperfil.setVisible(true);
+	            System.out.println("llegue");
+
+	            // Verificar permisos para cada botón
+	            try {
+					if (permisos(2, "lectura") == 1) {
+					  
+					} else {
+					   
+					}
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+
+	            try {
+					if (permisos(1, "lectura") == 1) {
+					    menuadmin.setDisable(false);
+					} else {
+					    menuadmin.setDisable(true);
+					}
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+
+	            try {
+					if (permisos(2, "escritura") == 1) {
+					    pedidosadmin.setDisable(false);
+					} else {
+					    pedidosadmin.setDisable(true);
+					}
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+	            
+	            try {
+					if (permisos(2, "escritura") == 1) {
+					    pedidosadmin.setDisable(false);
+					  
+					    oculta =1;
+					} else {
+					    pedidosadmin.setDisable(true);
+					   
+					    oculta=0;
+					}
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+	        }
+
+	        if (Login.tipo.equals("usuarios")) {
+	            administradores.setVisible(false);
+	            titledpaneadmin.setVisible(false);
+	            Vboxadmin.setVisible(false);
+	            imagenperfil.setVisible(true);
+	        }
+
+	        try {
+	            System.out.println(permisos(1, "lectura"));
+	        } catch (SQLException e) {
+	            e.printStackTrace();
+	        }
 	    }
 
+	    
+	    public int permisos(int nombreModulo, String tipoPermiso) throws SQLException {
+	        String sql = "SELECT " + tipoPermiso + " FROM permisos WHERE id_empleado = ? AND id_modulo = ?";
+	        int valor = 0;
+
+	        try (Connection conexion = util.Conexiones.dameConexion("burger-queen")) {
+	            PreparedStatement sentencia = conexion.prepareStatement(sql);
+	            sentencia.setInt(1, Login.datos_login.getIdUsuario());
+	            sentencia.setInt(2, nombreModulo);
+	            
+	            System.out.println("Cadena: " + sentencia);
+	            
+	            ResultSet ejecuta = sentencia.executeQuery();
+
+	            if (ejecuta.next()) {
+	                valor = ejecuta.getInt(tipoPermiso);
+	                System.out.println("Valor: " + valor);
+	            } else {
+	                System.out.println("No valor encontrado id_empleado = " + Login.datos_login.getIdUsuario() + " and id_modulo = " + nombreModulo);
+	            }
+	        }
+
+	        return valor;
+	    }
 	    private void inicializarListado() throws SQLException {
 	        Listado.setHgap(10);
 	        Listado.setVgap(10);
@@ -154,9 +284,10 @@ public class ReservaAdmin implements Initializable {
 	                reservaPane.getChildren().add(estadoLabel);
 	                
 	                
-
 	                
-	                Button btnEliminar = new Button("Eliminar");
+	                
+	                btnEliminar = new Button("Eliminar");
+	                if (oculta ==0) {btnEliminar.setVisible(false);}
 	                btnEliminar.setStyle("-fx-background-color: #FF4C4C; -fx-text-fill: white; -fx-font-weight: bold;");
 	                btnEliminar.setOnAction(event -> eliminarReserva(reservaObjeto));
 	                AnchorPane.setRightAnchor(btnEliminar, 10.0);
@@ -164,7 +295,8 @@ public class ReservaAdmin implements Initializable {
 	                reservaPane.getChildren().add(btnEliminar);
 
 	               
-	                Button btnModificar = new Button("Modificar");
+	                btnModificar = new Button("Modificar");
+	                if (oculta ==0) {btnModificar.setVisible(false);}
 	                btnModificar.setStyle("-fx-background-color: #4CAF50; -fx-text-fill: white; -fx-font-weight: bold;");
 	                btnModificar.setOnAction(event -> modificarReserva(reservaObjeto));
 	                AnchorPane.setRightAnchor(btnModificar, 10.0);

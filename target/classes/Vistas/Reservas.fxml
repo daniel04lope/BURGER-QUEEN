@@ -194,7 +194,7 @@
          </font>
       </Text>
       <TextArea fx:id="Datos_Adicionales" layoutX="370.0" layoutY="311.0" prefHeight="39.0" prefWidth="211.0" />
-      <Button layoutX="408.0" layoutY="362.0" mnemonicParsing="false" onAction="#insertReserva" prefHeight="29.0" prefWidth="135.0" style="-fx-background-color: #F980A9; -fx-border-radius: 20;" text="ENVIAR" textFill="WHITE">
+      <Button fx:id="hacerreserva" layoutX="408.0" layoutY="362.0" mnemonicParsing="false" onAction="#insertReserva" prefHeight="29.0" prefWidth="135.0" style="-fx-background-color: #F980A9; -fx-border-radius: 20;" text="ENVIAR" textFill="WHITE">
          <font>
             <Font name="Insaniburger" size="12.0" />
          </font>

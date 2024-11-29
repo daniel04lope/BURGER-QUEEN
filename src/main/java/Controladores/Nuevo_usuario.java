@@ -96,6 +96,12 @@ public class Nuevo_usuario implements Initializable {
             boolean esEmpleado = "Empleado".equals(tipo.getValue());
             String rutaImagenGuardada = guardarImagen();
 
+            // Si la ruta de la imagen es null, mostrar error y salir
+            if (rutaImagenGuardada == null) {
+                mostrarError("Error", "Debe seleccionar una imagen para el usuario.");
+                return;
+            }
+
             // Crear un Administrador o Empleado dependiendo del tipo seleccionado
             if (esEmpleado) {
                 Empleado empleado = new Empleado(
@@ -285,6 +291,11 @@ public class Nuevo_usuario implements Initializable {
                 username.getText().isEmpty() || password.getText().isEmpty() || telefono.getText().isEmpty() ||
                 direccion.getText().isEmpty() || fechanacimiento.getValue() == null || tipo.getValue() == null || estado.getValue() == null) {
             mostrarError("Error", "Hay campos necesarios vacíos.");
+            return false;
+        }
+
+        if (fotoSeleccionada == null) {
+            mostrarError("Error", "Debe seleccionar una imagen para el usuario.");
             return false;
         }
 

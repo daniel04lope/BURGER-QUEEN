@@ -2,16 +2,20 @@ package Controladores;
 
 import java.io.File;
 import java.io.IOException;
+import java.net.URL;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ResourceBundle;
 
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
@@ -27,7 +31,7 @@ import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import Modelos.Producto;
 
-public class ModificarProducto {
+public class ModificarProducto implements Initializable {
 
 	@FXML
     private Button Cerrar;
@@ -89,6 +93,91 @@ public class ModificarProducto {
                 imageView.setImage(new Image(getClass().getResourceAsStream("/" + rutaImagen)));
             }
         }
+    }
+    
+    
+    @Override
+    public void initialize(URL location, ResourceBundle resources) {
+    	if (Login.tipo.equals("administradores")) {
+          
+        }
+
+        if (Login.tipo.equals("empleados")) {
+            
+            System.out.println("llegue");
+
+            // Verificar permisos para cada botón
+         
+
+            try {
+				if (permisos(1, "lectura") == 0) {
+					nombreField.setEditable(false);
+					precioField.setEditable(false);
+					categoriaField.setEditable(false);
+					alergenosField.setEditable(false);
+					pesoField.setEditable(false);
+					descripcionArea.setEditable(false);
+					seleccionarImagenButton.setDisable(true);
+					
+					
+				} else {
+					nombreField.setEditable(true);
+					precioField.setEditable(true);
+					categoriaField.setEditable(true);
+					alergenosField.setEditable(true);
+					pesoField.setEditable(true);
+					descripcionArea.setEditable(true);
+					seleccionarImagenButton.setDisable(false);
+				    
+				}
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+
+         
+        }
+
+        if (Login.tipo.equals("usuarios")) {
+        	nombreField.setEditable(false);
+			precioField.setEditable(false);
+			categoriaField.setEditable(false);
+			alergenosField.setEditable(false);
+			pesoField.setEditable(false);
+			descripcionArea.setEditable(false);
+			seleccionarImagenButton.setDisable(true);
+        }
+
+        try {
+            System.out.println(permisos(1, "lectura"));
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    	
+    }
+    
+    public int permisos(int nombreModulo, String tipoPermiso) throws SQLException {
+        String sql = "SELECT " + tipoPermiso + " FROM permisos WHERE id_empleado = ? AND id_modulo = ?";
+        int valor = 0;
+
+        try (Connection conexion = util.Conexiones.dameConexion("burger-queen")) {
+            PreparedStatement sentencia = conexion.prepareStatement(sql);
+            sentencia.setInt(1, Login.datos_login.getIdUsuario());
+            sentencia.setInt(2, nombreModulo);
+            
+            System.out.println("Cadena: " + sentencia);
+            
+            ResultSet ejecuta = sentencia.executeQuery();
+
+            if (ejecuta.next()) {
+                valor = ejecuta.getInt(tipoPermiso);
+                System.out.println("Valor: " + valor);
+            } else {
+                System.out.println("No valor encontrado id_empleado = " + Login.datos_login.getIdUsuario() + " and id_modulo = " + nombreModulo);
+            }
+        }
+
+        return valor;
     }
 
     @FXML
@@ -256,4 +345,8 @@ public class ModificarProducto {
 	    alert.setContentText(mensaje);
 	    alert.showAndWait();
 	}
+
+
+
+
 }

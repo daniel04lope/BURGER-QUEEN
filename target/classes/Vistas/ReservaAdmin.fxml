@@ -30,11 +30,6 @@
         </AnchorPane>
     </content>
 </ScrollPane>
-      <Text fx:id="Username" layoutX="718.0" layoutY="59.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Registrate" textAlignment="CENTER" wrappingWidth="84.63238525390625">
-         <font>
-            <Font name="Insaniburger" size="9.0" />
-         </font>
-      </Text>
       <HBox id="Barra_Navegacion" prefHeight="57.0" prefWidth="600.0" style="-fx-background-color: #905D5D;">
          <children>
             <ImageView fitHeight="57.0" fitWidth="66.0" pickOnBounds="true" preserveRatio="true">
@@ -65,7 +60,7 @@
                   </ImageView>
                </graphic>
             </Button>
-            <Button id="Perfil" layoutX="10.0" layoutY="13.0" onAction="#Mostrar_Login" style="-fx-background-color: transparent;">
+            <Button id="Perfil" fx:id="imagenperfil" layoutX="10.0" layoutY="13.0" onAction="#Mostrar_Login" style="-fx-background-color: transparent;">
                <graphic>
                   <ImageView fitHeight="45.0" fitWidth="45.0" pickOnBounds="true" preserveRatio="true">
                      <image>
@@ -121,7 +116,7 @@
                                  <content>
                                     <VBox fx:id="Vboxadmin" prefHeight="310.0" prefWidth="279.0" spacing="5.0">
                                        <children>
-                                          <Button fx:id="usuariosadmin" mnemonicParsing="false" onAction="#Gestion_usuarios" prefHeight="64.0" prefWidth="255.0" style="-fx-background-color: FFFFFF;" text="GESTION DE USUARIOS">
+                                          <Button fx:id="usuariosadmin" disable="true" mnemonicParsing="false" onAction="#Gestion_usuarios" prefHeight="64.0" prefWidth="255.0" style="-fx-background-color: FFFFFF;" text="GESTION DE USUARIOS">
                                              <font>
                                                 <Font name="Insaniburger" size="20.0" />
                                              </font>
@@ -167,5 +162,10 @@
             </ImageView>
          </graphic>
       </Button>
+      <Text fx:id="Username" layoutX="718.0" layoutY="51.0" strokeType="OUTSIDE" strokeWidth="0.0" textAlignment="CENTER" translateX="-196.0" translateY="-4.0" wrappingWidth="84.63238525390625">
+         <font>
+            <Font name="Insaniburger" size="9.0" />
+         </font>
+      </Text>
    </children>
 </AnchorPane>

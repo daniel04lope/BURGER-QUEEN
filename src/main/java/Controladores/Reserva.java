@@ -67,6 +67,9 @@ public class Reserva implements Initializable {
     private VBox Vboxadmin;
     @FXML
     private Button botoncarrito;
+    
+    @FXML
+    private Button hacerreserva;
     private boolean drawerVisible = false;
     private boolean Cerrardesplegar = false;
 
@@ -90,6 +93,7 @@ public class Reserva implements Initializable {
              titledpaneadmin.setVisible(true);
              Vboxadmin.setVisible(true);
              botoncarrito.setVisible(false);
+             hacerreserva.setVisible(false);
              System.out.println("llegue");
 
              // Verificar permisos para cada botón
