@@ -13,11 +13,11 @@ import javafx.scene.paint.Color;
 
 public class Main extends Application {
 
-    private Stage primaryStage;
+    private Stage principalStage;
 
     @Override
     public void start(Stage primaryStage) {
-        this.primaryStage = primaryStage;
+        this.principalStage = primaryStage;
         Font.loadFont(getClass().getResourceAsStream("/Insanibu.ttf"), 12);
         primaryStage.initStyle(StageStyle.TRANSPARENT);
         //Muestramain();
@@ -29,12 +29,12 @@ public class Main extends Application {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/Vistas/Pantalla-Principal.fxml"));
             AnchorPane root = loader.load();
             Scene scene = new Scene(root, 600, 500);
-            primaryStage.initStyle(StageStyle.DECORATED);
+            principalStage.initStyle(StageStyle.DECORATED);
             
-            primaryStage.setResizable(false);
-            primaryStage.setScene(scene);
-            primaryStage.setTitle("BURGER QUEEN");
-            primaryStage.show();
+            principalStage.setResizable(false);
+            principalStage.setScene(scene);
+            principalStage.setTitle("PANTALLA PRINCIPAL");
+            principalStage.show();
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -42,8 +42,8 @@ public class Main extends Application {
 
     private void Muestralogin() {
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/Vistas/Login.fxml"));
-            Pane login = loader.load();
+            FXMLLoader cargador = new FXMLLoader(getClass().getResource("/Vistas/Login.fxml"));
+            Pane login = cargador.load();
             Scene loginScene = new Scene(login, 450, 600);
             loginScene.setFill(Color.TRANSPARENT);
             Stage loginStage = new Stage();

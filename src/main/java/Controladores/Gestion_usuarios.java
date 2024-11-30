@@ -38,22 +38,25 @@ public class Gestion_usuarios implements Initializable {
     private Button Cerrar;
     @FXML
     GridPane Listado;
+    
     static int idtraspaso;
 
     private boolean Panel_Visible = false;
     private boolean Cerrardesplegar = false;
+    @FXML
+    private Button pedidosadmin;
 
     public void carrito() throws IOException {
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/Vistas/Carrito.fxml"));
-            AnchorPane itemFocusPane = loader.load();
-            Stage itemFocusStage = new Stage();
-            itemFocusStage.initStyle(StageStyle.TRANSPARENT);
-            itemFocusStage.initModality(Modality.APPLICATION_MODAL);
-            Scene scene = new Scene(itemFocusPane, 800, 623);
-            itemFocusStage.setScene(scene);
-            itemFocusStage.setTitle("DETALLES DEL PRODUCTO");
-            itemFocusStage.show();
+            FXMLLoader cargador = new FXMLLoader(getClass().getResource("/Vistas/Carrito.fxml"));
+            AnchorPane carritoPane = cargador.load();
+            Stage carritoStage = new Stage();
+            carritoStage.initStyle(StageStyle.TRANSPARENT);
+            carritoStage.initModality(Modality.APPLICATION_MODAL);
+            Scene scene = new Scene(carritoPane, 800, 623);
+            carritoStage.setScene(scene);
+            carritoStage.setTitle("CARRITO");
+            carritoStage.show();
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -61,8 +64,8 @@ public class Gestion_usuarios implements Initializable {
 
     public void Mostrar_Login() {
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/Vistas/Login.fxml"));
-            Pane login = loader.load();
+            FXMLLoader cargador = new FXMLLoader(getClass().getResource("/Vistas/Login.fxml"));
+            Pane login = cargador.load();
             Scene loginScene = new Scene(login, 450, 600);
             loginScene.setFill(Color.TRANSPARENT);
             Stage loginStage = new Stage();
@@ -77,45 +80,59 @@ public class Gestion_usuarios implements Initializable {
         }
     }
     
+    public void Horarios() throws IOException {
+        FXMLLoader cargador = new FXMLLoader(getClass().getResource("/Vistas/Horarios.fxml"));
+        Pane horariospane = cargador.load();
+        Scene horariosScene = new Scene(horariospane, 600, 500);
+        horariosScene.setFill(Color.TRANSPARENT);
+        Stage horariosStage = new Stage();
+        horariosStage.setResizable(false);
+        horariosStage.initStyle(StageStyle.DECORATED);
+        horariosStage.setScene(horariosScene);
+        horariosStage.setTitle("HORARIOS");
+        horariosStage.show();
+        cerrar();
+    }
+    
     public void Ubicacion() throws IOException {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/Vistas/Ubicacion.fxml"));
-        Pane registro = loader.load();
-        Scene loginScene = new Scene(registro, 600, 500);
-        loginScene.setFill(Color.TRANSPARENT);
+        FXMLLoader cargador = new FXMLLoader(getClass().getResource("/Vistas/Ubicacion.fxml"));
+        Pane ubicacion = cargador.load();
+        Scene ubicacionScene = new Scene(ubicacion, 600, 500);
+        ubicacionScene.setFill(Color.TRANSPARENT);
 
-        Stage loginStage = new Stage();
-        loginStage.setResizable(false);
-        loginStage.initStyle(StageStyle.DECORATED);
-        loginStage.setScene(loginScene);
-        loginStage.setTitle("CARTA");
-        loginStage.show();
+        Stage ubicacionStage = new Stage();
+        ubicacionStage.setResizable(false);
+        ubicacionStage.initStyle(StageStyle.DECORATED);
+        ubicacionStage.setScene(ubicacionScene);
+        ubicacionStage.setTitle("UBICACION");
+        ubicacionStage.show();
         cerrar();  
     }
 
     public void Reserva() throws IOException {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/Vistas/Reservas.fxml"));
-        Pane registro = loader.load();
-        Scene loginScene = new Scene(registro, 600, 500);
-        loginScene.setFill(Color.TRANSPARENT);
-        Stage loginStage = new Stage();
-        loginStage.setResizable(false);
-        loginStage.initStyle(StageStyle.DECORATED);
-        loginStage.setScene(loginScene);
-        loginStage.setTitle("Reservas");
-        loginStage.show();
+        FXMLLoader cargador = new FXMLLoader(getClass().getResource("/Vistas/Reservas.fxml"));
+        Pane reserva = cargador.load();
+        Scene reservaScene = new Scene(reserva, 600, 500);
+        reservaScene.setFill(Color.TRANSPARENT);
+        Stage reservaStage = new Stage();
+        reservaStage.setResizable(false);
+        reservaStage.initStyle(StageStyle.DECORATED);
+        reservaStage.setScene(reservaScene);
+        reservaStage.setTitle("RESERVAS");
+        reservaStage.show();
         cerrar();
     }
     public void ReservaAdmin() throws IOException {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/Vistas/ReservaAdmin.fxml"));
-        Pane registro = loader.load();
-        Scene loginScene = new Scene(registro, 600, 500);
-        loginScene.setFill(Color.TRANSPARENT);
-        Stage loginStage = new Stage();
-        loginStage.setResizable(false);
-        loginStage.initStyle(StageStyle.DECORATED);
-        loginStage.setScene(loginScene);
-        loginStage.setTitle("Reservas");
-        loginStage.show();
+        FXMLLoader cargador = new FXMLLoader(getClass().getResource("/Vistas/ReservaAdmin.fxml"));
+        Pane reservaadmin = cargador.load();
+        Scene reservaadminScene = new Scene(reservaadmin, 600, 500);
+        reservaadminScene.setFill(Color.TRANSPARENT);
+        Stage reservaadminStage = new Stage();
+        reservaadminStage.setResizable(false);
+        reservaadminStage.initStyle(StageStyle.DECORATED);
+        reservaadminStage.setScene(reservaadminScene);
+        reservaadminStage.setTitle("PANEL DE RESERVAS");
+        reservaadminStage.show();
          cerrar();
     }
 
@@ -132,29 +149,30 @@ public class Gestion_usuarios implements Initializable {
     }
 
     public void Carta() throws IOException {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/Vistas/Carta.fxml"));
-        Pane registro = loader.load();
-        Scene loginScene = new Scene(registro, 600, 500);
-        loginScene.setFill(Color.TRANSPARENT);
-        Stage loginStage = new Stage();
-        loginStage.setResizable(false);
-        loginStage.initStyle(StageStyle.DECORATED);
-        loginStage.setScene(loginScene);
-        loginStage.setTitle("CARTA");
-        loginStage.show();
+        FXMLLoader cargador = new FXMLLoader(getClass().getResource("/Vistas/Carta.fxml"));
+        Pane cartapane = cargador.load();
+        Scene cartaScene = new Scene(cartapane, 600, 500);
+        cartaScene.setFill(Color.TRANSPARENT);
+        Stage cartaStage = new Stage();
+        cartaStage.setResizable(false);
+        cartaStage.initStyle(StageStyle.DECORATED);
+        cartaStage.setScene(cartaScene);
+        cartaStage.setTitle("CARTA");
+        cartaStage.show();
         cerrar();
     }
 
     public void Pantalla_Principal() throws IOException {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/Vistas/Pantalla-Principal.fxml"));
-        Pane principal = loader.load();
-        Scene principalScene = new Scene(principal, 600, 500);
+        FXMLLoader cargador = new FXMLLoader(getClass().getResource("/Vistas/Pantalla-Principal.fxml"));
+        Pane principalpane = cargador.load();
+        Scene principalScene = new Scene(principalpane, 600, 500);
         
         principalScene.setFill(Color.TRANSPARENT);
         Stage PrincipalStage = new Stage();
+        PrincipalStage.setResizable(false);
         PrincipalStage.initStyle(StageStyle.DECORATED);
         PrincipalStage.setScene(principalScene);
-        PrincipalStage.setTitle("CARTA");
+        PrincipalStage.setTitle("PANTALLA PRINCIPAL");
         PrincipalStage.show();
         cerrar();
     }
@@ -263,32 +281,49 @@ public class Gestion_usuarios implements Initializable {
     public void nuevo_usuario() {
         try {
         	cerrar();
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/Vistas/Nuevo_usuarios.fxml"));
-            AnchorPane itemFocusPane = loader.load();
-            Stage itemFocusStage = new Stage();
-            itemFocusStage.initStyle(StageStyle.TRANSPARENT);
-            itemFocusStage.initModality(Modality.APPLICATION_MODAL);
-            Scene scene = new Scene(itemFocusPane, 800, 623);
-            itemFocusStage.setScene(scene);
-            itemFocusStage.setTitle("DETALLES DEL PRODUCTO");
-            itemFocusStage.show();
+            FXMLLoader cargador = new FXMLLoader(getClass().getResource("/Vistas/Nuevo_usuarios.fxml"));
+            AnchorPane nuevousuarioPane = cargador.load();
+            Stage nuevousarioStage = new Stage();
+            nuevousarioStage.initStyle(StageStyle.TRANSPARENT);
+            nuevousarioStage.initModality(Modality.APPLICATION_MODAL);
+            Scene scene = new Scene(nuevousuarioPane, 800, 623);
+            nuevousarioStage.setScene(scene);
+            nuevousarioStage.setTitle("NUEVO USUARIO");
+            nuevousarioStage.show();
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
     public void Gestion_usuarios() throws IOException {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/Vistas/Gestion_usuarios.fxml"));
-        Pane registro = loader.load();
-        Scene loginScene = new Scene(registro, 600, 500);
-        loginScene.setFill(Color.TRANSPARENT);
-        Stage loginStage = new Stage();
-        loginStage.setResizable(false);
-        loginStage.initStyle(StageStyle.DECORATED);
-        loginStage.setScene(loginScene);
-        loginStage.setTitle("Reservas");
-        loginStage.show();
+        FXMLLoader cargador = new FXMLLoader(getClass().getResource("/Vistas/Gestion_usuarios.fxml"));
+        Pane gestionusuariopane = cargador.load();
+        Scene gestionusuarioScene = new Scene(gestionusuariopane, 600, 500);
+        gestionusuarioScene.setFill(Color.TRANSPARENT);
+        Stage gestiousuarioStage = new Stage();
+        gestiousuarioStage.setResizable(false);
+        gestiousuarioStage.initStyle(StageStyle.DECORATED);
+        gestiousuarioStage.setScene(gestionusuarioScene);
+        gestiousuarioStage.setTitle("PANEL DE GESTION DE USUARIOS");
+        gestiousuarioStage.show();
         cerrar();
     }
+    public void Gestionpedidos() throws IOException {
+  	  FXMLLoader cargador = new FXMLLoader(getClass().getResource("/Vistas/GestionPedidos.fxml"));
+        Pane gestionpedidos = cargador.load();
+        Scene gestionpedidosScene = new Scene(gestionpedidos, 600, 500);
+       
+        gestionpedidosScene.setFill(Color.TRANSPARENT);
+        Stage gestionpedidosStage = new Stage();
+        gestionpedidosStage.setResizable(false);
+        gestionpedidosStage.initStyle(StageStyle.DECORATED);
+        gestionpedidosStage.setScene(gestionpedidosScene);
+        gestionpedidosStage.setTitle("GESTION DE PEDIDOS");
+        gestionpedidosStage.show();
+        cerrar();
+  	
+  	
+  	
+  }
 
     private void eliminarUsuario(int idUsuario) throws IOException, SQLException {
         String sqlEliminarEmpleado = "DELETE FROM empleados WHERE id_empleado = ?";
@@ -317,15 +352,15 @@ public class Gestion_usuarios implements Initializable {
     private void muestraeditar() {
         try {
         	cerrar();
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/Vistas/Editar_usuarios.fxml"));
-            AnchorPane itemFocusPane = loader.load();
-            Stage itemFocusStage = new Stage();
-            itemFocusStage.initStyle(StageStyle.TRANSPARENT);
-            itemFocusStage.initModality(Modality.APPLICATION_MODAL);
-            Scene scene = new Scene(itemFocusPane, 800, 623);
-            itemFocusStage.setScene(scene);
-            itemFocusStage.setTitle("EDITAR USUARIOS");
-            itemFocusStage.show();
+            FXMLLoader cargador = new FXMLLoader(getClass().getResource("/Vistas/Editar_usuarios.fxml"));
+            AnchorPane muestraeditarPane = cargador.load();
+            Stage muestraeditarStage = new Stage();
+            muestraeditarStage.initStyle(StageStyle.TRANSPARENT);
+            muestraeditarStage.initModality(Modality.APPLICATION_MODAL);
+            Scene scene = new Scene(muestraeditarPane, 800, 623);
+            muestraeditarStage.setScene(scene);
+            muestraeditarStage.setTitle("EDITAR USUARIOS");
+            muestraeditarStage.show();
         } catch (IOException e) {
             e.printStackTrace();
         }

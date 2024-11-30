@@ -212,31 +212,31 @@ public class Login {
     
     
     public void Registro() throws IOException {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/Vistas/Registro.fxml"));
-        Pane registro = loader.load();
+        FXMLLoader cargador = new FXMLLoader(getClass().getResource("/Vistas/Registro.fxml"));
+        Pane registro = cargador.load();
 
-        Scene loginScene = new Scene(registro, 450, 600);
-        loginScene.setFill(Color.TRANSPARENT);
+        Scene registroScene = new Scene(registro, 450, 600);
+        registroScene.setFill(Color.TRANSPARENT);
 
-        Stage loginStage = new Stage();
-        loginStage.initStyle(StageStyle.TRANSPARENT);
-        loginStage.setScene(loginScene);
-        loginStage.initModality(Modality.APPLICATION_MODAL);
-        loginStage.setTitle("REGISTRO");
-        loginStage.show();
+        Stage registroStage = new Stage();
+        registroStage.initStyle(StageStyle.TRANSPARENT);
+        registroStage.setScene(registroScene);
+        registroStage.initModality(Modality.APPLICATION_MODAL);
+        registroStage.setTitle("REGISTRO");
+        registroStage.show();
         cerrar();
     }
     
     public void Pantalla_Principal() throws IOException {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/Vistas/Pantalla-Principal.fxml"));
-        Pane principal = loader.load();
+        FXMLLoader cargador = new FXMLLoader(getClass().getResource("/Vistas/Pantalla-Principal.fxml"));
+        Pane principal = cargador.load();
         Scene principalScene = new Scene(principal, 600, 500);
         principalScene.setFill(Color.TRANSPARENT);
         Stage PrincipalStage = new Stage();
         PrincipalStage.setResizable(false);
         PrincipalStage.initStyle(StageStyle.DECORATED);
         PrincipalStage.setScene(principalScene);
-        PrincipalStage.setTitle("BURGER QUEEN");
+        PrincipalStage.setTitle("PANTALLA PRINCIPAL");
         PrincipalStage.show();
         cerrar();
     }

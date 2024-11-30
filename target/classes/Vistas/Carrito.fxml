@@ -2,6 +2,7 @@
 
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.effect.DropShadow?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -35,28 +36,27 @@
 					<image>
 						<Image url="@/Burger_Queen.png" />
 					</image>
+               <effect>
+                  <DropShadow />
+               </effect>
 				</ImageView>
 				<Text id="Texto" fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="                            carrito" wrappingWidth="620.3163642883301">
 					<font>
 						<Font name="Insaniburger" size="40.0" />
 					</font>
+               <effect>
+                  <DropShadow />
+               </effect>
 				</Text>
-				<Button id="Carrito" layoutX="10.0" layoutY="13.0" minWidth="53.0" prefHeight="65.0" prefWidth="40.0" style="-fx-background-color: transparent;" translateX="-13.0" visible="false">
-					<graphic>
-						<ImageView fitHeight="48.0" fitWidth="53.0" pickOnBounds="true" preserveRatio="true" visible="false">
-							<image>
-								<Image url="@/carrito.png" />
-							</image>
-						</ImageView>
-					</graphic>
-				</Button>
-				<Button id="Perfil" layoutX="10.0" layoutY="13.0" onAction="#Mostrar_Login" style="-fx-background-color: transparent;" translateX="3.0" translateY="7.0" />
 			</children>
 		</HBox>
 		<Button fx:id="Cerrar" layoutX="96.0" layoutY="7.0" mnemonicParsing="false" onAction="#flechaatras" prefHeight="47.0" prefWidth="61.0" style="-fx-background-color: #D28383;                 -fx-border-color: #FFFFFF;                 -fx-border-radius: 22.5px;                 -fx-background-radius: 22.5px;" text="←">
 			<font>
 				<Font name="Insaniburger" size="25.3" />
 			</font>
+         <effect>
+            <DropShadow />
+         </effect>
 		</Button>
 		<AnchorPane layoutX="12.0" layoutY="389.0" prefHeight="200.0" prefWidth="484.0" style="-fx-background-color: A6234E; -fx-border-radius: 20; -fx-border-color: FFFFFF; -fx-background-radius: 20;">
 			<children>
@@ -91,16 +91,25 @@
 					<font>
 						<Font name="Insaniburger" size="12.0" />
 					</font>
+               <effect>
+                  <DropShadow />
+               </effect>
 				</Text>
 				<Text fill="WHITE" layoutX="233.0" layoutY="173.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Patatas">
 					<font>
 						<Font name="Insaniburger" size="12.0" />
 					</font>
+               <effect>
+                  <DropShadow />
+               </effect>
 				</Text>
 				<Text fill="WHITE" layoutX="389.0" layoutY="173.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Cocacola">
 					<font>
 						<Font name="Insaniburger" size="12.0" />
 					</font>
+               <effect>
+                  <DropShadow />
+               </effect>
 				</Text>
 			</children>
 		</AnchorPane>
@@ -110,6 +119,9 @@
 					<font>
 						<Font name="Insaniburger" size="17.0" />
 					</font>
+               <effect>
+                  <DropShadow />
+               </effect>
 				</Text>
 				<ImageView fitHeight="172.0" fitWidth="239.0" layoutX="16.0" layoutY="239.0" pickOnBounds="true" preserveRatio="true">
 					<image>
@@ -120,6 +132,9 @@
 					<font>
 						<Font name="Insaniburger" size="12.0" />
 					</font>
+               <effect>
+                  <DropShadow />
+               </effect>
 				</Button>
 				<ScrollPane hbarPolicy="NEVER" layoutX="17.0" layoutY="40.0" prefHeight="183.0" prefWidth="239.0" style="-fx-background-color: TRANSPARENT;">
 					<content>

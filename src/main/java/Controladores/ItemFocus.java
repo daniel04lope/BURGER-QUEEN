@@ -103,17 +103,18 @@ public class ItemFocus implements Initializable {
     }
     
     public void Pantalla_Principal() throws IOException {
-  	  FXMLLoader loader = new FXMLLoader(getClass().getResource("/Vistas/Pantalla-Principal.fxml"));
-        Pane principal = loader.load();
+  	  FXMLLoader cargador = new FXMLLoader(getClass().getResource("/Vistas/Pantalla-Principal.fxml"));
+        Pane principal = cargador.load();
 
         Scene principalScene = new Scene(principal, 600, 500);
         principalScene.getStylesheets().add(getClass().getResource("Pantalla_Principal.css").toExternalForm());
         principalScene.setFill(Color.TRANSPARENT);
 
         Stage PrincipalStage = new Stage();
+        PrincipalStage.setResizable(false);
         PrincipalStage.initStyle(StageStyle.DECORATED);
         PrincipalStage.setScene(principalScene);
-        PrincipalStage.setTitle("CARTA");
+        PrincipalStage.setTitle("PANTALLA PRINCIPAL");
         PrincipalStage.show();
         cerrar();
 	  }
@@ -202,7 +203,7 @@ public class ItemFocus implements Initializable {
     	
         if (producto != null) {
         	 Nombre.setText(producto.getNombre());
-             Descripcion.setText(producto.getDescripcion());
+             Descripcion.setText(producto.getDescripcion() +producto.getAlergenos());
              DescripcionTab.setText(producto.getNombre());
              
              Carrito.setText("Añadir a mi pedido - " + String.format("%.2f €", precioTotal));
@@ -220,21 +221,17 @@ public class ItemFocus implements Initializable {
     
     public void carrito () throws IOException {
     	try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/Vistas/Carrito.fxml"));
-            AnchorPane itemFocusPane = loader.load();
+            FXMLLoader cargador = new FXMLLoader(getClass().getResource("/Vistas/Carrito.fxml"));
+            AnchorPane carritoPane = cargador.load();
+            Stage carritoStage = new Stage();
+            carritoStage.initStyle(StageStyle.TRANSPARENT);
+            carritoStage.initModality(Modality.APPLICATION_MODAL);
+            Scene scene = new Scene(carritoPane, 800, 623);
+            carritoStage.setScene(scene);
 
-          
-           
+            carritoStage.setTitle("CARRITO");
 
-            Stage itemFocusStage = new Stage();
-            itemFocusStage.initStyle(StageStyle.TRANSPARENT);
-            itemFocusStage.initModality(Modality.APPLICATION_MODAL);
-            Scene scene = new Scene(itemFocusPane, 800, 623);
-            itemFocusStage.setScene(scene);
-
-            itemFocusStage.setTitle("DETALLES DEL PRODUCTO");
-
-            itemFocusStage.show();
+            carritoStage.show();
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -460,17 +457,18 @@ public class ItemFocus implements Initializable {
     }
     
     public void Carta() throws IOException {
-  	  FXMLLoader loader = new FXMLLoader(getClass().getResource("/Vistas/Carta.fxml"));
-        Pane registro = loader.load();
+  	  FXMLLoader cargador = new FXMLLoader(getClass().getResource("/Vistas/Carta.fxml"));
+        Pane carta = cargador.load();
 
-        Scene loginScene = new Scene(registro, 600, 500);
-        loginScene.setFill(Color.TRANSPARENT);
+        Scene cartaScene = new Scene(carta, 600, 500);
+        cartaScene.setFill(Color.TRANSPARENT);
         
-        Stage loginStage = new Stage();
-        loginStage.initStyle(StageStyle.DECORATED);
-        loginStage.setScene(loginScene);
-        loginStage.setTitle("CARTA");
-        loginStage.show();
+        Stage cartaStage = new Stage();
+        cartaStage.setResizable(false);
+        cartaStage.initStyle(StageStyle.DECORATED);
+        cartaStage.setScene(cartaScene);
+        cartaStage.setTitle("CARTA");
+        cartaStage.show();
         cerrar();
     }
     
@@ -501,7 +499,7 @@ public class ItemFocus implements Initializable {
     }
     
     
-    public void eliminaProducto() {
+    public void eliminaProducto() throws IOException {
     	try (Connection conexion = util.Conexiones.dameConexion("burger-queen")) {
             String sql = "DELETE FROM carta WHERE id_producto = ?";
             try (PreparedStatement stmt = conexion.prepareStatement(sql)) {                
@@ -520,6 +518,7 @@ public class ItemFocus implements Initializable {
             mostrarAlerta(AlertType.ERROR, "Error de conexión", "No se pudo conectar a la base de datos.");
         }
     	cerrar();
+    	Carta();
     }
     
     public void mostrarAlerta(AlertType tipo, String titulo, String mensaje) {
@@ -533,13 +532,14 @@ public class ItemFocus implements Initializable {
 
     public void Mostrar_Login() {
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/Vistas/Login.fxml"));
-            Pane login = loader.load();
+            FXMLLoader cargador = new FXMLLoader(getClass().getResource("/Vistas/Login.fxml"));
+            Pane login = cargador.load();
 
             Scene loginScene = new Scene(login, 450, 600);
             loginScene.setFill(Color.TRANSPARENT);
 
             Stage loginStage = new Stage();
+            loginStage.setResizable(false);
             loginStage.initStyle(StageStyle.TRANSPARENT);
             loginStage.setScene(loginScene);
             loginStage.setTitle("LOGIN");

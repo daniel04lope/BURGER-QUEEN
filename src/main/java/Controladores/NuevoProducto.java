@@ -129,17 +129,17 @@ public class NuevoProducto {
 
     public void Carta() throws IOException {
         
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/Vistas/Carta.fxml"));
-        Pane registro = loader.load();
-        Scene loginScene = new Scene(registro, 600, 500);
-        loginScene.setFill(Color.TRANSPARENT);
+        FXMLLoader cargador = new FXMLLoader(getClass().getResource("/Vistas/Carta.fxml"));
+        Pane cartapane = cargador.load();
+        Scene cartaScene = new Scene(cartapane, 600, 500);
+        cartaScene.setFill(Color.TRANSPARENT);
 
-        Stage loginStage = new Stage();
-        loginStage.setResizable(false);
-        loginStage.initStyle(StageStyle.DECORATED);
-        loginStage.setScene(loginScene);
-        loginStage.setTitle("CARTA");
-        loginStage.show();
+        Stage cartaStage = new Stage();
+        cartaStage.setResizable(false);
+        cartaStage.initStyle(StageStyle.DECORATED);
+        cartaStage.setScene(cartaScene);
+        cartaStage.setTitle("CARTA");
+        cartaStage.show();
         cerrar();  
     }
     
@@ -263,17 +263,18 @@ public class NuevoProducto {
     
     
     public void Pantalla_Principal() throws IOException {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/Vistas/Pantalla-Principal.fxml"));
-        Pane principal = loader.load();
+        FXMLLoader cargador = new FXMLLoader(getClass().getResource("/Vistas/Pantalla-Principal.fxml"));
+        Pane principalpane = cargador.load();
         
-        Scene principalScene = new Scene(principal, 600, 500);
+        Scene principalScene = new Scene(principalpane, 600, 500);
         principalScene.getStylesheets().add(getClass().getResource("Pantalla_Principal.css").toExternalForm());
         principalScene.setFill(Color.TRANSPARENT);
         
         Stage PrincipalStage = new Stage();
+        PrincipalStage.setResizable(false);
         PrincipalStage.initStyle(StageStyle.DECORATED);
         PrincipalStage.setScene(principalScene);
-        PrincipalStage.setTitle("CARTA");
+        PrincipalStage.setTitle("PANTALLA PRINCIPAL");
         PrincipalStage.show();
         cerrar();
     }

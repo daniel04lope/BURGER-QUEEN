@@ -56,24 +56,24 @@ public class Carrito implements Initializable {
     
     public void Carta() throws IOException {
     
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/Vistas/Carta.fxml"));
-        Pane registro = loader.load();
-        Scene loginScene = new Scene(registro, 600, 500);
+        FXMLLoader cargador = new FXMLLoader(getClass().getResource("/Vistas/Carta.fxml"));
+        Pane carta = cargador.load();
+        Scene loginScene = new Scene(carta, 600, 500);
         loginScene.setFill(Color.TRANSPARENT);
 
-        Stage loginStage = new Stage();
-        loginStage.setResizable(false);
-        loginStage.initStyle(StageStyle.DECORATED);
-        loginStage.setScene(loginScene);
-        loginStage.setTitle("CARTA");
-        loginStage.show();
+        Stage stagecarta = new Stage();
+        stagecarta.setResizable(false);
+        stagecarta.initStyle(StageStyle.DECORATED);
+        stagecarta.setScene(loginScene);
+        stagecarta.setTitle("CARTA");
+        stagecarta.show();
         cerrar();  
     }
     public void Mostrar_Login() {
         try {
         	
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/Vistas/Login.fxml"));
-            Pane login = loader.load();
+            FXMLLoader cargador = new FXMLLoader(getClass().getResource("/Vistas/Login.fxml"));
+            Pane login = cargador.load();
             Scene loginScene = new Scene(login, 450, 600);
             loginScene.setFill(Color.TRANSPARENT);
             Stage loginStage = new Stage();
@@ -89,15 +89,15 @@ public class Carrito implements Initializable {
     }
     
     public void Pantalla_Principal() throws IOException {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/Vistas/Pantalla-Principal.fxml"));
-        Pane principal = loader.load();
+        FXMLLoader cargador = new FXMLLoader(getClass().getResource("/Vistas/Pantalla-Principal.fxml"));
+        Pane principal = cargador.load();
         Scene principalScene = new Scene(principal, 600, 500);
        
         principalScene.setFill(Color.TRANSPARENT);
         Stage PrincipalStage = new Stage();
         PrincipalStage.initStyle(StageStyle.DECORATED);
         PrincipalStage.setScene(principalScene);
-        PrincipalStage.setTitle("CARTA");
+        PrincipalStage.setTitle("PANTALLA PRINCIPAL");
         PrincipalStage.show();
         cerrar();
     }

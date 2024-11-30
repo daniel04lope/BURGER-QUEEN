@@ -6,6 +6,7 @@
 <?import javafx.scene.control.PasswordField?>
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.effect.DropShadow?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -19,6 +20,9 @@
             <font>
                 <Font name="Insaniburger" size="32.0" />
             </font>
+         <effect>
+            <DropShadow />
+         </effect>
         </Text>
         <Button fx:id="Cerrar" layoutX="374.0" layoutY="13.0" mnemonicParsing="false" onAction="#cancelar" prefHeight="49.0" prefWidth="60.0" style="-fx-background-color: transparent;">
             <graphic>
@@ -91,12 +95,18 @@
                   <font>
                      <Font name="Insaniburger" size="12.0" />
                   </font>
+                  <effect>
+                     <DropShadow />
+                  </effect>
                </Text>
                <CheckBox fx:id="Terms" mnemonicParsing="false" prefHeight="17.0" prefWidth="392.0" text=" Acepto los terminos y condiciones" textAlignment="CENTER" />
                <Button fx:id="Registrarse" alignment="CENTER" mnemonicParsing="false" onAction="#registrarse" prefHeight="68.0" prefWidth="439.0" style="-fx-background-color: #F980A9;" text="Registrarse" textFill="WHITE">
                   <font>
                      <Font name="Insaniburger" size="17.0" />
                   </font>
+                  <effect>
+                     <DropShadow />
+                  </effect>
                </Button>
                 </VBox>
             </content>

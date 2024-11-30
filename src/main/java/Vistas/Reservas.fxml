@@ -7,6 +7,7 @@
 <?import javafx.scene.control.TextArea?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.control.TitledPane?>
+<?import javafx.scene.effect.DropShadow?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -23,6 +24,9 @@
                <image>
                   <Image url="@/Burger_Queen.png" />
                </image>
+               <effect>
+                  <DropShadow />
+               </effect>
             </ImageView>
             <Button id="Desplegable" fx:id="Desplegable" layoutX="10.0" layoutY="13.0" minWidth="53.0" onAction="#Despliega" prefHeight="61.0" prefWidth="53.0" style="-fx-background-color: transparent;">
                <graphic>
@@ -37,6 +41,9 @@
                <font>
                   <Font name="Insaniburger" size="35.0" />
                </font>
+               <effect>
+                  <DropShadow />
+               </effect>
             </Text>
             <Button id="Carrito" fx:id="botoncarrito" layoutX="10.0" layoutY="13.0" minWidth="53.0" onAction="#carrito" prefHeight="65.0" prefWidth="53.0" style="-fx-background-color: transparent;">
                <graphic>
@@ -86,6 +93,9 @@
       <image>
                   <Image url="@/Reserva.png" />
                </image>
+         <effect>
+            <DropShadow />
+         </effect>
       </ImageView>
 
       <AnchorPane fx:id="drawer" layoutX="-4.0" layoutY="-4.0" prefHeight="914.0" prefWidth="272.0" style="-fx-background-color: #333333;" visible="false">
@@ -98,26 +108,41 @@
                            <font>
                               <Font name="Insaniburger" size="20.0" />
                            </font>
+                           <effect>
+                              <DropShadow />
+                           </effect>
                         </Button>
                         <Button mnemonicParsing="false" onAction="#Carta" prefHeight="64.0" prefWidth="255.0" style="-fx-background-color: A6234E;" text="CARTA">
                            <font>
                               <Font name="Insaniburger" size="20.0" />
                            </font>
+                           <effect>
+                              <DropShadow />
+                           </effect>
                         </Button>
                         <Button mnemonicParsing="false" onAction="#Horarios" prefHeight="64.0" prefWidth="255.0" style="-fx-background-color: D28383;" text="HORARIOS">
                            <font>
                               <Font name="Insaniburger" size="20.0" />
                            </font>
+                           <effect>
+                              <DropShadow />
+                           </effect>
                         </Button>
                         <Button mnemonicParsing="false" onAction="#Ubicacion" prefHeight="64.0" prefWidth="255.0" style="-fx-background-color: A6234E;" text="UBICACION">
                            <font>
                               <Font name="Insaniburger" size="20.0" />
                            </font>
+                           <effect>
+                              <DropShadow />
+                           </effect>
                         </Button>
                         <Button mnemonicParsing="false" prefHeight="64.0" prefWidth="255.0" style="-fx-background-color: D28383;" text="PERFIL">
                            <font>
                               <Font name="Insaniburger" size="20.0" />
                            </font>
+                           <effect>
+                              <DropShadow />
+                           </effect>
                         </Button>
                         <Accordion fx:id="administradores" prefHeight="24.0" prefWidth="260.0">
                            <panes>
@@ -132,31 +157,49 @@
                                              <font>
                                                 <Font name="Insaniburger" size="20.0" />
                                              </font>
+                                             <effect>
+                                                <DropShadow />
+                                             </effect>
                                           </Button>
                                           <Button fx:id="menuadmin" mnemonicParsing="false" onAction="#Carta" prefHeight="64.0" prefWidth="255.0" style="-fx-background-color: FFFFFF;" text="GESTION DE MENUS">
                                              <font>
                                                 <Font name="Insaniburger" size="20.0" />
                                              </font>
+                                             <effect>
+                                                <DropShadow />
+                                             </effect>
                                           </Button>
                                           <Button fx:id="usuariosadmin" disable="true" mnemonicParsing="false" onAction="#Gestion_usuarios" prefHeight="64.0" prefWidth="255.0" style="-fx-background-color: FFFFFF;" text="GESTION DE USUARIOS">
                                              <font>
                                                 <Font name="Insaniburger" size="20.0" />
                                              </font>
+                                             <effect>
+                                                <DropShadow />
+                                             </effect>
                                           </Button>
                                           <Button fx:id="pedidosadmin" mnemonicParsing="false" onAction="#Gestionpedidos" prefHeight="64.0" prefWidth="255.0" style="-fx-background-color: FFFFFF;" text="GESTION DE PEDIDOS">
                                              <font>
                                                 <Font name="Insaniburger" size="20.0" />
                                              </font>
+                                             <effect>
+                                                <DropShadow />
+                                             </effect>
                                           </Button>
                                           <Button mnemonicParsing="false" prefHeight="64.0" prefWidth="255.0" style="-fx-background-color: FFFFFF;" text="ESTADISTICAS">
                                              <font>
                                                 <Font name="Insaniburger" size="20.0" />
                                              </font>
+                                             <effect>
+                                                <DropShadow />
+                                             </effect>
                                           </Button>
                                           <Button mnemonicParsing="false" prefHeight="64.0" prefWidth="255.0" style="-fx-background-color: FFFFFF;" text="CONTACTAR ENCARGADO">
                                              <font>
                                                 <Font name="Insaniburger" size="20.0" />
                                              </font>
+                                             <effect>
+                                                <DropShadow />
+                                             </effect>
                                           </Button>
                                        </children>
                                     </VBox>
@@ -198,6 +241,9 @@
          <font>
             <Font name="Insaniburger" size="12.0" />
          </font>
+         <effect>
+            <DropShadow />
+         </effect>
       </Button>
    </children>
   

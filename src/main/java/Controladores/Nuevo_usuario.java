@@ -268,16 +268,16 @@ public class Nuevo_usuario implements Initializable {
     }
 
     public void Gestion_usuarios() throws IOException {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/Vistas/Gestion_usuarios.fxml"));
-        Pane registro = loader.load();
-        Scene loginScene = new Scene(registro, 600, 500);
-        loginScene.setFill(Color.TRANSPARENT);
-        Stage loginStage = new Stage();
-        loginStage.setResizable(false);
-        loginStage.initStyle(StageStyle.DECORATED);
-        loginStage.setScene(loginScene);
-        loginStage.setTitle("Reservas");
-        loginStage.show();
+        FXMLLoader cargador = new FXMLLoader(getClass().getResource("/Vistas/Gestion_usuarios.fxml"));
+        Pane gestiondeusuariospane = cargador.load();
+        Scene gestiondeusuariosScene = new Scene(gestiondeusuariospane, 600, 500);
+        gestiondeusuariosScene.setFill(Color.TRANSPARENT);
+        Stage gestiondeusuariosStage = new Stage();
+        gestiondeusuariosStage.setResizable(false);
+        gestiondeusuariosStage.initStyle(StageStyle.DECORATED);
+        gestiondeusuariosStage.setScene(gestiondeusuariosScene);
+        gestiondeusuariosStage.setTitle("PANEL DE GESTION DE USUARIOS");
+        gestiondeusuariosStage.show();
         cerrar();
     }
 

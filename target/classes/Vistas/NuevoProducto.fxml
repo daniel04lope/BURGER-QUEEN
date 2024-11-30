@@ -7,6 +7,7 @@
 <?import javafx.scene.control.TextArea?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.control.TitledPane?>
+<?import javafx.scene.effect.DropShadow?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -26,16 +27,25 @@
                <HBox.margin>
                   <Insets left="5.0" top="5.0" />
                </HBox.margin>
+               <effect>
+                  <DropShadow />
+               </effect>
             </ImageView>
             <Button fx:id="Cerrar" mnemonicParsing="false" onAction="#flechaatras" prefHeight="57.0" prefWidth="66.0" style="-fx-background-color: #D28383;                 -fx-border-color: #FFFFFF;                 -fx-border-radius: 22.5px;                 -fx-background-radius: 22.5px;" text="←" translateX="9.0" translateY="8.0">
                <font>
                   <Font name="Insaniburger" size="25.3" />
                </font>
+               <effect>
+                  <DropShadow />
+               </effect>
             </Button>
             <Text id="Texto" fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="NUEVO  PRODUCTO" textAlignment="CENTER" translateX="143.0" translateY="17.0" wrappingWidth="265.9830513000488">
                <font>
                   <Font name="Insaniburger" size="31.0" />
                </font>
+               <effect>
+                  <DropShadow />
+               </effect>
             </Text>
             <Button mnemonicParsing="false" style="-fx-background-color: TRANSPARENT;" />
          </children>
@@ -230,11 +240,17 @@
       <Button fx:id="Guardar" layoutX="264.0" layoutY="453.0" mnemonicParsing="false" onAction="#onGuardar" prefHeight="38.0" prefWidth="104.0" style="-fx-background-color: green; -fx-border-color: white; -fx-border-radius: 5px; -fx-background-radius: 10px;" text="GUARDAR" textFill="WHITE">
          <font>
             <Font name="System Bold" size="16.0" />
-         </font></Button>
+         </font>
+         <effect>
+            <DropShadow />
+         </effect></Button>
       <Button fx:id="Cancelar" layoutX="382.0" layoutY="453.0" mnemonicParsing="false" onAction="#flechaatras" prefHeight="38.0" prefWidth="121.0" style="-fx-background-color: red; -fx-border-color: white; -fx-border-radius: 5px; -fx-background-radius: 10;" text="CANCELAR" textFill="WHITE">
          <font>
             <Font name="Insaniburger" size="16.0" />
-         </font></Button>
+         </font>
+         <effect>
+            <DropShadow />
+         </effect></Button>
       <TextField fx:id="categoriaField" layoutX="268.0" layoutY="164.0" translateY="36.0" />
       <TextField fx:id="alergenosField" layoutX="428.0" layoutY="164.0" translateY="36.0" />
       <TextField fx:id="precioField" layoutX="428.0" layoutY="97.0" translateY="36.0" />
@@ -268,7 +284,7 @@
             <Font name="Insaniburger" size="12.0" />
          </font></Text>
       <TextArea fx:id="descripcionArea" layoutX="337.0" layoutY="301.0" prefHeight="64.0" prefWidth="209.0" translateX="-24.0" translateY="36.0" />
-      <Button fx:id="seleccionarImagenButton" layoutX="426.0" layoutY="230.0" mnemonicParsing="false" onAction="#onSeleccionarImagen" style="-fx-background-color: #71F5E8; -fx-text-fill: blue;" text="Seleccionar imagen" textFill="WHITE" translateY="36.0">
+      <Button fx:id="seleccionarImagenButton" layoutX="426.0" layoutY="230.0" mnemonicParsing="false" onAction="#onSeleccionarImagen" style="-fx-text-fill: #000000;" text="Seleccionar imagen" textFill="WHITE" translateY="36.0">
          <font>
             <Font name="Insaniburger" size="12.0" />
          </font>

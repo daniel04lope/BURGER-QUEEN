@@ -8,6 +8,7 @@
 <?import javafx.scene.control.PasswordField?>
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.effect.DropShadow?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -26,27 +27,42 @@
                <HBox.margin>
                   <Insets left="5.0" top="5.0" />
                </HBox.margin>
+               <effect>
+                  <DropShadow />
+               </effect>
             </ImageView>
             <Button fx:id="Cerrar" mnemonicParsing="false" onAction="#flechaatras" prefHeight="57.0" prefWidth="66.0" style="-fx-background-color: #D28383;                 -fx-border-color: #FFFFFF;                 -fx-border-radius: 22.5px;                 -fx-background-radius: 22.5px;" text="←" translateX="9.0" translateY="8.0">
                <font>
                   <Font name="Insaniburger" size="25.3" />
                </font>
+               <effect>
+                  <DropShadow />
+               </effect>
             </Button>
             <Text id="Texto" fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="nuevo usuario" textAlignment="CENTER" translateX="143.0" translateY="17.0" wrappingWidth="265.9830513000488">
                <font>
                   <Font name="Insaniburger" size="31.0" />
                </font>
+               <effect>
+                  <DropShadow />
+               </effect>
             </Text>
          </children>
       </HBox>
       <Button fx:id="guardar" layoutX="283.0" layoutY="498.0" mnemonicParsing="false" onAction="#registrar" prefHeight="38.0" prefWidth="104.0" style="-fx-background-color: green; -fx-border-color: white; -fx-border-radius: 5px; -fx-background-radius: 10px;" text="GUARDAR" textFill="WHITE">
          <font>
             <Font name="System Bold" size="16.0" />
-         </font></Button>
+         </font>
+         <effect>
+            <DropShadow />
+         </effect></Button>
       <Button fx:id="cancelar" layoutX="523.0" layoutY="498.0" mnemonicParsing="false" onAction="#cancelarFormulario" prefHeight="38.0" prefWidth="121.0" style="-fx-background-color: red; -fx-border-color: white; -fx-border-radius: 5px; -fx-background-radius: 10;" text="CANCELAR" textFill="WHITE">
          <font>
             <Font name="Insaniburger" size="16.0" />
-         </font></Button>
+         </font>
+         <effect>
+            <DropShadow />
+         </effect></Button>
       <ImageView fx:id="imageView" fitHeight="223.0" fitWidth="266.0" layoutX="16.0" layoutY="104.0" pickOnBounds="true" preserveRatio="true">
       <image>
                   <Image url="@/fotodefault.jpg" />

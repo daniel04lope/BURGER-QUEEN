@@ -131,7 +131,7 @@ public class ModificarProducto implements Initializable {
 					descripcionArea.setEditable(true);
 					seleccionarImagenButton.setDisable(false);
 					Guardar.setDisable(false);
-					Cancelar.setDisable(true);
+					Cancelar.setDisable(false);
 				}
 			} catch (SQLException e) {
 				// TODO Auto-generated catch block
@@ -328,17 +328,18 @@ public class ModificarProducto implements Initializable {
     }
    
    public void Pantalla_Principal() throws IOException {
-       FXMLLoader loader = new FXMLLoader(getClass().getResource("/Vistas/Pantalla-Principal.fxml"));
-       Pane principal = loader.load();
+       FXMLLoader cargador = new FXMLLoader(getClass().getResource("/Vistas/Pantalla-Principal.fxml"));
+       Pane principal = cargador.load();
        
        Scene principalScene = new Scene(principal, 600, 500);
        principalScene.getStylesheets().add(getClass().getResource("Pantalla_Principal.css").toExternalForm());
        principalScene.setFill(Color.TRANSPARENT);
        
        Stage PrincipalStage = new Stage();
+       PrincipalStage.setResizable(false);
        PrincipalStage.initStyle(StageStyle.DECORATED);
        PrincipalStage.setScene(principalScene);
-       PrincipalStage.setTitle("CARTA");
+       PrincipalStage.setTitle("PANTALLA PRINCIPAL");
        PrincipalStage.show();
        cerrar();
    }
