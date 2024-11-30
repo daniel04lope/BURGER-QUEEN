@@ -139,9 +139,26 @@ public class Pantalla_principal implements Initializable {
         Stage PrincipalStage = new Stage();
         PrincipalStage.initStyle(StageStyle.DECORATED);
         PrincipalStage.setScene(principalScene);
-        PrincipalStage.setTitle("CARTA");
+        PrincipalStage.setTitle("PANTALLA PRINCIPAL");
         PrincipalStage.show();
         cerrar();
+    }
+    
+    public void Gestionpedidos() throws IOException {
+    	  FXMLLoader loader = new FXMLLoader(getClass().getResource("/Vistas/GestionPedidos.fxml"));
+          Pane principal = loader.load();
+          Scene principalScene = new Scene(principal, 600, 500);
+         
+          principalScene.setFill(Color.TRANSPARENT);
+          Stage PrincipalStage = new Stage();
+          PrincipalStage.initStyle(StageStyle.DECORATED);
+          PrincipalStage.setScene(principalScene);
+          PrincipalStage.setTitle("");
+          PrincipalStage.show();
+          cerrar();
+    	
+    	
+    	
     }
     public int permisos(int nombreModulo, String tipoPermiso) throws SQLException {
         String sql = "SELECT " + tipoPermiso + " FROM permisos WHERE id_empleado = ? AND id_modulo = ?";
@@ -279,6 +296,7 @@ public class Pantalla_principal implements Initializable {
     
     public void carrito () throws IOException {
     	try {
+    		cerrar();
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/Vistas/Carrito.fxml"));
             AnchorPane itemFocusPane = loader.load();
 
@@ -296,6 +314,7 @@ public class Pantalla_principal implements Initializable {
         }
     	
     }
+    
     
     
     public void Gestion_usuarios() throws IOException {

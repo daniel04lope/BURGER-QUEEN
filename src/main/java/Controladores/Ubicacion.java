@@ -292,9 +292,22 @@ public class Ubicacion implements Initializable {
             e.printStackTrace();
         }
     }
-
+    public void Horarios() throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/Vistas/Horarios.fxml"));
+        Pane registro = loader.load();
+        Scene loginScene = new Scene(registro, 600, 500);
+        loginScene.setFill(Color.TRANSPARENT);
+        Stage loginStage = new Stage();
+        loginStage.setResizable(false);
+        loginStage.initStyle(StageStyle.DECORATED);
+        loginStage.setScene(loginScene);
+        loginStage.setTitle("Reservas");
+        loginStage.show();
+        cerrar();
+    }
     public void carrito() throws IOException {
         try {
+        	cerrar();
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/Vistas/Carrito.fxml"));
             AnchorPane itemFocusPane = loader.load();
 
@@ -311,6 +324,22 @@ public class Ubicacion implements Initializable {
             e.printStackTrace();
         }
     }
+    public void Gestionpedidos() throws IOException {
+  	  FXMLLoader loader = new FXMLLoader(getClass().getResource("/Vistas/GestionPedidos.fxml"));
+        Pane principal = loader.load();
+        Scene principalScene = new Scene(principal, 600, 500);
+       
+        principalScene.setFill(Color.TRANSPARENT);
+        Stage PrincipalStage = new Stage();
+        PrincipalStage.initStyle(StageStyle.DECORATED);
+        PrincipalStage.setScene(principalScene);
+        PrincipalStage.setTitle("");
+        PrincipalStage.show();
+        cerrar();
+  	
+  	
+  	
+  }
 
     public void Gestion_usuarios() throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/Vistas/Gestion_usuarios.fxml"));

@@ -118,6 +118,8 @@ public class ModificarProducto implements Initializable {
 					pesoField.setEditable(false);
 					descripcionArea.setEditable(false);
 					seleccionarImagenButton.setDisable(true);
+					Guardar.setDisable(true);
+					Cancelar.setDisable(true);
 					
 					
 				} else {
@@ -128,7 +130,8 @@ public class ModificarProducto implements Initializable {
 					pesoField.setEditable(true);
 					descripcionArea.setEditable(true);
 					seleccionarImagenButton.setDisable(false);
-				    
+					Guardar.setDisable(false);
+					Cancelar.setDisable(true);
 				}
 			} catch (SQLException e) {
 				// TODO Auto-generated catch block
@@ -146,6 +149,8 @@ public class ModificarProducto implements Initializable {
 			pesoField.setEditable(false);
 			descripcionArea.setEditable(false);
 			seleccionarImagenButton.setDisable(true);
+			Guardar.setDisable(true);
+			Cancelar.setDisable(true);
         }
 
         try {

@@ -2,16 +2,21 @@ package Controladores;
 
 import Modelos.ReservaObjeto;
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
+
+import java.net.URL;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.util.ResourceBundle;
 
-public class ModificarReserva {
+public class ModificarReserva implements Initializable {
 
     @FXML
     private AnchorPane modificarReservaPane;
@@ -39,6 +44,97 @@ public class ModificarReserva {
     private Button Cerrar;	
 
     private ReservaObjeto reservaObjeto;
+    
+    
+	@Override
+	public void initialize(URL location, ResourceBundle resources) {
+
+        if (Login.tipo.equals("administradores")) {
+           
+        }
+        if (Login.tipo.equals("empleados")) {
+          
+
+            // Verificar permisos para cada botón
+            try {
+				if (permisos(2, "escritura") == 0) {
+				   
+					btnGuardar.setDisable(true);
+					btnCancelar.setDisable(true);
+					txtNombreCliente.setEditable(false);
+					dpFechaReserva.setDisable(true);
+					txtHoraReserva.setEditable(false);
+					txtNumeroPersonas.setEditable(false);
+					txtNotas.setEditable(false);
+					cbEstado.setDisable(true);
+					cbMesa.setDisable(true);
+					
+					
+					
+				} else {
+					btnGuardar.setDisable(false);
+					btnCancelar.setDisable(false);
+					txtNombreCliente.setEditable(true);
+					dpFechaReserva.setDisable(true);;
+					txtHoraReserva.setEditable(true);
+					txtNumeroPersonas.setEditable(true);
+					txtNotas.setEditable(true);
+					cbEstado.setDisable(false);
+					cbMesa.setDisable(false);
+				   
+				}
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+
+
+         
+        }
+
+        if (Login.tipo.equals("usuarios")) {
+        	btnGuardar.setDisable(true);
+			btnCancelar.setDisable(true);
+			txtNombreCliente.setEditable(false);
+			dpFechaReserva.setEditable(false);
+			txtHoraReserva.setEditable(false);
+			txtNumeroPersonas.setEditable(false);
+			txtNotas.setEditable(false);
+			cbEstado.setEditable(false);
+			cbMesa.setEditable(false);
+        }
+
+        try {
+            System.out.println(permisos(1, "lectura"));
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+		
+	}
+	
+    public int permisos(int nombreModulo, String tipoPermiso) throws SQLException {
+        String sql = "SELECT " + tipoPermiso + " FROM permisos WHERE id_empleado = ? AND id_modulo = ?";
+        int valor = 0;
+
+        try (Connection conexion = util.Conexiones.dameConexion("burger-queen")) {
+            PreparedStatement sentencia = conexion.prepareStatement(sql);
+            sentencia.setInt(1, Login.datos_login.getIdUsuario());
+            sentencia.setInt(2, nombreModulo);
+            
+            System.out.println("Cadena: " + sentencia);
+            
+            ResultSet ejecuta = sentencia.executeQuery();
+
+            if (ejecuta.next()) {
+                valor = ejecuta.getInt(tipoPermiso);
+                System.out.println("Valor: " + valor);
+            } else {
+                System.out.println("No valor encontrado id_empleado = " + Login.datos_login.getIdUsuario() + " and id_modulo = " + nombreModulo);
+            }
+        }
+
+        return valor;
+    }
 
     public void setReserva(ReservaObjeto reservaObjeto) {
         this.reservaObjeto = reservaObjeto;
@@ -144,6 +240,8 @@ public class ModificarReserva {
         Stage stage = (Stage) Cerrar.getScene().getWindow();
         stage.close();
     }
+
+
 
     
 }

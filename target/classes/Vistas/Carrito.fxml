@@ -53,7 +53,7 @@
 				<Button id="Perfil" layoutX="10.0" layoutY="13.0" onAction="#Mostrar_Login" style="-fx-background-color: transparent;" translateX="3.0" translateY="7.0" />
 			</children>
 		</HBox>
-		<Button fx:id="Cerrar" layoutX="96.0" layoutY="7.0" mnemonicParsing="false" onAction="#cerrar" prefHeight="47.0" prefWidth="61.0" style="-fx-background-color: #D28383;                 -fx-border-color: #FFFFFF;                 -fx-border-radius: 22.5px;                 -fx-background-radius: 22.5px;" text="←">
+		<Button fx:id="Cerrar" layoutX="96.0" layoutY="7.0" mnemonicParsing="false" onAction="#flechaatras" prefHeight="47.0" prefWidth="61.0" style="-fx-background-color: #D28383;                 -fx-border-color: #FFFFFF;                 -fx-border-radius: 22.5px;                 -fx-background-radius: 22.5px;" text="←">
 			<font>
 				<Font name="Insaniburger" size="25.3" />
 			</font>

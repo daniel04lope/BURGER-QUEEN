@@ -127,7 +127,21 @@ public class NuevoProducto {
         }
     }
 
+    public void Carta() throws IOException {
+        
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/Vistas/Carta.fxml"));
+        Pane registro = loader.load();
+        Scene loginScene = new Scene(registro, 600, 500);
+        loginScene.setFill(Color.TRANSPARENT);
 
+        Stage loginStage = new Stage();
+        loginStage.setResizable(false);
+        loginStage.initStyle(StageStyle.DECORATED);
+        loginStage.setScene(loginScene);
+        loginStage.setTitle("CARTA");
+        loginStage.show();
+        cerrar();  
+    }
     
     @FXML
     private void onGuardar() {
@@ -209,6 +223,7 @@ public class NuevoProducto {
                             "Nombre: " + nuevoProducto.getNombre() + "\n" +
                             "Precio: " + nuevoProducto.getPrecio());
                     cerrar();
+                    Carta();
                 } else {
                     mostrarAlerta(AlertType.ERROR, "Error", "No se pudo guardar el producto. Inténtelo de nuevo.");
                 }
@@ -220,6 +235,7 @@ public class NuevoProducto {
             e.printStackTrace();
             mostrarAlerta(AlertType.ERROR, "Error de conexión", "No se pudo conectar a la base de datos.");
         }
+        
     }
 
     
@@ -235,20 +251,13 @@ public class NuevoProducto {
 
 
 
-    @FXML
-    private void onCancelar() {
-        
-        nombreField.clear();
-        precioField.clear();
-        categoriaField.clear();
-        alergenosField.clear();
-        pesoField.clear();
-        descripcionArea.clear();
-        imageView.setImage(null);
-        rutaImagen = null;
-        cerrar();
-    }
+  
 
+    public void flechaatras() throws IOException {
+    	
+    	cerrar();
+    	Carta();
+    }
     
 
     

@@ -27,7 +27,7 @@
                   <Insets left="5.0" top="5.0" />
                </HBox.margin>
             </ImageView>
-            <Button fx:id="Cerrar" mnemonicParsing="false" onAction="#cerrar" prefHeight="57.0" prefWidth="66.0" style="-fx-background-color: #D28383;                 -fx-border-color: #FFFFFF;                 -fx-border-radius: 22.5px;                 -fx-background-radius: 22.5px;" text="←" translateX="9.0" translateY="8.0">
+            <Button fx:id="Cerrar" mnemonicParsing="false" onAction="#flechaatras" prefHeight="57.0" prefWidth="66.0" style="-fx-background-color: #D28383;                 -fx-border-color: #FFFFFF;                 -fx-border-radius: 22.5px;                 -fx-background-radius: 22.5px;" text="←" translateX="9.0" translateY="8.0">
                <font>
                   <Font name="Insaniburger" size="25.3" />
                </font>
@@ -231,7 +231,7 @@
          <font>
             <Font name="System Bold" size="16.0" />
          </font></Button>
-      <Button fx:id="Cancelar" layoutX="382.0" layoutY="453.0" mnemonicParsing="false" onAction="#cerrar" prefHeight="38.0" prefWidth="121.0" style="-fx-background-color: red; -fx-border-color: white; -fx-border-radius: 5px; -fx-background-radius: 10;" text="CANCELAR" textFill="WHITE">
+      <Button fx:id="Cancelar" layoutX="382.0" layoutY="453.0" mnemonicParsing="false" onAction="#flechaatras" prefHeight="38.0" prefWidth="121.0" style="-fx-background-color: red; -fx-border-color: white; -fx-border-radius: 5px; -fx-background-radius: 10;" text="CANCELAR" textFill="WHITE">
          <font>
             <Font name="Insaniburger" size="16.0" />
          </font></Button>

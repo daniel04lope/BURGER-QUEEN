@@ -29,10 +29,10 @@
       <TextField fx:id="Email" layoutX="62.0" layoutY="131.0" prefHeight="25.0" prefWidth="347.0" />
 
       <!-- Campo de texto para la contraseña -->
-      <PasswordField fx:id="Password" layoutX="69.0" layoutY="308.0" prefHeight="25.0" prefWidth="347.0" />
+      <PasswordField fx:id="Password" layoutX="63.0" layoutY="267.0" prefHeight="25.0" prefWidth="347.0" />
 
       <!-- Texto de "Contraseña" -->
-      <Text fx:id="PasswordLabel" fill="WHITE" layoutX="176.0" layoutY="281.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Contraseña">
+      <Text fx:id="PasswordLabel" fill="WHITE" layoutX="170.0" layoutY="240.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Contraseña">
          <font>
             <Font name="Insaniburger" size="20.0" />
          </font>
@@ -48,17 +48,17 @@
             </ImageView>
          </graphic>
       </Button>
-      <Button fx:id="Inicio_Sesion" layoutX="148.0" layoutY="391.0" mnemonicParsing="false" onAction="#iniciarSesion" prefHeight="49.0" prefWidth="178.0" style="-fx-background-color: #F980A9;" text="INICIA SESION" textFill="WHITE">
+      <Button fx:id="Inicio_Sesion" layoutX="137.0" layoutY="338.0" mnemonicParsing="false" onAction="#iniciarSesion" prefHeight="49.0" prefWidth="178.0" style="-fx-background-color: #F980A9;" text="INICIA SESION" textFill="WHITE">
          <font>
             <Font name="Insaniburger" size="17.0" />
          </font>
       </Button>
-      <Text fill="WHITE" layoutX="113.0" layoutY="541.0" strokeType="OUTSIDE" strokeWidth="0.0" text="No tienes una cuenta?">
+      <Text fill="WHITE" layoutX="102.0" layoutY="508.0" strokeType="OUTSIDE" strokeWidth="0.0" text="No tienes una cuenta?">
          <font>
             <Font name="Insaniburger" size="15.0" />
          </font>
       </Text>
-      <Button layoutX="282.0" layoutY="518.0" mnemonicParsing="false" onAction="#Registro" prefHeight="35.0" prefWidth="99.0" style="-fx-background-color: #905D5D;" text="registrate" textAlignment="CENTER" textFill="#1f2028">
+      <Button layoutX="271.0" layoutY="485.0" mnemonicParsing="false" onAction="#Registro" prefHeight="35.0" prefWidth="99.0" style="-fx-background-color: #905D5D;" text="registrate" textAlignment="CENTER" textFill="#1f2028">
          <font>
             <Font name="Insaniburger" size="15.0" />
          </font>

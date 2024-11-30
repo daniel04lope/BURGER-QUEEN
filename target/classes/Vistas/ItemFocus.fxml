@@ -302,37 +302,14 @@
                         <Font name="Insaniburger" size="40.0" />
                      </font>
                   </Text>
-                  <Button id="Carrito" fx:id="botoncarrito" layoutX="10.0" layoutY="13.0" minWidth="53.0" onAction="#carrito" prefHeight="65.0" prefWidth="40.0" style="-fx-background-color: transparent;" translateX="-13.0">
-                     <graphic>
-                        <ImageView fitHeight="48.0" fitWidth="53.0" pickOnBounds="true" preserveRatio="true">
-                           <image>
-                              <Image url="@/carrito.png" />
-                           </image>
-                        </ImageView>
-                     </graphic>
-                  </Button>
-                  <Button id="Perfil" layoutX="10.0" layoutY="13.0" onAction="#Mostrar_Login" style="-fx-background-color: transparent;" translateX="3.0" translateY="7.0">
-                     <graphic>
-                        <ImageView fitHeight="39.0" fitWidth="54.0" pickOnBounds="true" preserveRatio="true">
-                           <image>
-                              <Image url="@/perfil.png" />
-                           </image>
-                        </ImageView>
-                     </graphic>
-                  </Button>
                </children>
             </HBox>
          </top>
       </BorderPane>
-      <Button fx:id="Cerrar" layoutX="86.0" layoutY="7.0" mnemonicParsing="false" onAction="#cerrar" prefHeight="57.0" prefWidth="66.0" style="-fx-background-color: #D28383;                 -fx-border-color: #FFFFFF;                 -fx-border-radius: 22.5px;                 -fx-background-radius: 22.5px;" text="←">
+      <Button fx:id="Cerrar" layoutX="86.0" layoutY="7.0" mnemonicParsing="false" onAction="#flechaatras" prefHeight="57.0" prefWidth="66.0" style="-fx-background-color: #D28383;                 -fx-border-color: #FFFFFF;                 -fx-border-radius: 22.5px;                 -fx-background-radius: 22.5px;" text="←">
          <font>
             <Font name="Insaniburger" size="25.3" />
          </font>
       </Button>
-      <Text fx:id="Username" layoutX="722.0" layoutY="62.0" strokeType="OUTSIDE" strokeWidth="0.0" textAlignment="CENTER" wrappingWidth="84.63238525390625">
-         <font>
-            <Font name="Insaniburger" size="9.0" />
-         </font>
-      </Text>
    </children>
 </AnchorPane>

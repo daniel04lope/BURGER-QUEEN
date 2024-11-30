@@ -40,8 +40,7 @@ public class ItemFocus implements Initializable {
     private AnchorPane Panel_Desplegable;
     @FXML
     private TabPane tabla;
-    @FXML
-    private Button botoncarrito;
+   
     @FXML
     private Button Desplegable;
     @FXML
@@ -76,8 +75,7 @@ public class ItemFocus implements Initializable {
     private RadioButton Nestea;
     @FXML
     private RadioButton CcZero;
-	@FXML
-	Text Username;
+	
 
     private boolean drawerVisible = false;
     private boolean Cerrardesplegar = false;
@@ -119,10 +117,16 @@ public class ItemFocus implements Initializable {
         PrincipalStage.show();
         cerrar();
 	  }
+    
+    public void flechaatras() throws IOException {
+        cerrar();
+       Carta();
+    }
+
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-    	Username.textProperty().bind(Login.bannerusuarioProperty());
+    
         if (producto != null) {
             cargarProducto();
         }
@@ -132,9 +136,11 @@ public class ItemFocus implements Initializable {
         if (Login.tipo.equals("administradores")) {
         	Modificar.setVisible(true);
         	Eliminar.setVisible(true);
+        	Carrito.setDisable(true);
         }
         if (Login.tipo.equals("empleados")) {
-        	botoncarrito.setVisible(false);
+        	
+        	Carrito.setDisable(true);
         
             try {
 				if (permisos(1, "escritura") == 1) {
@@ -254,7 +260,6 @@ public class ItemFocus implements Initializable {
         }
         
         
-
         try (Connection conexioncomplementos = util.Conexiones.dameConexion("burger-queen")) {
             PreparedStatement sentenciacomplementos = conexioncomplementos.prepareStatement("SELECT id_producto, nombre, descripcion, precio, categoria, peso FROM carta WHERE id_producto = ?");
 
@@ -446,12 +451,12 @@ public class ItemFocus implements Initializable {
     
     
     public void sinextras() {
-    	if(cantExtras < 1) {
-    	precioTotal -= 1.20;
-    	cantExtras++;
-    	tipoExtra="";
-    	 Carrito.setText("Añadir a mi pedido - " + String.format("%.2f €", precioTotal));
-    }
+        if (cantExtras > 0) {
+            cantExtras = 0; // Reiniciar la cantidad de extras
+            tipoExtra = "";
+            precioTotal = precioBase; // Reiniciar el precio total al precio base
+            Carrito.setText("Añadir a mi pedido - " + String.format("%.2f €", precioTotal));
+        }
     }
     
     public void Carta() throws IOException {
@@ -539,6 +544,7 @@ public class ItemFocus implements Initializable {
             loginStage.setScene(loginScene);
             loginStage.setTitle("LOGIN");
             loginStage.show();
+            cerrar();
             
         } catch (Exception e) {
             e.printStackTrace();

@@ -75,11 +75,7 @@ public class ReservaAdmin implements Initializable {
 
 	    @Override
 	    public void initialize(URL location, ResourceBundle resources) {
-	        try {
-	            inicializarListado();
-	        } catch (SQLException e) {
-	            e.printStackTrace();
-	        }
+	       
 	        
 	        Username.setText(Login.datos_login.getUsername());
 	        
@@ -125,11 +121,17 @@ public class ReservaAdmin implements Initializable {
 					e.printStackTrace();
 				}
 
+	        
+	            
 	            try {
 					if (permisos(2, "escritura") == 1) {
-					    pedidosadmin.setDisable(false);
+					    
+					  
+					    oculta =1;
 					} else {
-					    pedidosadmin.setDisable(true);
+					   
+					   
+					    oculta=0;
 					}
 				} catch (SQLException e) {
 					// TODO Auto-generated catch block
@@ -137,14 +139,14 @@ public class ReservaAdmin implements Initializable {
 				}
 	            
 	            try {
-					if (permisos(2, "escritura") == 1) {
+					if (permisos(2, "lectura") == 1) {
 					    pedidosadmin.setDisable(false);
 					  
-					    oculta =1;
+					    
 					} else {
 					    pedidosadmin.setDisable(true);
 					   
-					    oculta=0;
+					    
 					}
 				} catch (SQLException e) {
 					// TODO Auto-generated catch block
@@ -161,6 +163,13 @@ public class ReservaAdmin implements Initializable {
 
 	        try {
 	            System.out.println(permisos(1, "lectura"));
+	        } catch (SQLException e) {
+	            e.printStackTrace();
+	        }
+	        
+	        
+	        try {
+	            inicializarListado();
 	        } catch (SQLException e) {
 	            e.printStackTrace();
 	        }
@@ -189,6 +198,24 @@ public class ReservaAdmin implements Initializable {
 	        }
 
 	        return valor;
+	    }
+	    
+	    
+	    public void Gestionpedidos() throws IOException {
+	    	  FXMLLoader loader = new FXMLLoader(getClass().getResource("/Vistas/GestionPedidos.fxml"));
+	          Pane principal = loader.load();
+	          Scene principalScene = new Scene(principal, 600, 500);
+	         
+	          principalScene.setFill(Color.TRANSPARENT);
+	          Stage PrincipalStage = new Stage();
+	          PrincipalStage.initStyle(StageStyle.DECORATED);
+	          PrincipalStage.setScene(principalScene);
+	          PrincipalStage.setTitle("");
+	          PrincipalStage.show();
+	          cerrar();
+	    	
+	    	
+	    	
 	    }
 	    private void inicializarListado() throws SQLException {
 	        Listado.setHgap(10);

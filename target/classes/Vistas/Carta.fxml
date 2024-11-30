@@ -138,7 +138,7 @@
                                                 <Font name="Insaniburger" size="20.0" />
                                              </font>
                                           </Button>
-                                          <Button fx:id="pedidosadmin" mnemonicParsing="false" prefHeight="64.0" prefWidth="255.0" style="-fx-background-color: FFFFFF;" text="GESTION DE PEDIDOS">
+                                          <Button fx:id="pedidosadmin" mnemonicParsing="false" onAction="#Gestionpedidos" prefHeight="64.0" prefWidth="255.0" style="-fx-background-color: FFFFFF;" text="GESTION DE PEDIDOS">
                                              <font>
                                                 <Font name="Insaniburger" size="20.0" />
                                              </font>
