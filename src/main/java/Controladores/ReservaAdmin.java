@@ -21,6 +21,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TitledPane;
 import javafx.scene.effect.DropShadow;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
@@ -40,15 +41,15 @@ public class ReservaAdmin implements Initializable {
     private Button Cerrar;	
 	
 	private Reserva reserva;
-	 @FXML
-	    Text Username;
+	
+	
+
 	    @FXML
 	    private AnchorPane Panel_Desplegable;
 	    @FXML
 	    private Button Desplegable;
 	   
-	    @FXML
-	    private Button imagenperfil;
+	   
 
 	    private boolean Panel_Visible = false;
 	    private boolean Cerrardesplegar = false;
@@ -77,7 +78,7 @@ public class ReservaAdmin implements Initializable {
 	    public void initialize(URL location, ResourceBundle resources) {
 	       
 	        
-	        Username.setText(Login.datos_login.getUsername());
+	        
 	        
 	        if (Login.tipo.equals("administradores")) {
 	            administradores.setVisible(true);
@@ -87,7 +88,7 @@ public class ReservaAdmin implements Initializable {
 	            botoncarrito.setVisible(false);
 	            pedidosadmin.setDisable(false);
 	            menuadmin.setDisable(false);
-	            imagenperfil.setVisible(true);
+	          
 	        }
 
 	        if (Login.tipo.equals("empleados")) {
@@ -95,7 +96,7 @@ public class ReservaAdmin implements Initializable {
 	            titledpaneadmin.setVisible(true);
 	            Vboxadmin.setVisible(true);
 	            botoncarrito.setVisible(false);
-	            imagenperfil.setVisible(true);
+	          
 	            System.out.println("llegue");
 
 	            // Verificar permisos para cada botón
@@ -158,7 +159,7 @@ public class ReservaAdmin implements Initializable {
 	            administradores.setVisible(false);
 	            titledpaneadmin.setVisible(false);
 	            Vboxadmin.setVisible(false);
-	            imagenperfil.setVisible(true);
+	            
 	        }
 
 	        try {
@@ -173,6 +174,8 @@ public class ReservaAdmin implements Initializable {
 	        } catch (SQLException e) {
 	            e.printStackTrace();
 	        }
+	        
+	  
 	    }
 
 	    
@@ -200,6 +203,13 @@ public class ReservaAdmin implements Initializable {
 	        return valor;
 	    }
 	    
+	    
+	    
+	    private void cargarImagen(String nuevaRuta) {
+	        String rutaImagen = "file:src/main/resources/imagenes/" + nuevaRuta;
+	        Image imagen = new Image(rutaImagen);
+	      
+	    }
 	    public void Horarios() throws IOException {
 	        FXMLLoader cargador = new FXMLLoader(getClass().getResource("/Vistas/Horarios.fxml"));
 	        Pane horariospane = cargador.load();
@@ -232,6 +242,28 @@ public class ReservaAdmin implements Initializable {
 	    	
 	    	
 	    }
+	    
+	    public void perfil() throws IOException {
+	    	if (!(Login.tipo.equals("usuarios"))) {
+	        		
+	        		cerrar();
+	        		Mostrar_Login();
+	        	}
+	    	else {
+	            FXMLLoader cargador = new FXMLLoader(getClass().getResource("/Vistas/perfil.fxml"));
+	            Pane perfilpane = cargador.load();
+	            Scene perfilScene = new Scene(perfilpane, 600, 500);
+	           
+	            perfilScene.setFill(Color.TRANSPARENT);
+	            Stage perfilStage = new Stage();
+	            perfilStage.setResizable(false);
+	            perfilStage.initStyle(StageStyle.DECORATED);
+	            perfilStage.setScene(perfilScene);
+	            perfilStage.setTitle("PERFIL");
+	            perfilStage.show();
+	            cerrar();
+	    	}
+	        }
 	    private void inicializarListado() throws SQLException {
 	        Listado.setHgap(10);
 	        Listado.setVgap(10);
@@ -290,25 +322,25 @@ public class ReservaAdmin implements Initializable {
 	                
 
 	                Label clienteLabel = new Label("Cliente: " + reservaObjeto.getNombreCliente());
-	                clienteLabel.setStyle("-fx-font-size: 14px; -fx-text-fill: white;");
+	                clienteLabel.setStyle("-fx-font-size: 14px; -fx-text-fill: white;-fx-font-weight: bold");
 	                AnchorPane.setLeftAnchor(clienteLabel, 10.0);
 	                AnchorPane.setTopAnchor(clienteLabel, 30.0);
 	                reservaPane.getChildren().add(clienteLabel);
 
 	                Label fechaHoraLabel = new Label("Fecha: " + reservaObjeto.getFechaReserva() + " | Hora: " + reservaObjeto.getHoraReserva());
-	                fechaHoraLabel.setStyle("-fx-font-size: 14px; -fx-text-fill: white;");
+	                fechaHoraLabel.setStyle("-fx-font-size: 14px; -fx-text-fill: white;-fx-font-weight: bold");
 	                AnchorPane.setLeftAnchor(fechaHoraLabel, 10.0);
 	                AnchorPane.setTopAnchor(fechaHoraLabel, 50.0);
 	                reservaPane.getChildren().add(fechaHoraLabel);
 
 	                Label personasLabel = new Label("Personas: " + reservaObjeto.getNumeroPersonas());
-	                personasLabel.setStyle("-fx-font-size: 14px; -fx-text-fill: white;");
+	                personasLabel.setStyle("-fx-font-size: 14px; -fx-text-fill: white;-fx-font-weight: bold");
 	                AnchorPane.setLeftAnchor(personasLabel, 10.0);
 	                AnchorPane.setTopAnchor(personasLabel, 70.0);
 	                reservaPane.getChildren().add(personasLabel);
 
 	                Label notasLabel = new Label("Notas: " + (reservaObjeto.getNotas() != null ? reservaObjeto.getNotas() : "Sin notas"));
-	                notasLabel.setStyle("-fx-font-size: 14px; -fx-text-fill: white;");
+	                notasLabel.setStyle("-fx-font-size: 14px; -fx-text-fill: white;-fx-font-weight: bold");
 	                AnchorPane.setLeftAnchor(notasLabel, 10.0);
 	                AnchorPane.setTopAnchor(notasLabel, 90.0);
 	                reservaPane.getChildren().add(notasLabel);
@@ -436,6 +468,7 @@ public class ReservaAdmin implements Initializable {
 	    private void modificarReserva(ReservaObjeto reservaObjeto) {
 	        System.out.println("Modificar reserva con ID: " + reservaObjeto.getIdReserva());
 	        try {
+	        	cerrar();
 	            FXMLLoader cargador = new FXMLLoader(getClass().getResource("/Vistas/ModificaReserva.fxml"));
 	            AnchorPane ModificarReservaPane = cargador.load();
 	            

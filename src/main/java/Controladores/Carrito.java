@@ -30,7 +30,7 @@ import javafx.stage.StageStyle;
 
 public class Carrito implements Initializable {
 
-    
+    public static int ventanaanterior;
     @FXML
     GridPane Listado;
     @FXML
@@ -52,7 +52,44 @@ public class Carrito implements Initializable {
     }
     public void flechaatras() throws IOException {
         cerrar();
-       Carta();
+       
+        
+        switch (ventanaanterior) {
+		case 1: {
+			Pantalla_Principal();
+			break;
+			
+		}
+		case 2:{
+			
+			Carta();
+			break;
+		}
+		case 3: {
+			Horarios();
+			break;
+			
+		}
+		case 4:{
+			Ubicacion();
+			break;
+			
+		}
+		case 5: {
+			Reserva();
+			break;
+			
+		}
+		case 6: {
+			perfil();
+			break;
+			
+		}
+		
+		
+		
+		
+		}
     }
     
     public void Carta() throws IOException {
@@ -69,6 +106,56 @@ public class Carrito implements Initializable {
         stagecarta.setTitle("CARTA");
         stagecarta.show();
         cerrar();  
+    }
+    
+    public void perfil() throws IOException {
+    	if (!(Login.tipo.equals("usuarios"))) {
+        		
+        		cerrar();
+        		Mostrar_Login();
+        	}
+    	else {
+            FXMLLoader cargador = new FXMLLoader(getClass().getResource("/Vistas/perfil.fxml"));
+            Pane perfilpane = cargador.load();
+            Scene perfilScene = new Scene(perfilpane, 600, 500);
+           
+            perfilScene.setFill(Color.TRANSPARENT);
+            Stage perfilStage = new Stage();
+            perfilStage.setResizable(false);
+            perfilStage.initStyle(StageStyle.DECORATED);
+            perfilStage.setScene(perfilScene);
+            perfilStage.setTitle("PERFIL");
+            perfilStage.show();
+            cerrar();
+    	}
+        }
+    
+    public void Reserva() throws IOException {
+        FXMLLoader cargador = new FXMLLoader(getClass().getResource("/Vistas/Reservas.fxml"));
+        Pane reservapane = cargador.load();
+        Scene reservaScene = new Scene(reservapane, 600, 500);
+        reservaScene.setFill(Color.TRANSPARENT);
+        Stage reservaStage = new Stage();
+        reservaStage.setResizable(false);
+        reservaStage.initStyle(StageStyle.DECORATED);
+        reservaStage.setScene(reservaScene);
+        reservaStage.setTitle("RESERVAS");
+        reservaStage.show();
+        cerrar();  
+    }
+    
+    public void Horarios() throws IOException {
+        FXMLLoader cargador = new FXMLLoader(getClass().getResource("/Vistas/Horarios.fxml"));
+        Pane horariospane = cargador.load();
+        Scene horariosScene = new Scene(horariospane, 600, 500);
+        horariosScene.setFill(Color.TRANSPARENT);
+        Stage horariosStage = new Stage();
+        horariosStage.setResizable(false);
+        horariosStage.initStyle(StageStyle.DECORATED);
+        horariosStage.setScene(horariosScene);
+        horariosStage.setTitle("HORARIOS");
+        horariosStage.show();
+        cerrar();
     }
     public void Mostrar_Login() {
         try {
@@ -274,7 +361,20 @@ public class Carrito implements Initializable {
             sentenciaCarritoItems.close();
         }
     }
+    public void Ubicacion() throws IOException {
+        FXMLLoader cargador = new FXMLLoader(getClass().getResource("/Vistas/Ubicacion.fxml"));
+        Pane ubiacionpane = cargador.load();
+        Scene ubicacionScene = new Scene(ubiacionpane, 600, 500);
+        ubicacionScene.setFill(Color.TRANSPARENT);
 
+        Stage ubicacionStage = new Stage();
+        ubicacionStage.setResizable(false);
+        ubicacionStage.initStyle(StageStyle.DECORATED);
+        ubicacionStage.setScene(ubicacionScene);
+        ubicacionStage.setTitle("UBICACION");
+        ubicacionStage.show();
+        cerrar();  
+    }
 
     public void Factura() throws SQLException {
         // Limpiar el contenedor de factura

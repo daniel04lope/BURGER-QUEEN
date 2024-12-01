@@ -67,15 +67,6 @@
                   </ImageView>
                </graphic>
             </Button>
-            <Button id="Perfil" fx:id="imagenperfil" layoutX="10.0" layoutY="13.0" onAction="#Mostrar_Login" style="-fx-background-color: transparent;">
-               <graphic>
-                  <ImageView fitHeight="45.0" fitWidth="45.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@/perfil.png" />
-                     </image>
-                  </ImageView>
-               </graphic>
-            </Button>
          </children>
       </HBox>
       <AnchorPane fx:id="Panel_Desplegable" layoutX="-1.0" layoutY="-1.0" prefHeight="724.0" prefWidth="279.0" style="-fx-background-color: #333333;" visible="false">
@@ -109,7 +100,7 @@
                               <Font name="Insaniburger" size="20.0" />
                            </font>
                         </Button>
-                        <Button mnemonicParsing="false" prefHeight="64.0" prefWidth="294.0" style="-fx-background-color: D28383;" text="PERFIL">
+                        <Button mnemonicParsing="false" onAction="#perfil" prefHeight="64.0" prefWidth="294.0" style="-fx-background-color: D28383;" text="PERFIL">
                            <font>
                               <Font name="Insaniburger" size="20.0" />
                            </font>
@@ -138,16 +129,6 @@
                                                 <Font name="Insaniburger" size="20.0" />
                                              </font>
                                           </Button>
-                                          <Button mnemonicParsing="false" prefHeight="64.0" prefWidth="255.0" style="-fx-background-color: FFFFFF;" text="ESTADISTICAS">
-                                             <font>
-                                                <Font name="Insaniburger" size="20.0" />
-                                             </font>
-                                          </Button>
-                                          <Button mnemonicParsing="false" prefHeight="64.0" prefWidth="255.0" style="-fx-background-color: FFFFFF;" text="CONTACTAR ENCARGADO">
-                                             <font>
-                                                <Font name="Insaniburger" size="20.0" />
-                                             </font>
-                                          </Button>
                                        </children>
                                     </VBox>
                                  </content>
@@ -169,10 +150,5 @@
             </ImageView>
          </graphic>
       </Button>
-      <Text fx:id="Username" layoutX="718.0" layoutY="51.0" strokeType="OUTSIDE" strokeWidth="0.0" textAlignment="CENTER" translateX="-196.0" translateY="-4.0" wrappingWidth="84.63238525390625">
-         <font>
-            <Font name="Insaniburger" size="9.0" />
-         </font>
-      </Text>
    </children>
 </AnchorPane>

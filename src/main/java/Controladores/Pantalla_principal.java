@@ -379,6 +379,7 @@ public class Pantalla_principal implements Initializable {
     public void carrito () throws IOException {
     	try {
     		cerrar();
+    		Carrito.ventanaanterior=1;
             FXMLLoader cargador = new FXMLLoader(getClass().getResource("/Vistas/Carrito.fxml"));
             AnchorPane carritoPane = cargador.load();
 

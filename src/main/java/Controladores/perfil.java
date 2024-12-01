@@ -58,8 +58,7 @@ public class perfil implements Initializable {
     private Button Cerrar;
     @FXML
     private ImageView imagenperfil;
-    @FXML
-    private Button botoncarrito;
+   
     @FXML
     private TextField txtnombre, txtapellido, txtemail, txtusername, txtpassword, txttelefono, txtdireccion;
     @FXML
@@ -74,7 +73,7 @@ public class perfil implements Initializable {
             titledpaneadmin.setVisible(true);
             Vboxadmin.setVisible(true);
             usuariosadmin.setDisable(false);
-            botoncarrito.setVisible(false);
+         
             pedidosadmin.setDisable(false);
             menuadmin.setDisable(false);
             reservaadmin.setDisable(false);
@@ -84,7 +83,7 @@ public class perfil implements Initializable {
             administradores.setVisible(true);
             titledpaneadmin.setVisible(true);
             Vboxadmin.setVisible(true);
-            botoncarrito.setVisible(false);
+           
             System.out.println("llegue");
 
             // Verificar permisos para cada botón
@@ -161,6 +160,10 @@ public class perfil implements Initializable {
         } else {
             System.out.println("No se encontró una ruta válida para la imagen.");
         }
+        
+        
+        
+
     }
     public void Mostrar_Login() {
         try {
@@ -481,16 +484,21 @@ public class perfil implements Initializable {
         cerrar();
     }
     public void carrito() throws IOException {
+    	cerrar();
+    	Carrito.ventanaanterior=6;
         FXMLLoader cargador = new FXMLLoader(getClass().getResource("/Vistas/Carrito.fxml"));
         AnchorPane carritoPane = cargador.load();
-        Scene carritoScene = new Scene(carritoPane, 600, 500);
-        carritoScene.setFill(Color.TRANSPARENT);
+
         Stage carritoStage = new Stage();
-        carritoStage.setResizable(false);
-        carritoStage.initStyle(StageStyle.DECORATED);
-        carritoStage.setScene(carritoScene);
-        carritoStage.setTitle("CARRITO DE COMPRAS");
+        carritoStage.initStyle(StageStyle.TRANSPARENT);
+        carritoStage.initModality(Modality.APPLICATION_MODAL);
+        Scene scene = new Scene(carritoPane, 800, 623);
+        carritoStage.setScene(scene);
+
+        carritoStage.setTitle("CARRITO");
+
         carritoStage.show();
+    } 
     }
 
-}
+

@@ -22,6 +22,8 @@ import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TitledPane;
 import javafx.scene.effect.DropShadow;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
@@ -39,6 +41,8 @@ public class GestionPedidos implements Initializable {
 	private ScrollPane scrollPanePedidosEnCurso;
 	@FXML
 	private ScrollPane scrollPanePedidosFinalizados;
+	 @FXML
+	    private ImageView imagenperfil;
 
 	@FXML
 	private VBox vboxPedidosEnCurso;
@@ -150,8 +154,73 @@ public class GestionPedidos implements Initializable {
         } catch (SQLException e) {
             e.printStackTrace();
         }
+        
+        
+        
+        // Cargar la imagen de perfil desde la ruta especificada
+        String rutaImagen = "file:src/main/resources/imagenes/" + Login.datos_login.getRuta();
+        Image imagen = new Image(rutaImagen);
+
+        // Configurar un listener para cargar la imagen cuando cambie la ruta en Login
+        Login.imagenProperty().addListener((observable, oldValue, newValue) -> {
+            cargarImagen(newValue);
+        });
+
+        // Si hay una ruta de imagen válida, asignarla a la propiedad de la imagen
+        if (Login.datos_login.getRuta() != null) {
+            Login.imagen.set(Login.datos_login.getRuta());
+        }
+
+        // Configurar un rectángulo con esquinas redondeadas para la imagen de perfil
+        javafx.scene.shape.Rectangle clip = new javafx.scene.shape.Rectangle(
+            imagenperfil.getFitWidth()-5,  // Ancho del rectángulo
+            imagenperfil.getFitHeight()-5  // Alto del rectángulo
+        );
+        clip.setArcWidth(30);  // Radio de las esquinas horizontales
+        clip.setArcHeight(30); // Radio de las esquinas verticales
+
+        // Establecer el clip para la imagen de perfil
+        imagenperfil.setClip(clip);
+        
+        
+        if (imagen.isError()) {
+            System.err.println("Error al cargar la imagen desde la ruta: " + rutaImagen);
+        } else {
+            imagenperfil.setImage(imagen);
+        }
     }
 
+    public void perfil() throws IOException {
+    	if (!(Login.tipo.equals("usuarios"))) {
+        		
+        		cerrar();
+        		Mostrar_Login();
+        	}
+    	else {
+            FXMLLoader cargador = new FXMLLoader(getClass().getResource("/Vistas/perfil.fxml"));
+            Pane perfilpane = cargador.load();
+            Scene perfilScene = new Scene(perfilpane, 600, 500);
+           
+            perfilScene.setFill(Color.TRANSPARENT);
+            Stage perfilStage = new Stage();
+            perfilStage.setResizable(false);
+            perfilStage.initStyle(StageStyle.DECORATED);
+            perfilStage.setScene(perfilScene);
+            perfilStage.setTitle("PERFIL");
+            perfilStage.show();
+            cerrar();
+    	}
+        }
+    
+    private void cargarImagen(String nuevaRuta) {
+        String rutaImagen = "file:src/main/resources/imagenes/" + nuevaRuta;
+        Image imagen = new Image(rutaImagen);
+        if (imagen.isError()) {
+            System.err.println("Error al cargar la imagen desde la ruta: " + rutaImagen);
+        } else {
+            imagenperfil.setImage(imagen); 
+        }
+    }
     public void Mostrar_Login() {
         try {
             FXMLLoader cargador = new FXMLLoader(getClass().getResource("/Vistas/Login.fxml"));

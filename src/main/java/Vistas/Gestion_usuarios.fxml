@@ -55,7 +55,7 @@
             </Button>
             <Button id="Perfil" layoutX="10.0" layoutY="13.0" onAction="#Mostrar_Login" style="-fx-background-color: transparent;">
                <graphic>
-                  <ImageView fitHeight="45.0" fitWidth="45.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fx:id="imagenperfil" fitHeight="34.0" fitWidth="36.0" pickOnBounds="true" preserveRatio="true" translateX="9.0">
                      <image>
                         <Image url="@/perfil.png" />
                      </image>
@@ -137,7 +137,7 @@
                               <DropShadow />
                            </effect>
                         </Button>
-                        <Button mnemonicParsing="false" prefHeight="64.0" prefWidth="255.0" style="-fx-background-color: D28383;" text="PERFIL">
+                        <Button mnemonicParsing="false" onAction="#perfil" prefHeight="64.0" prefWidth="255.0" style="-fx-background-color: D28383;" text="PERFIL">
                            <font>
                               <Font name="Insaniburger" size="20.0" />
                            </font>
@@ -171,22 +171,6 @@
                                              </effect>
                                           </Button>
                                           <Button mnemonicParsing="false" onAction="#Carta" prefHeight="64.0" prefWidth="255.0" style="-fx-background-color: FFFFFF;" text="GESTION DE MENUS">
-                                             <font>
-                                                <Font name="Insaniburger" size="20.0" />
-                                             </font>
-                                             <effect>
-                                                <DropShadow />
-                                             </effect>
-                                          </Button>
-                                          <Button mnemonicParsing="false" prefHeight="64.0" prefWidth="255.0" style="-fx-background-color: FFFFFF;" text="ESTADISTICAS">
-                                             <font>
-                                                <Font name="Insaniburger" size="20.0" />
-                                             </font>
-                                             <effect>
-                                                <DropShadow />
-                                             </effect>
-                                          </Button>
-                                          <Button mnemonicParsing="false" prefHeight="64.0" prefWidth="255.0" style="-fx-background-color: FFFFFF;" text="CONTACTAR ENCARGADO">
                                              <font>
                                                 <Font name="Insaniburger" size="20.0" />
                                              </font>

@@ -2,11 +2,17 @@ package Controladores;
 
 import Modelos.ReservaObjeto;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.Pane;
+import javafx.scene.paint.Color;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 
+import java.io.IOException;
 import java.net.URL;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -159,7 +165,7 @@ public class ModificarReserva implements Initializable {
     }
 
     @FXML
-    private void guardarReserva() {
+    private void guardarReserva() throws IOException {
         if (validarCampos()) {
             reservaObjeto.setNombreCliente(txtNombreCliente.getText());
             reservaObjeto.setFechaReserva(dpFechaReserva.getValue());
@@ -179,9 +185,23 @@ public class ModificarReserva implements Initializable {
 
             
             cerrar();
+            ReservaAdmin();
         }
     }
 
+    public void ReservaAdmin() throws IOException {
+        FXMLLoader cargador = new FXMLLoader(getClass().getResource("/Vistas/ReservaAdmin.fxml"));
+        Pane reservapane = cargador.load();
+        Scene reservaScene = new Scene(reservapane, 600, 500);
+        reservaScene.setFill(Color.TRANSPARENT);
+        Stage reservaStage = new Stage();
+        reservaStage.setResizable(false);
+        reservaStage.initStyle(StageStyle.DECORATED);
+        reservaStage.setScene(reservaScene);
+        reservaStage.setTitle("PANEL DE GESTION DE RESERVAS");
+        reservaStage.show();
+        cerrar();
+    }
     private boolean validarCampos() {
         if (txtNombreCliente.getText().isEmpty() || dpFechaReserva.getValue() == null || txtHoraReserva.getText().isEmpty() ||
             txtNumeroPersonas.getText().isEmpty() || cbEstado.getValue() == null) {
@@ -232,8 +252,9 @@ public class ModificarReserva implements Initializable {
 
     
     @FXML
-    private void cancelar() {
+    private void cancelar() throws IOException {
         cerrar();
+        ReservaAdmin();
     }
     
     public void cerrar() {

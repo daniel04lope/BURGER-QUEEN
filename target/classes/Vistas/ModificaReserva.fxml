@@ -123,7 +123,7 @@
             </Label>
          </children>
       </HBox>
-      <Button fx:id="Cerrar" layoutX="90.0" layoutY="16.0" mnemonicParsing="false" onAction="#cerrar" prefHeight="42.0" prefWidth="47.0" style="-fx-background-color: #D28383;                 -fx-border-color: #FFFFFF;                 -fx-border-radius: 22.5px;                 -fx-background-radius: 22.5px;" text="←">
+      <Button fx:id="Cerrar" layoutX="90.0" layoutY="16.0" mnemonicParsing="false" onAction="#cancelar" prefHeight="42.0" prefWidth="47.0" style="-fx-background-color: #D28383;                 -fx-border-color: #FFFFFF;                 -fx-border-radius: 22.5px;                 -fx-background-radius: 22.5px;" text="←">
          <font>
             <Font name="Insaniburger" size="18.0" />
          </font>

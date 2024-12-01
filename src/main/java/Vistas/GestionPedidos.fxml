@@ -61,7 +61,7 @@
 				</Label>
 				<Button id="Perfil" onAction="#Mostrar_Login" prefHeight="53.0" prefWidth="61.0" style="-fx-background-color: transparent;" translateX="110.0" translateY="3.0">
 					<graphic>
-						<ImageView fx:id="imagenperfil" fitHeight="45.0" fitWidth="45.0" pickOnBounds="true" preserveRatio="true">
+						<ImageView fx:id="imagenperfil" fitHeight="34.0" fitWidth="36.0" pickOnBounds="true" preserveRatio="true" translateX="9.0">
 							<image>
 								<Image url="@/perfil.png" />
 							</image>
@@ -135,7 +135,7 @@
                               <DropShadow />
                            </effect>
 								</Button>
-								<Button mnemonicParsing="false" prefHeight="64.0" prefWidth="255.0" style="-fx-background-color: D28383;" text="PERFIL">
+								<Button fx:id="perfil" mnemonicParsing="false" prefHeight="64.0" prefWidth="255.0" style="-fx-background-color: D28383;" text="PERFIL">
 									<font>
 										<Font name="Insaniburger" size="20.0" />
 									</font>
@@ -169,22 +169,6 @@
                                              </effect>
 														</Button>
 														<Button fx:id="usuariosadmin" disable="true" mnemonicParsing="false" onAction="#Gestion_usuarios" prefHeight="64.0" prefWidth="255.0" style="-fx-background-color: FFFFFF;" text="GESTION DE USUARIOS">
-															<font>
-																<Font name="Insaniburger" size="20.0" />
-															</font>
-                                             <effect>
-                                                <DropShadow />
-                                             </effect>
-														</Button>
-														<Button mnemonicParsing="false" prefHeight="64.0" prefWidth="255.0" style="-fx-background-color: FFFFFF;" text="ESTADISTICAS">
-															<font>
-																<Font name="Insaniburger" size="20.0" />
-															</font>
-                                             <effect>
-                                                <DropShadow />
-                                             </effect>
-														</Button>
-														<Button mnemonicParsing="false" prefHeight="64.0" prefWidth="255.0" style="-fx-background-color: FFFFFF;" text="CONTACTAR ENCARGADO">
 															<font>
 																<Font name="Insaniburger" size="20.0" />
 															</font>

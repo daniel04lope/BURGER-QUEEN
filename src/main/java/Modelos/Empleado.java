@@ -20,8 +20,7 @@ public class Empleado {
     private boolean escritura;
     private boolean controlTotal;
     private String ruta;
-    
-    // Constructor
+   
     public Empleado() {}
 
     public Empleado( String nombre, String apellido, String email, String username, String password,
@@ -43,7 +42,7 @@ public class Empleado {
         this.controlTotal = controlTotal;
     }
 
-    // Getters and Setters
+   
     public int getIdEmpleado() {
         return idEmpleado;
     }

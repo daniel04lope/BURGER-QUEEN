@@ -37,7 +37,7 @@
 						</ImageView>
 					</graphic>
 				</Button>
-				<Text id="Texto" fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-family: Insaniburger; -fx-font-size: 40; -fx-text-fill: #FFFFFF;" text="BURGUER QUEEN" textAlignment="CENTER" wrappingWidth="369.9830513000488">
+				<Text id="Texto" fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-family: Insaniburger; -fx-font-size: 40; -fx-text-fill: #FFFFFF;" text=" ubicacion" textAlignment="CENTER" wrappingWidth="369.9830513000488">
 					<font>
 						<Font name="Insaniburger" size="35.0" />
 					</font>
@@ -56,7 +56,7 @@
 				</Button>
 				<Button id="Perfil" layoutX="10.0" layoutY="13.0" onAction="#Mostrar_Login" style="-fx-background-color: transparent;">
 					<graphic>
-						<ImageView fx:id="imagenperfil" fitHeight="45.0" fitWidth="45.0" pickOnBounds="true" preserveRatio="true">
+						<ImageView fx:id="imagenperfil" fitHeight="34.0" fitWidth="36.0" pickOnBounds="true" preserveRatio="true" translateX="9.0">
 							<image>
 								<Image url="@/perfil.png" />
 							</image>
@@ -127,7 +127,7 @@
                               <DropShadow />
                            </effect>
 								</Button>
-								<Button mnemonicParsing="false" prefHeight="64.0" prefWidth="315.0" style="-fx-background-color: A6234E;" text="PERFIL">
+								<Button mnemonicParsing="false" onAction="#perfil" prefHeight="64.0" prefWidth="315.0" style="-fx-background-color: A6234E;" text="PERFIL">
 									<font>
 										<Font name="Insaniburger" size="20.0" />
 									</font>
@@ -175,22 +175,6 @@
                                              <DropShadow />
                                           </effect>
                                        </Button>
-													<Button mnemonicParsing="false" prefHeight="64.0" prefWidth="255.0" style="-fx-background-color: FFFFFF;" text="ESTADISTICAS">
-														<font>
-															<Font name="Insaniburger" size="20.0" />
-														</font>
-                                          <effect>
-                                             <DropShadow />
-                                          </effect>
-													</Button>
-													<Button mnemonicParsing="false" prefHeight="64.0" prefWidth="255.0" style="-fx-background-color: FFFFFF;" text="CONTACTAR ENCARGADO">
-														<font>
-															<Font name="Insaniburger" size="20.0" />
-														</font>
-                                          <effect>
-                                             <DropShadow />
-                                          </effect>
-													</Button>
 												</VBox>
 											</content>
 										</TitledPane>
