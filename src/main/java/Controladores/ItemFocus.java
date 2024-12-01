@@ -473,7 +473,7 @@ public class ItemFocus implements Initializable {
             mostrarAlerta(AlertType.ERROR, "Error de conexión", "No se pudo conectar a la base de datos."); // Notificación de error de conexión
         }
         cerrar(); // Cerrar la ventana actual
-        Carta(); // Volver a la vista de la carta
+         // Volver a la vista de la carta
     }
 
     public void mostrarAlerta(AlertType tipo, String titulo, String mensaje) {

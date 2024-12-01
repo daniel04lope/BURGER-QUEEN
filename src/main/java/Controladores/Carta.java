@@ -338,7 +338,7 @@ public class Carta implements Initializable {
     private void mostrarNuevoProducto() {
         // Cargar y mostrar la vista para crear un nuevo producto.
         try {
-            cerrar();
+           
             FXMLLoader cargador = new FXMLLoader(getClass().getResource("/Vistas/NuevoProducto.fxml"));
             AnchorPane NuevoProductoPane = cargador.load();
             Stage NuevoProductoStage = new Stage();

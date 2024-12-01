@@ -218,7 +218,7 @@ public class NuevoProducto {
                             "Nombre: " + nuevoProducto.getNombre() + "\n" +
                             "Precio: " + nuevoProducto.getPrecio());
                     cerrar();
-                    Carta(); // Mostrar la carta después de guardar
+                     // Mostrar la carta después de guardar
                 } else {
                     mostrarAlerta(AlertType.ERROR, "Error", "No se pudo guardar el producto. Inténtelo de nuevo.");
                 }
@@ -244,7 +244,7 @@ public class NuevoProducto {
     // Método para regresar a la carta
     public void flechaatras() throws IOException {
         cerrar(); // Cerrar la ventana actual
-        Carta(); // Mostrar la carta
+         // Mostrar la carta
     }
 
     // Método para mostrar la pantalla principal
