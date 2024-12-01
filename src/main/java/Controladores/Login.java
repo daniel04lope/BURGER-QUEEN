@@ -75,7 +75,7 @@ public class Login {
 
             try {
                 PreparedStatement sentencia = conexion.prepareStatement(
-                    "SELECT id_usuario, nombre, apellido, email, username, fecha_registro, estado, telefono, direccion, fecha_nacimiento, ruta FROM usuarios WHERE email = ?"
+                    "SELECT id_usuario, nombre, apellido, email, username,password, fecha_registro, estado, telefono, direccion, fecha_nacimiento, ruta FROM usuarios WHERE email = ?"
                 );
                 sentencia.setString(1, emailString);
                 ResultSet ejecuta = sentencia.executeQuery();
@@ -87,6 +87,8 @@ public class Login {
                     datos_login.setEmail(ejecuta.getString("email"));
                     datos_login.setDireccion(ejecuta.getString("direccion"));
                     datos_login.setEstado(ejecuta.getString("estado"));
+                    datos_login.setPassword(ejecuta.getString("password"));
+                    datos_login.setTelefono(ejecuta.getString("telefono"));
                     datos_login.setUsername(ejecuta.getString("username"));
                     datos_login.setFechaRegistro(ejecuta.getTimestamp("fecha_registro"));
                     datos_login.setFechaNacimiento(ejecuta.getDate("fecha_nacimiento").toLocalDate());
@@ -111,7 +113,7 @@ public class Login {
 
             try {
                 PreparedStatement sentencia = conexion.prepareStatement(
-                    "SELECT id_empleado, nombre, apellido, email, username, fecha_contratacion, estado, telefono, direccion, fecha_nacimiento, ruta FROM empleados WHERE email = ?"
+                    "SELECT id_empleado, nombre, apellido, email, username,password, fecha_contratacion, estado, telefono, direccion, fecha_nacimiento, ruta FROM empleados WHERE email = ?"
                 );
                 sentencia.setString(1, emailString);
                 ResultSet ejecuta = sentencia.executeQuery();
@@ -123,6 +125,8 @@ public class Login {
                     datos_login.setEmail(ejecuta.getString("email"));
                     datos_login.setDireccion(ejecuta.getString("direccion"));
                     datos_login.setEstado(ejecuta.getString("estado"));
+                    datos_login.setPassword(ejecuta.getString("password"));
+                    datos_login.setTelefono(ejecuta.getString("telefono"));
                     datos_login.setUsername(ejecuta.getString("username"));
                     datos_login.setFechaRegistro(ejecuta.getTimestamp("fecha_contratacion"));
                     datos_login.setFechaNacimiento(ejecuta.getDate("fecha_nacimiento").toLocalDate());
@@ -150,7 +154,7 @@ public class Login {
 
             try {
                 PreparedStatement sentencia = conexion.prepareStatement(
-                    "SELECT id_admin, nombre, apellido, email, username, fecha_contratacion, estado, telefono, direccion, fecha_nacimiento, ruta FROM administradores WHERE email = ?"
+                    "SELECT id_admin, nombre, apellido, email, username,password, fecha_contratacion, estado, telefono, direccion, fecha_nacimiento, ruta FROM administradores WHERE email = ?"
                 );
                 sentencia.setString(1, emailString);
                 ResultSet ejecuta = sentencia.executeQuery();
@@ -160,6 +164,8 @@ public class Login {
                     datos_login.setIdUsuario(ejecuta.getInt("id_admin"));
                     datos_login.setApellido(ejecuta.getString("apellido"));
                     datos_login.setEmail(ejecuta.getString("email"));
+                    datos_login.setPassword(ejecuta.getString("password"));
+                    datos_login.setTelefono(ejecuta.getString("telefono"));
                     datos_login.setDireccion(ejecuta.getString("direccion"));
                     datos_login.setEstado(ejecuta.getString("estado"));
                     datos_login.setUsername(ejecuta.getString("username"));

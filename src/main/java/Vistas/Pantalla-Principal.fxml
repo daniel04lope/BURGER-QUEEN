@@ -176,7 +176,7 @@
                               <DropShadow />
                            </effect>
                         </Button>
-								<Button mnemonicParsing="false" prefHeight="64.0" prefWidth="255.0" style="-fx-background-color: D28383;" text="PERFIL">
+								<Button fx:id="perfil" mnemonicParsing="false" onAction="#perfil" prefHeight="64.0" prefWidth="255.0" style="-fx-background-color: D28383;" text="PERFIL">
 									<font>
 										<Font name="Insaniburger" size="20.0" />
 									</font>

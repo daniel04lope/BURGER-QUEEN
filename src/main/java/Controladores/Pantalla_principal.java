@@ -144,6 +144,20 @@ public class Pantalla_principal implements Initializable {
         PrincipalStage.show();
         cerrar();
     }
+    public void perfil() throws IOException {
+        FXMLLoader cargador = new FXMLLoader(getClass().getResource("/Vistas/perfil.fxml"));
+        Pane perfilpane = cargador.load();
+        Scene perfilScene = new Scene(perfilpane, 600, 500);
+       
+        perfilScene.setFill(Color.TRANSPARENT);
+        Stage perfilStage = new Stage();
+        perfilStage.setResizable(false);
+        perfilStage.initStyle(StageStyle.DECORATED);
+        perfilStage.setScene(perfilScene);
+        perfilStage.setTitle("PERFIL");
+        perfilStage.show();
+        cerrar();
+    }
     
     public void Gestionpedidos() throws IOException {
     	  FXMLLoader cargador = new FXMLLoader(getClass().getResource("/Vistas/GestionPedidos.fxml"));
