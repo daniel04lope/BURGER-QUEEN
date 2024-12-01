@@ -141,7 +141,7 @@
             <DropShadow />
          </effect>
       </Button>
-      <Button fx:id="Cancelar" layoutX="451.0" layoutY="340.0" mnemonicParsing="false" prefHeight="38.0" prefWidth="121.0" style="-fx-background-color: red; -fx-border-color: white; -fx-border-radius: 5px; -fx-background-radius: 10;" text="CANCELAR" textFill="WHITE">
+      <Button fx:id="Cancelar" layoutX="451.0" layoutY="340.0" mnemonicParsing="false" onAction="#flechaatras" prefHeight="38.0" prefWidth="121.0" style="-fx-background-color: red; -fx-border-color: white; -fx-border-radius: 5px; -fx-background-radius: 10;" text="CANCELAR" textFill="WHITE">
          <font>
             <Font name="Insaniburger" size="16.0" />
          </font>
@@ -155,6 +155,14 @@
                <content>
                   <VBox prefHeight="519.0" prefWidth="262.0">
                      <children>
+                        <Button layoutX="10.0" layoutY="74.0" mnemonicParsing="false" onAction="#Pantalla_Principal" prefHeight="64.0" prefWidth="255.0" style="-fx-background-color: A6234E;" text="PANTALLA PRINCIPAL">
+                           <font>
+                              <Font name="Insaniburger" size="20.0" />
+                           </font>
+                           <effect>
+                              <DropShadow />
+                           </effect>
+                        </Button>
                         <Button fx:id="Carta" mnemonicParsing="false" onAction="#Carta" prefHeight="64.0" prefWidth="255.0" style="-fx-background-color: D28383;" text="CARTA">
                            <font>
                               <Font name="Insaniburger" size="20.0" />
@@ -180,14 +188,6 @@
                            </effect>
                         </Button>
                         <Button mnemonicParsing="false" onAction="#Ubicacion" prefHeight="64.0" prefWidth="255.0" style="-fx-background-color: A6234E;" text="UBICACION">
-                           <font>
-                              <Font name="Insaniburger" size="20.0" />
-                           </font>
-                           <effect>
-                              <DropShadow />
-                           </effect>
-                        </Button>
-                        <Button mnemonicParsing="false" prefHeight="64.0" prefWidth="255.0" style="-fx-background-color: D28383;" text="PERFIL">
                            <font>
                               <Font name="Insaniburger" size="20.0" />
                            </font>

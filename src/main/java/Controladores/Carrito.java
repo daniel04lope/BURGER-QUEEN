@@ -6,6 +6,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.DecimalFormat;
 import java.util.Map;
 import java.util.ResourceBundle;
 import javafx.scene.image.Image;
@@ -276,12 +277,13 @@ public class Carrito implements Initializable {
 
 
     public void Factura() throws SQLException {
+        // Limpiar el contenedor de factura
         factura.getChildren().clear();
         Double total = 0.0;
-        int facturaRow = 0;
+        DecimalFormat df = new DecimalFormat("#.00");
 
         try (Connection conexion = util.Conexiones.dameConexion("burger-queen")) {
-            // Obtener el ID del carrito con estado pendiente
+            // Obtener el carrito pendiente para el usuario actual
             String sqlObtenerCarrito = "SELECT id_carrito FROM carrito WHERE id_cliente = ? AND estado = 'pendiente'";
             PreparedStatement sentenciaObtenerCarrito = conexion.prepareStatement(sqlObtenerCarrito);
             sentenciaObtenerCarrito.setInt(1, Login.datos_login.getIdUsuario());
@@ -296,17 +298,21 @@ public class Carrito implements Initializable {
             resultadoCarrito.close();
             sentenciaObtenerCarrito.close();
 
-            // Filtrar productos en carrito_items con estado 'Pendiente'
+            // Obtener los elementos del carrito con estado "Pendiente"
             String sqlCarritoItems = "SELECT id_plato, precio_unitario FROM carrito_items WHERE id_carrito = ? AND estado = 'Pendiente'";
             PreparedStatement sentenciaCarritoItems = conexion.prepareStatement(sqlCarritoItems);
             sentenciaCarritoItems.setInt(1, idCarrito);
             ResultSet carritoItems = sentenciaCarritoItems.executeQuery();
+
+            // Inicializar fila en el GridPane
+            int row = 0;
 
             while (carritoItems.next()) {
                 int idProducto = carritoItems.getInt("id_plato");
                 Double precio = carritoItems.getDouble("precio_unitario");
                 total += precio;
 
+                // Obtener el nombre del producto desde la tabla "carta"
                 String sqlNombreProducto = "SELECT nombre FROM carta WHERE id_producto = ?";
                 PreparedStatement sentenciaNombreProducto = conexion.prepareStatement(sqlNombreProducto);
                 sentenciaNombreProducto.setInt(1, idProducto);
@@ -315,27 +321,31 @@ public class Carrito implements Initializable {
                 if (productoDetalles.next()) {
                     String nombreProducto = productoDetalles.getString("nombre");
 
-                    Text productoNombreFactura = new Text(nombreProducto);
-                    productoNombreFactura.setStyle("-fx-font-size: 14px; -fx-fill: white;");
-                    Text productoPrecioFactura = new Text(precio + " €");
-                    productoPrecioFactura.setStyle("-fx-font-size: 14px; -fx-fill: white;");
+                    // Crear etiquetas para el nombre y el precio del producto
+                    Label productoNombreFactura = new Label(nombreProducto);
+                    productoNombreFactura.setStyle("-fx-font-size: 14px; -fx-text-fill: white;");
+                    
+                    Label productoPrecioFactura = new Label(df.format(precio) + " €");
+                    productoPrecioFactura.setStyle("-fx-font-size: 14px; -fx-text-fill: white;");
 
-                    factura.add(productoNombreFactura, 0, facturaRow);
-                    factura.add(productoPrecioFactura, 1, facturaRow);
-                    facturaRow++;
+                    // Añadir al GridPane en la fila actual
+                    factura.add(productoNombreFactura, 0, row);
+                    factura.add(productoPrecioFactura, 1, row);
+                    row++;
                 }
 
                 productoDetalles.close();
                 sentenciaNombreProducto.close();
             }
 
-            Text totalLabel = new Text("Total:");
-            totalLabel.setStyle("-fx-font-size: 16px; -fx-fill: white; -fx-font-weight: bold;");
-            Text totalAmount = new Text(total + " €");
-            totalAmount.setStyle("-fx-font-size: 16px; -fx-fill: white; -fx-font-weight: bold;");
+            // Mostrar el total en la última fila del GridPane
+            Label totalLabel = new Label("Total:");
+            totalLabel.setStyle("-fx-font-size: 16px; -fx-font-weight: bold; -fx-text-fill: white;");
+            Label totalAmount = new Label(df.format(total) + " €");
+            totalAmount.setStyle("-fx-font-size: 16px; -fx-font-weight: bold; -fx-text-fill: white;");
 
-            factura.add(totalLabel, 0, facturaRow);
-            factura.add(totalAmount, 1, facturaRow);
+            factura.add(totalLabel, 0, row);
+            factura.add(totalAmount, 1, row);
 
             carritoItems.close();
             sentenciaCarritoItems.close();

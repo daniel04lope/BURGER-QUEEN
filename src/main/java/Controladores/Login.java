@@ -43,6 +43,13 @@ public class Login {
     public static StringProperty bannerusuarioProperty() {
         return banner;
     }
+  public static StringProperty imagen = new SimpleStringProperty();
+    
+    public static StringProperty imagenProperty() {
+        return imagen;
+    }
+    
+
 
     
     public Login() {
@@ -93,6 +100,8 @@ public class Login {
                     datos_login.setFechaRegistro(ejecuta.getTimestamp("fecha_registro"));
                     datos_login.setFechaNacimiento(ejecuta.getDate("fecha_nacimiento").toLocalDate());
                     datos_login.setRuta(ejecuta.getString("ruta"));
+                    imagen.set(datos_login.getRuta());
+                    System.out.println(datos_login.getRuta());
                 } else {
                     System.out.println("No se encontró un usuario con el email especificado.");
                 }

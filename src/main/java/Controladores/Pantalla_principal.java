@@ -1,6 +1,7 @@
 package Controladores;
 
 import java.io.IOException;
+
 import java.net.URL;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -24,6 +25,10 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TitledPane;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.shape.Circle;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.image.ImageView;
+import javafx.scene.image.Image;
 
 public class Pantalla_principal implements Initializable {
     
@@ -46,7 +51,6 @@ public class Pantalla_principal implements Initializable {
     private TitledPane titledpaneadmin;
     @FXML
     private VBox Vboxadmin;
-    
     private boolean Panel_Visible = false;
     private boolean Cerrardesplegar = false;
     @FXML
@@ -57,79 +61,101 @@ public class Pantalla_principal implements Initializable {
     private Button usuariosadmin;
     @FXML
     private Button pedidosadmin;
-
+    
+   
+    @Override
+    
     public void initialize(URL location, ResourceBundle resources) {
-    	
         System.out.println("Pantalla_principal inicializado correctamente");
-     
+
+        // Vincula el nombre de usuario al campo de texto en la interfaz
         Username.textProperty().bind(Login.bannerusuarioProperty());
-        
-        if (Login.tipo.equals("administradores")) {
-            administradores.setVisible(true);
-            titledpaneadmin.setVisible(true);
-            Vboxadmin.setVisible(true);
-            usuariosadmin.setDisable(false);
-            botoncarrito.setVisible(false);
-            pedidosadmin.setDisable(false);
-            menuadmin.setDisable(false);
-            reservaadmin.setDisable(false);
+
+        // Cargar la imagen de perfil desde la ruta especificada
+        String rutaImagen = "file:src/main/resources/imagenes/" + Login.datos_login.getRuta();
+        Image imagen = new Image(rutaImagen);
+
+        // Configurar un listener para cargar la imagen cuando cambie la ruta en Login
+        Login.imagenProperty().addListener((observable, oldValue, newValue) -> {
+            cargarImagen(newValue);
+        });
+
+        // Si hay una ruta de imagen válida, asignarla a la propiedad de la imagen
+        if (Login.datos_login.getRuta() != null) {
+            Login.imagen.set(Login.datos_login.getRuta());
         }
 
-        if (Login.tipo.equals("empleados")) {
-            administradores.setVisible(true);
-            titledpaneadmin.setVisible(true);
-            Vboxadmin.setVisible(true);
-            botoncarrito.setVisible(false);
-            System.out.println("llegue");
+        // Configurar un rectángulo con esquinas redondeadas para la imagen de perfil
+        javafx.scene.shape.Rectangle clip = new javafx.scene.shape.Rectangle(
+            imagenperfil.getFitWidth()-5,  // Ancho del rectángulo
+            imagenperfil.getFitHeight()-5  // Alto del rectángulo
+        );
+        clip.setArcWidth(30);  // Radio de las esquinas horizontales
+        clip.setArcHeight(30); // Radio de las esquinas verticales
 
-            // Verificar permisos para cada botón
-            try {
-				if (permisos(2, "lectura") == 1) {
-				    reservaadmin.setDisable(false);
-				} else {
-				    reservaadmin.setDisable(true);
-				}
-			} catch (SQLException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
+        // Establecer el clip para la imagen de perfil
+        imagenperfil.setClip(clip);
 
-            try {
-				if (permisos(1, "lectura") == 1) {
-				    menuadmin.setDisable(false);
-				} else {
-				    menuadmin.setDisable(true);
-				}
-			} catch (SQLException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
+        // Mover la imagen un poco a la derecha
+        // Ajusta el valor para cambiar la cantidad de desplazamiento
 
-            try {
-				if (permisos(3, "lectura") == 1) {
-				    pedidosadmin.setDisable(false);
-				} else {
-				    pedidosadmin.setDisable(true);
-				}
-			} catch (SQLException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
+        // Configurar la visibilidad y habilitación de elementos según el tipo de usuario
+        switch (Login.tipo) {
+            case "administradores":
+                administradores.setVisible(true);
+                titledpaneadmin.setVisible(true);
+                Vboxadmin.setVisible(true);
+                usuariosadmin.setDisable(false);
+                botoncarrito.setVisible(false);
+                pedidosadmin.setDisable(false);
+                menuadmin.setDisable(false);
+                reservaadmin.setDisable(false);
+                break;
+
+            case "empleados":
+                administradores.setVisible(true);
+                titledpaneadmin.setVisible(true);
+                Vboxadmin.setVisible(true);
+                botoncarrito.setVisible(false);
+                System.out.println("Empleado detectado");
+
+                // Verificar permisos de lectura y habilitar/deshabilitar botones según corresponda
+                try {
+                    reservaadmin.setDisable(permisos(2, "lectura") != 1);
+                    menuadmin.setDisable(permisos(1, "lectura") != 1);
+                    pedidosadmin.setDisable(permisos(3, "lectura") != 1);
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+                break;
+
+            case "usuarios":
+                administradores.setVisible(false);
+                titledpaneadmin.setVisible(false);
+                Vboxadmin.setVisible(false);
+                break;
+
+            default:
+                System.err.println("Tipo de usuario no reconocido: " + Login.tipo);
+                break;
         }
 
-        if (Login.tipo.equals("usuarios")) {
-            administradores.setVisible(false);
-            titledpaneadmin.setVisible(false);
-            Vboxadmin.setVisible(false);
+        // Mostrar la imagen de perfil o imprimir un mensaje de error si la carga falla
+        if (imagen.isError()) {
+            System.err.println("Error al cargar la imagen desde la ruta: " + rutaImagen);
+        } else {
+            imagenperfil.setImage(imagen);
         }
 
+        // Imprimir el valor de permisos como prueba de depuración
         try {
-            System.out.println(permisos(1, "lectura"));
+            System.out.println("Permiso de lectura para módulo 1: " + permisos(1, "lectura"));
         } catch (SQLException e) {
             e.printStackTrace();
         }
-   
     }
+
+
     public void Pantalla_Principal() throws IOException {
         FXMLLoader cargador = new FXMLLoader(getClass().getResource("/Vistas/Pantalla-Principal.fxml"));
         Pane principal = cargador.load();
@@ -145,6 +171,12 @@ public class Pantalla_principal implements Initializable {
         cerrar();
     }
     public void perfil() throws IOException {
+	if (!(Login.tipo.equals("usuarios"))) {
+    		
+    		cerrar();
+    		Mostrar_Login();
+    	}
+	else {
         FXMLLoader cargador = new FXMLLoader(getClass().getResource("/Vistas/perfil.fxml"));
         Pane perfilpane = cargador.load();
         Scene perfilScene = new Scene(perfilpane, 600, 500);
@@ -157,6 +189,16 @@ public class Pantalla_principal implements Initializable {
         perfilStage.setTitle("PERFIL");
         perfilStage.show();
         cerrar();
+	}
+    }
+    private void cargarImagen(String nuevaRuta) {
+        String rutaImagen = "file:src/main/resources/imagenes/" + nuevaRuta;
+        Image imagen = new Image(rutaImagen);
+        if (imagen.isError()) {
+            System.err.println("Error al cargar la imagen desde la ruta: " + rutaImagen);
+        } else {
+            imagenperfil.setImage(imagen); 
+        }
     }
     
     public void Gestionpedidos() throws IOException {
