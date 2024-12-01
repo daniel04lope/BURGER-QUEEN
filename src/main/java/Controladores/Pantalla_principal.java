@@ -100,46 +100,70 @@ public class Pantalla_principal implements Initializable {
         // Ajusta el valor para cambiar la cantidad de desplazamiento
 
         // Configurar la visibilidad y habilitación de elementos según el tipo de usuario
-        switch (Login.tipo) {
-            case "administradores":
-                administradores.setVisible(true);
-                titledpaneadmin.setVisible(true);
-                Vboxadmin.setVisible(true);
-                usuariosadmin.setDisable(false);
-                botoncarrito.setVisible(false);
-                pedidosadmin.setDisable(false);
-                menuadmin.setDisable(false);
-                reservaadmin.setDisable(false);
-                break;
-
-            case "empleados":
-                administradores.setVisible(true);
-                titledpaneadmin.setVisible(true);
-                Vboxadmin.setVisible(true);
-                botoncarrito.setVisible(false);
-                System.out.println("Empleado detectado");
-
-                // Verificar permisos de lectura y habilitar/deshabilitar botones según corresponda
-                try {
-                    reservaadmin.setDisable(permisos(2, "lectura") != 1);
-                    menuadmin.setDisable(permisos(1, "lectura") != 1);
-                    pedidosadmin.setDisable(permisos(3, "lectura") != 1);
-                } catch (SQLException e) {
-                    e.printStackTrace();
-                }
-                break;
-
-            case "usuarios":
-                administradores.setVisible(false);
-                titledpaneadmin.setVisible(false);
-                Vboxadmin.setVisible(false);
-                break;
-
-            default:
-                System.err.println("Tipo de usuario no reconocido: " + Login.tipo);
-                break;
+        if (Login.tipo.equals("administradores")) {
+            administradores.setVisible(true);
+            titledpaneadmin.setVisible(true);
+            Vboxadmin.setVisible(true);
+            usuariosadmin.setDisable(false);
+            botoncarrito.setVisible(false);
+            pedidosadmin.setDisable(false);
+            menuadmin.setDisable(false);
+            reservaadmin.setDisable(false);
         }
 
+        if (Login.tipo.equals("empleados")) {
+            administradores.setVisible(true);
+            titledpaneadmin.setVisible(true);
+            Vboxadmin.setVisible(true);
+            botoncarrito.setVisible(false);
+            System.out.println("llegue");
+
+            // Verificar permisos para cada botón
+            try {
+				if (permisos(2, "lectura") == 1) {
+				    reservaadmin.setDisable(false);
+				} else {
+				    reservaadmin.setDisable(true);
+				}
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+
+            try {
+				if (permisos(1, "lectura") == 1) {
+				    menuadmin.setDisable(false);
+				} else {
+				    menuadmin.setDisable(true);
+				}
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+
+            try {
+				if (permisos(3, "lectura") == 1) {
+				    pedidosadmin.setDisable(false);
+				} else {
+				    pedidosadmin.setDisable(true);
+				}
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+        }
+
+        if (Login.tipo.equals("usuarios")) {
+            administradores.setVisible(false);
+            titledpaneadmin.setVisible(false);
+            Vboxadmin.setVisible(false);
+        }
+
+        try {
+            System.out.println(permisos(1, "lectura"));
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
         // Mostrar la imagen de perfil o imprimir un mensaje de error si la carga falla
         if (imagen.isError()) {
             System.err.println("Error al cargar la imagen desde la ruta: " + rutaImagen);

@@ -10,6 +10,7 @@ import java.nio.file.StandardCopyOption;
 import java.sql.Connection;
 import java.sql.Date;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.ResourceBundle;
@@ -68,9 +69,73 @@ public class perfil implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-    	
+        if (Login.tipo.equals("administradores")) {
+            administradores.setVisible(true);
+            titledpaneadmin.setVisible(true);
+            Vboxadmin.setVisible(true);
+            usuariosadmin.setDisable(false);
+            botoncarrito.setVisible(false);
+            pedidosadmin.setDisable(false);
+            menuadmin.setDisable(false);
+            reservaadmin.setDisable(false);
+        }
+
+        if (Login.tipo.equals("empleados")) {
+            administradores.setVisible(true);
+            titledpaneadmin.setVisible(true);
+            Vboxadmin.setVisible(true);
+            botoncarrito.setVisible(false);
+            System.out.println("llegue");
+
+            // Verificar permisos para cada botón
+            try {
+				if (permisos(2, "lectura") == 1) {
+				    reservaadmin.setDisable(false);
+				} else {
+				    reservaadmin.setDisable(true);
+				}
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+
+            try {
+				if (permisos(1, "lectura") == 1) {
+				    menuadmin.setDisable(false);
+				} else {
+				    menuadmin.setDisable(true);
+				}
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+
+            try {
+				if (permisos(3, "lectura") == 1) {
+				    pedidosadmin.setDisable(false);
+				} else {
+				    pedidosadmin.setDisable(true);
+				}
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+        }
+
+        if (Login.tipo.equals("usuarios")) {
+            administradores.setVisible(false);
+            titledpaneadmin.setVisible(false);
+            Vboxadmin.setVisible(false);
+        }
+
+        try {
+            System.out.println(permisos(1, "lectura"));
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     	
     
+    	
     	
         txtnombre.setText(Login.datos_login.getNombre());
         txtapellido.setText(Login.datos_login.getApellido());
@@ -140,6 +205,30 @@ public class perfil implements Initializable {
         horariosStage.setTitle("HORARIOS");
         horariosStage.show();
         cerrar();
+    }
+    
+    public int permisos(int nombreModulo, String tipoPermiso) throws SQLException {
+        String sql = "SELECT " + tipoPermiso + " FROM permisos WHERE id_empleado = ? AND id_modulo = ?";
+        int valor = 0;
+
+        try (Connection conexion = util.Conexiones.dameConexion("burger-queen")) {
+            PreparedStatement sentencia = conexion.prepareStatement(sql);
+            sentencia.setInt(1, Login.datos_login.getIdUsuario());
+            sentencia.setInt(2, nombreModulo);
+            
+            System.out.println("Cadena: " + sentencia);
+            
+            ResultSet ejecuta = sentencia.executeQuery();
+
+            if (ejecuta.next()) {
+                valor = ejecuta.getInt(tipoPermiso);
+                System.out.println("Valor: " + valor);
+            } else {
+                System.out.println("No valor encontrado id_empleado = " + Login.datos_login.getIdUsuario() + " and id_modulo = " + nombreModulo);
+            }
+        }
+
+        return valor;
     }
     public void Ubicacion() throws IOException {
         FXMLLoader cargador = new FXMLLoader(getClass().getResource("/Vistas/Ubicacion.fxml"));
@@ -235,19 +324,32 @@ public class perfil implements Initializable {
                 hayimagen = false;
             }
 
-            sentencia.setString(1, nombre);
-            sentencia.setString(2, apellidos);
-            sentencia.setString(3, email);
-            sentencia.setString(4, username);
-            sentencia.setString(5, password);
-            sentencia.setString(6, telefono);
-            sentencia.setString(7, direccion);
-            sentencia.setDate(8, fechana);
-
             if (hayimagen) {
+                sentencia.setString(1, nombre);
+                sentencia.setString(2, apellidos);
+                sentencia.setString(3, email);
+                sentencia.setString(4, username);
+                sentencia.setString(5, password);
+                sentencia.setString(6, telefono);
+                sentencia.setString(7, direccion);
+                sentencia.setDate(8, fechana);
                 sentencia.setString(9, rutaImagenSeleccionada);
+                sentencia.setInt(10, Login.datos_login.getIdUsuario());
             }
-            sentencia.setInt(10, Login.datos_login.getIdUsuario());
+            else {
+            	sentencia.setString(1, nombre);
+                sentencia.setString(2, apellidos);
+                sentencia.setString(3, email);
+                sentencia.setString(4, username);
+                sentencia.setString(5, password);
+                sentencia.setString(6, telefono);
+                sentencia.setString(7, direccion);
+                sentencia.setDate(8, fechana);
+                sentencia.setInt(9, Login.datos_login.getIdUsuario());
+            }
+            
+
+            
 
             int filasAfectadas = sentencia.executeUpdate();
             if (filasAfectadas > 0) {
