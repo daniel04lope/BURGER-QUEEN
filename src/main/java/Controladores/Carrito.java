@@ -7,7 +7,6 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.text.DecimalFormat;
-import java.util.Map;
 import java.util.ResourceBundle;
 import javafx.scene.image.Image;
 import javafx.fxml.FXML;
@@ -47,53 +46,38 @@ public class Carrito implements Initializable {
     GridPane factura;
 
     public void cerrar() {
+        // Cerrar la ventana actual.
         Stage stage = (Stage) Cerrar.getScene().getWindow();
         stage.close();
     }
+
     public void flechaatras() throws IOException {
+        // Cerrar la ventana actual y volver a la ventana anterior según el valor de ventanaanterior.
         cerrar();
-       
-        
         switch (ventanaanterior) {
-		case 1: {
-			Pantalla_Principal();
-			break;
-			
-		}
-		case 2:{
-			
-			Carta();
-			break;
-		}
-		case 3: {
-			Horarios();
-			break;
-			
-		}
-		case 4:{
-			Ubicacion();
-			break;
-			
-		}
-		case 5: {
-			Reserva();
-			break;
-			
-		}
-		case 6: {
-			perfil();
-			break;
-			
-		}
-		
-		
-		
-		
-		}
+            case 1:
+                Pantalla_Principal();
+                break;
+            case 2:
+                Carta();
+                break;
+            case 3:
+                Horarios();
+                break;
+            case 4:
+                Ubicacion();
+                break;
+            case 5:
+                Reserva();
+                break;
+            case 6:
+                perfil();
+                break;
+        }
     }
-    
+
     public void Carta() throws IOException {
-    
+        // Cargar y mostrar la vista del menú en una nueva ventana.
         FXMLLoader cargador = new FXMLLoader(getClass().getResource("/Vistas/Carta.fxml"));
         Pane carta = cargador.load();
         Scene loginScene = new Scene(carta, 600, 500);
@@ -105,20 +89,18 @@ public class Carrito implements Initializable {
         stagecarta.setScene(loginScene);
         stagecarta.setTitle("CARTA");
         stagecarta.show();
-        cerrar();  
+        cerrar();
     }
-    
+
     public void perfil() throws IOException {
-    	if (!(Login.tipo.equals("usuarios"))) {
-        		
-        		cerrar();
-        		Mostrar_Login();
-        	}
-    	else {
+        // Verificar el tipo de usuario y cargar la vista de perfil si corresponde.
+        if (!(Login.tipo.equals("usuarios"))) {
+            cerrar();
+            Mostrar_Login();
+        } else {
             FXMLLoader cargador = new FXMLLoader(getClass().getResource("/Vistas/perfil.fxml"));
             Pane perfilpane = cargador.load();
             Scene perfilScene = new Scene(perfilpane, 600, 500);
-           
             perfilScene.setFill(Color.TRANSPARENT);
             Stage perfilStage = new Stage();
             perfilStage.setResizable(false);
@@ -127,10 +109,11 @@ public class Carrito implements Initializable {
             perfilStage.setTitle("PERFIL");
             perfilStage.show();
             cerrar();
-    	}
         }
-    
+    }
+
     public void Reserva() throws IOException {
+        // Cargar y mostrar la vista de reservas en una nueva ventana.
         FXMLLoader cargador = new FXMLLoader(getClass().getResource("/Vistas/Reservas.fxml"));
         Pane reservapane = cargador.load();
         Scene reservaScene = new Scene(reservapane, 600, 500);
@@ -141,10 +124,11 @@ public class Carrito implements Initializable {
         reservaStage.setScene(reservaScene);
         reservaStage.setTitle("RESERVAS");
         reservaStage.show();
-        cerrar();  
+        cerrar();
     }
-    
+
     public void Horarios() throws IOException {
+        // Cargar y mostrar la vista de horarios en una nueva ventana.
         FXMLLoader cargador = new FXMLLoader(getClass().getResource("/Vistas/Horarios.fxml"));
         Pane horariospane = cargador.load();
         Scene horariosScene = new Scene(horariospane, 600, 500);
@@ -157,9 +141,10 @@ public class Carrito implements Initializable {
         horariosStage.show();
         cerrar();
     }
+
     public void Mostrar_Login() {
+        // Cargar y mostrar la vista de inicio de sesión en una ventana modal.
         try {
-        	
             FXMLLoader cargador = new FXMLLoader(getClass().getResource("/Vistas/Login.fxml"));
             Pane login = cargador.load();
             Scene loginScene = new Scene(login, 450, 600);
@@ -175,12 +160,12 @@ public class Carrito implements Initializable {
             e.printStackTrace();
         }
     }
-    
+
     public void Pantalla_Principal() throws IOException {
+        // Cargar y mostrar la vista de la pantalla principal en una nueva ventana.
         FXMLLoader cargador = new FXMLLoader(getClass().getResource("/Vistas/Pantalla-Principal.fxml"));
         Pane principal = cargador.load();
         Scene principalScene = new Scene(principal, 600, 500);
-       
         principalScene.setFill(Color.TRANSPARENT);
         Stage PrincipalStage = new Stage();
         PrincipalStage.initStyle(StageStyle.DECORATED);
@@ -192,17 +177,16 @@ public class Carrito implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        
-        
-        Connection conn=util.Conexiones.dameConexion("burger-queen");
-      
+        // Inicializar la clase y configurar los eventos de los botones.
+        Connection conn = util.Conexiones.dameConexion("burger-queen");
 
         Nugguest.setOnAction(event -> {
+            // Manejar la acción del botón Nugguest para agregar un producto al carrito.
             if (Login.datos_login.getIdUsuario() == 0) {
                 Mostrar_Login();
             } else {
                 try (Connection conexion = util.Conexiones.dameConexion("burger-queen")) {
-                    PreparedStatement sentencia = conexion.prepareStatement("INSERT INTO carrito_items(id_carrito, id_plato, cantidad, precio_unitario,estado) VALUES (?,43,1,2,'pendiente')");
+                    PreparedStatement sentencia = conexion.prepareStatement("INSERT INTO carrito_items(id_carrito, id_plato, cantidad, precio_unitario, estado) VALUES (?, 43, 1, 2, 'pendiente')");
                     sentencia.setInt(1, Login.datos_login.getIdUsuario());
                     int ejecuta = sentencia.executeUpdate();
                     Muestra_productos();
@@ -214,11 +198,12 @@ public class Carrito implements Initializable {
         });
 
         Cocacola.setOnAction(event -> {
+            // Manejar la acción del botón Cocacola para agregar un producto al carrito.
             if (Login.datos_login.getIdUsuario() == 0) {
                 Mostrar_Login();
             } else {
                 try (Connection conexion = util.Conexiones.dameConexion("burger-queen")) {
-                    PreparedStatement sentencia = conexion.prepareStatement("INSERT INTO carrito_items(id_carrito, id_plato, cantidad, precio_unitario,estado) VALUES (?,44,1,5,'pendiente')");
+                    PreparedStatement sentencia = conexion.prepareStatement("INSERT INTO carrito_items(id_carrito, id_plato, cantidad, precio_unitario, estado) VALUES (?, 44, 1, 5, 'pendiente')");
                     sentencia.setInt(1, Login.datos_login.getIdUsuario());
                     int ejecuta = sentencia.executeUpdate();
                     Muestra_productos();
@@ -230,11 +215,12 @@ public class Carrito implements Initializable {
         });
 
         Patatas.setOnAction(event -> {
+            // Manejar la acción del botón Patatas para agregar un producto al carrito.
             if (Login.datos_login.getIdUsuario() == 0) {
                 Mostrar_Login();
             } else {
                 try (Connection conexion = util.Conexiones.dameConexion("burger-queen")) {
-                    PreparedStatement sentencia = conexion.prepareStatement("INSERT INTO carrito_items(id_carrito, id_plato, cantidad, precio_unitario,estado) VALUES (?,45,1,1,'pendiente')");
+                    PreparedStatement sentencia = conexion.prepareStatement("INSERT INTO carrito_items(id_carrito, id_plato, cantidad, precio_unitario, estado) VALUES (?, 45, 1, 1, 'pendiente')");
                     sentencia.setInt(1, Login.datos_login.getIdUsuario());
                     int ejecuta = sentencia.executeUpdate();
                     Muestra_productos();
@@ -246,15 +232,16 @@ public class Carrito implements Initializable {
         });
 
         try {
+            // Mostrar los productos en el carrito y la factura al inicializar.
             Muestra_productos();
             Factura();
         } catch (SQLException e) {
             e.printStackTrace();
         }
-     
     }
 
     public void Muestra_productos() throws SQLException {
+        // Mostrar los productos en el carrito de compras.
         try (Connection conexion = util.Conexiones.dameConexion("burger-queen")) {
             String sqlObtenerCarrito = "SELECT id_carrito FROM carrito WHERE id_cliente = ? AND estado = 'pendiente'";
             PreparedStatement sentenciaObtenerCarrito = conexion.prepareStatement(sqlObtenerCarrito);
@@ -361,8 +348,10 @@ public class Carrito implements Initializable {
             sentenciaCarritoItems.close();
         }
     }
+
     public void Ubicacion() throws IOException {
-        FXMLLoader cargador = new FXMLLoader(getClass().getResource("/Vistas/Ubicacion.fxml"));
+        // Cargar y mostrar la vista de ubicación en una nueva ventana.
+        FXMLLoader cargador = new FXMLLoader (getClass().getResource("/Vistas/Ubicacion.fxml"));
         Pane ubiacionpane = cargador.load();
         Scene ubicacionScene = new Scene(ubiacionpane, 600, 500);
         ubicacionScene.setFill(Color.TRANSPARENT);
@@ -377,13 +366,13 @@ public class Carrito implements Initializable {
     }
 
     public void Factura() throws SQLException {
-        // Limpiar el contenedor de factura
+        // Limpiar el contenedor de factura y calcular el total de los productos en el carrito.
         factura.getChildren().clear();
         Double total = 0.0;
         DecimalFormat df = new DecimalFormat("#.00");
 
         try (Connection conexion = util.Conexiones.dameConexion("burger-queen")) {
-            // Obtener el carrito pendiente para el usuario actual
+            // Obtener el carrito pendiente para el usuario actual.
             String sqlObtenerCarrito = "SELECT id_carrito FROM carrito WHERE id_cliente = ? AND estado = 'pendiente'";
             PreparedStatement sentenciaObtenerCarrito = conexion.prepareStatement(sqlObtenerCarrito);
             sentenciaObtenerCarrito.setInt(1, Login.datos_login.getIdUsuario());
@@ -398,13 +387,13 @@ public class Carrito implements Initializable {
             resultadoCarrito.close();
             sentenciaObtenerCarrito.close();
 
-            // Obtener los elementos del carrito con estado "Pendiente"
+            // Obtener los elementos del carrito con estado "Pendiente".
             String sqlCarritoItems = "SELECT id_plato, precio_unitario FROM carrito_items WHERE id_carrito = ? AND estado = 'Pendiente'";
             PreparedStatement sentenciaCarritoItems = conexion.prepareStatement(sqlCarritoItems);
             sentenciaCarritoItems.setInt(1, idCarrito);
             ResultSet carritoItems = sentenciaCarritoItems.executeQuery();
 
-            // Inicializar fila en el GridPane
+            // Inicializar fila en el GridPane.
             int row = 0;
 
             while (carritoItems.next()) {
@@ -412,7 +401,7 @@ public class Carrito implements Initializable {
                 Double precio = carritoItems.getDouble("precio_unitario");
                 total += precio;
 
-                // Obtener el nombre del producto desde la tabla "carta"
+                // Obtener el nombre del producto desde la tabla "carta".
                 String sqlNombreProducto = "SELECT nombre FROM carta WHERE id_producto = ?";
                 PreparedStatement sentenciaNombreProducto = conexion.prepareStatement(sqlNombreProducto);
                 sentenciaNombreProducto.setInt(1, idProducto);
@@ -421,14 +410,14 @@ public class Carrito implements Initializable {
                 if (productoDetalles.next()) {
                     String nombreProducto = productoDetalles.getString("nombre");
 
-                    // Crear etiquetas para el nombre y el precio del producto
+                    // Crear etiquetas para el nombre y el precio del producto.
                     Label productoNombreFactura = new Label(nombreProducto);
                     productoNombreFactura.setStyle("-fx-font-size: 14px; -fx-text-fill: white;");
                     
                     Label productoPrecioFactura = new Label(df.format(precio) + " €");
                     productoPrecioFactura.setStyle("-fx-font-size: 14px; -fx-text-fill: white;");
 
-                    // Añadir al GridPane en la fila actual
+                    // Añadir al GridPane en la fila actual.
                     factura.add(productoNombreFactura, 0, row);
                     factura.add(productoPrecioFactura, 1, row);
                     row++;
@@ -438,7 +427,7 @@ public class Carrito implements Initializable {
                 sentenciaNombreProducto.close();
             }
 
-            // Mostrar el total en la última fila del GridPane
+            // Mostrar el total en la última fila del GridPane.
             Label totalLabel = new Label("Total:");
             totalLabel.setStyle("-fx-font-size: 16px; -fx-font-weight: bold; -fx-text-fill: white;");
             Label totalAmount = new Label(df.format(total) + " €");
@@ -452,10 +441,10 @@ public class Carrito implements Initializable {
         }
     }
 
-    
     public void resetearcarrito() {
+        // Procesar el carrito y crear un nuevo pedido si no hay pedidos en curso.
         try (Connection conexion = util.Conexiones.dameConexion("burger-queen")) {
-            // Consulta para contar los pedidos en curso del usuario
+            // Consulta para contar los pedidos en curso del usuario.
             PreparedStatement cuentaPedidos = conexion.prepareStatement(
                 "SELECT COUNT(*) FROM pedidos WHERE id_usuario = ? AND estado = 'en_curso'");
             cuentaPedidos.setInt(1, Login.datos_login.getIdUsuario());
@@ -466,14 +455,14 @@ public class Carrito implements Initializable {
                 cantidadPedidosEnCurso = resultadoCuenta.getInt(1);
             }
 
-            // Si hay un pedido en curso, mostrar alerta y salir
+ // Si hay un pedido en curso, mostrar alerta y salir.
             if (cantidadPedidosEnCurso > 0) {
                 mostrarAlerta(AlertType.WARNING, "Pedido en curso", 
                     "Por favor, espera a que tu pedido actual sea completado antes de realizar un nuevo pedido.");
-                return; // Salir del método sin procesar el nuevo pedido
+                return; // Salir del método sin procesar el nuevo pedido.
             }
 
-            // Obtener el ID del carrito del usuario con estado 'pendiente'
+            // Obtener el ID del carrito del usuario con estado 'pendiente'.
             String sqlObtenerCarrito = "SELECT id_carrito FROM carrito WHERE id_cliente = ? AND estado = 'pendiente'";
             PreparedStatement sentenciaObtenerCarrito = conexion.prepareStatement(sqlObtenerCarrito);
             sentenciaObtenerCarrito.setInt(1, Login.datos_login.getIdUsuario());
@@ -488,7 +477,7 @@ public class Carrito implements Initializable {
             resultadoCarrito.close();
             sentenciaObtenerCarrito.close();
 
-            // Crear un nuevo pedido en la tabla pedidos
+            // Crear un nuevo pedido en la tabla pedidos.
             String sqlInsertarPedido = "INSERT INTO pedidos (id_carrito, id_usuario, estado) VALUES (?, ?, 'en_curso')";
             PreparedStatement sentenciaInsertarPedido = conexion.prepareStatement(sqlInsertarPedido, PreparedStatement.RETURN_GENERATED_KEYS);
             sentenciaInsertarPedido.setInt(1, idCarrito);
@@ -508,7 +497,7 @@ public class Carrito implements Initializable {
             clavesGeneradas.close();
             sentenciaInsertarPedido.close();
 
-            // Actualizar los productos en carrito_items para marcarlos como "Tramitado"
+            // Actualizar los productos en carrito_items para marcarlos como "Tramitado".
             String sqlActualizarCarritoItems = "UPDATE carrito_items SET estado = 'Tramitado' WHERE id_carrito = ? AND estado = 'Pendiente'";
             PreparedStatement sentenciaActualizarCarritoItems = conexion.prepareStatement(sqlActualizarCarritoItems);
             sentenciaActualizarCarritoItems.setInt(1, idCarrito);
@@ -522,7 +511,7 @@ public class Carrito implements Initializable {
 
             sentenciaActualizarCarritoItems.close();
 
-            // Refrescar la vista del carrito
+            // Refrescar la vista del carrito.
             Listado.getChildren().clear();
             factura.getChildren().clear();
             Muestra_productos();
@@ -540,6 +529,7 @@ public class Carrito implements Initializable {
     }
 
     private void mostrarAlerta(AlertType tipo, String titulo, String mensaje) {
+        // Mostrar una alerta con el tipo, título y mensaje especificados.
         Alert alert = new Alert(tipo);
         alert.setTitle(titulo);
         alert.setHeaderText(null);
@@ -547,14 +537,4 @@ public class Carrito implements Initializable {
         alert.initModality(Modality.APPLICATION_MODAL);
         alert.showAndWait();
     }
-    
-   
-
-
-    
-   
-    }
-
-
-
-
+}

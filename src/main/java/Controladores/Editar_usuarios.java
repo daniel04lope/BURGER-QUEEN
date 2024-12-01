@@ -44,16 +44,19 @@ public class Editar_usuarios implements Initializable {
     @FXML
     private Text texto_carta, texto_reserva, texto_pedidos, texto_posicion;
 
-    private File fotoSeleccionada;
-    private String rutaImagenAntigua;
+    private File fotoSeleccionada; // Variable para almacenar la foto seleccionada por el usuario
+    private String rutaImagenAntigua; // Variable para almacenar la ruta de la imagen anterior
 
+    @Override
     public void initialize(URL location, ResourceBundle resources) {
+        // Inicializar los ComboBox con opciones de tipo y estado
         tipo.getItems().addAll("Empleado", "Administrador");
         estado.getItems().addAll("Activo", "Inactivo", "Suspendido");
 
-        int idUsuario = Gestion_usuarios.idtraspaso;
+        int idUsuario = Gestion_usuarios.idtraspaso; // Obtener el ID del usuario a editar
 
         try (Connection conexion = util.Conexiones.dameConexion("burger-queen")) {
+            // Consultar si el usuario es un empleado
             String sqlEmpleado = "SELECT * FROM empleados WHERE id_empleado = ?";
             String sqlAdmin = "SELECT * FROM administradores WHERE id_admin = ?";
             ResultSet resultado;
@@ -62,33 +65,37 @@ public class Editar_usuarios implements Initializable {
             stmt.setInt(1, idUsuario);
             resultado = stmt.executeQuery();
 
-            boolean esEmpleado = resultado.next();
+            boolean esEmpleado = resultado.next(); // Verificar si el resultado contiene un empleado
             if (!esEmpleado) {
+                // Si no es empleado, verificar si es administrador
                 stmt = conexion.prepareStatement(sqlAdmin);
                 stmt.setInt(1, idUsuario);
                 resultado = stmt.executeQuery();
                 if (!resultado.next()) {
-                    mostrarError("Error", "El usuario no existe.");
+                    mostrarError("Error", "El usuario no existe."); // Mostrar error si no se encuentra el usuario
                     return;
                 }
             }
 
+            // Cargar los datos del usuario en los campos de texto
             cargarDatosUsuario(resultado, esEmpleado);
             rutaImagenAntigua = resultado.getString("ruta"); // Guardar la ruta de la imagen anterior
             cargarImagen(rutaImagenAntigua); // Cargar la imagen
 
+            // Configurar el comportamiento del ComboBox tipo
             tipo.setOnAction(event -> {
                 boolean esAdministrador = "Administrador".equals(tipo.getValue());
-                toggleFieldsVisibility(esAdministrador);
+                toggleFieldsVisibility(esAdministrador); // Mostrar u ocultar campos según el tipo de usuario
             });
 
         } catch (SQLException e) {
             e.printStackTrace();
-            mostrarError("Error SQL", "No se pudo cargar el usuario.");
+            mostrarError("Error SQL", "No se pudo cargar el usuario."); // Mostrar error en caso de problemas con la base de datos
         }
     }
 
     private void cargarDatosUsuario(ResultSet resultado, boolean esEmpleado) throws SQLException {
+        // Cargar los datos del usuario en los campos de texto
         nombre.setText(resultado.getString("nombre"));
         apellidos.setText(resultado.getString("apellido"));
         email.setText(resultado.getString("email"));
@@ -99,21 +106,23 @@ public class Editar_usuarios implements Initializable {
         estado.setValue(resultado.getString("estado"));
         fechanacimiento.setValue(resultado.getDate("fecha_nacimiento").toLocalDate());
 
-        // Cargar la imagen
+        // Cargar la imagen del usuario
         String rutaImagen = resultado.getString("ruta");
         cargarImagen(rutaImagen);
 
         if (esEmpleado) {
+            // Si el usuario es un empleado, cargar su posición y permisos
             tipo.setValue("Empleado");
             posicion.setText(resultado.getString("posicion"));
             texto_posicion.setVisible(true);
             posicion.setVisible(true);
-            toggleFieldsVisibility(false);
-            cargarPermisos(resultado.getInt("id_empleado"));
+            toggleFieldsVisibility(false); // Mostrar campos específicos de empleados
+            cargarPermisos(resultado.getInt(resultado.getInt("id_empleado"))); // Cargar los permisos del empleado
         } else {
+            // Si el usuario es un administrador, ocultar el campo de posición
             tipo.setValue("Administrador");
             posicion.setVisible(false);
-            toggleFieldsVisibility(true);
+            toggleFieldsVisibility(true); // Mostrar campos específicos de administradores
         }
     }
 
@@ -157,11 +166,12 @@ public class Editar_usuarios implements Initializable {
             }
         } catch (SQLException e) {
             e.printStackTrace();
-            mostrarError("Error SQL", "No se pudo cargar los permisos.");
+            mostrarError("Error SQL", "No se pudo cargar los permisos."); // Mostrar error si no se pueden cargar los permisos
         }
     }
 
     private void toggleFieldsVisibility(boolean esAdministrador) {
+        // Mostrar u ocultar campos según el tipo de usuario
         boolean visible = !esAdministrador;
         posicion.setVisible(visible);
         lectura_reserva.setVisible(visible);
@@ -177,43 +187,49 @@ public class Editar_usuarios implements Initializable {
     }
 
     private void cargarImagen(String rutaImagen) {
+        // Cargar la imagen del usuario desde la ruta especificada
         if (rutaImagen != null && !rutaImagen.isEmpty()) {
             Path ruta = Paths.get(rutaImagen);
             if (Files.exists(ruta)) {
-                imageView.setImage(new Image(ruta.toUri().toString()));
+                imageView.setImage(new Image(ruta.toUri().toString())); // Mostrar la imagen si existe
             } else {
-                cargarImagenPorDefecto();
+                cargarImagenPorDefecto(); // Cargar imagen por defecto si no existe
             }
         } else {
-            cargarImagenPorDefecto();
+            cargarImagenPorDefecto(); // Cargar imagen por defecto si la ruta está vacía
         }
     }
 
     private void cargarImagenPorDefecto() {
+        // Cargar una imagen por defecto si no se encuentra la imagen del usuario
         String rutaPorDefecto = "src/main/resources/imagenes/perfil.png";
         Path ruta = Paths.get(rutaPorDefecto);
         if (Files.exists(ruta)) {
-            imageView.setImage(new Image(ruta.toUri().toString()));
+            imageView.setImage(new Image(ruta.toUri().toString())); // Mostrar la imagen por defecto
         }
     }
 
     public void flechaatras() throws IOException {
+        // Cerrar la ventana actual y volver a la gestión de usuarios
         cerrar();
         Gestion_usuarios();
     }
 
     public void cerrar() throws IOException {
+        // Cerrar la ventana actual
         Stage stage = (Stage) Cerrar.getScene().getWindow();
         stage.close();
     }
 
     public void cancelarFormulario() throws IOException {
+        // Cancelar el formulario y volver a la gestión de usuarios
         Gestion_usuarios();
         Stage stage = (Stage) cancelar.getScene().getWindow();
         stage.close();
     }
 
     public void seleccionarFoto() {
+        // Abrir un diálogo para seleccionar una imagen
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("Seleccionar Imagen");
         fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("Imágenes", "*.jpg", "*.png", "*.jpeg"));
@@ -221,13 +237,14 @@ public class Editar_usuarios implements Initializable {
         fotoSeleccionada = fileChooser.showOpenDialog(null);
 
         if (fotoSeleccionada != null) {
-            imageView.setImage(new Image(fotoSeleccionada.toURI().toString()));
+            imageView.setImage(new Image(fotoSeleccionada.toURI().toString())); // Mostrar la imagen seleccionada
         }
     }
 
     private String guardarImagen(int idUsuario) {
+        // Guardar la imagen seleccionada en la carpeta de imágenes
         if (fotoSeleccionada == null) {
-            return null;
+            return null; // Si no se ha seleccionado ninguna imagen, devolver null
         }
 
         Path destinoCarpeta = Paths.get("src/main/resources/imagenes");
@@ -235,9 +252,9 @@ public class Editar_usuarios implements Initializable {
         // Asegurarse de que la carpeta existe
         if (!Files.exists(destinoCarpeta)) {
             try {
-                Files.createDirectories(destinoCarpeta);
+                Files.createDirectories(destinoCarpeta); // Crear la carpeta si no existe
             } catch (IOException e) {
-                mostrarError("Error al crear directorio", "No se pudo crear el directorio para las imágenes.");
+                mostrarError("Error al crear directorio", "No se pudo crear el directorio para las imágenes."); // Mostrar error si no se puede crear la carpeta
                 return null;
             }
         }
@@ -252,22 +269,22 @@ public class Editar_usuarios implements Initializable {
             String nuevoNombre = nombreArchivoOriginal.substring(0, nombreArchivoOriginal.lastIndexOf('.')) 
                                + "_" + contador 
                                + nombreArchivoOriginal.substring(nombreArchivoOriginal.lastIndexOf('.'));
-            destinoArchivo = destinoCarpeta.resolve(nuevoNombre);
+            destinoArchivo = destinoCarpeta.resolve(nuevoNombre); // Modificar el nombre del archivo
             contador++;
         }
 
         try {
-            Files.copy(fotoSeleccionada.toPath(), destinoArchivo);
-            return "imagenes/" + destinoArchivo.getFileName().toString(); // Devolver la ruta relativa
+            Files.copy(fotoSeleccionada.toPath(), destinoArchivo); // Copiar la imagen a la carpeta de destino
+            return "imagenes/" + destinoArchivo.getFileName().toString(); // Devolver la ruta relativa de la imagen
         } catch (IOException e) {
-            mostrarError("Error al guardar imagen", "No se pudo guardar la imagen seleccionada.");
+            mostrarError("Error al guardar imagen", "No se pudo guardar la imagen seleccionada."); // Mostrar error si no se puede guardar la imagen
             e.printStackTrace();
             return null;
         }
     }  
-    
 
     public void mostrarError(String titulo, String mensaje) {
+        // Mostrar un cuadro de diálogo de error
         Alert alerta = new Alert(Alert.AlertType.ERROR);
         alerta.setTitle(titulo);
         alerta.setHeaderText(null);
@@ -276,23 +293,26 @@ public class Editar_usuarios implements Initializable {
     }
 
     public boolean validarCampos() {
+        // Validar que todos los campos obligatorios estén completos
         if (nombre.getText().isEmpty() || apellidos.getText().isEmpty() || email.getText().isEmpty() ||
                 username.getText().isEmpty() || password.getText().isEmpty() || telefono.getText().isEmpty() ||
                 direccion.getText().isEmpty() || fechanacimiento.getValue() == null || tipo.getValue() == null || estado.getValue() == null) {
-            mostrarError("Campos incompletos", "Por favor, complete todos los campos.");
+            mostrarError("Campos incompletos", "Por favor, complete todos los campos."); // Mostrar error si hay campos vacíos
             return false;
         }
 
+        // Validar que el número de teléfono tenga 9 dígitos
         if (!Pattern.matches("\\d{9}", telefono.getText())) {
-            mostrarError("Teléfono incorrecto", "El número de teléfono debe tener 9 dígitos.");
+            mostrarError("Teléfono incorrecto", "El número de teléfono debe tener 9 dígitos."); // Mostrar error si el teléfono es incorrecto
             return false;
         }
 
-        return true;
+        return true; // Todos los campos son válidos
     }
 
     public void guardar() throws IOException {
-        if (!validarCampos()) return;
+        // Guardar los cambios realizados en el usuario
+        if (!validarCampos()) return; // Validar campos antes de guardar
 
         // Verificar si se ha seleccionado una nueva imagen
         String imagenRuta = (fotoSeleccionada != null) ? guardarImagen(Gestion_usuarios.idtraspaso) : rutaImagenAntigua;
@@ -310,23 +330,24 @@ public class Editar_usuarios implements Initializable {
             stmt.setString(7, direccion.getText());
             stmt.setDate(8, java.sql.Date.valueOf(fechanacimiento.getValue()));
             stmt.setString(9, tipo.getValue());
-            stmt.setString(10, estado.getValue());
+            stmt.setString (10, estado.getValue());
             stmt.setString(11, imagenRuta); // Usar la ruta de la imagen anterior si no se seleccionó una nueva
             stmt.setInt(12, Gestion_usuarios.idtraspaso);
-            stmt.executeUpdate();
+            stmt.executeUpdate(); // Ejecutar la actualización en la base de datos
 
             Stage stage = (Stage) guardar.getScene().getWindow();
-            stage.close();
+            stage.close(); // Cerrar la ventana actual
             cerrar();
-            Gestion_usuarios();
+            Gestion_usuarios(); // Volver a la gestión de usuarios
 
         } catch (SQLException e) {
             e.printStackTrace();
-            mostrarError("Error SQL", "No se pudo guardar los cambios.");
+            mostrarError("Error SQL", "No se pudo guardar los cambios."); // Mostrar error si no se puede guardar
         }
     }
 
     public void Gestion_usuarios() throws IOException {
+        // Cargar la vista de gestión de usuarios
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/Vistas/Gestion_usuarios.fxml"));
         Pane registro = loader.load();
         Scene loginScene = new Scene(registro, 600, 500);
@@ -336,26 +357,27 @@ public class Editar_usuarios implements Initializable {
         loginStage.initStyle(StageStyle.DECORATED);
         loginStage.setScene(loginScene);
         loginStage.setTitle("Reservas");
-        loginStage.show();
-        cerrar();
+        loginStage.show(); // Mostrar la nueva ventana
+        cerrar(); // Cerrar la ventana actual
     }
 
     public void actualizar() throws IOException {
+        // Actualizar los datos del usuario
         if (!validarCampos()) {
-            return;
+            return; // Validar campos antes de actualizar
         }
 
-        int idUsuario = Gestion_usuarios.idtraspaso;
+        int idUsuario = Gestion_usuarios.idtraspaso; // Obtener el ID del usuario a actualizar
         boolean esEmpleado = "Empleado".equals(tipo.getValue());
         boolean esAdministrador = "Administrador".equals(tipo.getValue());
 
-        String rutaImagenGuardada = guardarImagen(idUsuario);
+        String rutaImagenGuardada = guardarImagen(idUsuario); // Guardar la imagen seleccionada
 
         try (Connection conexion = util.Conexiones.dameConexion("burger-queen")) {
             if (esEmpleado) {
-                actualizarEmpleado(conexion, idUsuario, rutaImagenGuardada);
+                actualizarEmpleado(conexion, idUsuario, rutaImagenGuardada); // Actualizar datos del empleado
             } else {
-                actualizarAdministrador(conexion, idUsuario, rutaImagenGuardada);
+                actualizarAdministrador(conexion, idUsuario, rutaImagenGuardada); // Actualizar datos del administrador
             }
 
             // Actualizar permisos después de la actualización
@@ -364,18 +386,19 @@ public class Editar_usuarios implements Initializable {
             Alert alerta = new Alert(Alert.AlertType.INFORMATION);
             alerta.setTitle("Actualizado");
             alerta.setHeaderText(null);
-            alerta.setContentText("El usuario ha sido actualizado correctamente.");
+            alerta.setContentText("El usuario ha sido actualizado correctamente."); // Mostrar mensaje de éxito
             alerta.showAndWait();
 
-            cerrar();
-            Gestion_usuarios();
+            cerrar(); // Cerrar la ventana actual
+            Gestion_usuarios(); // Volver a la gestión de usuarios
         } catch (SQLException e) {
             e.printStackTrace();
-            mostrarError("Error SQL", "No se pudo actualizar el usuario: " + e.getMessage());
+            mostrarError("Error SQL", "No se pudo actualizar el usuario: " + e.getMessage()); // Mostrar error si no se puede actualizar
         }
     }
 
     private void actualizarEmpleado(Connection conexion, int idUsuario, String rutaImagenGuardada) throws SQLException {
+        // Actualizar los datos del empleado en la base de datos
         String sqlUpdate = "UPDATE empleados SET nombre = ?, apellido = ?, email = ?, username = ?, password = ?, telefono = ?, direccion = ?, estado = ?, fecha_nacimiento = ?, ruta = ?, posicion = ? WHERE id_empleado = ?";
         try (PreparedStatement stmtUpdate = conexion.prepareStatement(sqlUpdate)) {
             stmtUpdate.setString(1, nombre.getText());
@@ -391,15 +414,16 @@ public class Editar_usuarios implements Initializable {
             stmtUpdate.setString(11, posicion.getText());
             stmtUpdate.setInt(12, idUsuario);
             
-            int rowsAffected = stmtUpdate.executeUpdate();
+            int rowsAffected = stmtUpdate.executeUpdate(); // Ejecutar la actualización
             if (rowsAffected == 0) {
-                throw new SQLException("No se actualizó ningún registro de empleado.");
+                throw new SQLException("No se actualizó ningún registro de empleado."); // Lanzar error si no se actualizó
             }
         }
     }
 
     private void actualizarAdministrador(Connection conexion, int idUsuario, String rutaImagenGuardada) throws SQLException {
-        String sqlUpdate = "UPDATE administradores SET nombre = ?, apellido = ?, email = ?, username = ?, password = ?, telefono = ?, direccion = ?, estado = ?, fecha_nacimiento = ?, ruta = ? WHERE id_admin = ?";
+        // Actualizar los datos del administrador en la base de datos
+        String sqlUpdate = "UPDATE administradores SET nombre = ?, apellido = ?, email = ?, username = ?, password = ?, telefono = ?, direccion = ?, estado = ?, fecha_nacimiento = ?, ruta = ? WHERE id _admin = ?";
         try (PreparedStatement stmtUpdate = conexion.prepareStatement(sqlUpdate)) {
             stmtUpdate.setString(1, nombre.getText());
             stmtUpdate.setString(2, apellidos.getText());
@@ -413,45 +437,44 @@ public class Editar_usuarios implements Initializable {
             stmtUpdate.setString(10, rutaImagenGuardada);
             stmtUpdate.setInt(11, idUsuario);
             
-            int rowsAffected = stmtUpdate.executeUpdate();
+            int rowsAffected = stmtUpdate.executeUpdate(); // Ejecutar la actualización
             if (rowsAffected == 0) {
-                throw new SQLException("No se actualizó ningún registro de administrador.");
+                throw new SQLException("No se actualizó ningún registro de administrador."); // Lanzar error si no se actualizó
             }
         }
     }
 
     private void actualizarPermisos(Connection conexion, int idUsuario) throws SQLException {
-        // Eliminar permisos existentes
+        // Eliminar permisos existentes del usuario
         String sqlEliminarPermisos = "DELETE FROM permisos WHERE id_empleado = ?";
         try (PreparedStatement stmtEliminarPermisos = conexion.prepareStatement(sqlEliminarPermisos)) {
             stmtEliminarPermisos.setInt(1, idUsuario);
-            stmtEliminarPermisos.executeUpdate();
+            stmtEliminarPermisos.executeUpdate(); // Ejecutar la eliminación de permisos
         }
 
-        // Insertar nuevos permisos
+        // Insertar nuevos permisos para el usuario
         String sqlInsertPermisos = "INSERT INTO permisos (id_empleado, id_modulo, lectura, escritura) VALUES (?, ?, ?, ?)";
         try (PreparedStatement stmtInsertPermisos = conexion.prepareStatement(sqlInsertPermisos)) {
             // Módulo 1
             stmtInsertPermisos.setInt(1, idUsuario);
             stmtInsertPermisos.setInt(2, 1); // ID del módulo 1
-            stmtInsertPermisos.setInt(3, lectura_carta.isSelected() ? 1 : 0);
-            stmtInsertPermisos.setInt(4, escritura_carta.isSelected() ? 1 : 0);
-            stmtInsertPermisos.executeUpdate();
+            stmtInsertPermisos.setInt(3, lectura_carta.isSelected() ? 1 : 0); // Establecer lectura
+            stmtInsertPermisos.setInt(4, escritura_carta.isSelected() ? 1 : 0); // Establecer escritura
+            stmtInsertPermisos.executeUpdate(); // Ejecutar la inserción de permisos
 
             // Módulo 2
             stmtInsertPermisos.setInt(1, idUsuario);
             stmtInsertPermisos.setInt(2, 2); // ID del módulo 2
-            stmtInsertPermisos.setInt(3, lectura_reserva.isSelected() ? 1 : 0);
-            stmtInsertPermisos.setInt(4, escritura_reserva.isSelected() ? 1 : 0);
-            stmtInsertPermisos.executeUpdate();
+            stmtInsertPermisos.setInt(3, lectura_reserva.isSelected() ? 1 : 0); // Establecer lectura
+            stmtInsertPermisos.setInt(4, escritura_reserva.isSelected() ? 1 : 0); // Establecer escritura
+            stmtInsertPermisos.executeUpdate(); // Ejecutar la inserción de permisos
 
             // Módulo 3
             stmtInsertPermisos.setInt(1, idUsuario);
             stmtInsertPermisos.setInt(2, 3); // ID del módulo 3
-            stmtInsertPermisos.setInt(3, lectura_pedidos.isSelected() ? 1 : 0);
-            stmtInsertPermisos.setInt(4, escritura_pedidos.isSelected() ? 1 : 0);
-            stmtInsertPermisos.executeUpdate();
+            stmtInsertPermisos.setInt(3, lectura_pedidos.isSelected() ? 1 : 0); // Establecer lectura
+            stmtInsertPermisos.setInt(4, escritura_pedidos.isSelected() ? 1 : 0); // Establecer escritura
+            stmtInsertPermisos.executeUpdate(); // Ejecutar la inserción de permisos
         }
     }
-
-    }
+}

@@ -32,6 +32,7 @@ import Modelos.Empleado;
 
 public class Nuevo_usuario implements Initializable {
 
+    // Declaración de los elementos de la interfaz de usuario
     @FXML
     private TextField nombre, apellidos, email, username, password, telefono, direccion, posicion;
     @FXML
@@ -47,15 +48,19 @@ public class Nuevo_usuario implements Initializable {
     @FXML
     private Text texto_posicion, texto_reserva, texto_pedidos, texto_carta;
 
-    private File fotoSeleccionada;
+    private File fotoSeleccionada; // Variable para almacenar la foto seleccionada
 
+    // Método que se ejecuta al inicializar la interfaz
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        // Agregar opciones a los ComboBox de tipo y estado
         tipo.getItems().addAll("Empleado", "Administrador");
         estado.getItems().addAll("Activo", "Inactivo", "Suspendido");
 
+        // Listener para manejar el cambio en el tipo de usuario
         tipo.setOnAction(event -> {
             boolean esAdministrador = "Administrador".equals(tipo.getValue());
+            // Mostrar u ocultar campos según el tipo de usuario
             posicion.setVisible(!esAdministrador);
             texto_posicion.setVisible(!esAdministrador);
             lectura_reserva.setVisible(!esAdministrador);
@@ -70,22 +75,25 @@ public class Nuevo_usuario implements Initializable {
         });
     }
 
+    // Método para cerrar la ventana
     public void cerrar() {
         Stage stage = (Stage) Cerrar.getScene().getWindow();
         stage.close();
     }
 
+    // Método para seleccionar una foto del sistema de archivos
     public void seleccionarFoto() {
         FileChooser fileChooser = new FileChooser();
         fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("Imágenes", "*.jpg", "*.png", "*.jpeg"));
         fotoSeleccionada = fileChooser.showOpenDialog(null);
         if (fotoSeleccionada != null) {
-            imageView.setImage(new javafx.scene.image.Image(fotoSeleccionada.toURI().toString()));
+            imageView.setImage(new javafx.scene.image.Image(fotoSeleccionada.toURI().toString())); // Mostrar la imagen seleccionada
         }
     }
 
+    // Método para registrar un nuevo usuario
     public void registrar() throws IOException {
-        if (!validarCampos()) {
+        if (!validarCampos()) { // Validar campos antes de continuar
             mostrarError("Error", "Verifique que todos los campos sean correctos.");
             return;
         }
@@ -94,7 +102,7 @@ public class Nuevo_usuario implements Initializable {
             Connection conexion = util.Conexiones.dameConexion("burger-queen");
             String sql;
             boolean esEmpleado = "Empleado".equals(tipo.getValue());
-            String rutaImagenGuardada = guardarImagen();
+            String rutaImagenGuardada = guardarImagen(); // Guardar la imagen seleccionada
 
             // Si la ruta de la imagen es null, mostrar error y salir
             if (rutaImagenGuardada == null) {
@@ -120,6 +128,7 @@ public class Nuevo_usuario implements Initializable {
                     lectura_pedidos.isSelected() && escritura_pedidos.isSelected()
                 );
 
+                // ```java
                 // Insertar el empleado en la base de datos
                 sql = "INSERT INTO empleados (nombre, apellido, email, username, password, telefono, direccion, estado, fecha_nacimiento, posicion, ruta) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
                 PreparedStatement pst = conexion.prepareStatement(sql, PreparedStatement.RETURN_GENERATED_KEYS);
@@ -184,8 +193,8 @@ public class Nuevo_usuario implements Initializable {
             alerta.setHeaderText(null);
             alerta.setContentText("El usuario ha sido creado correctamente.");
             alerta.showAndWait();
-            cerrar();
-            Gestion_usuarios();
+            cerrar(); // Cerrar la ventana actual
+            Gestion_usuarios(); // Volver a la pantalla de gestión de usuarios
 
         } catch (SQLException e) {
             e.printStackTrace();
@@ -193,9 +202,10 @@ public class Nuevo_usuario implements Initializable {
         }
     }
 
+    // Método para guardar la imagen seleccionada en el sistema de archivos
     private String guardarImagen() {
         if (fotoSeleccionada == null) {
-            return null;
+            return null; // Retornar null si no se ha seleccionado una imagen
         }
 
         Path destinoCarpeta = Paths.get("src/main/resources");
@@ -203,11 +213,11 @@ public class Nuevo_usuario implements Initializable {
         // Asegurarse de que la carpeta existe
         if (!Files.exists(destinoCarpeta)) {
             try {
-                Files.createDirectories(destinoCarpeta);
+                Files.createDirectories(destinoCarpeta); // Crear la carpeta si no existe
             } catch (IOException e) {
                 mostrarError("Error al crear carpeta", "No se pudo crear la carpeta de destino para las imágenes.");
                 e.printStackTrace();
-                return null;
+                return null; // Retornar null si hubo un error al crear la carpeta
             }
         }
 
@@ -216,22 +226,23 @@ public class Nuevo_usuario implements Initializable {
         String nombreOriginal = fotoSeleccionada.getName();
         int puntoIndex = nombreOriginal.lastIndexOf('.');
         if (puntoIndex > 0 && puntoIndex < nombreOriginal.length() - 1) {
-            extension = nombreOriginal.substring(puntoIndex);
+            extension = nombreOriginal.substring(puntoIndex); // Obtener la extensión del archivo
         }
 
-        String nombreUnico = "imagen_" + System.currentTimeMillis() + extension;
-        Path destinoArchivo = destinoCarpeta.resolve(nombreUnico);
+        String nombreUnico = "imagen_" + System.currentTimeMillis() + extension; // Crear un nombre único
+        Path destinoArchivo = destinoCarpeta.resolve(nombreUnico); // Ruta del archivo destino
 
         try {
-            Files.copy(fotoSeleccionada.toPath(), destinoArchivo);
-            return "src/main/resources/" + nombreUnico;
+            Files.copy(fotoSeleccionada.toPath(), destinoArchivo); // Copiar la imagen a la carpeta destino
+            return nombreUnico; // Retornar el nombre único de la imagen guardada
         } catch (IOException e) {
             mostrarError("Error al guardar imagen", "No se pudo guardar la imagen seleccionada.");
             e.printStackTrace();
-            return null;
+            return null; // Retornar null si hubo un error al guardar la imagen
         }
     }
 
+    // Método para guardar los permisos del usuario en la base de datos
     private void guardarPermisos(Connection conexion, int idEmpleado) throws SQLException {
         String insertarPermisosSql = "INSERT INTO permisos (id_empleado, id_modulo, lectura, escritura) VALUES (?, ?, ?, ?)";
         PreparedStatement pstPermisos = conexion.prepareStatement(insertarPermisosSql);
@@ -241,7 +252,6 @@ public class Nuevo_usuario implements Initializable {
         int escrituraReserva = escritura_reserva.isSelected() ? 1 : 0;
         int lecturaPedidos = lectura_pedidos.isSelected() ? 1 : 0;
         int escrituraPedidos = escritura_pedidos.isSelected() ? 1 : 0;
-
         int lecturaCarta = lectura_carta.isSelected() ? 1 : 0;
         int escrituraCarta = escritura_carta.isSelected() ? 1 : 0;
 
@@ -260,13 +270,14 @@ public class Nuevo_usuario implements Initializable {
             pstPermisos.setInt(4, idModulo == 1 ? escrituraReserva : (idModulo == 2 ? escrituraPedidos : escrituraCarta));
 
             // Insertar los permisos en la tabla permisos
-            pstPermisos.addBatch();
+            pstPermisos.addBatch(); // Agregar a batch
         }
 
         // Ejecutar todas las inserciones en batch
         pstPermisos.executeBatch();
     }
 
+    // Método para cargar la pantalla de gestión de usuarios
     public void Gestion_usuarios() throws IOException {
         FXMLLoader cargador = new FXMLLoader(getClass().getResource("/Vistas/Gestion_usuarios.fxml"));
         Pane gestiondeusuariospane = cargador.load();
@@ -278,56 +289,60 @@ public class Nuevo_usuario implements Initializable {
         gestiondeusuariosStage.setScene(gestiondeusuariosScene);
         gestiondeusuariosStage.setTitle("PANEL DE GESTION DE USUARIOS");
         gestiondeusuariosStage.show();
-        cerrar();
+        cerrar(); // Cerrar la ventana actual
     }
 
+    // Método para manejar la acción de flecha atrás
     public void flechaatras() throws IOException {
-        cerrar();
-        Gestion_usuarios();
+        cerrar(); // Cerrar la ventana actual
+        Gestion_usuarios(); // Volver a la pantalla de gestión de usuarios
     }
 
+    // Método para validar los campos de entrada
     public boolean validarCampos() {
         if (nombre.getText().isEmpty() || apellidos.getText().isEmpty() || email.getText().isEmpty() ||
                 username.getText().isEmpty() || password.getText().isEmpty() || telefono.getText().isEmpty() ||
                 direccion.getText().isEmpty() || fechanacimiento.getValue() == null || tipo.getValue() == null || estado.getValue() == null) {
             mostrarError("Error", "Hay campos necesarios vacíos.");
-            return false;
+            return false; // Retornar false si hay campos vacíos
         }
 
         if (fotoSeleccionada == null) {
             mostrarError("Error", "Debe seleccionar una imagen para el usuario.");
-            return false;
+            return false; // Retornar false si no se ha seleccionado una imagen
         }
 
-        if (!Pattern.compile("^[a-zA-Z0-9_+&*-]+(?:\\.[a-zA-Z0-9_+&*-]+)*@(?:[a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,7}$").matcher(email.getText()).matches()) {
+        if (!Pattern.compile("^[a-zA-Z0-9_+&*-]+(?:\\.[a-zA-Z0-9_ +&*-]+)*@(?:[a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,7}$").matcher(email.getText()).matches()) {
             mostrarError("Error", "Correo electrónico inválido. Ejemplo: prueba@prueba.com");
-            return false;
+            return false; // Retornar false si el correo no es válido
         }
 
         if (password.getText().length() < 6) {
             mostrarError("Error", "La contraseña debe tener al menos 6 caracteres.");
-            return false;
+            return false; // Retornar false si la contraseña es demasiado corta
         }
 
         if ("Empleado".equals(tipo.getValue()) && posicion.getText().isEmpty()) {
             mostrarError("Error", "El campo posición es obligatorio para empleados.");
-            return false;
+            return false; // Retornar false si el campo posición está vacío para empleados
         }
 
-        return true;
+        return true; // Retornar true si todos los campos son válidos
     }
 
+    // Método para mostrar un mensaje de error
     public void mostrarError(String titulo, String mensaje) {
         Alert alerta = new Alert(Alert.AlertType.ERROR);
         alerta.setTitle(titulo);
         alerta.setHeaderText(null);
         alerta.setContentText(mensaje);
-        alerta.showAndWait();
+        alerta.showAndWait(); // Mostrar la alerta y esperar a que el usuario la cierre
     }
 
+    // Método para cancelar el formulario y volver a la gestión de usuarios
     public void cancelarFormulario() throws IOException {
         Stage stage = (Stage) cancelar.getScene().getWindow();
-        stage.close();
-        Gestion_usuarios();
+        stage.close(); // Cerrar la ventana actual
+        Gestion_usuarios(); // Volver a la pantalla de gestión de usuarios
     }
 }

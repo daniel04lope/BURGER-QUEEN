@@ -31,56 +31,57 @@ import javafx.stage.StageStyle;
 public class Ubicacion implements Initializable {
 
     @FXML
-    Text Username;
+    Text Username; // Texto para mostrar el nombre de usuario
     @FXML
-    private AnchorPane Panel_Desplegable;
+    private AnchorPane Panel_Desplegable; // Panel que se despliega
     @FXML
-    private Button Desplegable;
+    private Button Desplegable; // Botón para desplegar el panel
     @FXML
-    private Button Cerrar;
+    private Button Cerrar; // Botón para cerrar la ventana
     @FXML
-    private ImageView imagenperfil;
+    private ImageView imagenperfil; // Imagen de perfil del usuario
 
     @FXML
-    private Accordion administradores;
+    private Accordion administradores; // Accordion para opciones de administración
     @FXML
-    private TitledPane titledpaneadmin;
+    private TitledPane titledpaneadmin; // TitledPane para el panel de administradores
     @FXML
-    private VBox Vboxadmin;
+    private VBox Vboxadmin; // VBox que contiene botones de administración
     
-    private boolean Panel_Visible = false;
-    private boolean Cerrardesplegar = false;
+    private boolean Panel_Visible = false; // Estado de visibilidad del panel desplegable
+    private boolean Cerrardesplegar = false; // Estado del botón de cerrar
     @FXML
-    private Button reservaadmin;
+    private Button reservaadmin; // Botón para gestionar reservas
     @FXML
-    private Button menuadmin;
+    private Button menuadmin; // Botón para gestionar el menú
     @FXML
-    private Button usuariosadmin;
+    private Button usuariosadmin; // Botón para gestionar usuarios
     @FXML
-    private Button pedidosadmin;
+    private Button pedidosadmin; // Botón para gestionar pedidos
     @FXML
-    private Button botoncarrito;
+    private Button botoncarrito; // Botón para acceder al carrito
     @FXML
-    private WebView webView;
+    private WebView webView; // WebView para mostrar Google Maps
 
     // URL de Google Maps que se puede modificar o pasar dinámicamente
     private String googleMapsUrl = "https://www.google.com/maps/place/Burger+Queen/@38.530303,-8.8699675,17z/data=!3m2!4b1!5s0xd1942599711639d:0xad6eb38a6fd5d7d6!4m6!3m5!1s0xd194361a43e444b:0x866e61fc20791b9b!8m2!3d38.530303!4d-8.8673926!16s%2Fg%2F11rzdb4fgz?authuser=0&entry=ttu&g_ep=EgoyMDI0MTExOS4yIKXMDSoASAFQAw%3D%3D";
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-    	 Username.textProperty().bind(Login.bannerusuarioProperty());
+        Username.textProperty().bind(Login.bannerusuarioProperty()); // Vincular el nombre de usuario desde Login
+
         // Aseguramos que el WebView se inicializa correctamente
         if (webView == null) {
             System.out.println("WebView no se ha inicializado correctamente.");
             return;
         }
 
-        WebEngine webEngine = webView.getEngine();
+        WebEngine webEngine = webView.getEngine(); // Obtener el motor del WebView
 
         // Habilitar JavaScript
         webEngine.setJavaScriptEnabled(true);
 
-        // Cargar la URL de Google Maps (puedes modificar esta URL para que se pase dinámicamente)
+        // Cargar la URL de Google Maps
         webEngine.load(googleMapsUrl);
 
         // Verificar si la carga fue exitosa
@@ -88,7 +89,7 @@ public class Ubicacion implements Initializable {
             System.out.println("Mensaje de alerta desde el WebEngine: " + event.getData());
         });
         
-        
+        // Configuración de visibilidad y permisos según el tipo de usuario
         if (Login.tipo.equals("administradores")) {
             administradores.setVisible(true);
             titledpaneadmin.setVisible(true);
@@ -109,51 +110,47 @@ public class Ubicacion implements Initializable {
 
             // Verificar permisos para cada botón
             try {
-				if (permisos(2, "lectura") == 1) {
-				    reservaadmin.setDisable(false);
-				} else {
-				    reservaadmin.setDisable(true);
-				}
-			} catch (SQLException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
+                if (permisos(2, "lectura ") == 1) {
+                    reservaadmin.setDisable(false); // Habilitar botón de reservas si tiene permiso
+                } else {
+                    reservaadmin.setDisable(true); // Deshabilitar botón de reservas si no tiene permiso
+                }
+            } catch (SQLException e) {
+                e.printStackTrace(); // Manejar excepciones
+            }
 
             try {
-				if (permisos(1, "lectura") == 1) {
-				    menuadmin.setDisable(false);
-				} else {
-				    menuadmin.setDisable(true);
-				}
-			} catch (SQLException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
+                if (permisos(1, "lectura") == 1) {
+                    menuadmin.setDisable(false); // Habilitar botón de menú si tiene permiso
+                } else {
+                    menuadmin.setDisable(true); // Deshabilitar botón de menú si no tiene permiso
+                }
+            } catch (SQLException e) {
+                e.printStackTrace(); // Manejar excepciones
+            }
 
             try {
-				if (permisos(3, "lectura") == 1) {
-				    pedidosadmin.setDisable(false);
-				} else {
-				    pedidosadmin.setDisable(true);
-				}
-			} catch (SQLException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
+                if (permisos(3, "lectura") == 1) {
+                    pedidosadmin.setDisable(false); // Habilitar botón de pedidos si tiene permiso
+                } else {
+                    pedidosadmin.setDisable(true); // Deshabilitar botón de pedidos si no tiene permiso
+                }
+            } catch (SQLException e) {
+                e.printStackTrace(); // Manejar excepciones
+            }
         }
 
         if (Login.tipo.equals("usuarios")) {
-            administradores.setVisible(false);
+            administradores.setVisible(false); // Ocultar opciones de administración
             titledpaneadmin.setVisible(false);
             Vboxadmin.setVisible(false);
         }
 
         try {
-            System.out.println(permisos(1, "lectura"));
+            System.out.println(permisos(1, "lectura")); // Imprimir permisos de lectura
         } catch (SQLException e) {
-            e.printStackTrace();
+            e.printStackTrace(); // Manejar excepciones
         }
-        
         
         // Cargar la imagen de perfil desde la ruta especificada
         String rutaImagen = "file:src/main/resources/imagenes/" + Login.datos_login.getRuta();
@@ -161,7 +158,7 @@ public class Ubicacion implements Initializable {
 
         // Configurar un listener para cargar la imagen cuando cambie la ruta en Login
         Login.imagenProperty().addListener((observable, oldValue, newValue) -> {
-            cargarImagen(newValue);
+            cargarImagen(newValue); // Cargar nueva imagen si cambia la ruta
         });
 
         // Si hay una ruta de imagen válida, asignarla a la propiedad de la imagen
@@ -171,8 +168,8 @@ public class Ubicacion implements Initializable {
 
         // Configurar un rectángulo con esquinas redondeadas para la imagen de perfil
         javafx.scene.shape.Rectangle clip = new javafx.scene.shape.Rectangle(
-            imagenperfil.getFitWidth()-5,  // Ancho del rectángulo
-            imagenperfil.getFitHeight()-5  // Alto del rectángulo
+            imagenperfil.getFitWidth() - 5,  // Ancho del rectángulo
+            imagenperfil.getFitHeight() - 5  // Alto del rectángulo
         );
         clip.setArcWidth(30);  // Radio de las esquinas horizontales
         clip.setArcHeight(30); // Radio de las esquinas verticales
@@ -180,35 +177,31 @@ public class Ubicacion implements Initializable {
         // Establecer el clip para la imagen de perfil
         imagenperfil.setClip(clip);
         
-        
         if (imagen.isError()) {
             System.err.println("Error al cargar la imagen desde la ruta: " + rutaImagen);
         } else {
-            imagenperfil.setImage(imagen);
+            imagenperfil.setImage(imagen); // Asignar la imagen cargada al ImageView
         }
-        
     }
+
     private void cargarImagen(String nuevaRuta) {
         String rutaImagen = "file:src/main/resources/imagenes/" + nuevaRuta;
         Image imagen = new Image(rutaImagen);
         if (imagen.isError()) {
             System.err.println("Error al cargar la imagen desde la ruta: " + rutaImagen);
         } else {
-            imagenperfil.setImage(imagen); 
+            imagenperfil.setImage(imagen); // Asignar la nueva imagen al ImageView
         }
     }
     
     public void perfil() throws IOException {
-    	if (!(Login.tipo.equals("usuarios"))) {
-        		
-        		cerrar();
-        		Mostrar_Login();
-        	}
-    	else {
+        if (!(Login.tipo.equals("usuarios"))) {
+            cerrar(); // Cerrar la ventana actual
+            Mostrar_Login(); // Mostrar la ventana de login
+        } else {
             FXMLLoader cargador = new FXMLLoader(getClass().getResource("/Vistas/perfil.fxml"));
             Pane perfilpane = cargador.load();
             Scene perfilScene = new Scene(perfilpane, 600, 500);
-           
             perfilScene.setFill(Color.TRANSPARENT);
             Stage perfilStage = new Stage();
             perfilStage.setResizable(false);
@@ -216,9 +209,9 @@ public class Ubicacion implements Initializable {
             perfilStage.setScene(perfilScene);
             perfilStage.setTitle("PERFIL");
             perfilStage.show();
-            cerrar();
-    	}
+            cerrar(); // Cerrar la ventana actual
         }
+    }
 
     // Método para actualizar la URL del mapa dinámicamente
     public void cargarMapa(String nuevaUrl) {
@@ -250,14 +243,12 @@ public class Ubicacion implements Initializable {
             }
         }
 
-        return valor;
+        return valor; // Retornar el valor del permiso
     }
-
-
 
     public void cerrar() {
         Stage stage = (Stage) Cerrar.getScene().getWindow();
-        stage.close();
+        stage.close(); // Cerrar la ventana
     }
 
     public void Pantalla_Principal() throws IOException {
@@ -273,15 +264,15 @@ public class Ubicacion implements Initializable {
         PrincipalStage.setScene(principalScene);
         PrincipalStage.setTitle("PANTALLA PRINCIPAL");
         PrincipalStage.show();
-        cerrar();
+        cerrar(); // Cerrar la ventana actual
     }
 
     public void Despliega() {
         System.out.println("Funciona");
-        Cerrardesplegar = !Cerrardesplegar;
-        Panel_Visible = !Panel_Visible;
-        Cerrar.setVisible(Cerrardesplegar);
-        Panel_Desplegable.setVisible(Panel_Visible);
+        Cerrardesplegar = !Cerrardesplegar; // Alternar estado de despliegue
+        Panel_Visible = !Panel_Visible; // Alternar visibilidad del panel
+        Cerrar.setVisible(Cerrardesplegar); // Mostrar u ocultar botón de cerrar
+        Panel_Desplegable.setVisible(Panel_Visible); // Mostrar u ocultar panel desplegable
     }
 
     public void Carta() throws IOException {
@@ -296,10 +287,8 @@ public class Ubicacion implements Initializable {
         cartaStage.setScene(cartaScene);
         cartaStage.setTitle("CARTA");
         cartaStage.show();
-        cerrar();
+        cerrar(); // Cerrar la ventana actual
     }
-
-  
 
     public void ReservaAdmin() throws IOException {
         FXMLLoader cargador = new FXMLLoader(getClass().getResource("/Vistas/ReservaAdmin.fxml"));
@@ -312,7 +301,7 @@ public class Ubicacion implements Initializable {
         reservaStage.setScene(reservaScene);
         reservaStage.setTitle("PANEL DE GESTION DE RESERVAS");
         reservaStage.show();
-        cerrar();
+        cerrar(); // Cerrar la ventana actual
     }
 
     public void Reserva() throws IOException {
@@ -326,7 +315,7 @@ public class Ubicacion implements Initializable {
         reservaStage.setScene(reservaScene);
         reservaStage.setTitle("RESERVA");
         reservaStage.show();
-        cerrar();
+        cerrar(); // Cerrar la ventana actual
     }
 
     public void Mostrar_Login() {
@@ -341,11 +330,13 @@ public class Ubicacion implements Initializable {
             loginStage.initModality(Modality.APPLICATION_MODAL);
             loginStage.setTitle("LOGIN");
             loginStage.show();
-            cerrar();
+            cerrar(); // Cerrar la ventana actual
         } catch (Exception e) {
-            e.printStackTrace();
+ 
+            e.printStackTrace(); // Manejar excepciones
         }
     }
+
     public void Horarios() throws IOException {
         FXMLLoader cargador = new FXMLLoader(getClass().getResource("/Vistas/Horarios.fxml"));
         Pane horariospane = cargador.load();
@@ -357,12 +348,13 @@ public class Ubicacion implements Initializable {
         horariosStage.setScene(horariosScene);
         horariosStage.setTitle("HORARIOS");
         horariosStage.show();
-        cerrar();
+        cerrar(); // Cerrar la ventana actual
     }
+
     public void carrito() throws IOException {
         try {
-        	cerrar();
-        	Carrito.ventanaanterior=4;
+            cerrar(); // Cerrar la ventana actual
+            Carrito.ventanaanterior = 4; // Establecer la ventana anterior
             FXMLLoader cargador = new FXMLLoader(getClass().getResource("/Vistas/Carrito.fxml"));
             AnchorPane carritoPane = cargador.load();
 
@@ -373,14 +365,14 @@ public class Ubicacion implements Initializable {
             carritoStage.setScene(scene);
 
             carritoStage.setTitle("CARRITO");
-
-            carritoStage.show();
+            carritoStage.show(); // Mostrar la ventana del carrito
         } catch (IOException e) {
-            e.printStackTrace();
+            e.printStackTrace(); // Manejar excepciones
         }
     }
+
     public void Gestionpedidos() throws IOException {
-  	  FXMLLoader cargador = new FXMLLoader(getClass().getResource("/Vistas/GestionPedidos.fxml"));
+        FXMLLoader cargador = new FXMLLoader(getClass().getResource("/Vistas/GestionPedidos.fxml"));
         Pane gestiondepedidospane = cargador.load();
         Scene gestiondepedidosScene = new Scene(gestiondepedidospane, 600, 500);
        
@@ -392,8 +384,8 @@ public class Ubicacion implements Initializable {
         gestiondepedidosStage.setScene(gestiondepedidosScene);
         gestiondepedidosStage.setTitle("PANEL DE GESTION DE PEDIDOS");
         gestiondepedidosStage.show();
-        cerrar();
-  }
+        cerrar(); // Cerrar la ventana actual
+    }
 
     public void Gestion_usuarios() throws IOException {
         FXMLLoader cargador = new FXMLLoader(getClass().getResource("/Vistas/Gestion_usuarios.fxml"));
@@ -406,6 +398,6 @@ public class Ubicacion implements Initializable {
         gestiondeusuariosStage.setScene(gestiondeusuarioScene);
         gestiondeusuariosStage.setTitle("PANEL DE GESTION DE USUARIOS");
         gestiondeusuariosStage.show();
-        cerrar();
+        cerrar(); // Cerrar la ventana actual
     }
 }

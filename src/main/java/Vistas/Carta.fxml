@@ -144,7 +144,7 @@
                               <DropShadow />
                            </effect>
                         </Button>
-                        <Accordion fx:id="administradores" prefHeight="24.0" prefWidth="260.0">
+                        <Accordion fx:id="administradores" prefHeight="24.0" prefWidth="260.0" visible="false">
                            <panes>
                               <TitledPane fx:id="titledpaneadmin" animated="false" prefHeight="194.0" prefWidth="272.0" style="-fx-background-color: D28383;" text="PANEL DE CONTROL">
                                  <font>

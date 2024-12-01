@@ -29,25 +29,27 @@ import javafx.stage.StageStyle;
 public class Gestion_usuarios implements Initializable {
 
     @FXML
-    Text Username;
+    Text Username; // Texto que muestra el nombre de usuario
     @FXML
-    private AnchorPane Panel_Desplegable;
+    private AnchorPane Panel_Desplegable; // Panel desplegable para opciones adicionales
     @FXML
-    private Button Desplegable;
+    private Button Desplegable; // Botón para desplegar el panel
     @FXML
-    private Button Cerrar;
+    private Button Cerrar; // Botón para cerrar la ventana
     @FXML
-    GridPane Listado;
+    GridPane Listado; // GridPane para mostrar la lista de usuarios
     @FXML
-    private ImageView imagenperfil;
-    static int idtraspaso;
+    private ImageView imagenperfil; // Imagen de perfil del usuario
+    static int idtraspaso; // ID del usuario a editar
 
-    private boolean Panel_Visible = false;
-    private boolean Cerrardesplegar = false;
+    private boolean Panel_Visible = false; // Estado de visibilidad del panel desplegable
+    private boolean Cerrardesplegar = false; // Estado de visibilidad del botón de cerrar
+
     @FXML
-    private Button pedidosadmin;
+    private Button pedidosadmin; // Botón para gestionar pedidos
 
     public void carrito() throws IOException {
+        // Método para abrir la ventana del carrito
         try {
             FXMLLoader cargador = new FXMLLoader(getClass().getResource("/Vistas/Carrito.fxml"));
             AnchorPane carritoPane = cargador.load();
@@ -59,21 +61,19 @@ public class Gestion_usuarios implements Initializable {
             carritoStage.setTitle("CARRITO");
             carritoStage.show();
         } catch (IOException e) {
-            e.printStackTrace();
+            e.printStackTrace(); // Imprimir error si no se puede cargar la vista
         }
     }
 
     public void perfil() throws IOException {
-    	if (!(Login.tipo.equals("usuarios"))) {
-        		
-        		cerrar();
-        		Mostrar_Login();
-        	}
-    	else {
+        // Método para abrir la ventana del perfil
+        if (!(Login.tipo.equals("usuarios"))) {
+            cerrar(); // Cerrar ventana actual si no es usuario
+            Mostrar_Login(); // Mostrar ventana de login
+        } else {
             FXMLLoader cargador = new FXMLLoader(getClass().getResource("/Vistas/perfil.fxml"));
             Pane perfilpane = cargador.load();
             Scene perfilScene = new Scene(perfilpane, 600, 500);
-           
             perfilScene.setFill(Color.TRANSPARENT);
             Stage perfilStage = new Stage();
             perfilStage.setResizable(false);
@@ -81,11 +81,12 @@ public class Gestion_usuarios implements Initializable {
             perfilStage.setScene(perfilScene);
             perfilStage.setTitle("PERFIL");
             perfilStage.show();
-            cerrar();
-    	}
+            cerrar(); // Cerrar ventana actual
         }
-    
+    }
+
     public void Mostrar_Login() {
+        // Método para mostrar la ventana de login
         try {
             FXMLLoader cargador = new FXMLLoader(getClass().getResource("/Vistas/Login.fxml"));
             Pane login = cargador.load();
@@ -97,13 +98,14 @@ public class Gestion_usuarios implements Initializable {
             loginStage.initModality(Modality.APPLICATION_MODAL);
             loginStage.setTitle("LOGIN");
             loginStage.show();
-            cerrar();
+            cerrar(); // Cerrar ventana actual
         } catch (Exception e) {
-            e.printStackTrace();
+            e.printStackTrace(); // Imprimir error si no se puede cargar la vista
         }
     }
-    
+
     public void Horarios() throws IOException {
+        // Método para abrir la ventana de horarios
         FXMLLoader cargador = new FXMLLoader(getClass().getResource("/Vistas/Horarios.fxml"));
         Pane horariospane = cargador.load();
         Scene horariosScene = new Scene(horariospane, 600, 500);
@@ -114,10 +116,11 @@ public class Gestion_usuarios implements Initializable {
         horariosStage.setScene(horariosScene);
         horariosStage.setTitle("HORARIOS");
         horariosStage.show();
-        cerrar();
+        cerrar(); // Cerrar ventana actual
     }
-    
+
     public void Ubicacion() throws IOException {
+        // Método para abrir la ventana de ubicación
         FXMLLoader cargador = new FXMLLoader(getClass().getResource("/Vistas/Ubicacion.fxml"));
         Pane ubicacion = cargador.load();
         Scene ubicacionScene = new Scene(ubicacion, 600, 500);
@@ -129,10 +132,11 @@ public class Gestion_usuarios implements Initializable {
         ubicacionStage.setScene(ubicacionScene);
         ubicacionStage.setTitle("UBICACION");
         ubicacionStage.show();
-        cerrar();  
+        cerrar(); // Cerrar ventana actual
     }
 
     public void Reserva() throws IOException {
+        // Método para abrir la ventana de reservas
         FXMLLoader cargador = new FXMLLoader(getClass().getResource("/Vistas/Reservas.fxml"));
         Pane reserva = cargador.load();
         Scene reservaScene = new Scene(reserva, 600, 500);
@@ -143,9 +147,11 @@ public class Gestion_usuarios implements Initializable {
         reservaStage.setScene(reservaScene);
         reservaStage.setTitle("RESERVAS");
         reservaStage.show();
-        cerrar();
+        cerrar(); // Cerrar ventana actual
     }
+
     public void ReservaAdmin() throws IOException {
+        // Método para abrir la ventana de reservas para administradores
         FXMLLoader cargador = new FXMLLoader(getClass().getResource("/Vistas/ReservaAdmin.fxml"));
         Pane reservaadmin = cargador.load();
         Scene reservaadminScene = new Scene(reservaadmin, 600, 500);
@@ -156,15 +162,17 @@ public class Gestion_usuarios implements Initializable {
         reservaadminStage.setScene(reservaadminScene);
         reservaadminStage.setTitle("PANEL DE RESERVAS");
         reservaadminStage.show();
-         cerrar();
+        cerrar(); // Cerrar ventana actual
     }
 
     public void cerrar() {
+        // Método para cerrar la ventana actual
         Stage stage = (Stage) Cerrar.getScene().getWindow();
         stage.close();
     }
 
     public void Despliega() {
+        // Método para desplegar u ocultar el panel de opciones
         Cerrardesplegar = !Cerrardesplegar;
         Panel_Visible = !Panel_Visible;
         Cerrar.setVisible(Cerrardesplegar);
@@ -172,6 +180,7 @@ public class Gestion_usuarios implements Initializable {
     }
 
     public void Carta() throws IOException {
+        // Método para abrir la ventana de la carta
         FXMLLoader cargador = new FXMLLoader(getClass().getResource("/Vistas/Carta.fxml"));
         Pane cartapane = cargador.load();
         Scene cartaScene = new Scene(cartapane, 600, 500);
@@ -182,10 +191,11 @@ public class Gestion_usuarios implements Initializable {
         cartaStage.setScene(cartaScene);
         cartaStage.setTitle("CARTA");
         cartaStage.show();
-        cerrar();
+        cerrar(); // Cerrar ventana actual
     }
 
     public void Pantalla_Principal() throws IOException {
+        // Método para abrir la ventana de la pantalla principal
         FXMLLoader cargador = new FXMLLoader(getClass().getResource("/Vistas/Pantalla-Principal.fxml"));
         Pane principalpane = cargador.load();
         Scene principalScene = new Scene(principalpane, 600, 500);
@@ -197,12 +207,12 @@ public class Gestion_usuarios implements Initializable {
         PrincipalStage.setScene(principalScene);
         PrincipalStage.setTitle("PANTALLA PRINCIPAL");
         PrincipalStage.show();
-        cerrar();
+        cerrar(); // Cerrar ventana actual
     }
 
     public void Muestra_usuarios() throws SQLException {
-        // Limpia el contenido actual del GridPane antes de añadir los nuevos elementos
-        Listado.getChildren().clear();
+        // Método para mostrar la lista de usuarios en el GridPane
+        Listado.getChildren().clear(); // Limpiar el contenido actual del GridPane
 
         try (Connection conexion = util.Conexiones.dameConexion("burger-queen")) {
             String sqlUsuarios = "SELECT id_empleado AS id, nombre, apellido, email, estado, 'Empleado' AS tipo FROM empleados UNION ALL SELECT id_admin AS id, nombre, apellido, email, estado, 'Administrador' AS tipo FROM administradores";
@@ -216,30 +226,33 @@ public class Gestion_usuarios implements Initializable {
                 String apellido = resultadoUsuarios.getString("apellido");
                 String email = resultadoUsuarios.getString("email");
                 String estado = resultadoUsuarios.getString("estado");
-                String tipo = resultadoUsuarios.getString("tipo");
-
+                String tipo = resultadoUsuarios.getString("tipo"); // Crear un panel para mostrar la información del usuario
                 AnchorPane usuarioPanel = new AnchorPane();
                 usuarioPanel.setPrefSize(450, 100);
                 usuarioPanel.setStyle("-fx-background-color: A6234E; -fx-background-radius: 20; -fx-border-radius: 20; -fx-border-color: FFFFFF");
 
+                // Etiqueta para mostrar el nombre y tipo del usuario
                 Label nombreUsuario = new Label(nombre + " " + apellido + " (" + tipo + ")");
                 nombreUsuario.setStyle("-fx-font-size: 14px; -fx-font-weight: bold; -fx-text-fill: white;");
                 AnchorPane.setLeftAnchor(nombreUsuario, 10.0);
                 AnchorPane.setTopAnchor(nombreUsuario, 10.0);
                 usuarioPanel.getChildren().add(nombreUsuario);
 
+                // Etiqueta para mostrar el email del usuario
                 Label emailUsuario = new Label("Email: " + email);
                 emailUsuario.setStyle("-fx-font-size: 12px; -fx-text-fill: white;");
                 AnchorPane.setLeftAnchor(emailUsuario, 10.0);
                 AnchorPane.setTopAnchor(emailUsuario, 35.0);
                 usuarioPanel.getChildren().add(emailUsuario);
 
+                // Etiqueta para mostrar el estado del usuario
                 Label estadoUsuario = new Label("Estado: " + estado);
                 estadoUsuario.setStyle("-fx-font-size: 12px; -fx-text-fill: white;");
                 AnchorPane.setLeftAnchor(estadoUsuario, 10.0);
                 AnchorPane.setTopAnchor(estadoUsuario, 60.0);
                 usuarioPanel.getChildren().add(estadoUsuario);
 
+                // Botón para modificar el usuario
                 Button botonModificar = new Button();
                 botonModificar.setStyle("-fx-background-color: transparent;");
                 ImageView iconoModificar = new ImageView(new Image("/lapiz.png"));
@@ -249,13 +262,14 @@ public class Gestion_usuarios implements Initializable {
                 botonModificar.setGraphic(iconoModificar);
                 botonModificar.setUserData(idUsuario);
                 botonModificar.setOnAction(e -> {
-                    idtraspaso = (int) botonModificar.getUserData();
-                    muestraeditar();
+                    idtraspaso = (int) botonModificar.getUserData(); // Guardar el ID del usuario a editar
+                    muestraeditar(); // Llamar al método para mostrar la ventana de edición
                 });
                 AnchorPane.setRightAnchor(botonModificar, 80.0);
                 AnchorPane.setBottomAnchor(botonModificar, 10.0);
                 usuarioPanel.getChildren().add(botonModificar);
 
+                // Botón para eliminar el usuario
                 Button botonEliminar = new Button();
                 botonEliminar.setStyle("-fx-background-color: transparent;");
                 ImageView iconoEliminar = new ImageView(new Image("/basura.png"));
@@ -266,38 +280,35 @@ public class Gestion_usuarios implements Initializable {
                 botonEliminar.setUserData(idUsuario);
                 botonEliminar.setOnAction(e -> {
                     try {
-                        try {
-							eliminarUsuario((int) botonEliminar.getUserData());
-						} catch (SQLException e1) {
-							// TODO Auto-generated catch block
-							e1.printStackTrace();
-						}
+                        eliminarUsuario((int) botonEliminar.getUserData()); // Llamar al método para eliminar el usuario
                     } catch (IOException ex) {
                         ex.printStackTrace();
-                    }
+                    } catch (SQLException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
                 });
                 AnchorPane.setRightAnchor(botonEliminar, 10.0);
                 AnchorPane.setBottomAnchor(botonEliminar, 10.0);
                 usuarioPanel.getChildren().add(botonEliminar);
 
+                // Añadir el panel del usuario al GridPane
                 Listado.add(usuarioPanel, 0, row);
                 GridPane.setMargin(usuarioPanel, new Insets(10, 0, 10, 0));
                 row++;
-                GridPane.setVgrow(usuarioPanel, javafx.scene.layout.Priority.ALWAYS);
+                GridPane.setVgrow(usuarioPanel, javafx.scene.layout.Priority.ALWAYS); // Permitir que el panel crezca
             }
-            resultadoUsuarios.close();
-            sentenciaUsuarios.close();
+            resultadoUsuarios.close(); // Cerrar el ResultSet
+            sentenciaUsuarios.close(); // Cerrar el PreparedStatement
         }
     }
 
-
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        Username.textProperty().bind(Login.bannerusuarioProperty());
+        // Método que se ejecuta al inicializar la clase
+        Username.textProperty().bind(Login.bannerusuarioProperty()); // Vincular el nombre de usuario al banner
         try {
-            Muestra_usuarios();
-            
-            
+            Muestra_usuarios(); // Mostrar la lista de usuarios
             
             // Cargar la imagen de perfil desde la ruta especificada
             String rutaImagen = "file:src/main/resources/imagenes/" + Login.datos_login.getRuta();
@@ -305,7 +316,7 @@ public class Gestion_usuarios implements Initializable {
 
             // Configurar un listener para cargar la imagen cuando cambie la ruta en Login
             Login.imagenProperty().addListener((observable, oldValue, newValue) -> {
-                cargarImagen(newValue);
+                cargarImagen(newValue); // Cargar la nueva imagen
             });
 
             // Si hay una ruta de imagen válida, asignarla a la propiedad de la imagen
@@ -315,8 +326,8 @@ public class Gestion_usuarios implements Initializable {
 
             // Configurar un rectángulo con esquinas redondeadas para la imagen de perfil
             javafx.scene.shape.Rectangle clip = new javafx.scene.shape.Rectangle(
-                imagenperfil.getFitWidth()-5,  // Ancho del rectángulo
-                imagenperfil.getFitHeight()-5  // Alto del rectángulo
+                imagenperfil.getFitWidth() - 5,  // Ancho del rectángulo
+                imagenperfil.getFitHeight() - 5  // Alto del rectángulo
             );
             clip.setArcWidth(30);  // Radio de las esquinas horizontales
             clip.setArcHeight(30); // Radio de las esquinas verticales
@@ -324,20 +335,20 @@ public class Gestion_usuarios implements Initializable {
             // Establecer el clip para la imagen de perfil
             imagenperfil.setClip(clip);
             
-            
             if (imagen.isError()) {
                 System.err.println("Error al cargar la imagen desde la ruta: " + rutaImagen);
             } else {
-                imagenperfil.setImage(imagen);
+                imagenperfil.setImage(imagen); // Asignar la imagen cargada al ImageView
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            e.printStackTrace(); // Imprimir error si hay problemas con la base de datos
         }
     }
 
     public void nuevo_usuario() {
+        // Método para abrir la ventana de creación de un nuevo usuario
         try {
-        	cerrar();
+            cerrar(); // Cerrar ventana actual
             FXMLLoader cargador = new FXMLLoader(getClass().getResource("/Vistas/Nuevo_usuarios.fxml"));
             AnchorPane nuevousuarioPane = cargador.load();
             Stage nuevousarioStage = new Stage();
@@ -346,12 +357,14 @@ public class Gestion_usuarios implements Initializable {
             Scene scene = new Scene(nuevousuarioPane, 800, 623);
             nuevousarioStage.setScene(scene);
             nuevousarioStage.setTitle("NUEVO USUARIO");
-            nuevousarioStage.show();
+            nuevousarioStage.show(); // Mostrar la ventana de nuevo usuario
         } catch (IOException e) {
-            e.printStackTrace();
+            e.printStackTrace(); // Imprimir error si no se puede cargar la vista
         }
     }
+
     public void Gestion_usuarios() throws IOException {
+        // Método para abrir la ventana de gestión de usuarios
         FXMLLoader cargador = new FXMLLoader(getClass().getResource("/Vistas/Gestion_usuarios.fxml"));
         Pane gestionusuariopane = cargador.load();
         Scene gestionusuarioScene = new Scene(gestionusuariopane, 600, 500);
@@ -361,64 +374,63 @@ public class Gestion_usuarios implements Initializable {
         gestiousuarioStage.initStyle(StageStyle.DECORATED);
         gestiousuarioStage.setScene(gestionusuarioScene);
         gestiousuarioStage.setTitle("PANEL DE GESTION DE USUARIOS");
-        gestiousuarioStage.show();
-        cerrar();
+        gestiousuarioStage.show(); // Mostrar la ventana de gestión de usuarios
+        cerrar(); // Cerrar ventana actual
     }
+
     public void Gestionpedidos() throws IOException {
-  	  FXMLLoader cargador = new FXMLLoader(getClass().getResource("/Vistas/GestionPedidos.fxml"));
+        // Método para abrir la ventana de gestión de pedidos
+        FXMLLoader cargador = new FXMLLoader(getClass().getResource("/Vistas/GestionPedidos.fxml"));
         Pane gestionpedidos = cargador.load();
         Scene gestionpedidosScene = new Scene(gestionpedidos, 600, 500);
-       
         gestionpedidosScene.setFill(Color.TRANSPARENT);
         Stage gestionpedidosStage = new Stage();
         gestionpedidosStage.setResizable(false);
         gestionpedidosStage.initStyle(StageStyle.DECORATED);
         gestionpedidosStage.setScene(gestionpedidosScene);
         gestionpedidosStage.setTitle("GESTION DE PEDIDOS");
-        gestionpedidosStage.show();
-        cerrar();
-  	
-  	
-  	
-  }
-    
+        gestionpedidosStage.show(); // Mostrar la ventana de gestión de pedidos
+        cerrar(); // Cerrar ventana actual
+    }
+
     private void cargarImagen(String nuevaRuta) {
+        // Método para cargar la imagen de perfil desde una nueva ruta
         String rutaImagen = "file:src/main/resources/imagenes/" + nuevaRuta;
         Image imagen = new Image(rutaImagen);
         if (imagen.isError()) {
             System.err.println("Error al cargar la imagen desde la ruta: " + rutaImagen);
         } else {
-            imagenperfil.setImage(imagen); 
+            imagenperfil.setImage(imagen); // Asignar la nueva imagen al ImageView
         }
     }
 
     private void eliminarUsuario(int idUsuario) throws IOException, SQLException {
+        // Método para eliminar un usuario de la base de datos
         String sqlEliminarEmpleado = "DELETE FROM empleados WHERE id_empleado = ?";
         String sqlEliminarAdmin = "DELETE FROM administradores WHERE id_admin = ?";
         try (Connection conexion = util.Conexiones.dameConexion("burger-queen")) {
             try (PreparedStatement stmt = conexion.prepareStatement(sqlEliminarEmpleado)) {
                 stmt.setInt(1, idUsuario);
-                int filasAfectadas = stmt.executeUpdate();
+                int filasAfectadas = stmt .executeUpdate();
                 if (filasAfectadas == 0) { // Si no se eliminó como empleado, intentar como administrador
                     try (PreparedStatement stmtAdmin = conexion.prepareStatement(sqlEliminarAdmin)) {
                         stmtAdmin.setInt(1, idUsuario);
-                        stmtAdmin.executeUpdate();
+                        stmtAdmin.executeUpdate(); // Ejecutar la eliminación del administrador
                     }
                 }
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            e.printStackTrace(); // Imprimir error si hay problemas con la base de datos
         }
         
         // Llama a Muestra_usuarios para actualizar el contenido sin cerrar la ventana
-        Muestra_usuarios();
+        Muestra_usuarios(); // Actualizar la lista de usuarios
     }
 
-
-
     private void muestraeditar() {
+        // Método para mostrar la ventana de edición de usuarios
         try {
-        	cerrar();
+            cerrar(); // Cerrar ventana actual
             FXMLLoader cargador = new FXMLLoader(getClass().getResource("/Vistas/Editar_usuarios.fxml"));
             AnchorPane muestraeditarPane = cargador.load();
             Stage muestraeditarStage = new Stage();
@@ -427,12 +439,9 @@ public class Gestion_usuarios implements Initializable {
             Scene scene = new Scene(muestraeditarPane, 800, 623);
             muestraeditarStage.setScene(scene);
             muestraeditarStage.setTitle("EDITAR USUARIOS");
-            muestraeditarStage.show();
+            muestraeditarStage.show(); // Mostrar la ventana de edición
         } catch (IOException e) {
-            e.printStackTrace();
+            e.printStackTrace(); // Imprimir error si no se puede cargar la vista
         }
-        cerrar();
     }
-    
-   
 }

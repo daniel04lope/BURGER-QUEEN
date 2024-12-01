@@ -5,11 +5,6 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.HashMap;
-import java.util.Map;
-
-import javax.swing.JOptionPane;
-import Modelos.Usuario;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import javafx.fxml.FXML;
@@ -23,71 +18,79 @@ import javafx.scene.paint.Color;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
+import javax.swing.JOptionPane; // Importar para usar JOptionPane
+
+import Modelos.Usuario;
 
 public class Login {
     
-	public static String tipo="";
-    @FXML
-    Button Cerrar;
-    @FXML
-    TextField Email;
-    @FXML
-    PasswordField Password;
-    private Pantalla_principal controladorPantallaPrincipal;
-    String nombreusuario;
- 
-    public static Usuario datos_login = new Usuario();
+    public static String tipo = ""; // Tipo de usuario (administrador, empleado, usuario)
     
-    public static StringProperty banner = new SimpleStringProperty();
+    @FXML
+    Button Cerrar; // Botón para cerrar la ventana de login
+    @FXML
+    TextField Email; // Campo de texto para ingresar el email
+    @FXML
+    PasswordField Password; // Campo de texto para ingresar la contraseña
+
+    private Pantalla_principal controladorPantallaPrincipal; // Controlador de la pantalla principal
+    String nombreusuario; // Nombre de usuario obtenido al iniciar sesión
+ 
+    public static Usuario datos_login = new Usuario(); // Objeto que almacena los datos del usuario
+    
+    public static StringProperty banner = new SimpleStringProperty(); // Propiedad para el banner de usuario
     
     public static StringProperty bannerusuarioProperty() {
-        return banner;
+        return banner; // Método para obtener la propiedad del banner
     }
-  public static StringProperty imagen = new SimpleStringProperty();
+
+    public static StringProperty imagen = new SimpleStringProperty(); // Propiedad para la imagen de perfil
     
     public static StringProperty imagenProperty() {
-        return imagen;
+        return imagen; // Método para obtener la propiedad de la imagen
     }
-    
 
-
-    
     public Login() {
+        // Constructor de la clase Login
     }
 
     @FXML
     public void cerrar() {
+        // Método para cerrar la ventana de login
         Stage stage = (Stage) Cerrar.getScene().getWindow();
         stage.close();
     }
     
     public void cancela() throws IOException {
-    	cerrar();
-    	Pantalla_Principal();
+        // Método para cancelar el login y volver a la pantalla principal
+        cerrar(); // Cerrar la ventana de login
+        Pantalla_Principal(); // Abrir la pantalla principal
     }
-    
- 
 
     public void iniciarSesion() throws SQLException, IOException {
-        String emailString = Email.getText();
-        String passwordString = Password.getText();
+        // Método para iniciar sesión
+        String emailString = Email.getText(); // Obtener el email ingresado
+        String passwordString = Password.getText(); // Obtener la contraseña ingresada
 
-        Connection conexion = util.Conexiones.dameConexion("burger-queen");
+        Connection conexion = util.Conexiones.dameConexion("burger-queen"); // Conectar a la base de datos
 
+        // Verificar credenciales del usuario en la tabla de usuarios
         if (verificarCredencialesUsuario(conexion, "usuarios", emailString, passwordString)) {
-            banner.set(nombreusuario);
-            JOptionPane.showMessageDialog(null, "Login exitoso para el usuario: " + emailString);
-            tipo = "usuarios";
-            Pantalla_Principal();
+            banner.set(nombreusuario); // Establecer el nombre de usuario en el banner
+            JOptionPane.showMessageDialog(null, "Login exitoso para el usuario: " + emailString); // Mostrar mensaje de éxito
+            tipo = "usuarios"; // Establecer el tipo de usuario
+            Pantalla_Principal(); // Abrir la pantalla principal
 
+            // Obtener los datos del usuario desde la base de datos
             try {
                 PreparedStatement sentencia = conexion.prepareStatement(
-                    "SELECT id_usuario, nombre, apellido, email, username,password, fecha_registro, estado, telefono, direccion, fecha_nacimiento, ruta FROM usuarios WHERE email = ?"
+                    "SELECT id_usuario, nombre, apellido, email, username, password, fecha_registro, estado, telefono, direccion, fecha_nacimiento, ruta FROM usuarios WHERE email = ?"
                 );
                 sentencia.setString(1, emailString);
                 ResultSet ejecuta = sentencia.executeQuery();
 
                 if (ejecuta.next()) {
+                    // Establecer los datos del usuario en el objeto datos_login
                     datos_login.setNombre(ejecuta.getString("nombre"));
                     datos_login.setIdUsuario(ejecuta.getInt("id_usuario"));
                     datos_login.setApellido(ejecuta.getString("apellido"));
@@ -100,12 +103,13 @@ public class Login {
                     datos_login.setFechaRegistro(ejecuta.getTimestamp("fecha_registro"));
                     datos_login.setFechaNacimiento(ejecuta.getDate("fecha_nacimiento").toLocalDate());
                     datos_login.setRuta(ejecuta.getString("ruta"));
-                    imagen.set(datos_login.getRuta());
+                    imagen.set(datos_login.getRuta()); // Establecer la ruta de la imagen
                     System.out.println(datos_login.getRuta());
                 } else {
                     System.out.println("No se encontró un usuario con el email especificado.");
                 }
 
+                // Ajustar el banner de usuario
                 if (nombreusuario.length() < 15) {
                     banner.set(nombreusuario);
                 } else {
@@ -113,21 +117,23 @@ public class Login {
                 }
 
             } catch (Exception e) {
-                e.printStackTrace();
+                e.printStackTrace(); // Manejo de excepciones
             }
 
-            cerrar();
+            cerrar(); // Cerrar la ventana de login
         } else if (verificarCredencialesUsuario(conexion, "empleados", emailString, passwordString)) {
-            tipo = "empleados";
+            tipo = "empleados"; // Establecer el tipo de usuario como empleado
 
+            // Obtener los datos del empleado desde la base de datos
             try {
                 PreparedStatement sentencia = conexion.prepareStatement(
-                    "SELECT id_empleado, nombre, apellido, email, username,password, fecha_contratacion, estado, telefono, direccion, fecha_nacimiento, ruta FROM empleados WHERE email = ?"
+                    "SELECT id_empleado, nombre, apellido, email, username, password, fecha_contratacion, estado, telefono, direccion, fecha_nacimiento, ruta FROM empleados WHERE email = ?"
                 );
                 sentencia.setString(1, emailString);
                 ResultSet ejecuta = sentencia.executeQuery();
 
                 if (ejecuta.next()) {
+                    // Establecer los datos del empleado en el objeto datos_login
                     datos_login.setNombre(ejecuta.getString("nombre"));
                     datos_login.setIdUsuario(ejecuta.getInt("id_empleado"));
                     datos_login.setApellido(ejecuta.getString("apellido"));
@@ -144,6 +150,7 @@ public class Login {
                     System.out.println("No se encontró un empleado con el email especificado.");
                 }
 
+                // Ajustar el banner de usuario
                 if (nombreusuario.length() < 15) {
                     banner.set(nombreusuario);
                 } else {
@@ -151,24 +158,26 @@ public class Login {
                 }
 
             } catch (Exception e) {
-                e.printStackTrace();
+                e.printStackTrace(); // Manejo de excepciones
             }
 
-            JOptionPane.showMessageDialog(null, "Login exitoso para el empleado: " + emailString);
-            cerrar();
-            Pantalla_Principal();
+            JOptionPane.showMessageDialog(null, "Login exitoso para el empleado: " + emailString); // Mensaje de éxito
+            cerrar(); // Cerrar la ventana de login
+            Pantalla_Principal(); // Abrir la pantalla principal
 
         } else if (verificarCredencialesUsuario(conexion, "administradores", emailString, passwordString)) {
-            tipo = "administradores";
+            tipo = "administradores"; // Establecer el tipo de usuario como administrador
 
+            // Obtener los datos del administrador desde la base de datos
             try {
                 PreparedStatement sentencia = conexion.prepareStatement(
-                    "SELECT id_admin, nombre, apellido, email, username,password, fecha_contratacion, estado, telefono, direccion, fecha_nacimiento, ruta FROM administradores WHERE email = ?"
+                    "SELECT id_admin, nombre, apellido, email, username, password, fecha_contratacion, estado, telefono, direccion, fecha_nacimiento, ruta FROM administradores WHERE email = ?"
                 );
                 sentencia.setString(1, emailString);
                 ResultSet ejecuta = sentencia.executeQuery();
 
                 if (ejecuta.next()) {
+                    // Establecer los datos del administrador en el objeto datos_login
                     datos_login.setNombre(ejecuta.getString("nombre"));
                     datos_login.setIdUsuario(ejecuta.getInt("id_admin"));
                     datos_login.setApellido(ejecuta.getString("apellido"));
@@ -185,6 +194,7 @@ public class Login {
                     System.out.println("No se encontró un administrador con el email especificado.");
                 }
 
+                // Ajustar el banner de usuario
                 if (nombreusuario.length() < 15) {
                     banner.set(nombreusuario);
                 } else {
@@ -192,67 +202,64 @@ public class Login {
                 }
 
             } catch (Exception e) {
-                e.printStackTrace();
+                e.printStackTrace(); // Manejo de excepciones
             }
 
-            JOptionPane.showMessageDialog(null, "Login exitoso para el administrador: " + emailString);
-            cerrar();
-            Pantalla_Principal();
+            JOptionPane.showMessageDialog(null, "Login exitoso para el administrador: " + emailString); // Mensaje de éxito
+            cerrar(); // Cerrar la ventana de login
+            Pantalla_Principal(); // Abrir la pantalla principal
         } else {
-            JOptionPane.showMessageDialog(null, "Login fallido: Correo o contraseña inválidos");
+            JOptionPane.showMessageDialog(null, "Login fallido: Correo o contraseña inválidos"); // Mensaje de error
         }
     }
 
-    
-    
-
     private boolean verificarCredencialesUsuario(Connection conexion, String tableName, String email, String password) throws SQLException {
+        // Método para verificar las credenciales del usuario en la base de datos
         String query = "SELECT password, username FROM " + tableName + " WHERE email = ?";
 
         try (PreparedStatement statement = conexion.prepareStatement(query)) {
-            statement.setString(1, email);
+            statement.setString(1, email); // Establecer el email en la consulta
             
             try (ResultSet resultSet = statement.executeQuery()) {
                 if (resultSet.next()) {
-                    String storedPassword = resultSet.getString("password");
-                    nombreusuario = resultSet.getString("username");
-                    return password.equals(storedPassword);
+                    String storedPassword = resultSet.getString("password"); // Obtener la contraseña almacenada
+                    nombreusuario = resultSet.getString("username"); // Obtener el nombre de usuario
+                    return password.equals(storedPassword); // Comparar la contraseña ingresada con la almacenada
                 }
             }
         }
-        return false;
+        return false; // Retornar false si no se encontraron credenciales válidas
     }
-    
-    
-    
-    
+
     public void Registro() throws IOException {
+        // Método para abrir la ventana de registro
         FXMLLoader cargador = new FXMLLoader(getClass().getResource("/Vistas/Registro.fxml"));
         Pane registro = cargador.load();
 
         Scene registroScene = new Scene(registro, 450, 600);
-        registroScene.setFill(Color.TRANSPARENT);
+        registroScene.setFill(Color.TRANSPARENT); // Establecer el fondo transparente
 
         Stage registroStage = new Stage();
-        registroStage.initStyle(StageStyle.TRANSPARENT);
+        registroStage.initStyle(StageStyle.TRANSPARENT); // Establecer el estilo de la ventana
         registroStage.setScene(registroScene);
-        registroStage.initModality(Modality.APPLICATION_MODAL);
-        registroStage.setTitle("REGISTRO");
-        registroStage.show();
-        cerrar();
+        registroStage.initModality(Modality.APPLICATION_MODAL); // Hacer que la ventana sea modal
+        registroStage.setTitle("REGISTRO"); // Título de la ventana
+        registroStage.show(); // Mostrar la ventana de registro
+        cerrar(); // Cerrar la ventana de login
     }
     
     public void Pantalla_Principal() throws IOException {
+        // Método para abrir la pantalla principal
         FXMLLoader cargador = new FXMLLoader(getClass().getResource("/Vistas/Pantalla-Principal.fxml"));
         Pane principal = cargador.load();
         Scene principalScene = new Scene(principal, 600, 500);
-        principalScene.setFill(Color.TRANSPARENT);
+        principalScene.setFill(Color.TRANSPARENT); // Establecer el fondo transparente
         Stage PrincipalStage = new Stage();
-        PrincipalStage.setResizable(false);
-        PrincipalStage.initStyle(StageStyle.DECORATED);
+        PrincipalStage.setResizable(false); // No permitir redimensionar la ventana
+        PrincipalStage.initStyle(StageStyle.DECORATED); // Establecer el estilo de la ventana
         PrincipalStage.setScene(principalScene);
-        PrincipalStage.setTitle("PANTALLA PRINCIPAL");
-        PrincipalStage.show();
-        cerrar();
+        PrincipalStage.setTitle("PANTALLA PRINCIPAL"); // Título de la ventana
+        PrincipalStage.show(); // Mostrar la pantalla principal
+        cerrar(); // Cerrar la ventana de login
     }
 }

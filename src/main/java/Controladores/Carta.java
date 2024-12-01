@@ -21,7 +21,6 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
-import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
@@ -50,7 +49,7 @@ public class Carta implements Initializable {
     Button crear;
     
     @FXML
-    private Button  botoncarrito;
+    private Button botoncarrito;
     @FXML
     private Button usuariosadmin;
     @FXML
@@ -64,7 +63,9 @@ public class Carta implements Initializable {
     
     @FXML
     private ImageView imagenperfil;
+
     public void Despliega() {
+        // Alternar la visibilidad del panel desplegable.
         Cerrardesplegar = !Cerrardesplegar;
         drawerVisible = !drawerVisible;
         Cerrar.setVisible(Cerrardesplegar);
@@ -73,16 +74,16 @@ public class Carta implements Initializable {
     
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        // Vincular el nombre de usuario a la interfaz.
         Username.textProperty().bind(Login.bannerusuarioProperty());
         CargarCarta();
         
-        
+        // Configurar la visibilidad y habilitación de elementos según el tipo de usuario.
         if (Login.tipo.equals("administradores")) {
             administradores.setVisible(true);
             titledpaneadmin.setVisible(true);
             Vboxadmin.setVisible(true);
             usuariosadmin.setDisable(false);
-            
             pedidosadmin.setDisable(false);
             botoncarrito.setVisible(false);
             reservaadmin.setDisable(false);
@@ -92,42 +93,38 @@ public class Carta implements Initializable {
             administradores.setVisible(true);
             titledpaneadmin.setVisible(true);
             Vboxadmin.setVisible(true);
-            System.out.println("llegue");
             botoncarrito.setVisible(false);
 
-            // Verificar permisos para cada botón
+            // Verificar permisos para cada botón.
             try {
-				if (permisos(2, "lectura") == 1) {
-				    reservaadmin.setDisable(false);
-				} else {
-				    reservaadmin.setDisable(true);
-				}
-			} catch (SQLException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
+                if (permisos(2, "lectura") == 1) {
+                    reservaadmin.setDisable(false);
+                } else {
+                    reservaadmin.setDisable(true);
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
 
             try {
-				if (permisos(1, "escritura") == 1) {
-					 crear.setVisible(true);
-				} else {
-					 crear.setVisible(false);
-				}
-			} catch (SQLException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
+                if (permisos(1, "escritura") == 1) {
+                    crear.setVisible(true);
+                } else {
+                    crear.setVisible(false);
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
 
             try {
-				if (permisos(3, "lectura") == 1) {
-				    pedidosadmin.setDisable(false);
-				} else {
-				    pedidosadmin.setDisable(true);
-				}
-			} catch (SQLException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
+                if (permisos(3, "lectura") == 1) {
+                    pedidosadmin.setDisable(false);
+                } else {
+                    pedidosadmin.setDisable(true);
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
         }
 
         if (Login.tipo.equals("usuarios")) {
@@ -136,38 +133,30 @@ public class Carta implements Initializable {
             Vboxadmin.setVisible(false);
         }
 
-        try {
-            System.out.println(permisos(1, "lectura"));
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        
-        
-        // Cargar la imagen de perfil desde la ruta especificada
+        // Cargar la imagen de perfil desde la ruta especificada.
         String rutaImagen = "file:src/main/resources/imagenes/" + Login.datos_login.getRuta();
         Image imagen = new Image(rutaImagen);
 
-        // Configurar un listener para cargar la imagen cuando cambie la ruta en Login
+        // Configurar un listener para cargar la imagen cuando cambie la ruta en Login.
         Login.imagenProperty().addListener((observable, oldValue, newValue) -> {
             cargarImagen(newValue);
         });
 
-        // Si hay una ruta de imagen válida, asignarla a la propiedad de la imagen
+        // Si hay una ruta de imagen válida, asignarla a la propiedad de la imagen.
         if (Login.datos_login.getRuta() != null) {
             Login.imagen.set(Login.datos_login.getRuta());
         }
 
-        // Configurar un rectángulo con esquinas redondeadas para la imagen de perfil
+        // Configurar un rectángulo con esquinas redondeadas para la imagen de perfil.
         javafx.scene.shape.Rectangle clip = new javafx.scene.shape.Rectangle(
-            imagenperfil.getFitWidth()-5,  // Ancho del rectángulo
-            imagenperfil.getFitHeight()-5  // Alto del rectángulo
-        );
-        clip.setArcWidth(30);  // Radio de las esquinas horizontales
-        clip.setArcHeight(30); // Radio de las esquinas verticales
+            imagenperfil.getFitWidth() - 5,
+            imagenperfil.getFitHeight() - 5
+ );
+        clip.setArcWidth(30);
+        clip.setArcHeight(30);
 
-        // Establecer el clip para la imagen de perfil
+        // Establecer el clip para la imagen de perfil.
         imagenperfil.setClip(clip);
-        
         
         if (imagen.isError()) {
             System.err.println("Error al cargar la imagen desde la ruta: " + rutaImagen);
@@ -177,6 +166,7 @@ public class Carta implements Initializable {
     }
     
     public int permisos(int nombreModulo, String tipoPermiso) throws SQLException {
+        // Consultar los permisos del usuario para un módulo específico.
         String sql = "SELECT " + tipoPermiso + " FROM permisos WHERE id_empleado = ? AND id_modulo = ?";
         int valor = 0;
 
@@ -185,13 +175,10 @@ public class Carta implements Initializable {
             sentencia.setInt(1, Login.datos_login.getIdUsuario());
             sentencia.setInt(2, nombreModulo);
             
-            System.out.println("Cadena: " + sentencia);
-            
             ResultSet ejecuta = sentencia.executeQuery();
 
             if (ejecuta.next()) {
                 valor = ejecuta.getInt(tipoPermiso);
-                System.out.println("Valor: " + valor);
             } else {
                 System.out.println("No valor encontrado id_empleado = " + Login.datos_login.getIdUsuario() + " and id_modulo = " + nombreModulo);
             }
@@ -201,13 +188,13 @@ public class Carta implements Initializable {
     }
     
     public void Ubicacion() throws IOException {
+        // Cargar y mostrar la vista de ubicación en una nueva ventana.
         FXMLLoader cargador = new FXMLLoader(getClass().getResource("/Vistas/Ubicacion.fxml"));
         Pane ubicacion = cargador.load();
         Scene ubicacionScene = new Scene(ubicacion, 600, 500);
         ubicacionScene.setFill(Color.TRANSPARENT);
        
         Stage ubicacionStage = new Stage();
-       
         ubicacionStage.setResizable(false);
         ubicacionStage.initStyle(StageStyle.DECORATED);
         ubicacionStage.setScene(ubicacionScene);
@@ -217,6 +204,7 @@ public class Carta implements Initializable {
     }
 
     private void cargarImagen(String nuevaRuta) {
+        // Cargar la imagen de perfil desde la nueva ruta.
         String rutaImagen = "file:src/main/resources/imagenes/" + nuevaRuta;
         Image imagen = new Image(rutaImagen);
         if (imagen.isError()) {
@@ -225,21 +213,22 @@ public class Carta implements Initializable {
             imagenperfil.setImage(imagen); 
         }
     }
+
     public void cerrar() {
+        // Cerrar la ventana actual.
         Stage stage = (Stage) Cerrar.getScene().getWindow();
         stage.close();
     }
+
     public void perfil() throws IOException {
-    	if (!(Login.tipo.equals("usuarios"))) {
-        		
-        		cerrar();
-        		Mostrar_Login();
-        	}
-    	else {
+        // Verificar el tipo de usuario y cargar la vista de perfil si corresponde.
+        if (!(Login.tipo.equals("usuarios"))) {
+            cerrar();
+            Mostrar_Login();
+        } else {
             FXMLLoader cargador = new FXMLLoader(getClass().getResource("/Vistas/perfil.fxml"));
             Pane perfilpane = cargador.load();
             Scene perfilScene = new Scene(perfilpane, 600, 500);
-           
             perfilScene.setFill(Color.TRANSPARENT);
             Stage perfilStage = new Stage();
             perfilStage.setResizable(false);
@@ -248,10 +237,11 @@ public class Carta implements Initializable {
             perfilStage.setTitle("PERFIL");
             perfilStage.show();
             cerrar();
-    	}
         }
+    }
 
     public void Pantalla_Principal() throws IOException {
+        // Cargar y mostrar la vista de la pantalla principal en una nueva ventana.
         FXMLLoader cargador = new FXMLLoader(getClass().getResource("/Vistas/Pantalla-Principal.fxml"));
         Pane principal = cargador.load();
         Scene principalScene = new Scene(principal, 600, 500);
@@ -265,9 +255,8 @@ public class Carta implements Initializable {
         cerrar();
     }
 
-   
-
     public void CargarCarta() {
+        // Cargar los productos del menú desde la base de datos y mostrarlos en la interfaz.
         try (Connection conexion = util.Conexiones.dameConexion("burger-queen")) {
             String sql = "SELECT id_producto, nombre, descripcion, precio, categoria, peso, alergenos, ruta FROM carta";
             Statement sentencia = conexion.createStatement();
@@ -315,14 +304,13 @@ public class Carta implements Initializable {
                 GridPane.setVgrow(item, javafx.scene.layout.Priority.ALWAYS);
             }
 
-           crear = new Button();
+            crear = new Button();
             crear.setVisible(false);
             Image imagen = new Image("/SUMAR.png");
             ImageView imageView = new ImageView(imagen);
             imageView.setFitWidth(40);
             imageView.setFitHeight(40);
             crear.setGraphic(imageView);
-            
             
             crear.setStyle("-fx-background-color: A6234E; -fx-border-color: FFFFFF; -fx-background-radius: 50; -fx-border-radius: 50;");
             crear.setPrefSize(100, 100);
@@ -340,8 +328,9 @@ public class Carta implements Initializable {
     }
 
     private void mostrarNuevoProducto() {
+        // Cargar y mostrar la vista para crear un nuevo producto.
         try {
-        	cerrar();
+            cerrar();
             FXMLLoader cargador = new FXMLLoader(getClass().getResource("/Vistas/NuevoProducto.fxml"));
             AnchorPane NuevoProductoPane = cargador.load();
             Stage NuevoProductoStage = new Stage();
@@ -357,7 +346,7 @@ public class Carta implements Initializable {
     }
     
     public void iratras() throws IOException {
-        
+        // Volver a la vista de la carta.
         FXMLLoader cargador = new FXMLLoader(getClass().getResource("/Vistas/Carta.fxml"));
         Pane cartapane = cargador.load();
         Scene cartaScene = new Scene(cartapane, 600, 500);
@@ -373,6 +362,7 @@ public class Carta implements Initializable {
     }
 
     public void Reserva() throws IOException {
+        // Cargar y mostrar la vista de reservas.
         FXMLLoader cargador = new FXMLLoader(getClass().getResource("/Vistas/Reservas.fxml"));
         Pane reserva = cargador.load();
         Scene reservaScene = new Scene(reserva, 600, 500);
@@ -387,6 +377,7 @@ public class Carta implements Initializable {
     }
 
     public void Mostrar_Login() {
+        // Cargar y mostrar la vista de inicio de sesión.
         try {
             FXMLLoader cargador = new FXMLLoader(getClass().getResource("/Vistas/Login.fxml"));
             Pane login = cargador.load();
@@ -394,8 +385,8 @@ public class Carta implements Initializable {
             loginScene.setFill(Color.TRANSPARENT);
             Stage loginStage = new Stage();
             loginStage.initStyle(StageStyle.TRANSPARENT);
-            loginStage.setResizable(false);
             loginStage.setScene(loginScene);
+            loginStage.initModality(Modality.APPLICATION_MODAL);
             loginStage.setTitle("LOGIN");
             loginStage.show();
             cerrar();
@@ -405,8 +396,9 @@ public class Carta implements Initializable {
     }
 
     private void mostrarItemFocus(Producto producto) {
+        // Cargar y mostrar la vista de detalles de un producto.
         try {
-        	cerrar();
+            cerrar();
             FXMLLoader cargador = new FXMLLoader(getClass().getResource("/Vistas/ItemFocus.fxml"));
             AnchorPane itemFocusPane = cargador.load();
             ItemFocus itemFocusControlador = cargador.getController();
@@ -425,9 +417,10 @@ public class Carta implements Initializable {
   
 
     public void carrito() throws IOException {
+        // Cargar y mostrar la vista del carrito.
         try {
-        	cerrar();
-        	Carrito.ventanaanterior=2;
+            cerrar();
+            Carrito.ventanaanterior = 2;
             FXMLLoader cargador = new FXMLLoader(getClass().getResource("/Vistas/Carrito.fxml"));
             AnchorPane carritoPane = cargador.load();
             Stage carritoStage = new Stage();
@@ -443,20 +436,22 @@ public class Carta implements Initializable {
     }
 
     public void ReservaAdmin() throws IOException {
+        // Cargar y mostrar la vista de reservas para administradores.
         FXMLLoader cargador = new FXMLLoader(getClass().getResource("/Vistas/ReservaAdmin.fxml"));
         Pane reserva = cargador.load();
         Scene reservaScene = new Scene(reserva, 600, 500);
         reservaScene.setFill(Color.TRANSPARENT);
-        Stage resevaStage = new Stage();
-        resevaStage.setResizable(false);
-        resevaStage.initStyle(StageStyle.DECORATED);
-        resevaStage.setScene(reservaScene);
-        resevaStage.setTitle("PANEL DE RESERVAS");
-        resevaStage.show();
+        Stage reservaStage = new Stage();
+        reservaStage.setResizable(false);
+        reservaStage.initStyle(StageStyle.DECORATED);
+        reservaStage.setScene(reservaScene);
+        reservaStage.setTitle("PANEL DE RESERVAS");
+        reservaStage.show();
         cerrar();
     }
 
     public void Gestion_usuarios() throws IOException {
+        // Cargar y mostrar la vista de gestión de usuarios.
         FXMLLoader cargador = new FXMLLoader(getClass().getResource("/Vistas/Gestion_usuarios.fxml"));
         Pane gestionusuariopane = cargador.load();
         Scene gestionusuarioScene = new Scene(gestionusuariopane, 600, 500);
@@ -469,11 +464,12 @@ public class Carta implements Initializable {
         gestionusuariostage.show();
         cerrar();
     }
+
     public void Gestionpedidos() throws IOException {
-  	  FXMLLoader cargador = new FXMLLoader(getClass().getResource("/Vistas/GestionPedidos.fxml"));
+        // Cargar y mostrar la vista de gestión de pedidos.
+        FXMLLoader cargador = new FXMLLoader(getClass().getResource("/Vistas/GestionPedidos.fxml"));
         Pane gestionpedidospane = cargador.load();
         Scene gestiondepedidosScene = new Scene(gestionpedidospane, 600, 500);
-       
         gestiondepedidosScene.setFill(Color.TRANSPARENT);
         Stage gestionpedidosStage = new Stage();
         gestionpedidosStage.setResizable(false);
@@ -482,9 +478,10 @@ public class Carta implements Initializable {
         gestionpedidosStage.setTitle("PANEL DE PEDIDOS");
         gestionpedidosStage.show();
         cerrar();
-  }
+    }
     
     public void Horarios() throws IOException {
+        // Cargar y mostrar la vista de horarios.
         FXMLLoader cargador = new FXMLLoader(getClass().getResource("/Vistas/Horarios.fxml"));
         Pane horariospane = cargador.load();
         Scene horariosScene = new Scene(horariospane, 600, 500);

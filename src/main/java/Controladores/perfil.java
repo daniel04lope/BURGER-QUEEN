@@ -33,47 +33,47 @@ import javafx.stage.StageStyle;
 
 public class perfil implements Initializable {
     @FXML
-    private Accordion administradores;
+    private Accordion administradores; // Accordion para opciones de administración
     @FXML
-    private TitledPane titledpaneadmin;
+    private TitledPane titledpaneadmin; // TitledPane para el panel de administradores
     @FXML
-    private VBox Vboxadmin;
-    private boolean Panel_Visible = false;
-    private boolean Cerrardesplegar = false;
+    private VBox Vboxadmin; // VBox que contiene botones de administración
+    private boolean Panel_Visible = false; // Estado de visibilidad del panel
+    private boolean Cerrardesplegar = false; // Estado de visibilidad del botón de cerrar
     @FXML
-    private Button reservaadmin;
+    private Button reservaadmin; // Botón para gestión de reservas
     @FXML
-    private Button menuadmin;
+    private Button menuadmin; // Botón para gestión de menú
     @FXML
-    private Button usuariosadmin;
+    private Button usuariosadmin; // Botón para gestión de usuarios
     @FXML
-    private Button pedidosadmin;
+    private Button pedidosadmin; // Botón para gestión de pedidos
     @FXML
-    Text Username;
+    Text Username; // Campo para mostrar el nombre de usuario
     @FXML
-    private AnchorPane Panel_Desplegable;
+    private AnchorPane Panel_Desplegable; // Panel desplegable
     @FXML
-    private Button Desplegable;
+    private Button Desplegable; // Botón para desplegar el panel
     @FXML
-    private Button Cerrar;
+    private Button Cerrar; // Botón para cerrar la ventana
     @FXML
-    private ImageView imagenperfil;
-   
+    private ImageView imagenperfil; // Imagen de perfil del usuario
+
     @FXML
-    private TextField txtnombre, txtapellido, txtemail, txtusername, txtpassword, txttelefono, txtdireccion;
+    private TextField txtnombre, txtapellido, txtemail, txtusername, txtpassword, txttelefono, txtdireccion; // Campos de texto para los datos del usuario
     @FXML
-    private DatePicker txtfechanacimiento;
-    private String rutaImagenSeleccionada;
-    boolean hayimagen;
+    private DatePicker txtfechanacimiento; // Selector de fecha para la fecha de nacimiento
+    private String rutaImagenSeleccionada; // Ruta de la imagen seleccionada
+    boolean hayimagen; // Indica si hay una imagen seleccionada
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        // Configurar la visibilidad de los elementos según el tipo de usuario
         if (Login.tipo.equals("administradores")) {
             administradores.setVisible(true);
             titledpaneadmin.setVisible(true);
             Vboxadmin.setVisible(true);
             usuariosadmin.setDisable(false);
-         
             pedidosadmin.setDisable(false);
             menuadmin.setDisable(false);
             reservaadmin.setDisable(false);
@@ -83,42 +83,38 @@ public class perfil implements Initializable {
             administradores.setVisible(true);
             titledpaneadmin.setVisible(true);
             Vboxadmin.setVisible(true);
-           
             System.out.println("llegue");
 
             // Verificar permisos para cada botón
             try {
-				if (permisos(2, "lectura") == 1) {
-				    reservaadmin.setDisable(false);
-				} else {
-				    reservaadmin.setDisable(true);
-				}
-			} catch (SQLException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
+                if (permisos(2, "lectura") == 1) {
+                    reservaadmin.setDisable(false);
+                } else {
+                    reservaadmin.setDisable(true);
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
 
             try {
-				if (permisos(1, "lectura") == 1) {
-				    menuadmin.setDisable(false);
-				} else {
-				    menuadmin.setDisable(true);
-				}
-			} catch (SQLException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
+                if (permisos(1, "lectura") == 1) {
+                    menuadmin.setDisable(false);
+                } else {
+                    menuadmin.setDisable(true);
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
 
             try {
-				if (permisos(3, "lectura") == 1) {
-				    pedidosadmin.setDisable(false);
-				} else {
-				    pedidosadmin.setDisable(true);
-				}
-			} catch (SQLException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
+                if (permisos(3, "lectura") == 1) {
+                    pedidosadmin.setDisable(false);
+                } else {
+                    pedidosadmin.setDisable(true);
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
         }
 
         if (Login.tipo.equals("usuarios")) {
@@ -132,10 +128,8 @@ public class perfil implements Initializable {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-    	
-    
-    	
-    	
+
+        // Cargar los datos del usuario en los campos de texto
         txtnombre.setText(Login.datos_login.getNombre());
         txtapellido.setText(Login.datos_login.getApellido());
         txtemail.setText(Login.datos_login.getEmail());
@@ -145,6 +139,7 @@ public class perfil implements Initializable {
         txtdireccion.setText(Login.datos_login.getDireccion());
         txtfechanacimiento.setValue(Login.datos_login.getFechaNacimiento());
 
+        // Cargar la imagen de perfil si existe
         if (Login.datos_login.getRuta() != null && !Login.datos_login.getRuta().isEmpty()) {
             try {
                 String rutaImagen = "file:src/main/resources/imagenes/" + Login.datos_login.getRuta();
@@ -160,11 +155,8 @@ public class perfil implements Initializable {
         } else {
             System.out.println("No se encontró una ruta válida para la imagen.");
         }
-        
-        
-        
-
     }
+
     public void Mostrar_Login() {
         try {
             FXMLLoader cargador = new FXMLLoader(getClass().getResource("/Vistas/Login.fxml"));
@@ -182,6 +174,7 @@ public class perfil implements Initializable {
             e.printStackTrace();
         }
     }
+
     public void Reserva() throws IOException {
         FXMLLoader cargador = new FXMLLoader(getClass().getResource("/Vistas/Reservas.fxml"));
         Pane reservapane = cargador.load();
@@ -195,6 +188,7 @@ public class perfil implements Initializable {
         reservaStage.show();
         cerrar();
     }
+
     public void Horarios() throws IOException {
         FXMLLoader cargador = new FXMLLoader(getClass().getResource("/Vistas/Horarios.fxml"));
         Pane horariospane = cargador.load();
@@ -209,7 +203,7 @@ public class perfil implements Initializable {
         horariosStage.show();
         cerrar();
     }
-    
+
     public int permisos(int nombreModulo, String tipoPermiso) throws SQLException {
         String sql = "SELECT " + tipoPermiso + " FROM permisos WHERE id_empleado = ? AND id_modulo = ?";
         int valor = 0;
@@ -218,9 +212,9 @@ public class perfil implements Initializable {
             PreparedStatement sentencia = conexion.prepareStatement(sql);
             sentencia.setInt(1, Login.datos_login.getIdUsuario());
             sentencia.setInt(2, nombreModulo);
-            
+
             System.out.println("Cadena: " + sentencia);
-            
+
             ResultSet ejecuta = sentencia.executeQuery();
 
             if (ejecuta.next()) {
@@ -233,6 +227,7 @@ public class perfil implements Initializable {
 
         return valor;
     }
+
     public void Ubicacion() throws IOException {
         FXMLLoader cargador = new FXMLLoader(getClass().getResource("/Vistas/Ubicacion.fxml"));
         Pane ubicacionpane = cargador.load();
@@ -247,6 +242,7 @@ public class perfil implements Initializable {
         ubicacionStage.show();
         cerrar();
     }
+
     public void Gestion_usuarios() throws IOException {
         FXMLLoader cargador = new FXMLLoader(getClass().getResource("/Vistas/Gestion_usuarios.fxml"));
         Pane gestiondeusuariopane = cargador.load();
@@ -260,16 +256,11 @@ public class perfil implements Initializable {
         gestiondeusuariosStage.show();
         cerrar();
     }
-    
-    
-    
+
     public void flechaatras() throws IOException {
-    	cerrar();
-    	Pantalla_Principal();
+        cerrar();
+        Pantalla_Principal();
     }
-
-
-
 
     public void Carta() throws IOException {
         FXMLLoader cargador = new FXMLLoader(getClass().getResource("/Vistas/Carta.fxml"));
@@ -285,7 +276,6 @@ public class perfil implements Initializable {
         cartaStage.show();
         cerrar();
     }
-
 
     public void guardar() throws SQLException {
         // Validaciones
@@ -338,9 +328,8 @@ public class perfil implements Initializable {
                 sentencia.setDate(8, fechana);
                 sentencia.setString(9, rutaImagenSeleccionada);
                 sentencia.setInt(10, Login.datos_login.getIdUsuario());
-            }
-            else {
-            	sentencia.setString(1, nombre);
+            } else {
+                sentencia.setString(1, nombre);
                 sentencia.setString(2, apellidos);
                 sentencia.setString(3, email);
                 sentencia.setString(4, username);
@@ -350,9 +339,6 @@ public class perfil implements Initializable {
                 sentencia.setDate(8, fechana);
                 sentencia.setInt(9, Login.datos_login.getIdUsuario());
             }
-            
-
-            
 
             int filasAfectadas = sentencia.executeUpdate();
             if (filasAfectadas > 0) {
@@ -479,13 +465,14 @@ public class perfil implements Initializable {
         reservasAdminStage.setResizable(false);
         reservasAdminStage.initStyle(StageStyle.DECORATED);
         reservasAdminStage.setScene(reservasAdminScene);
-        reservasAdminStage.setTitle("PANEL DE RESERVAS ADMINISTRATIVAS");
+        reservasAdminStage .setTitle("PANEL DE RESERVAS ADMINISTRATIVAS");
         reservasAdminStage.show();
         cerrar();
     }
+
     public void carrito() throws IOException {
-    	cerrar();
-    	Carrito.ventanaanterior=6;
+        cerrar();
+        Carrito.ventanaanterior = 6;
         FXMLLoader cargador = new FXMLLoader(getClass().getResource("/Vistas/Carrito.fxml"));
         AnchorPane carritoPane = cargador.load();
 
@@ -498,7 +485,5 @@ public class perfil implements Initializable {
         carritoStage.setTitle("CARRITO");
 
         carritoStage.show();
-    } 
     }
-
-
+}

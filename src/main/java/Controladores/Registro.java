@@ -22,45 +22,48 @@ import javafx.stage.StageStyle;
 
 public class Registro {
     @FXML
-    private Button Cerrar;
+    private Button Cerrar; // Botón para cerrar la ventana
     @FXML
-    private TextField Nombre;
+    private TextField Nombre; // Campo para el nombre
     @FXML
-    private TextField Apellidos;
+    private TextField Apellidos; // Campo para los apellidos
     @FXML
-    private TextField Username;
+    private TextField Username; // Campo para el nombre de usuario
     @FXML
-    private TextField Email;
+    private TextField Email; // Campo para el email
     @FXML
-    private TextField Password;
+    private TextField Password; // Campo para la contraseña
     @FXML
-    private TextField Telefono;
+    private TextField Telefono; // Campo para el teléfono
     @FXML
-    private TextField Direccion;
+    private TextField Direccion; // Campo para la dirección
     @FXML
-    private DatePicker Fecha_Nacimiento;
+    private DatePicker Fecha_Nacimiento; // Selector de fecha para la fecha de nacimiento
     @FXML
-    private CheckBox Terms;
-    private Usuario usuario;
+    private CheckBox Terms; // Checkbox para aceptar términos y condiciones
+    private Usuario usuario; // Objeto Usuario para almacenar los datos del nuevo usuario
 
+    // Método para cerrar la ventana actual
     public void cerrar() {
         Stage stage = (Stage) Cerrar.getScene().getWindow();
         stage.close();
     }
-    
-    
+
+    // Método para cancelar el registro y mostrar la ventana de inicio de sesión
     public void cancelar() {
-    	cerrar();
-    	Mostrar_Login();
-    	
+        cerrar();
+        Mostrar_Login();
     }
 
+    // Método para registrar un nuevo usuario
     public void registrarse() {
+        // Verificar que se acepten los términos y condiciones
         if (!Terms.isSelected()) {
             JOptionPane.showMessageDialog(null, "Debes aceptar los términos y condiciones para registrarte.");
             return;
         }
 
+        // Obtener los datos ingresados por el usuario
         String nombrestring = Nombre.getText();
         String apellidosstring = Apellidos.getText();
         String usernamestring = Username.getText();
@@ -70,11 +73,11 @@ public class Registro {
         String direccionstring = Direccion.getText();
         LocalDate nacimiento = Fecha_Nacimiento.getValue();
 
-        
+        // Crear un nuevo objeto Usuario
         usuario = new Usuario(nombrestring, apellidosstring, emailstring, usernamestring, passwordstring, "Activo", telefonostring, direccionstring, nacimiento);
 
         try (Connection conexion = util.Conexiones.dameConexion("burger-queen")) {
-          
+            // Verificar si el email ya está registrado
             String consultaEmail = "SELECT COUNT(*) AS total FROM usuarios WHERE email = ?";
             try (PreparedStatement verificaEmail = conexion.prepareStatement(consultaEmail)) {
                 verificaEmail.setString(1, emailstring);
@@ -86,7 +89,7 @@ public class Registro {
                 }
             }
 
-           
+            // Insertar el nuevo usuario en la base de datos
             util.Conexiones.insertarpersona(usuario.getNombre(), usuario.getApellido(), usuario.getEmail(), usuario.getUsername(),
                     usuario.getPassword(), usuario.getTelefono(), usuario.getDireccion(), usuario.getFechaNacimiento());
 
@@ -94,7 +97,7 @@ public class Registro {
             cerrar();
             Mostrar_Login();
 
-        
+            // Obtener el ID del nuevo usuario
             String sql = "SELECT id_usuario FROM usuarios WHERE email = ?";
             try (PreparedStatement sentencia = conexion.prepareStatement(sql)) {
                 sentencia.setString(1, emailstring);
@@ -102,7 +105,7 @@ public class Registro {
 
                 if (muestra.next()) {
                     usuario.setIdUsuario(muestra.getInt("id_usuario"));
-                    CreaCarrito();
+                    CreaCarrito(); // Crear un carrito para el nuevo usuario
                 } else {
                     JOptionPane.showMessageDialog(null, "No se pudo recuperar el ID de usuario.");
                 }
@@ -114,7 +117,7 @@ public class Registro {
         }
     }
 
-
+    // Método para mostrar la ventana de inicio de sesión
     public void Mostrar_Login() {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/Vistas/Login.fxml"));
@@ -133,22 +136,19 @@ public class Registro {
             e.printStackTrace();
         }
     }
-    
+
+    // Método para crear un carrito para el nuevo usuario
     public void CreaCarrito() {
-    	  String sql = "INSERT INTO carrito (id_cliente, id_carrito) VALUES (?,?)";
-    	 try (Connection conexion = util.Conexiones.dameConexion("burger-queen");
-                 PreparedStatement sentencia = conexion.prepareStatement(sql)){
-    		 sentencia.setInt(1,usuario.getIdUsuario());
-    		 sentencia.setInt(2, usuario.getIdUsuario());
-    		 int muestra = sentencia.executeUpdate();
-    		 System.out.println("Carrito creado correctamente");
-    		 
-    	 }
-    	 
-    	 catch (Exception e) {
-			// TODO: handle exception
-    		 e.printStackTrace();
-		}
-    	
+        String sql = "INSERT INTO carrito (id_cliente, id_carrito) VALUES (?, ?)";
+        try (Connection conexion = util.Conexiones.dameConexion("burger-queen");
+             PreparedStatement sentencia = conexion.prepareStatement(sql)) {
+            sentencia.setInt(1, usuario.getIdUsuario());
+            sentencia.setInt(2, usuario.getIdUsuario());
+            int muestra = sentencia.executeUpdate();
+            System.out.println("Carrito creado correctamente");
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }

@@ -12,13 +12,30 @@ public class ReservaObjeto {
     private String notas; 
     private String estado;
     private LocalDate fechaCreacion; 
+    private String telefono;
     
+
+
+	/**
+	 * @return the telefono
+	 */
+	public String getTelefono() {
+		return telefono;
+	}
+
+
+	/**
+	 * @param telefono the telefono to set
+	 */
+	public void setTelefono(String telefono) {
+		this.telefono = telefono;
+	}
 
 
 	private int mesa;
 
     
-    public ReservaObjeto() {}
+    public ReservaObjeto(int idReserva2, String nombreCliente2, LocalDate localDate, LocalTime localTime, int numeroPersonas2, String notas2, String estado2, LocalDate localDate2, int mesa2, String telefono) {}
 
     
     public ReservaObjeto(int idReserva, String nombreCliente, LocalDate fechaReserva, LocalTime horaReserva,
