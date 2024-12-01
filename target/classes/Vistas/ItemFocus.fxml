@@ -45,11 +45,11 @@
 							<Font name="Insaniburger" size="14.0" />
 						</font>
 					</Label>
-					<ScrollPane fitToWidth="true" prefHeight="203.0" prefWidth="250.0" style="-fx-background-color: D28383;" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml">
+					<ScrollPane fitToWidth="true" prefHeight="99.0" prefWidth="250.0" style="-fx-background-color: D28383; -fx-background-color: TRANSPARENT;" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml">
 						<content>
-							<VBox prefHeight="201.0" prefWidth="234.0" spacing="5.0" style="-fx-background-color: D28383;">
+							<VBox prefWidth="234.0" spacing="5.0" style="-fx-background-color: D28383;">
 								<children>
-									<Label fx:id="Descripcion" style="-fx-font-size: 14px;" textAlignment="JUSTIFY" textFill="WHITE" wrapText="true">
+									<Label fx:id="Descripcion" ellipsisString="" style="-fx-font-size: 14px;" textAlignment="JUSTIFY" textFill="WHITE" wrapText="true">
 										<font>
 											<Font name="Insaniburger" size="11.0" />
 										</font>

@@ -41,13 +41,14 @@ public class Carta implements Initializable {
     private Button Desplegable;
     @FXML
     private Button Cerrar;
+    
 
     private boolean drawerVisible = false;
     private boolean Cerrardesplegar = false;
     @FXML
     private Button reservaadmin;
-    Button crear;
-    
+    @FXML
+    Button  crear;    
     @FXML
     private Button botoncarrito;
     @FXML
@@ -76,6 +77,7 @@ public class Carta implements Initializable {
     public void initialize(URL location, ResourceBundle resources) {
         // Vincular el nombre de usuario a la interfaz.
         Username.textProperty().bind(Login.bannerusuarioProperty());
+        inicializabotoncrear();
         CargarCarta();
         
         // Configurar la visibilidad y habilitación de elementos según el tipo de usuario.
@@ -259,6 +261,7 @@ public class Carta implements Initializable {
     }
 
     public void CargarCarta() {
+    	
         // Cargar los productos del menú desde la base de datos y mostrarlos en la interfaz.
         try (Connection conexion = util.Conexiones.dameConexion("burger-queen")) {
             String sql = "SELECT id_producto, nombre, descripcion, precio, categoria, peso, alergenos, ruta FROM carta";
@@ -275,7 +278,7 @@ public class Carta implements Initializable {
                 productobjeto.setPrecio(productos.getDouble("precio"));
                 productobjeto.setCategoria(productos.getString("categoria"));
                 productobjeto.setPeso(productos.getDouble("peso"));
-                productobjeto.setAlergenos("\nALERGENOS:\n" + productos.getString("alergenos"));
+                productobjeto.setAlergenos(productos.getString("alergenos"));
                 productobjeto.setDescripcion(productos.getString("descripcion"));
                 productobjeto.setRuta(productos.getString("ruta"));
 
@@ -307,17 +310,6 @@ public class Carta implements Initializable {
                 GridPane.setVgrow(item, javafx.scene.layout.Priority.ALWAYS);
             }
 
-            crear = new Button();
-            crear.setVisible(false);
-            Image imagen = new Image("/SUMAR.png");
-            ImageView imageView = new ImageView(imagen);
-            imageView.setFitWidth(40);
-            imageView.setFitHeight(40);
-            crear.setGraphic(imageView);
-            
-            crear.setStyle("-fx-background-color: A6234E; -fx-border-color: FFFFFF; -fx-background-radius: 50; -fx-border-radius: 50;");
-            crear.setPrefSize(100, 100);
-
             VBox otro = new VBox();
             otro.setSpacing(10);
             otro.getChildren().add(crear);
@@ -328,6 +320,19 @@ public class Carta implements Initializable {
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+    public void inicializabotoncrear() {
+    	
+    		crear= new Button();
+    		crear.setVisible(false);
+    	    Image imagen = new Image("/SUMAR.png");
+    	    ImageView imageView = new ImageView(imagen);
+    	    imageView.setFitWidth(40);
+    	    imageView.setFitHeight(40);
+    	    crear.setGraphic(imageView);
+    	    
+    	    crear.setStyle("-fx-background-color: A6234E; -fx-border-color: FFFFFF; -fx-background-radius: 50; -fx-border-radius: 50;");
+    	    crear.setPrefSize(100, 100);
     }
 
     private void mostrarNuevoProducto() {
@@ -404,7 +409,7 @@ public class Carta implements Initializable {
     private void mostrarItemFocus(Producto producto) {
         // Cargar y mostrar la vista de detalles de un producto.
         try {
-            cerrar();
+            
             FXMLLoader cargador = new FXMLLoader(getClass().getResource("/Vistas/ItemFocus.fxml"));
             AnchorPane itemFocusPane = cargador.load();
             ItemFocus itemFocusControlador = cargador.getController();

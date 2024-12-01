@@ -122,7 +122,7 @@ public class ItemFocus implements Initializable {
     public void flechaatras() throws IOException {
         // Método para volver a la carta
         cerrar();
- Carta(); // Llama al método Carta para mostrar la vista de la carta
+ // Llama al método Carta para mostrar la vista de la carta
     }
 
     @Override
