@@ -195,6 +195,7 @@ public class Carta implements Initializable {
         ubicacionScene.setFill(Color.TRANSPARENT);
        
         Stage ubicacionStage = new Stage();
+        ubicacionStage.getIcons().add(new Image(getClass().getResourceAsStream("/icono.png")));
         ubicacionStage.setResizable(false);
         ubicacionStage.initStyle(StageStyle.DECORATED);
         ubicacionStage.setScene(ubicacionScene);
@@ -232,6 +233,7 @@ public class Carta implements Initializable {
             perfilScene.setFill(Color.TRANSPARENT);
             Stage perfilStage = new Stage();
             perfilStage.setResizable(false);
+            perfilStage.getIcons().add(new Image(getClass().getResourceAsStream("/icono.png")));
             perfilStage.initStyle(StageStyle.DECORATED);
             perfilStage.setScene(perfilScene);
             perfilStage.setTitle("PERFIL");
@@ -247,6 +249,7 @@ public class Carta implements Initializable {
         Scene principalScene = new Scene(principal, 600, 500);
         principalScene.setFill(Color.TRANSPARENT);
         Stage PrincipalStage = new Stage();
+        PrincipalStage.getIcons().add(new Image(getClass().getResourceAsStream("/icono.png")));
         PrincipalStage.setResizable(false);
         PrincipalStage.initStyle(StageStyle.DECORATED);
         PrincipalStage.setScene(principalScene);
@@ -338,6 +341,7 @@ public class Carta implements Initializable {
             NuevoProductoStage.initModality(Modality.APPLICATION_MODAL);
             Scene scene = new Scene(NuevoProductoPane, 800, 600);
             NuevoProductoStage.setScene(scene);
+            NuevoProductoStage.getIcons().add(new Image(getClass().getResourceAsStream("/icono.png")));
             NuevoProductoStage.setTitle("NUEVO PRODUCTO");
             NuevoProductoStage.show();
         } catch (IOException e) {
@@ -355,6 +359,7 @@ public class Carta implements Initializable {
         Stage cartaStage = new Stage();
         cartaStage.setResizable(false);
         cartaStage.initStyle(StageStyle.DECORATED);
+        cartaStage.getIcons().add(new Image(getClass().getResourceAsStream("/icono.png")));
         cartaStage.setScene(cartaScene);
         cartaStage.setTitle("CARTA");
         cartaStage.show();
@@ -370,6 +375,7 @@ public class Carta implements Initializable {
         Stage reservaStage = new Stage();
         reservaStage.setResizable(false);
         reservaStage.initStyle(StageStyle.DECORATED);
+        reservaStage.getIcons().add(new Image(getClass().getResourceAsStream("/icono.png")));
         reservaStage.setScene(reservaScene);
         reservaStage.setTitle("RESERVAS");
         reservaStage.show();
@@ -408,6 +414,7 @@ public class Carta implements Initializable {
             itemFocusStage.initModality(Modality.APPLICATION_MODAL);
             Scene scene = new Scene(itemFocusPane, 800, 623);
             itemFocusStage.setScene(scene);
+            itemFocusStage.getIcons().add(new Image(getClass().getResourceAsStream("/icono.png")));
             itemFocusStage.setTitle("DETALLES DEL PRODUCTO");
             itemFocusStage.show();
         } catch (IOException e) {
@@ -428,6 +435,7 @@ public class Carta implements Initializable {
             carritoStage.initModality(Modality.APPLICATION_MODAL);
             Scene scene = new Scene(carritoPane, 800, 623);
             carritoStage.setScene(scene);
+            carritoStage.getIcons().add(new Image(getClass().getResourceAsStream("/icono.png")));
             carritoStage.setTitle("CARRITO");
             carritoStage.show();
         } catch (IOException e) {
@@ -445,6 +453,7 @@ public class Carta implements Initializable {
         reservaStage.setResizable(false);
         reservaStage.initStyle(StageStyle.DECORATED);
         reservaStage.setScene(reservaScene);
+        reservaStage.getIcons().add(new Image(getClass().getResourceAsStream("/icono.png")));
         reservaStage.setTitle("PANEL DE RESERVAS");
         reservaStage.show();
         cerrar();
@@ -459,6 +468,7 @@ public class Carta implements Initializable {
         Stage gestionusuariostage = new Stage();
         gestionusuariostage.setResizable(false);
         gestionusuariostage.initStyle(StageStyle.DECORATED);
+        gestionusuariostage.getIcons().add(new Image(getClass().getResourceAsStream("/icono.png")));
         gestionusuariostage.setScene(gestionusuarioScene);
         gestionusuariostage.setTitle("PANEL DE GESTION DE USUARIOS");
         gestionusuariostage.show();
@@ -474,6 +484,7 @@ public class Carta implements Initializable {
         Stage gestionpedidosStage = new Stage();
         gestionpedidosStage.setResizable(false);
         gestionpedidosStage.initStyle(StageStyle.DECORATED);
+        gestionpedidosStage.getIcons().add(new Image(getClass().getResourceAsStream("/icono.png")));
         gestionpedidosStage.setScene(gestiondepedidosScene);
         gestionpedidosStage.setTitle("PANEL DE PEDIDOS");
         gestionpedidosStage.show();
@@ -489,6 +500,7 @@ public class Carta implements Initializable {
         Stage horariosStage = new Stage();
         horariosStage.setResizable(false);
         horariosStage.initStyle(StageStyle.DECORATED);
+        horariosStage.getIcons().add(new Image(getClass().getResourceAsStream("/icono.png")));
         horariosStage.setScene(horariosScene);
         horariosStage.setTitle("HORARIOS");
         horariosStage.show();

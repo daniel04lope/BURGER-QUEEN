@@ -86,6 +86,7 @@ public class Carrito implements Initializable {
         Stage stagecarta = new Stage();
         stagecarta.setResizable(false);
         stagecarta.initStyle(StageStyle.DECORATED);
+        stagecarta.getIcons().add(new Image(getClass().getResourceAsStream("/icono.png")));
         stagecarta.setScene(loginScene);
         stagecarta.setTitle("CARTA");
         stagecarta.show();
@@ -106,6 +107,7 @@ public class Carrito implements Initializable {
             perfilStage.setResizable(false);
             perfilStage.initStyle(StageStyle.DECORATED);
             perfilStage.setScene(perfilScene);
+            perfilStage.getIcons().add(new Image(getClass().getResourceAsStream("/icono.png")));
             perfilStage.setTitle("PERFIL");
             perfilStage.show();
             cerrar();
@@ -122,6 +124,7 @@ public class Carrito implements Initializable {
         reservaStage.setResizable(false);
         reservaStage.initStyle(StageStyle.DECORATED);
         reservaStage.setScene(reservaScene);
+        reservaStage.getIcons().add(new Image(getClass().getResourceAsStream("/icono.png")));
         reservaStage.setTitle("RESERVAS");
         reservaStage.show();
         cerrar();
@@ -137,6 +140,7 @@ public class Carrito implements Initializable {
         horariosStage.setResizable(false);
         horariosStage.initStyle(StageStyle.DECORATED);
         horariosStage.setScene(horariosScene);
+        horariosStage.getIcons().add(new Image(getClass().getResourceAsStream("/icono.png")));
         horariosStage.setTitle("HORARIOS");
         horariosStage.show();
         cerrar();
@@ -152,6 +156,7 @@ public class Carrito implements Initializable {
             Stage loginStage = new Stage();
             loginStage.initStyle(StageStyle.TRANSPARENT);
             loginStage.setScene(loginScene);
+            loginStage.getIcons().add(new Image(getClass().getResourceAsStream("/icono.png")));
             loginStage.initModality(Modality.APPLICATION_MODAL);
             loginStage.setTitle("LOGIN");
             loginStage.show();
@@ -169,6 +174,7 @@ public class Carrito implements Initializable {
         principalScene.setFill(Color.TRANSPARENT);
         Stage PrincipalStage = new Stage();
         PrincipalStage.initStyle(StageStyle.DECORATED);
+        PrincipalStage.getIcons().add(new Image(getClass().getResourceAsStream("/icono.png")));
         PrincipalStage.setScene(principalScene);
         PrincipalStage.setTitle("PANTALLA PRINCIPAL");
         PrincipalStage.show();
@@ -357,8 +363,10 @@ public class Carrito implements Initializable {
         ubicacionScene.setFill(Color.TRANSPARENT);
 
         Stage ubicacionStage = new Stage();
+        ubicacionStage.getIcons().add(new Image(getClass().getResourceAsStream("@/icono.png")));
         ubicacionStage.setResizable(false);
         ubicacionStage.initStyle(StageStyle.DECORATED);
+        ubicacionStage.getIcons().add(new Image(getClass().getResourceAsStream("/icono.png")));
         ubicacionStage.setScene(ubicacionScene);
         ubicacionStage.setTitle("UBICACION");
         ubicacionStage.show();

@@ -112,6 +112,7 @@ public class ItemFocus implements Initializable {
         Stage PrincipalStage = new Stage();
         PrincipalStage.setResizable(false);
         PrincipalStage.initStyle(StageStyle.DECORATED);
+        PrincipalStage.getIcons().add(new Image(getClass().getResourceAsStream("/icono.png")));
         PrincipalStage.setScene(principalScene);
         PrincipalStage.setTitle("PANTALLA PRINCIPAL");
         PrincipalStage.show();
@@ -205,6 +206,7 @@ public class ItemFocus implements Initializable {
             carritoStage.initModality(Modality.APPLICATION_MODAL);
             Scene scene = new Scene(carritoPane, 800, 623);
             carritoStage.setScene(scene);
+            carritoStage.getIcons().add(new Image(getClass().getResourceAsStream("/icono.png")));
             carritoStage.setTitle("CARRITO");
             carritoStage.show(); // Mostrar la ventana del carrito
         } catch (IOException e) {
@@ -422,6 +424,7 @@ public class ItemFocus implements Initializable {
         cartaStage.setResizable(false);
         cartaStage.initStyle(StageStyle.DECORATED);
         cartaStage.setScene(cartaScene);
+        cartaStage.getIcons().add(new Image(getClass().getResourceAsStream("/icono.png")));
         cartaStage.setTitle("CARTA");
         cartaStage.show();
         cerrar(); // Cerrar la ventana actual
@@ -441,6 +444,7 @@ public class ItemFocus implements Initializable {
             ModificarProductoStage.initModality(Modality.APPLICATION_MODAL);
             Scene scene = new Scene(ModificarProductoPane, 800, 600);
             ModificarProductoStage.setScene(scene);
+            ModificarProductoStage.getIcons().add(new Image(getClass().getResourceAsStream("/icono.png")));
             ModificarProductoStage.setTitle("Modificar Producto");
             ModificarProductoStage.show(); // Mostrar la ventana de modificación
 

@@ -167,6 +167,7 @@ public class perfil implements Initializable {
             loginStage.initStyle(StageStyle.TRANSPARENT);
             loginStage.setScene(loginScene);
             loginStage.initModality(Modality.APPLICATION_MODAL);
+           
             loginStage.setTitle("LOGIN");
             loginStage.show();
             cerrar();
@@ -183,6 +184,7 @@ public class perfil implements Initializable {
         Stage reservaStage = new Stage();
         reservaStage.setResizable(false);
         reservaStage.initStyle(StageStyle.DECORATED);
+        reservaStage.getIcons().add(new Image(getClass().getResourceAsStream("/icono.png")));
         reservaStage.setScene(reservaScene);
         reservaStage.setTitle("RESERVAS");
         reservaStage.show();
@@ -196,6 +198,7 @@ public class perfil implements Initializable {
         horariosScene.setFill(Color.TRANSPARENT);
 
         Stage horariosStage = new Stage();
+        horariosStage.getIcons().add(new Image(getClass().getResourceAsStream("/icono.png")));
         horariosStage.setResizable(false);
         horariosStage.initStyle(StageStyle.DECORATED);
         horariosStage.setScene(horariosScene);
@@ -237,6 +240,7 @@ public class perfil implements Initializable {
         Stage ubicacionStage = new Stage();
         ubicacionStage.setResizable(false);
         ubicacionStage.initStyle(StageStyle.DECORATED);
+        ubicacionStage.getIcons().add(new Image(getClass().getResourceAsStream("/icono.png")));
         ubicacionStage.setScene(ubicacionScene);
         ubicacionStage.setTitle("UBICACION");
         ubicacionStage.show();
@@ -251,6 +255,7 @@ public class perfil implements Initializable {
         Stage gestiondeusuariosStage = new Stage();
         gestiondeusuariosStage.setResizable(false);
         gestiondeusuariosStage.initStyle(StageStyle.DECORATED);
+        gestiondeusuariosStage.getIcons().add(new Image(getClass().getResourceAsStream("/icono.png")));
         gestiondeusuariosStage.setScene(gestiondeusuariosScene);
         gestiondeusuariosStage.setTitle("PANEL DE GESTION DE USUARIOS");
         gestiondeusuariosStage.show();
@@ -271,6 +276,7 @@ public class perfil implements Initializable {
         Stage cartaStage = new Stage();
         cartaStage.setResizable(false);
         cartaStage.initStyle(StageStyle.DECORATED);
+        cartaStage.getIcons().add(new Image(getClass().getResourceAsStream("/icono.png")));
         cartaStage.setScene(cartaScene);
         cartaStage.setTitle("CARTA");
         cartaStage.show();
@@ -396,6 +402,7 @@ public class perfil implements Initializable {
         Stage PrincipalStage = new Stage();
         PrincipalStage.setResizable(false);
         PrincipalStage.initStyle(StageStyle.DECORATED);
+        PrincipalStage.getIcons().add(new Image(getClass().getResourceAsStream("/icono.png")));
         PrincipalStage.setScene(principalScene);
         PrincipalStage.setTitle("PANTALLA PRINCIPAL");
         PrincipalStage.show();
@@ -414,6 +421,7 @@ public class perfil implements Initializable {
         gestionpedidosScene.setFill(Color.TRANSPARENT);
         Stage gestionpedidosStage = new Stage();
         gestionpedidosStage.setResizable(false);
+        gestionpedidosStage.getIcons().add(new Image(getClass().getResourceAsStream("/icono.png")));
         gestionpedidosStage.initStyle(StageStyle.DECORATED);
         gestionpedidosStage.setScene(gestionpedidosScene);
         gestionpedidosStage.setTitle("PANEL DE GESTION DE PEDIDOS");
@@ -435,6 +443,7 @@ public class perfil implements Initializable {
         menuAdminScene.setFill(Color.TRANSPARENT);
         Stage menuAdminStage = new Stage();
         menuAdminStage.setResizable(false);
+        menuAdminStage.getIcons().add(new Image(getClass().getResourceAsStream("/icono.png")));
         menuAdminStage.initStyle(StageStyle.DECORATED);
         menuAdminStage.setScene(menuAdminScene);
         menuAdminStage.setTitle("PANEL DE MENU ADMINISTRATIVO");
@@ -450,6 +459,7 @@ public class perfil implements Initializable {
         Stage usuariosAdminStage = new Stage();
         usuariosAdminStage.setResizable(false);
         usuariosAdminStage.initStyle(StageStyle.DECORATED);
+        usuariosAdminStage.getIcons().add(new Image(getClass().getResourceAsStream("/icono.png")));
         usuariosAdminStage.setScene(usuariosAdminScene);
         usuariosAdminStage.setTitle("PANEL DE USUARIOS ADMINISTRATIVOS");
         usuariosAdminStage.show();
@@ -464,6 +474,7 @@ public class perfil implements Initializable {
         Stage reservasAdminStage = new Stage();
         reservasAdminStage.setResizable(false);
         reservasAdminStage.initStyle(StageStyle.DECORATED);
+       reservasAdminStage.getIcons().add(new Image(getClass().getResourceAsStream("/icono.png")));
         reservasAdminStage.setScene(reservasAdminScene);
         reservasAdminStage .setTitle("PANEL DE RESERVAS ADMINISTRATIVAS");
         reservasAdminStage.show();

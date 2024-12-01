@@ -205,6 +205,7 @@ public class Horarios implements Initializable {
             perfilStage.setResizable(false);
             perfilStage.initStyle(StageStyle.DECORATED);
             perfilStage.setScene(perfilScene);
+            perfilStage.getIcons().add(new Image(getClass().getResourceAsStream("/icono.png")));
             perfilStage.setTitle("PERFIL");
             perfilStage.show();
             cerrar(); // Cerrar ventana actual
@@ -239,6 +240,7 @@ public class Horarios implements Initializable {
         PrincipalStage.setResizable(false);
         PrincipalStage.initStyle(StageStyle.DECORATED);
         PrincipalStage.setScene(principalScene);
+        PrincipalStage.getIcons().add(new Image(getClass().getResourceAsStream("/icono.png")));
         PrincipalStage.setTitle("PANTALLA PRINCIPAL");
         PrincipalStage.show();
  cerrar(); // Cerrar ventana actual
@@ -263,6 +265,7 @@ public class Horarios implements Initializable {
         cartaStage.setResizable(false);
         cartaStage.initStyle(StageStyle.DECORATED);
         cartaStage.setScene(cartaScene);
+        cartaStage.getIcons().add(new Image(getClass().getResourceAsStream("/icono.png")));
         cartaStage.setTitle("CARTA");
         cartaStage.show();
         cerrar(); // Cerrar ventana actual
@@ -279,6 +282,7 @@ public class Horarios implements Initializable {
         ubicacionStage.setResizable(false);
         ubicacionStage.initStyle(StageStyle.DECORATED);
         ubicacionStage.setScene(ubicacionScene);
+        ubicacionStage.getIcons().add(new Image(getClass().getResourceAsStream("/icono.png")));
         ubicacionStage.setTitle("UBICACION");
         ubicacionStage.show();
         cerrar(); // Cerrar ventana actual
@@ -294,6 +298,7 @@ public class Horarios implements Initializable {
         reservaadminStage.setResizable(false);
         reservaadminStage.initStyle(StageStyle.DECORATED);
         reservaadminStage.setScene(reservaadminScene);
+        reservaadminStage.getIcons().add(new Image(getClass().getResourceAsStream("/icono.png")));
         reservaadminStage.setTitle("PANEL DE GESTION DE RESERVAS");
         reservaadminStage.show();
         cerrar(); // Cerrar ventana actual
@@ -309,6 +314,7 @@ public class Horarios implements Initializable {
         reservaStage.setResizable(false);
         reservaStage.initStyle(StageStyle.DECORATED);
         reservaStage.setScene(reservaScene);
+        reservaStage.getIcons().add(new Image(getClass().getResourceAsStream("/icono.png")));
         reservaStage.setTitle("RESERVAS");
         reservaStage.show();
         cerrar(); // Cerrar ventana actual
@@ -325,6 +331,7 @@ public class Horarios implements Initializable {
             loginStage.initStyle(StageStyle.TRANSPARENT);
             loginStage.setScene(loginScene);
             loginStage.initModality(Modality.APPLICATION_MODAL);
+            loginStage.getIcons().add(new Image(getClass().getResourceAsStream("/icono.png")));
             loginStage.setTitle("LOGIN");
             loginStage.show();
             cerrar(); // Cerrar ventana actual
@@ -346,6 +353,7 @@ public class Horarios implements Initializable {
             carritoStage.initModality(Modality.APPLICATION_MODAL);
             Scene scene = new Scene(carritoPane, 800, 623);
             carritoStage.setScene(scene);
+            carritoStage.getIcons().add(new Image(getClass().getResourceAsStream("/icono.png")));
             carritoStage.setTitle("CARRITO");
             carritoStage.show(); // Mostrar la ventana del carrito
         } catch (IOException e) {
@@ -363,6 +371,7 @@ public class Horarios implements Initializable {
         gestiondepedidosStage.setResizable(false);
         gestiondepedidosStage.initStyle(StageStyle.DECORATED);
         gestiondepedidosStage.setScene(gestiondepedidosScene);
+        gestiondepedidosStage.getIcons().add(new Image(getClass().getResourceAsStream("/icono.png")));
         gestiondepedidosStage.setTitle("PANEL DE GESTION DE PEDIDOS");
         gestiondepedidosStage.show();
         cerrar(); // Cerrar ventana actual
@@ -378,6 +387,7 @@ public class Horarios implements Initializable {
         gestiondeusuariosStage.setResizable(false);
         gestiondeusuariosStage.initStyle(StageStyle.DECORATED);
         gestiondeusuariosStage.setScene(gestiondeusuarioScene);
+        gestiondeusuariosStage.getIcons().add(new Image(getClass().getResourceAsStream("/icono.png")));
         gestiondeusuariosStage.setTitle("PANEL DE GESTION DE USUARIOS");
         gestiondeusuariosStage.show();
         cerrar(); // Cerrar ventana actual

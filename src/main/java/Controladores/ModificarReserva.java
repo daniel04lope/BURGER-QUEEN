@@ -6,6 +6,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
@@ -201,6 +202,7 @@ public class ModificarReserva implements Initializable {
         reservaStage.setResizable(false);
         reservaStage.initStyle(StageStyle.DECORATED);
         reservaStage.setScene(reservaScene);
+        reservaStage.getIcons().add(new Image(getClass().getResourceAsStream("/icono.png")));
         reservaStage.setTitle("PANEL DE GESTION DE RESERVAS");
         reservaStage.show();
         cerrar(); // Cerrar la ventana actual

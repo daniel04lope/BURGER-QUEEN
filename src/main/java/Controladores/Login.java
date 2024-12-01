@@ -13,6 +13,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.stage.Modality;
@@ -255,9 +256,11 @@ public class Login {
         Scene principalScene = new Scene(principal, 600, 500);
         principalScene.setFill(Color.TRANSPARENT); // Establecer el fondo transparente
         Stage PrincipalStage = new Stage();
+        PrincipalStage.getIcons().add(new Image(getClass().getResourceAsStream("/icono.png")));
         PrincipalStage.setResizable(false); // No permitir redimensionar la ventana
         PrincipalStage.initStyle(StageStyle.DECORATED); // Establecer el estilo de la ventana
         PrincipalStage.setScene(principalScene);
+        PrincipalStage.getIcons().add(new Image(getClass().getResourceAsStream("/icono.png")));
         PrincipalStage.setTitle("PANTALLA PRINCIPAL"); // Título de la ventana
         PrincipalStage.show(); // Mostrar la pantalla principal
         cerrar(); // Cerrar la ventana de login

@@ -5,6 +5,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
@@ -287,6 +288,7 @@ public class Nuevo_usuario implements Initializable {
         gestiondeusuariosStage.setResizable(false);
         gestiondeusuariosStage.initStyle(StageStyle.DECORATED);
         gestiondeusuariosStage.setScene(gestiondeusuariosScene);
+        gestiondeusuariosStage.getIcons().add(new Image(getClass().getResourceAsStream("/icono.png")));
         gestiondeusuariosStage.setTitle("PANEL DE GESTION DE USUARIOS");
         gestiondeusuariosStage.show();
         cerrar(); // Cerrar la ventana actual

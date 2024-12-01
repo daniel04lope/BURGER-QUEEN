@@ -206,6 +206,7 @@ public class Ubicacion implements Initializable {
             Stage perfilStage = new Stage();
             perfilStage.setResizable(false);
             perfilStage.initStyle(StageStyle.DECORATED);
+            perfilStage.getIcons().add(new Image(getClass().getResourceAsStream("/icono.png")));
             perfilStage.setScene(perfilScene);
             perfilStage.setTitle("PERFIL");
             perfilStage.show();
@@ -261,6 +262,7 @@ public class Ubicacion implements Initializable {
         Stage PrincipalStage = new Stage();
         PrincipalStage.setResizable(false);
         PrincipalStage.initStyle(StageStyle.DECORATED);
+        PrincipalStage.getIcons().add(new Image(getClass().getResourceAsStream("/icono.png")));
         PrincipalStage.setScene(principalScene);
         PrincipalStage.setTitle("PANTALLA PRINCIPAL");
         PrincipalStage.show();
@@ -284,6 +286,7 @@ public class Ubicacion implements Initializable {
         Stage cartaStage = new Stage();
         cartaStage.setResizable(false);
         cartaStage.initStyle(StageStyle.DECORATED);
+        cartaStage.getIcons().add(new Image(getClass().getResourceAsStream("/icono.png")));
         cartaStage.setScene(cartaScene);
         cartaStage.setTitle("CARTA");
         cartaStage.show();
@@ -298,6 +301,7 @@ public class Ubicacion implements Initializable {
         Stage reservaStage = new Stage();
         reservaStage.setResizable(false);
         reservaStage.initStyle(StageStyle.DECORATED);
+        reservaStage.getIcons().add(new Image(getClass().getResourceAsStream("/icono.png")));
         reservaStage.setScene(reservaScene);
         reservaStage.setTitle("PANEL DE GESTION DE RESERVAS");
         reservaStage.show();
@@ -312,6 +316,7 @@ public class Ubicacion implements Initializable {
         Stage reservaStage = new Stage();
         reservaStage.setResizable(false);
         reservaStage.initStyle(StageStyle.DECORATED);
+        reservaStage.getIcons().add(new Image(getClass().getResourceAsStream("/icono.png")));
         reservaStage.setScene(reservaScene);
         reservaStage.setTitle("RESERVA");
         reservaStage.show();
@@ -344,6 +349,7 @@ public class Ubicacion implements Initializable {
         horariosScene.setFill(Color.TRANSPARENT);
         Stage horariosStage = new Stage();
         horariosStage.setResizable(false);
+        horariosStage.getIcons().add(new Image(getClass().getResourceAsStream("/icono.png")));
         horariosStage.initStyle(StageStyle.DECORATED);
         horariosStage.setScene(horariosScene);
         horariosStage.setTitle("HORARIOS");
@@ -381,6 +387,7 @@ public class Ubicacion implements Initializable {
         
         gestiondepedidosStage.initStyle(StageStyle.DECORATED);
         gestiondepedidosStage.setResizable(false);
+        gestiondepedidosStage.getIcons().add(new Image(getClass().getResourceAsStream("/icono.png")));
         gestiondepedidosStage.setScene(gestiondepedidosScene);
         gestiondepedidosStage.setTitle("PANEL DE GESTION DE PEDIDOS");
         gestiondepedidosStage.show();
@@ -395,6 +402,7 @@ public class Ubicacion implements Initializable {
         Stage gestiondeusuariosStage = new Stage();
         gestiondeusuariosStage.setResizable(false);
         gestiondeusuariosStage.initStyle(StageStyle.DECORATED);
+        gestiondeusuariosStage.getIcons().add(new Image(getClass().getResourceAsStream("/icono.png")));
         gestiondeusuariosStage.setScene(gestiondeusuarioScene);
         gestiondeusuariosStage.setTitle("PANEL DE GESTION DE USUARIOS");
         gestiondeusuariosStage.show();

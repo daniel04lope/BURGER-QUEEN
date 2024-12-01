@@ -1,8 +1,11 @@
 package Controladores;
 
+import java.io.InputStream;
+
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
+import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.text.Font;
@@ -32,7 +35,9 @@ public class Main extends Application {
             AnchorPane root = loader.load(); // Cargar el layout en un AnchorPane
             Scene scene = new Scene(root, 600, 500); // Crear la escena con el layout y dimensiones
             principalStage.initStyle(StageStyle.DECORATED); // Establecer el estilo de la ventana como decorado
-            
+            principalStage.getIcons().add(new Image(getClass().getResourceAsStream("@/icono.png")));
+
+          
             principalStage.setResizable(false); // No permitir el redimensionamiento de la ventana
             principalStage.setScene(scene); // Asignar la escena al stage
             principalStage.setTitle("PANTALLA PRINCIPAL"); // Título de la ventana

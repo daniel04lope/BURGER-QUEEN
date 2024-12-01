@@ -355,6 +355,7 @@ public class Editar_usuarios implements Initializable {
         Stage loginStage = new Stage();
         loginStage.setResizable(false);
         loginStage.initStyle(StageStyle.DECORATED);
+        loginStage.getIcons().add(new Image(getClass().getResourceAsStream("/icono.png")));
         loginStage.setScene(loginScene);
         loginStage.setTitle("Reservas");
         loginStage.show(); // Mostrar la nueva ventana

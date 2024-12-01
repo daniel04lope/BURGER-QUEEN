@@ -190,6 +190,7 @@ public class Reserva implements Initializable {
             Stage perfilStage = new Stage();
             perfilStage.setResizable(false);
             perfilStage.initStyle(StageStyle.DECORATED);
+            perfilStage.getIcons().add(new Image(getClass().getResourceAsStream("/icono.png")));
             perfilStage.setScene(perfilScene);
             perfilStage.setTitle("PERFIL");
             perfilStage.show(); // Mostrar ventana de perfil
@@ -222,6 +223,7 @@ public class Reserva implements Initializable {
         Stage gestiondeusuariosStage = new Stage();
         gestiondeusuariosStage.setResizable(false);
         gestiondeusuariosStage .initStyle(StageStyle.DECORATED);
+        gestiondeusuariosStage.getIcons().add(new Image(getClass().getResourceAsStream("/icono.png")));
         gestiondeusuariosStage.setScene(gestiondeusuariosScene);
         gestiondeusuariosStage.setTitle("PANEL DE GESTION DE USUARIOS");
         gestiondeusuariosStage.show(); // Mostrar ventana de gestión de usuarios
@@ -237,6 +239,7 @@ public class Reserva implements Initializable {
         Stage ubicacionStage = new Stage();
         ubicacionStage.setResizable(false);
         ubicacionStage.initStyle(StageStyle.DECORATED);
+        ubicacionStage.getIcons().add(new Image(getClass().getResourceAsStream("/icono.png")));
         ubicacionStage.setScene(ubiacionScene);
         ubicacionStage.setTitle("UBICACION");
         ubicacionStage.show(); // Mostrar ventana de ubicación
@@ -251,6 +254,7 @@ public class Reserva implements Initializable {
         Stage reservaadminStage = new Stage();
         reservaadminStage.setResizable(false);
         reservaadminStage.initStyle(StageStyle.DECORATED);
+        reservaadminStage.getIcons().add(new Image(getClass().getResourceAsStream("/icono.png")));
         reservaadminStage.setScene(reservaScene);
         reservaadminStage.setTitle("PANEL DE GESTION DE RESERVAS");
         reservaadminStage.show(); // Mostrar ventana de gestión de reservas
@@ -271,6 +275,7 @@ public class Reserva implements Initializable {
         Stage PrincipalStage = new Stage();
         PrincipalStage.setResizable(false);
         PrincipalStage.initStyle(StageStyle.DECORATED);
+        PrincipalStage.getIcons().add(new Image(getClass().getResourceAsStream("/icono.png")));
         PrincipalStage.setScene(principalScene);
         PrincipalStage.setTitle("PANTALLA PRINCIPAL");
         PrincipalStage.show(); // Mostrar ventana de pantalla principal
@@ -285,6 +290,7 @@ public class Reserva implements Initializable {
         Stage horariosStage = new Stage();
         horariosStage.setResizable(false);
         horariosStage.initStyle(StageStyle.DECORATED);
+        horariosStage.getIcons().add(new Image(getClass().getResourceAsStream("/icono.png")));
         horariosStage.setScene(horariosScene);
         horariosStage.setTitle("HORARIOS");
         horariosStage.show(); // Mostrar ventana de horarios
@@ -300,6 +306,7 @@ public class Reserva implements Initializable {
         Stage cartaStage = new Stage();
         cartaStage.setResizable(false);
         cartaStage.initStyle(StageStyle.DECORATED);
+        cartaStage.getIcons().add(new Image(getClass().getResourceAsStream("/icono.png")));
         cartaStage.setScene(cartaScene);
         cartaStage.setTitle("CARTA");
         cartaStage.show(); // Mostrar ventana de carta
@@ -443,6 +450,7 @@ public class Reserva implements Initializable {
         Stage PrincipalStage = new Stage();
         PrincipalStage.setResizable(false);
         PrincipalStage.initStyle(StageStyle.DECORATED);
+        PrincipalStage.getIcons().add(new Image(getClass().getResourceAsStream("/icono.png")));
         PrincipalStage.setScene(principalScene);
         PrincipalStage.setTitle("PANEL DE GESTION DE PEDIDOS");
         PrincipalStage.show(); // Mostrar ventana de gestión de pedidos

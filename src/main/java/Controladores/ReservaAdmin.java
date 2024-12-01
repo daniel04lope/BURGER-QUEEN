@@ -188,6 +188,7 @@ public class ReservaAdmin implements Initializable {
 		Stage horariosStage = new Stage();
 		horariosStage.setResizable(false);
 		horariosStage.initStyle(StageStyle.DECORATED);
+		horariosStage.getIcons().add(new Image(getClass().getResourceAsStream("/icono.png")));
 		horariosStage.setScene(horariosScene);
 		horariosStage.setTitle("HORARIOS");
 		horariosStage.show();
@@ -202,6 +203,7 @@ public class ReservaAdmin implements Initializable {
 		Stage gestiondepedidoStage = new Stage();
 		gestiondepedidoStage.setResizable(false);
 		gestiondepedidoStage.initStyle(StageStyle.DECORATED);
+		gestiondepedidoStage.getIcons().add(new Image(getClass().getResourceAsStream("/icono.png")));
 		gestiondepedidoStage.setScene(gestionpedidoScene);
 		gestiondepedidoStage.setTitle("PANEL DE GESTION DE PEDIDOS");
 		gestiondepedidoStage.show();
@@ -220,6 +222,7 @@ public class ReservaAdmin implements Initializable {
 			Stage perfilStage = new Stage();
 			perfilStage.setResizable(false);
 			perfilStage.initStyle(StageStyle.DECORATED);
+			perfilStage.getIcons().add(new Image(getClass().getResourceAsStream("/icono.png")));
 			perfilStage.setScene(perfilScene);
 			perfilStage.setTitle("PERFIL");
 			perfilStage.show();
@@ -370,6 +373,7 @@ public class ReservaAdmin implements Initializable {
 		Stage reservaStage = new Stage();
 		reservaStage.setResizable(false);
 		reservaStage.initStyle(StageStyle.DECORATED);
+		reservaStage.getIcons().add(new Image(getClass().getResourceAsStream("/icono.png")));
 		reservaStage.setScene(reservaScene);
 		reservaStage.setTitle("RESERVA");
 		reservaStage.show();
@@ -385,6 +389,7 @@ public class ReservaAdmin implements Initializable {
 		Stage PrincipalStage = new Stage();
 		PrincipalStage.setResizable(false);
 		PrincipalStage.initStyle(StageStyle.DECORATED);
+		PrincipalStage.getIcons().add(new Image(getClass().getResourceAsStream("/icono.png")));
 		PrincipalStage.setScene(principalScene);
 		PrincipalStage.setTitle("PANTALLA PRINCIPAL");
 		PrincipalStage.show();
@@ -401,6 +406,7 @@ public class ReservaAdmin implements Initializable {
 		Stage ubicacionStage = new Stage();
 		ubicacionStage.setResizable(false);
 		ubicacionStage.initStyle(StageStyle.DECORATED);
+		ubicacionStage.getIcons().add(new Image(getClass().getResourceAsStream("/icono.png")));
 		ubicacionStage.setScene(ubicacionScene);
 		ubicacionStage.setTitle("UBICACION");
 		ubicacionStage.show();
@@ -460,6 +466,7 @@ public class ReservaAdmin implements Initializable {
 			Stage loginStage = new Stage();
 			loginStage.setResizable(false);
 			loginStage.initStyle(StageStyle.TRANSPARENT);
+			
 			loginStage.setScene(loginScene);
 			loginStage.setTitle("LOGIN");
 			loginStage.show();
@@ -486,6 +493,7 @@ public class ReservaAdmin implements Initializable {
 		Stage cartaStage = new Stage();
 		cartaStage.setResizable(false);
 		cartaStage.initStyle(StageStyle.DECORATED);
+		cartaStage.getIcons().add(new Image(getClass().getResourceAsStream("/icono.png")));
 		cartaStage.setScene(cartaScene);
 		cartaStage.setTitle("CARTA");
 		cartaStage.show();
@@ -501,6 +509,7 @@ public class ReservaAdmin implements Initializable {
 	 
 		gestiondeusuariosStage.setResizable(false);
 		gestiondeusuariosStage.initStyle(StageStyle.DECORATED);
+		gestiondeusuariosStage.getIcons().add(new Image(getClass().getResourceAsStream("/icono.png")));
 		gestiondeusuariosStage.setScene(gestiondeusuariosScene);
 		gestiondeusuariosStage.setTitle("PANEL DE GESTION DE USUARIOS");
 		gestiondeusuariosStage.show();

@@ -129,6 +129,7 @@ public class NuevoProducto {
         cartaStage.setResizable(false);
         cartaStage.initStyle(StageStyle.DECORATED);
         cartaStage.setScene(cartaScene);
+        cartaStage.getIcons().add(new Image(getClass().getResourceAsStream("/icono.png")));
         cartaStage.setTitle("CARTA");
         cartaStage.show();
         cerrar(); // Cerrar la ventana actual
@@ -259,6 +260,7 @@ public class NuevoProducto {
         PrincipalStage.setResizable(false);
         PrincipalStage.initStyle(StageStyle.DECORATED);
         PrincipalStage.setScene(principalScene);
+        PrincipalStage.getIcons().add(new Image(getClass().getResourceAsStream("/icono.png")));
         PrincipalStage.setTitle("PANTALLA PRINCIPAL");
         PrincipalStage.show();
         cerrar(); // Cerrar la ventana actual
