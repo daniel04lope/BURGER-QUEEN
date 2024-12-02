@@ -129,7 +129,7 @@ public class Nuevo_usuario implements Initializable {
                     lectura_pedidos.isSelected() && escritura_pedidos.isSelected()
                 );
 
-                // ```java
+                
                 // Insertar el empleado en la base de datos
                 sql = "INSERT INTO empleados (nombre, apellido, email, username, password, telefono, direccion, estado, fecha_nacimiento, posicion, ruta) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
                 PreparedStatement pst = conexion.prepareStatement(sql, PreparedStatement.RETURN_GENERATED_KEYS);
@@ -209,7 +209,7 @@ public class Nuevo_usuario implements Initializable {
             return null; // Retornar null si no se ha seleccionado una imagen
         }
 
-        Path destinoCarpeta = Paths.get("src/main/resources");
+        Path destinoCarpeta = Paths.get("src/main/resources/imagenes");
 
         // Asegurarse de que la carpeta existe
         if (!Files.exists(destinoCarpeta)) {

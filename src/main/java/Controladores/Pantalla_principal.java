@@ -67,6 +67,7 @@ public class Pantalla_principal implements Initializable {
 
         // Cargar la imagen de perfil desde la ruta especificada en los datos de inicio de sesión.
         String rutaImagen = "file:src/main/resources/imagenes/" + Login.datos_login.getRuta();
+        System.out.println(rutaImagen);
         Image imagen = new Image(rutaImagen);
 
         // Configurar un listener para actualizar la imagen de perfil si cambia la ruta en Login.

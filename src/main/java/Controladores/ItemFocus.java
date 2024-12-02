@@ -186,7 +186,9 @@ public class ItemFocus implements Initializable {
         // Método para cargar los detalles del producto en la interfaz
         if (producto != null) {
             Nombre.setText(producto.getNombre());
-            Descripcion.setText(producto.getDescripcion() + producto.getAlergenos());
+            Nombre.setStyle("-fx-font-family:Insaniburger");
+            Descripcion.setText(producto.getDescripcion() +"\n"+ producto.getAlergenos());
+            Descripcion.setStyle("-fx-font-family:Insaniburger");
             DescripcionTab.setText(producto.getNombre());
             Carrito.setText("Añadir a mi pedido - " + String.format("%.2f €", precioTotal));
             imagen.setImage(new Image(getClass().getResourceAsStream("/" + producto.getRuta())));

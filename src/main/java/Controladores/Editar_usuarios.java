@@ -263,7 +263,7 @@ public class Editar_usuarios implements Initializable {
 
         try {
             Files.copy(fotoSeleccionada.toPath(), destinoArchivo);
-            return "imagenes/" + destinoArchivo.getFileName().toString(); // Devolver la ruta relativa
+            return  destinoArchivo.getFileName().toString(); // Devolver la ruta relativa
         } catch (IOException e) {
             mostrarError("Error al guardar imagen", "No se pudo guardar la imagen seleccionada.");
             e.printStackTrace();
