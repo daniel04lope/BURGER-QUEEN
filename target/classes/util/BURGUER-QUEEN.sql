@@ -36,11 +36,12 @@ CREATE TABLE IF NOT EXISTS `administradores` (
   PRIMARY KEY (`id_admin`),
   UNIQUE KEY `email` (`email`),
   UNIQUE KEY `username` (`username`)
-) ENGINE=InnoDB AUTO_INCREMENT=48 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=49 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- Volcando datos para la tabla burger-queen.administradores: ~1 rows (aproximadamente)
 INSERT INTO `administradores` (`id_admin`, `nombre`, `apellido`, `email`, `username`, `password`, `fecha_contratacion`, `estado`, `telefono`, `direccion`, `fecha_nacimiento`, `ruta`) VALUES
-	(38, 'ADMIN', 'ADMIN', 'ADMIN@gmail.com', 'ADMIN', '123456', '2024-11-29 16:34:09', 'activo', '662062693', 'ADMIN', '2024-11-13', 'aguacate_2.jpg');
+	(38, 'admin', 'admin', 'admin@gmail.com', 'ADMIN', '123456', '2024-11-29 16:34:09', 'activo', '662062693', 'ADMIN', '2024-11-13', 'barbacoaburger.jpg'),
+	(48, 'empleado2', 'empleado2', 'empleado@gmail.com', 'empleado', '123456', '2024-12-03 12:01:45', 'activo', '662062693', 'empleado', '2024-12-03', NULL);
 
 -- Volcando estructura para tabla burger-queen.alergeno
 CREATE TABLE IF NOT EXISTS `alergeno` (
@@ -68,11 +69,12 @@ CREATE TABLE IF NOT EXISTS `carrito` (
   PRIMARY KEY (`id_carrito`),
   KEY `FK_carrito_usuarios` (`id_cliente`),
   CONSTRAINT `FK_carrito_usuarios` FOREIGN KEY (`id_carrito`) REFERENCES `usuarios` (`id_usuario`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=23 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=24 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
--- Volcando datos para la tabla burger-queen.carrito: ~3 rows (aproximadamente)
+-- Volcando datos para la tabla burger-queen.carrito: ~1 rows (aproximadamente)
 INSERT INTO `carrito` (`id_carrito`, `id_cliente`, `fecha_creacion`, `estado`) VALUES
-	(22, 22, '2024-12-02 09:10:26', 'pendiente');
+	(22, 22, '2024-12-02 09:10:26', 'pendiente'),
+	(23, 23, '2024-12-03 11:44:34', 'pendiente');
 
 -- Volcando estructura para tabla burger-queen.carrito_items
 CREATE TABLE IF NOT EXISTS `carrito_items` (
@@ -88,22 +90,9 @@ CREATE TABLE IF NOT EXISTS `carrito_items` (
   KEY `carrito_items_ibfk_1` (`id_carrito`),
   KEY `carrito_items_ibfk_2` (`id_plato`),
   CONSTRAINT `carrito_items_ibfk_1` FOREIGN KEY (`id_carrito`) REFERENCES `carrito` (`id_carrito`)
-) ENGINE=InnoDB AUTO_INCREMENT=520 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=538 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
--- Volcando datos para la tabla burger-queen.carrito_items: ~57 rows (aproximadamente)
-INSERT INTO `carrito_items` (`id_item`, `id_carrito`, `id_plato`, `cantidad`, `precio_unitario`, `Detalles`, `estado`) VALUES
-	(505, 22, 44, 1, 5.00, '', 'Tramitado'),
-	(506, 22, 45, 1, 1.00, '', 'Tramitado'),
-	(507, 22, 45, 1, 1.00, '', 'Tramitado'),
-	(508, 22, 45, 1, 1.00, '', 'Tramitado'),
-	(509, 22, 45, 1, 1.00, '', 'Tramitado'),
-	(510, 22, 45, 1, 1.00, '', 'Tramitado'),
-	(511, 22, 45, 1, 1.00, '', 'Tramitado'),
-	(512, 22, 45, 1, 1.00, '', 'Tramitado'),
-	(513, 22, 33, 1, 10.19, ' + Extra Bacon', 'Tramitado'),
-	(514, 22, 46, 1, 2.00, '', 'Tramitado'),
-	(515, 22, 51, 1, 1.00, '', 'Tramitado'),
-	(519, 22, 40, 1, 9.49, NULL, 'Pendiente');
+-- Volcando datos para la tabla burger-queen.carrito_items: ~12 rows (aproximadamente)
 
 -- Volcando estructura para tabla burger-queen.carta
 CREATE TABLE IF NOT EXISTS `carta` (
@@ -117,7 +106,7 @@ CREATE TABLE IF NOT EXISTS `carta` (
   `alergenos` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT 'Ninguno',
   PRIMARY KEY (`id_producto`),
   KEY `precio` (`precio`)
-) ENGINE=InnoDB AUTO_INCREMENT=61 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=62 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- Volcando datos para la tabla burger-queen.carta: ~17 rows (aproximadamente)
 INSERT INTO `carta` (`id_producto`, `nombre`, `descripcion`, `precio`, `categoria`, `peso`, `ruta`, `alergenos`) VALUES
@@ -126,18 +115,18 @@ INSERT INTO `carta` (`id_producto`, `nombre`, `descripcion`, `precio`, `categori
 	(35, 'HAMBURGUESA VEGANA', 'Jugosa hamburguesa vegetal a base de legumbres y especias, acompañada de lechuga crujiente, tomate fresco, cebolla caramelizada y un toque de salsa vegana, servida en un suave pan integral. Sabor auténtico y 100% vegetal.', 8.49, 'Burgers', 0.22, 'vegana.jpg', ''),
 	(36, 'HAMBURGUESA DE QUESO', 'Deliciosa hamburguesa de carne jugosa, cubierta con una rebanada de queso fundido que se derrite perfectamente. Acompañada de lechuga fresca, tomate, cebolla y una suave salsa especial, todo servido en un pan recién horneado. Un clásico irresistible para los amantes del queso.', 10.99, 'Burgers', 0.40, 'hamburguesa.png', ''),
 	(37, 'HAMBURGUESA DE BACON', 'Una hamburguesa suculenta con carne de res perfectamente cocida, coronada con crujientes tiras de bacon dorado. Complementada con queso fundido, lechuga, tomate y cebolla, y aderezada con una salsa especial que realza todos sus sabores. Servida en un pan recién horneado, esta hamburguesa es la combinación perfecta de sabor y textura para los amantes del bacon.', 9.99, 'Hamburguesa', 0.35, 'bacon.jpg', ''),
-	(40, 'HAMBURGUESA DE BBQ', 'Una deliciosa hamburguesa con jugosa carne de res a la parrilla, bañada en una salsa barbacoa ahumada y dulce que le aporta un sabor inconfundible. Acompañada de cebolla caramelizada, queso derretido y crujientes tiras de bacon, todo servido en un pan artesanal recién horneado. Esta hamburguesa es la elección perfecta para quienes buscan una experiencia de sabor intensa y satisfactoria.', 9.49, 'Burgers', 0.32, 'barbacoaburger.jpg', ''),
 	(41, 'HAMBURGUESA ESPECIAL', 'Una opción irresistible para los amantes de los sabores terrosos y delicados. Esta hamburguesa combina carne de res jugosa con champiñones salteados en mantequilla y ajo, acompañada de queso derretido y una pizca de perejil fresco. Todo se sirve en un pan artesanal tostado que realza la textura y sabor de cada bocado. Ideal para disfrutar un plato con un toque gourmet y un sabor profundo y delicioso.', 10.49, 'Burgers', 0.33, 'champ.jpg', ''),
 	(42, 'Hamburguesa de Aguacate', 'Disfruta de la Avocado Burger, una deliciosa hamburguesa que combina la jugosidad de una carne de calidad con la suavidad y frescura del aguacate. Servida en un pan suave y tostado, esta hamburguesa incluye ingredientes frescos como lechuga crujiente, tomate y cebolla, realzados con una capa de aguacate cremoso que aporta un sabor único y un toque de suavidad. Perfecta para quienes buscan una opción sabrosa y nutritiva, ideal para disfrutar en cualquier ocasión.', 9.79, 'Burgers', 0.31, 'aguacate.jpg', 'ALERGENOS:'),
 	(43, 'NUGGUETS DE POLLO', 'Prueba nuestros Nuggets de Pollo, una opción irresistible para los amantes de los sabores clásicos. Hechos con pechuga de pollo 100% real, empanados y fritos hasta obtener un exterior dorado y crujiente, mientras que el interior se mantiene tierno y jugoso. Perfectos para compartir o disfrutar como un snack, vienen acompañados de tu salsa favorita para sumergir y realzar su sabor. ¡El bocado perfecto para cualquier momento del día!', 2.00, 'complementos', 0.25, 'Nugguets_pollo.png', ''),
-	(44, 'COCA-COLA', 'Disfruta de la clásica Coca-Cola, la bebida refrescante que ha conquistado al mundo con su sabor inconfundible. Su combinación perfecta de burbujas, dulzura y un toque de cítricos te ofrece una experiencia única en cada sorbo. Ideal para acompañar tus comidas, momentos de relax o celebraciones, esta icónica soda es sinónimo de refresco y alegría. ¡Siente la chispa y el sabor de la Coca-Cola en cada trago!', 5.00, 'bebida', 1.00, 'Cocacola.png', ''),
+	(44, 'COCA-COLA', 'Disfruta de la clásica Coca-Cola, la bebida refrescante que ha conquistado al mundo con su sabor inconfundible. Su combinación perfecta de burbujas, dulzura y un toque de cítricos te ofrece una experiencia única en cada sorbo. Ideal para acompañar tus comidas, momentos de relax o celebraciones, esta icónica soda es sinónimo de refresco y alegría. ¡Siente la chispa y el sabor de la Coca-Cola en cada trago!', 5.00, 'Bebida', 1.00, 'Cocacola.png', ''),
 	(45, 'PATATAS FRITAS', 'Las patatas fritas son el acompañamiento perfecto para cualquier comida. Crujientes por fuera y tiernas por dentro, estas deliciosas tiras de papa se doran a la perfección para ofrecer un sabor inigualable. Espolvoreadas con sal o acompañadas de tu salsa favorita, las patatas fritas son un snack irresistible que siempre complace. Ya sea como guarnición o como aperitivo, su textura y sabor las convierten en una elección popular en cualquier ocasión.', 10.00, 'complementos', 1.00, 'Patatas_clasicas.png', ''),
 	(46, 'AROS DE CEBOLLA', 'Los aros de cebolla son un snack crujiente y sabroso, ideales para compartir o disfrutar por sí solos. Hechos de cebolla fresca rebozada y frita, ofrecen una textura crujiente por fuera y un corazón tierno y jugoso por dentro. Perfectos para acompañar hamburguesas, sandwiches o como aperitivo, los aros de cebolla se destacan por su sabor ligeramente dulce y su toque salado, a menudo servidos con una variedad de salsas para realzar su sabor.', 2.00, 'complementos', 1.00, 'Aros_cebolla.png', ''),
 	(47, 'PATATAS CLASICAS', 'Las patatas clásicas son un acompañamiento irresistible y versátil. Doradas y crujientes por fuera, con un interior suave y esponjoso, estas patatas son el complemento perfecto para cualquier comida. Sazonadas con un toque de sal, realzan el sabor de hamburguesas, sándwiches y platos principales, o se disfrutan solas como un snack sabroso. Ideales para compartir o como un antojo personal, las patatas clásicas siempre son una opción que satisface y nunca pasa de moda.', 2.00, 'complemento', 1.00, 'Patatas_clasicas.png', ''),
 	(48, 'PATATAS SUPREME', 'Las patatas Supreme son crujientes patatas fritas cubiertas con queso derretido, bacon crujiente y un toque de salsa especial. Se terminan con crema agria y cebollino fresco, ofreciendo una mezcla de sabores irresistibles. Perfectas como acompañamiento o plato principal, son el deleite ideal para quienes buscan un toque gourmet en un clásico.', 2.00, 'complemento', 1.00, 'Patatas_supreme.png', ''),
-	(49, 'FANTA', 'Fanta es una refrescante bebida gaseosa con un sabor afrutado y vibrante. Con su sabor a naranja natural y burbujas efervescentes, es la elección perfecta para refrescarte y disfrutar de un momento de alegría. Ideal para compartir en reuniones, comidas o como un toque de sabor durante el día.', 2.00, 'bebida', 1.00, 'Fanta_naranja.png', ''),
-	(50, 'NESTEA', 'Nestlé Ice Tea es una bebida refrescante de té helado con un sabor ligeramente dulce y afrutado. Perfecta para combatir el calor y revitalizarte, su mezcla de té y notas cítricas la convierte en una opción deliciosa para cualquier momento del día. Ideal para disfrutar solo o acompañando tus comidas favoritas.', 1.00, 'bebida', 1.00, 'Nestea.png', ''),
-	(51, 'COCACOLA ZERO', 'Coca-Cola Zero es la versión sin azúcar de la clásica Coca-Cola, ofreciendo el mismo sabor refrescante y único, pero sin calorías. Perfecta para aquellos que buscan disfrutar del sabor icónico de Coca-Cola sin comprometer su consumo de azúcar. Ideal para acompañar tus comidas o disfrutar en cualquier momento del día, brindando una experiencia de sabor auténtico sin remordimientos.', 1.00, 'bebida', 1.00, 'Cocacola_zero.png', '');
+	(49, 'FANTA', 'Fanta es una refrescante bebida gaseosa con un sabor afrutado y vibrante. Con su sabor a naranja natural y burbujas efervescentes, es la elección perfecta para refrescarte y disfrutar de un momento de alegría. Ideal para compartir en reuniones, comidas o como un toque de sabor durante el día.', 2.00, 'Bebida', 1.00, 'Fanta_naranja.png', ''),
+	(50, 'NESTEA', 'Nestlé Ice Tea es una bebida refrescante de té helado con un sabor ligeramente dulce y afrutado. Perfecta para combatir el calor y revitalizarte, su mezcla de té y notas cítricas la convierte en una opción deliciosa para cualquier momento del día. Ideal para disfrutar solo o acompañando tus comidas favoritas.', 1.00, 'Bebida', 1.00, 'Nestea.png', ''),
+	(51, 'COCACOLA ZERO', 'Coca-Cola Zero es la versión sin azúcar de la clásica Coca-Cola, ofreciendo el mismo sabor refrescante y único, pero sin calorías. Perfecta para aquellos que buscan disfrutar del sabor icónico de Coca-Cola sin comprometer su consumo de azúcar. Ideal para acompañar tus comidas o disfrutar en cualquier momento del día, brindando una experiencia de sabor auténtico sin remordimientos.', 1.00, 'Bebida', 1.00, 'Cocacola_zero.png', ''),
+	(61, 'producto', 'aresrdtfyguhilj', 2.00, 'proiductio', 2.00, 'barbacoaburger.jpg', '');
 
 -- Volcando estructura para tabla burger-queen.empleados
 CREATE TABLE IF NOT EXISTS `empleados` (
@@ -160,12 +149,11 @@ CREATE TABLE IF NOT EXISTS `empleados` (
   PRIMARY KEY (`id_empleado`),
   UNIQUE KEY `email` (`email`),
   UNIQUE KEY `username` (`username`)
-) ENGINE=InnoDB AUTO_INCREMENT=49 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=51 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- Volcando datos para la tabla burger-queen.empleados: ~2 rows (aproximadamente)
 INSERT INTO `empleados` (`id_empleado`, `nombre`, `apellido`, `email`, `username`, `password`, `fecha_contratacion`, `posicion`, `estado`, `telefono`, `direccion`, `fecha_nacimiento`, `lectura`, `escritura`, `control_total`, `ruta`) VALUES
-	(47, 'prueba', 'prueba', 'prueba@gmail.com', 'prueba', '123456', '2024-12-02 08:29:35', '', 'activo', '662062693', 'nose', '2024-12-12', 0, 0, 0, 'imagenes/aguacate_1.jpg'),
-	(48, 'empleado', 'empleado', 'empleado@gmail.com', 'empleado', '123456', '2024-12-02 17:28:24', 'empleado', 'activo', '662062693', 'empleado', '2024-12-03', 0, 0, 0, 'champ.jpg');
+	(50, 'test', 'test', 'test@gmail.com', 'test', '123456', '2024-12-03 12:03:23', 'test', 'activo', '662062693', 'test', '2024-12-11', 0, 0, 0, 'imagen_1733227403742.jpg');
 
 -- Volcando estructura para tabla burger-queen.modulos
 CREATE TABLE IF NOT EXISTS `modulos` (
@@ -191,7 +179,7 @@ CREATE TABLE IF NOT EXISTS `pedidos` (
   KEY `FK__usuarios` (`id_usuario`),
   CONSTRAINT `FK__carrito` FOREIGN KEY (`id_carrito`) REFERENCES `carrito` (`id_carrito`) ON UPDATE CASCADE,
   CONSTRAINT `FK__usuarios` FOREIGN KEY (`id_usuario`) REFERENCES `usuarios` (`id_usuario`) ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=50 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=53 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- Volcando datos para la tabla burger-queen.pedidos: ~0 rows (aproximadamente)
 
@@ -208,16 +196,13 @@ CREATE TABLE IF NOT EXISTS `permisos` (
   KEY `id_modulo` (`id_modulo`),
   CONSTRAINT `permisos_ibfk_1` FOREIGN KEY (`id_empleado`) REFERENCES `empleados` (`id_empleado`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `permisos_ibfk_2` FOREIGN KEY (`id_modulo`) REFERENCES `modulos` (`id_modulo`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=153 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=168 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
--- Volcando datos para la tabla burger-queen.permisos: ~3 rows (aproximadamente)
+-- Volcando datos para la tabla burger-queen.permisos: ~6 rows (aproximadamente)
 INSERT INTO `permisos` (`id_permiso`, `id_empleado`, `id_modulo`, `lectura`, `escritura`, `control_total`) VALUES
-	(144, 47, 1, 1, 1, 0),
-	(145, 47, 2, 1, 1, 0),
-	(146, 47, 3, 1, 1, 0),
-	(150, 48, 1, 1, 1, 0),
-	(151, 48, 2, 1, 1, 0),
-	(152, 48, 3, 1, 1, 0);
+	(165, 50, 1, 0, 1, 0),
+	(166, 50, 2, 1, 0, 0),
+	(167, 50, 3, 1, 0, 0);
 
 -- Volcando estructura para tabla burger-queen.reservas
 CREATE TABLE IF NOT EXISTS `reservas` (
@@ -235,11 +220,14 @@ CREATE TABLE IF NOT EXISTS `reservas` (
   PRIMARY KEY (`id_reserva`),
   KEY `FK_reservas_usuarios` (`nombre_cliente`),
   KEY `FK_reservas_usuarios_2` (`telefono`),
-  CONSTRAINT `FK_reservas_usuarios` FOREIGN KEY (`nombre_cliente`) REFERENCES `usuarios` (`nombre`) ON UPDATE CASCADE,
   CONSTRAINT `FK_reservas_usuarios_2` FOREIGN KEY (`telefono`) REFERENCES `usuarios` (`telefono`) ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=28 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=33 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- Volcando datos para la tabla burger-queen.reservas: ~0 rows (aproximadamente)
+INSERT INTO `reservas` (`id_reserva`, `nombre_cliente`, `fecha_reserva`, `hora_reserva`, `numero_personas`, `notas`, `estado`, `fecha_creacion`, `fecha_actualizacion`, `mesa`, `telefono`) VALUES
+	(30, 'nombre23', '2024-12-17', '10:00:00', 2, 'nose', 'pendiente', '2024-12-03 21:37:08', '2024-12-03 21:40:00', 0, '662062693'),
+	(31, 'usuario', '2024-12-03', '10:00:00', 2, 'nose', 'pendiente', '2024-12-03 21:40:43', '2024-12-03 21:40:43', NULL, '662062693'),
+	(32, 'usuario5', '2024-12-03', '10:00:00', 6, '', 'pendiente', '2024-12-03 21:40:50', '2024-12-03 21:41:23', 0, '662062693');
 
 -- Volcando estructura para tabla burger-queen.usuarios
 CREATE TABLE IF NOT EXISTS `usuarios` (
@@ -260,11 +248,12 @@ CREATE TABLE IF NOT EXISTS `usuarios` (
   UNIQUE KEY `username` (`username`),
   UNIQUE KEY `nombre` (`nombre`),
   KEY `telefono` (`telefono`)
-) ENGINE=InnoDB AUTO_INCREMENT=23 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=24 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- Volcando datos para la tabla burger-queen.usuarios: ~1 rows (aproximadamente)
 INSERT INTO `usuarios` (`id_usuario`, `nombre`, `apellido`, `email`, `username`, `password`, `fecha_registro`, `estado`, `telefono`, `direccion`, `fecha_nacimiento`, `ruta`) VALUES
-	(22, 'usuario', 'usuario', 'usuario@gmail.com', 'usuario', '1234', '2024-12-02 09:10:25', 'activo', '662062693', 'usuario', '2024-12-19', 'aguacate.jpg');
+	(22, 'usuario', 'usuario', 'usuario@gmail.com', 'usuario', '1234', '2024-12-02 09:10:25', 'activo', '662062693', 'usuario', '2024-12-19', 'aguacate.jpg'),
+	(23, 'presentacion', 'test', 'test@gmail.com', 'test', '1234', '2024-12-03 11:44:33', 'activo', '662062693', 'test', '2024-12-03', 'barbacoaburger.jpg');
 
 -- Volcando estructura para disparador burger-queen.before_carrito_item_insert
 SET @OLDTMP_SQL_MODE=@@SQL_MODE, SQL_MODE='ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION';
